@@ -41,11 +41,11 @@
 		</p>
 		<p>
 			喜欢的照片:
-			<input type="image" name="image" src="1.jpg">
+			<input type="image" name="image" src="1.jpg" value="likePhoto">
 		</p>
 		<p>
 			喜欢的颜色：
-			<input type="color" name="color">
+			<input type="color" name="color" value="likeColor">
 		</p>
 		<p>
 			<input type="button" name="button" value="登录">
@@ -55,21 +55,21 @@
 		</p>
 		<p>
 			<label for="username">二级用户名：</label>
-			<input type="text" name="username" id="username" value="点击文字 输入框可获取光标焦点">
+			<input type="text" name="user" id="username" value="点击文字 输入框可获取光标焦点">
 		</p>
 		<p>
 			地址：
 			<input type="text" name="address" list="address" >
 		   <datalist id="address">
 			<!-- <optgroup label="直辖市"> -->
-				<option>北京</option>
-				<option>上海</option>
-				<option>天津</option>
+				<option value="beijing">北京</option>
+				<option value="shanghai">上海</option>
+				<option value="tianjin">天津</option>
 			<!-- </optgroup -->>
 		<!-- 	<optgroup label="特区"> -->
-				<option>香港</option>
-				<option>澳门</option>
-				<option>深圳</option>
+				<option value="xianggang">香港</option>
+				<option value="aomen">澳门</option>
+				<option value="shezhen">深圳</option>
 			<!-- </optgroup> -->
 		   </datalist>
 		</p>
@@ -77,14 +77,14 @@
 		<select>
 			
 			<optgroup label="直辖市"><!-- !!!!!!!!! label -->
-				<option>北京</option>
-				<option>上海</option>
-				<option selected>天津</option>
+				<option value="beijing">北京</option>
+				<option value="shanghai">上海</option>
+				<option value="tianjin" selected>天津</option>
 			</optgroup>
 			<optgroup label="特区">
-				<option>香港</option>
-				<option>澳门</option>
-				<option>深圳</option>
+				<option value="xianggang">香港</option>
+				<option value="aomen">澳门</option>
+				<option value="shenzhen">深圳</option>
 			</optgroup>
 		</select>
 		</p>
