@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>color and text</title>
+	<style>
+		p{
+			color: rgb(255,0,0);
+			color: rgba(255,0,0,1);
+			color: #ff0000;
+			/*每两位16进制数相同可以简写为以下:*/
+			color: #f00;
+			text-decoration:underline;
+			text-align: center;
+
+		}
+		p{
+			width: 300px;
+			text-shadow: 2px 2px 7px green;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			/*定义p标签的width后，p中的内容按理应换行显示，此处运用white-space；使其内容可以溢出p标签的边框，进而在一行内显示，再结合text-overflow:ellipsis;为p添加溢出内容为省略号样式，再通过overflow:hidden使省略号显示出来。*/
+
+		}
+	</style>
+</head>
+<body>
+		<p>我是测试文本</p>
+		<p>我的宽度大于p标签定义的width呀呀呀呀呀呀啊呀呀呀呀呀呀啊呀呀呀呀呀呀呀呀呀呀呀呀呀呀呀啊呀呀</p>
+</body>
+</html>

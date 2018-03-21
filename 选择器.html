@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>标签ID类后代子交集并集选择器</title>
+	<style type="text/css">
+		p{
+			color: red;
+			font-size: 36px;
+		}
+		.test1{
+			color: blue;
+			font-size: 24px;
+
+		}
+		.test3{
+			text-decoration: underline;
+			text-shadow: 2px 2px 5px tomato;
+		}
+		#test2{
+			color: green;
+			font-size: 18px;
+		}
+		div  li{
+			color: purple;
+			font-size: 20px;
+		}
+		div>a{
+			color: tomato;
+			font-size: 36px;
+		}
+		
+
+	</style>
+</head>
+<body>
+	<p>我是标签选择器</p>
+	<p class="test1">我是类选择器</p>
+	<p class="test1 test3">我是两个类结合的选择器</p>
+	<p id="test2">我是ID选择器</p>
+	<div>
+		<ul>
+			<li>我是后代选择器</li>
+		</ul>
+	</div>
+	<div>
+		<h1>我是标题</h1>
+		<a href="#">a000</a>
+		<ul>
+			<li><a href="#">a0</a></li>
+		</ul>
+	</div>
+
+	
+
+</body>
+</html>
