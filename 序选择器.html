@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>序选择器</title>
+	<style type="text/css">
+	p:first-child{
+		color: red;
+	}
+	/*p:last-child{
+		color: yellow;
+	}*/
+	p:nth-child(odd){
+		color: blue;
+
+	}
+	p:only-child{
+		color: tomato;
+	}
+	
+	p:nth-child(4n+0){
+		color: green;
+	}
+
+	/*以上为同级别不同类型的实验*/
+	/*以下为同级别相同类型的实验*/
+	/*p:first-of-type{
+		color: yellow;
+	}*/
+	/*p:last-of-type{
+		color: red;
+	}*/
+	/*p:nth-of-type(3n+0){
+		color: red;
+	}*/
+	/*p:nth-last-of-type(2){
+		color: red;
+
+	}*/
+	p:only-of -type{
+		color: rgb(25,25,25);
+	}
+	</style>
+</head>
+<body>
+	<div>
+		<h1>我是标题</h1>
+		<p>我是段落1</p>
+		<p>我是段落2</p>
+		<p>我是段落3</p>
+		<p>我是段落4</p>
+		<p>我是段落5</p>
+		<ul>
+			<li>
+				<p>我是段落01</p>
+				<p>我是段落02</p>
+				<p>我是段落03</p>
+				<p>我是段落04</p>
+				<p>我是段落05</p>
+			</li>
+		</ul>
+		<span>
+			<p>
+				我是为了证明only-child
+			</p>
+		</span>
+	</div>
+</body>
+</html>

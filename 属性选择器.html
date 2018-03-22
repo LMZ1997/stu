@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>属性选择器</title>
+	<style type="text/css">
+		[title]{
+			color: red;
+		}
+		[title='kuazhu']{
+			color: green;
+		}
+		[title|='kuazhu']{
+			color: yellow;
+		}
+		[title~='kuazhu']{
+			color: rgb(200,200,200);
+		}/*只能选中属性名字以kuazhu开头并且名字中只有空格或者仅仅是kuazhu这个名字的*/
+		
+		/*[title*='kuazhu']{
+			color: red;
+		}*//*能选中所有属性名字只要包含kuazhu的*/
+
+		/*[title^='kuazhu']{
+			color: purple;
+		}*/ /*能选中所有属性名字以kuazhu开头的*/
+	</style>
+</head>
+<body>
+	<a href="#" >a0</a>
+	<a href="#" title="">a1</a>
+	<a href="#" title="kuazhu">a2</a>
+	<a href="#" title="kuazhu.com">a3</a>
+	<a href="#" title="kuazhu-com">a4</a>
+	<a href="#" title="kuazhu com">a5</a>
+	<a href="#" title="www.kuazhu.com">a6</a>
+
+</body>
+</html>
