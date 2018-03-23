@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>margin和padding</title>
+	<style type="text/css">
+	div{
+		border: 10px solid green;
+	}
+		.box1{
+			
+			width: 300px;
+			height: 300px;
+			background-color: red;
+			margin-bottom: 100px;
+			/*padding-bottom: 100px;*/
+			padding-top: 100px;
+			/*box-sizing: border-box;*//*此代码是不管padding大小如何设置，元素的大小不会变化；*/
+		}
+		.box2{
+			width: 200px;
+			height: 200px;
+			background-color: blue;
+			margin-bottom: 100px;
+		}
+		.box3{
+			width: 300px;
+			height: 300px;
+			background-color: red;
+			margin-top: 50px;
+			/*padding-left:100px;
+			box-sizing: border-box;
+*/
+
+		}
+		.box4{
+			width: 100px;
+			height: 100px;
+			background-color: blue;
+			/*margin-left: 100px;*/
+
+			margin: 0 auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="box1">我是box1</div>
+	<div class="box2">我是box2</div>
+	<div class="box3">
+		<div class="box4">我是box中的box</div>
+	</div>
+</body>
+</html>
