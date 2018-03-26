@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>block-inline-inlineblock</title>
+	<style type="text/css">
+		.box1{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #000;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			padding: 20px 50px;
+		}
+		.box2{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #000;
+			margin-top: 20px;
+			margin-bottom: 100px;
+			padding: 20px 50px;
+		}
+		.box4{
+			border: 1px solid #000;
+			margin:0;
+			padding: 0;
+			width: 800px;
+			height: 20px;
+			color: red;
+		}
+		span{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #000;
+			margin-top: 20px;
+			margin-bottom: 20px;/*行内元素margin-top-bottom无用*/
+			margin-left: 100px;/*行内元素margin-left-right有用*/
+
+			padding: 40px 50px;
+		}
+		img{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #000;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			padding: 20px 50px;
+		}
+	</style>
+</head>
+<body>
+<div class="box1">块状元素1111</div>
+<div class="box2">块状元素2222</div>
+
+<div class="box4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此div框测试行内元素padding不占用空间</div>
+<span class="box333333">行内元素span3333</span>
+<span class="box44444">行内元素span44444</span>
+<div class="box4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此div框测试行内元素padding不占用空间</div>
+<img src="1.jpg" class="img1">
+<img src="1.jpg" class="img2">
+</body>
+</html>
