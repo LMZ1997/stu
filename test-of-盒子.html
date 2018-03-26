@@ -1,25 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>test</title>
+	<title>news</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.news{
+			width: 280px;
+			margin: 50px auto;
+		}
+		.news .header{
+			width: 280px;
+			border-top:2px solid #ececec;
+			border-bottom: 1px solid #ececec;
+			/*padding-bottom:-10px;*/
+		}
+		.news .header h2{
+			width: 105px;
+			border-top: 2px solid #069;
+			font-size: 20px;
+			color: #069;
+			padding-top: 5px ;
+			margin-bottom: -10px;
+
+		}
+		.news .header span{
+			width: 105px;
+			font-size: 9px;
+			color: #999;
+
+
+			
+			
+		}
+		.news .content li{
+			list-style: none;
+			border-bottom: 2px dotted #ececec;
+
+		}
+
+		/*.news .content li:after{
+			
+		}*/
+		.news .content li:before{
+			
+			display: inline-block;
+			content: "";
+			width: 5px;
+			height: 5px;
+			background-color: #069;
+		}
+		.news .content li:last-child{
+			border:0px;
+		}
+
+	</style>
 </head>
 <body>
-<thead>
-	<caption>互联网新闻</caption>
-</thead>
-<tbody>
-	<ul>
-		<li>美国国会</li>
-		<li>一场时装</li>
-		<li>区块链早报</li>
-		<li>京东区块链</li>
-		<li>IBM上线区块链</li>
-		<li>5.5亿元</li>
-		<li>传美团年内</li>
-		<li>部分沃尔玛</li>
-		<li>马云麻烦了</li>
-		<li>科技部发布</li>
-	</ul>
-</tbody>
+	<div class="news">
+		<div class="header">
+			<h2 >互联网新闻</h2>
+			<span>INTERNET NEWS</span>
+		</div>
+		<div class="content">
+			<ul >
+				<li>滴滴进军外卖</li>
+				<li>facebook-信息帝国的数据隐患</li>
+				<li>马斯克怒删特斯拉和spacex脸书主页</li>
+				<li>马化腾：腾讯选香港上市</li>
+				<li>拼多多估值超过唯品会</li>
+				<li>深圳互联网发展状况</li>
+				<li>车和家获30亿人民币融资</li>
+				<li>沃尔玛下架支付宝，神仙打架</li>
+				<li>听歌神器foobar正式</li>
+				<li>微软发布windows 10</li>
+			</ul>
+		</div>
+		
+	</div>
 </body>
 </html>
