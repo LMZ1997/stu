@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>浮动小练习2</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.w{
+			margin: 0 auto;
+		}
+		header{
+			background-color: #eff4fa;
+		}
+		header .head{
+			margin: 0 auto;
+			width: 960px;
+			height: 100px;
+		}
+		section{
+			width: 960px;
+			height: 500px;
+			background-color:white;
+		}
+		footer{
+			width: 960px;
+			height: 50px;
+			background-color: #eff4fa;
+		}
+		header .img_po{
+			float: left;
+			height: 50px;
+			margin-left: 50px;
+
+		}
+		header nav{
+			float: right;
+		}
+		/*header li{
+			
+			float: left;
+		}*/
+		section .art_left {
+			float: left;
+			/*height: 100px;*/
+		}
+		section .art_left .img_po2{
+			height: 300px;
+			width: 500px;
+			margin-left: 80px;
+		}
+
+		section .art_right{
+			/*border: 1px solid #000;*/
+			border-top: 1px solid #000;
+			border-left: 1px solid #000;
+			border-right: 1px dotted #000;
+			border-bottom: 1px dotted #000;
+			/* box-shadow:  */
+			width: 300px;
+			height: 350px;
+			float: right;
+		}
+		
+		section .art_right .d1{
+			font-size: 20px;
+			float: left;
+		}
+		section .art_right .d2{
+			font-size: 20px;
+			float: right;
+		}
+		section .art_right .in1 {
+			/*border-color: blue;*/
+			width: 250px;
+			height: 30px;
+			margin-bottom: 20px;
+			
+		}
+		section .art_right .in2{
+			width: 250px;
+			height: 30px;
+			margin-bottom: 20px;
+			
+		}
+		section .art_right .in3{
+			
+			margin-bottom: 20px;
+
+			
+		}
+		section .art_right span{
+			
+			font-size: 12px;
+
+			
+		}
+		section .art_right .in4{
+			width: 250px;
+			background-color: skyblue;
+			height: 30px;
+			font-size: 20px;
+			border-radius: 10px;
+
+		}
+		section .art_right  form .inall{
+			width: 250px;
+			height: 150px;
+			margin: 0 auto;
+		}
+		section .art_right .label_all{
+			margin: 0 auto;
+			margin-bottom: 30px;
+			margin-top: 30px;
+			width: 250px;
+			height: 30px;
+		}
+
+	</style>
+</head>
+<body>
+	<header class="w">
+		<div class="head">
+			<img src="4.png" class="img_po">
+			<nav>
+				<ul>
+					<li>基本版&nbsp;|&nbsp;</li>
+					<li>English&nbsp;|&nbsp;</li>
+					<li>手机版&nbsp;|&nbsp;</li>
+					<li>企业邮箱</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<section class="w">
+		<div class="art_left">
+			<img src="5.jpg" class="img_po2">
+		</div>
+		<div class="art_right">
+			<form>
+				<div class="label_all">
+					<label class="d1">快速登录</label>
+					<label class="d2">账号密码登录</label>
+				</div>
+				<div class="inall">
+					<input type="text" name="" value="" placeholder="支持QQ号"  class="in1">
+					<input type="text" name="" value="" placeholder="QQ密码"  class="in2"><br>
+					<input type="checkbox" name=""  class="in3"><span>下次自动登录</span>
+					<input type="submit" name="submit" value="登录" class="in4">
+				</div>
+				
+				
+			</form>
+		</div>
+	</section>
+	<footer class="w"></footer>
+</body>
+</html>
