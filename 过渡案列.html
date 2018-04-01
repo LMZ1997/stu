@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>过渡案例</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			width: 1000px;
+			height: 400px;
+			border: 1px solid #000;
+			margin: 100px auto;
+			overflow: hidden;
+			list-style: none;
+		}
+		li{
+			width: 200px;
+			height: 100%;
+			float: left;
+			transition-property: width;
+			transition-duration: 0.5s;
+
+		}
+		ul:hover li{
+			width: 100px;
+		}
+		ul li:hover{
+			width: 600px;
+
+		}
+		/*只写li；hover,优先级不足以覆盖ul:hover li*/
+		ul img{
+			height: 400px;
+			width: 600px;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li><img src="images/ad1.jpg"></li>
+		<li><img src="images/ad2.jpg"></li>
+		<li><img src="images/ad3.jpg"></li>
+		<li><img src="images/ad4.jpg"></li>
+		<li><img src="images/ad5.jpg"></li>
+	</ul>
+
+</body>
+</html>

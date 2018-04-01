@@ -3,15 +3,105 @@
 <head>
 	<title>定位</title>
 	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
 		input{
 			/*vertical-align:top;*//*等同于*/
 			position: relative;
 			bottom: 205px;
 		}
+		div{
+			width: 100px;
+			height: 100px;
+		}
+		.box1{
+			background-color: red;
+		}
+		.box2{
+			background-color: blue;
+			position: absolute;
+			top: 30px;
+			left: 30px;
+			/*脱离了标准流，相对于父级元素左上角原点就行位移*/
+		}
+		.box3{
+			background-color: green;
+			position: relative;
+			top:40px;
+			left: 30px;
+		}
+		.grandpa{
+			width: 400px;
+			height: 400px;
+			background-color: tomato;
+			position: relative;
+			/*position: absolute;*/
+			/*position: fixed;*/
+			/*position: static;*/
+			/*top: 20px;*/
+			/*left: 50px;*/
+			overflow: hidden;
+		}
+		.father{
+			width: 200px;
+			height: 200px;
+			background-color: purple;
+			margin: 50px;
+			/*position: relative;*/
+		}
+		.son{
+			width: 100px;
+			height: 100px;
+			background-color: pink;
+			position: absolute;
+			top: 20px;
+			left: 20px;
+		}
+		.juzhong{
+			width: 300px;
+			height: 300px;
+			margin: 0px auto;
+			position: relative;
+			background-color: grey;
+		}
+		/*绝对定位margin:0 auto无效，元素居中方法*/
+		.juzhong_son{
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			left: 50%;
+			margin-left: -50px;
+			background: yellow;
+		}
+		.fix{
+			/*margin: 50px 500px;*/
+			width: 200px;
+			height: 200px;
+			background-color: gold;
+			position: fixed;
+			top: 50px;
+			left: 500px;
+		}
 	</style>
 </head>
 <body>
+	<div class="fix">固定定位</div>
+	
+	<div class="box1"></div>
+	<div class="box2"></div>
+	<div class="box3"></div>
+	<br><br>
+	<div class="grandpa" style="text-align: center">grandpa
+		<div class="father">father
+			<div class="son" style="text-align: center">son</div>
+		</div>
+	</div>
+	<br>
+	<div class="juzhong">
+		<div class="juzhong_son"></div>
+	</div>
 	<input type="text" name=""><img src="1.jpg">
-
 </body>
 </html>

@@ -7,42 +7,53 @@
 			margin: 0;
 			padding: 0;
 		}
+		a:hover{
+			text-decoration: underline;
+		}
 		.w{
 			margin: 0 auto;
 		}
 		header{
 			background-color: #eff4fa;
-		}
-		header .head{
-			margin: 0 auto;
-			width: 960px;
-			height: 100px;
+			overflow: hidden;
 		}
 		section{
 			width: 960px;
 			height: 500px;
 			background-color:white;
 		}
-		footer{
-			width: 960px;
-			height: 50px;
-			background-color: #eff4fa;
-		}
+		
 		header .img_po{
+			/*line-height: 100px;*/
+			margin-top: 25px;
 			float: left;
 			height: 50px;
 			margin-left: 50px;
+
 
 		}
 		header nav{
 			float: right;
 		}
-		/*header li{
-			
+		header  ul li{
+			height: 100px;
+			line-height: 100px;
 			float: left;
-		}*/
+			text-decoration: none;
+			margin-right: 20px;
+			list-style: none;
+
+		}
+		header  ul li a{
+			text-decoration: none;
+			color: #474f8c;
+		}
+		header  ul li:last-child{
+			margin-right: 80px;
+		}
 		section .art_left {
 			float: left;
+			margin-top: 100px;
 			/*height: 100px;*/
 		}
 		section .art_left .img_po2{
@@ -53,23 +64,35 @@
 
 		section .art_right{
 			/*border: 1px solid #000;*/
-			border-top: 1px solid #000;
-			border-left: 1px solid #000;
+			border: 1px solid #aaa;
+			/*border-left: 1px solid #000;
 			border-right: 1px dotted #000;
-			border-bottom: 1px dotted #000;
+			border-bottom: 1px dotted #000;*/
 			/* box-shadow:  */
 			width: 300px;
 			height: 350px;
 			float: right;
+			margin-top: 100px;
+			border-radius: 6px;
 		}
 		
 		section .art_right .d1{
 			font-size: 20px;
 			float: left;
+			color: #aaa;
+		}
+		section .art_right .label_all a:hover{
+			color: black;
 		}
 		section .art_right .d2{
 			font-size: 20px;
 			float: right;
+			color: #aaa;
+		}
+
+		section .art_right a{
+			text-decoration: none;
+			color: #369
 		}
 		section .art_right .in1 {
 			/*border-color: blue;*/
@@ -84,8 +107,8 @@
 			margin-bottom: 20px;
 			
 		}
-		section .art_right .in3{
-			
+		section .art_right .in3[type='checkbox']{
+			/*vertical-align: top;*/
 			margin-bottom: 20px;
 
 			
@@ -93,15 +116,14 @@
 		section .art_right span{
 			
 			font-size: 12px;
-
-			
 		}
 		section .art_right .in4{
 			width: 250px;
-			background-color: skyblue;
+			background-color: #649ef5;
 			height: 30px;
 			font-size: 20px;
 			border-radius: 10px;
+			color: white;
 
 		}
 		section .art_right  form .inall{
@@ -109,29 +131,64 @@
 			height: 150px;
 			margin: 0 auto;
 		}
+		section .fd{
+				float: right;
+				font-size: 12px;
+				margin-top: 80px;
+				margin-right: 20px;
+		}
 		section .art_right .label_all{
+
 			margin: 0 auto;
 			margin-bottom: 30px;
 			margin-top: 30px;
 			width: 250px;
 			height: 30px;
 		}
-
+		footer a{
+			text-decoration: none;
+			color: #369;
+			font-size: 12px;
+		}
+		footer span{
+			color: #aaa;
+			font-size: 12px;
+		}
+		footer{
+			width: 100%;
+			text-align:center;
+			height: 50px;
+			background-color: #eff4fa;
+			line-height: 50px;
+			border-top: 1px 
+			/*margin: 0 auto;*/
+			/*margin-top: 10px;*/
+			/*box-sizing: border-box;*/
+		}
 	</style>
 </head>
 <body>
 	<header class="w">
-		<div class="head">
-			<img src="4.png" class="img_po">
+			<div class="head">
+				<img src="4.png" class="img_po">
+			</div>
 			<nav>
 				<ul>
-					<li>基本版&nbsp;|&nbsp;</li>
-					<li>English&nbsp;|&nbsp;</li>
-					<li>手机版&nbsp;|&nbsp;</li>
-					<li>企业邮箱</li>
+					<li>
+						<a href="#">基本版&nbsp;|</a>
+					</li>
+					<li>
+						<a href="#">English&nbsp;|</a>
+					</li>
+					<li>
+						<a href="#">手机版&nbsp;|</a>
+					</li>
+					<li>
+						<a href="#">企业邮箱</a>
+					</li>
 				</ul>
 			</nav>
-		</div>
+		
 	</header>
 	<section class="w">
 		<div class="art_left">
@@ -140,8 +197,8 @@
 		<div class="art_right">
 			<form>
 				<div class="label_all">
-					<label class="d1">快速登录</label>
-					<label class="d2">账号密码登录</label>
+					<a href='#' class="d1">快速登录</a>
+					<a href='#' class="d2">账号密码登录</a>
 				</div>
 				<div class="inall">
 					<input type="text" name="" value="" placeholder="支持QQ号"  class="in1">
@@ -149,11 +206,23 @@
 					<input type="checkbox" name=""  class="in3"><span>下次自动登录</span>
 					<input type="submit" name="submit" value="登录" class="in4">
 				</div>
+				<div class="fd">
+					<a href="#">忘了密码？&nbsp;|&nbsp;</a>
+					<a href="#">注册新账号&nbsp;|&nbsp;</a>
+					<a href="#">意见反馈</a>
+				</div>
 				
 				
 			</form>
 		</div>
 	</section>
-	<footer class="w"></footer>
+	<footer class="w">
+		<a href="#">关于腾讯</a>
+		<a href="#">服务条款</a>
+		<a href="#">客服中心</a>
+		<a href="#">联系我们</a>
+		<a href="#">帮助中心</a>
+		<span>1998-2018</span>
+	</footer>
 </body>
 </html>

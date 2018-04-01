@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>立方体</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			width: 200px;
+			height: 200px;
+			border: 1px solid #000;
+			margin: 50px auto;
+			position: relative;
+			transform-style: preserve-3d;
+			transform: rotateX(4deg) rotateY(-15deg);
+		}
+		li{
+			list-style: none;
+			width: 200px;
+			height: 200px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			line-height: 200px;
+			text-align: center;
+			font-size: 50px;
+
+
+		}
+		ul li:nth-child(1){
+			background-color: red;
+			transform: translate(-100px) rotateY(90deg);
+
+		}
+		ul li:nth-child(2){
+			background-color: green;
+			transform: translate(100px) rotateY(90deg);
+		}
+		ul li:nth-child(3){
+			background-color: blue;
+			transform: translateY(100px) rotateX(90deg);
+		}
+		ul li:nth-child(4){
+			background-color: yellow;
+			transform: translateY(-100px) rotateX(90deg);
+		}
+		ul li:nth-child(5){
+			background-color: pink;
+			transform: translateZ(-100px) ;
+		}
+		ul li:nth-child(6){
+			background-color: tomato  ;
+			transform: translateZ(100px) ;
+
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li>我</li>
+		<li>喜</li>
+		<li>欢</li>
+		<li>写</li>
+		<li>代</li>
+		<li>码</li>
+	</ul>
+</body>
+</html>

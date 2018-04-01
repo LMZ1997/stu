@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>动画练习</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		div{
+			width: 1000px;
+			height: 500px;
+			border: 1px solid #000;
+			overflow: hidden;
+			margin: 100px auto;
+			/*position: relative;*/
+
+		}
+		ul{
+			list-style: none;
+			width: 4000px;
+			height: 500px;
+			
+			animation-name: sport;
+			animation-duration: 4s;
+			animation-iteration-count: infinite;
+			animation-timing-function: linear;
+			/*position: absolute;
+			top: 0;
+			left: 0;*/
+		}
+		ul:hover{
+			animation-play-state: paused;
+		}
+		ul:hover li{
+			opacity: 0.6;
+		}
+		ul li:hover{
+			opacity: 1;
+		}
+		ul li {
+			width: 1000px;
+			height: 500px;
+			float: left;
+
+		}
+		ul li img{
+			width: 1000px;
+			height: 500px;
+		}
+		@keyframes sport{
+			from{
+				margin-left: 0;
+			}
+			to{
+				margin-left: -3000px;
+			}
+			
+		}
+		/*ul li:nth-child(1){
+			background-color: red;
+		}
+		ul li:nth-child(2){
+			background-color: green;
+		}
+		ul li:nth-child(3){
+			background-color: blue;
+		}
+		ul li:nth-child(4){
+			background-color: red;
+		}*/
+	</style>
+</head>
+<body>
+	<div>
+		<ul>
+			<li><img src="images/ad1.jpg"></li>
+			<li><img src="images/ad2.jpg"></li>
+			<li><img src="images/ad3.jpg"></li>
+			<li><img src="images/ad1.jpg"></li>
+		</ul>
+	</div>
+</div>
+</body>
+</html>

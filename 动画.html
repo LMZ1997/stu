@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>动画</title>
+	<style type="text/css">
+		.box1{
+			width: 100px;
+			height: 100px;
+			background-color: green;
+			/*transition-property: width;
+			transition-duration: 3s;*/
+			animation-name: sport;
+			animation-duration: 3s;
+			/*animation-direction: alternate;*/
+			animation-delay: 1s;/*延迟*/
+			/*animation-iteration-count: 2;*/
+			animation-iteration-count:infinite;
+
+		}
+		@keyframes sport{
+			from{
+				width: 100px;
+			}
+			to{
+				width: 500px;
+			}
+		}
+		div:hover{
+			/*width: 500px;*/
+
+		}
+		.father{
+			width: 400px;
+			height: 400px;
+			background-color: blue;
+			position: relative;
+		}
+		.son{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			animation-name: sport2;
+			animation-duration: 3s;
+			animation-iteration-count: infinite;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		.son:hover{
+			animation-play-state: paused;
+		}
+		@keyframes sport2{
+			0%{
+				top: 0;
+				left: 0;
+			}
+			25%{
+				top: 0;
+				left: 300px;
+				/*right: 0;*//*此处不能写right：0，因为从0%开始写的是left,此处若写right,deng*/
+			}
+			50%{
+				top: 300px;
+				left: 300px;
+			}
+			75%{
+				top: 300px;
+				left: 0;
+			}
+			100%{
+				left: 0;
+				top: 0;
+			}
+		}
+		.mode1{
+			width: 100px;
+			height: 200px;
+			background-color:pink;
+			animation: sport3 2s;
+			animation-iteration-count: infinite;
+			margin: 0 auto;
+
+		}
+		@keyframes sport3{
+			15%{
+				transform: rotate(15deg);
+			}
+			50%{
+				transform: rotate(45deg);
+			}
+			75%{
+				transform: rotate(70deg);
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="box1"></div>
+	<div class="father">
+		<div class="son">点我不会动</div>
+	</div>
+	<div class="mode1"></div>
+</body>
+</html>

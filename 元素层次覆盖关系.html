@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>z-index</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.f1{
+			width: 300px;
+			height: 300px;
+			background-color: red;
+			position: relative;
+			top: 70px;
+			z-index: 1;
+
+		}
+		.f11{
+			width: 200px;
+			height: 200px;
+			background-color: green;
+			position: relative;
+			z-index: 3
+
+		}
+		.s1{
+			width: 100px;
+			height: 100px;
+			background-color: blue;
+			position: absolute;
+			top: 300px;
+			left: 300px;
+			z-index: 2;
+		}
+
+		/*两个div中间又加了一个div,是为了证明子元素的z-index会继承最顶层父级元素的z-index值*/
+		/*若z-index值相同,其次看body中的结构，后边的会覆盖前边的*/
+
+
+
+		.f2{
+			width: 300px;
+			height: 300px;
+			background-color: gold;
+			position: relative;
+			z-index: 1
+		}
+		.f22{
+			width: 200px;
+			height: 200px;
+			background-color: tomato;
+			position: relative;
+			z-index: 3;
+
+		}
+		.s2{
+			width: 100px;
+			height: 100px;
+			background-color: grey;
+			position: absolute;
+			top: 0;
+			left: 300px;
+			z-index: 1;
+
+		}
+	</style>
+</head>
+<body>
+	<div class="f1">
+		<div class="f11">
+			<div class="s1"></div>
+		</div>
+	</div>
+	<br>
+	<div class="f2">
+		<div class="f22">
+			<div class="s2"></div>
+		</div>
+	</div>
+
+</body>
+</html>

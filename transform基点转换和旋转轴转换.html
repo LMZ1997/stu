@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>transform基点与旋转轴</title>
+	<style type="text/css">
+		ul{
+			width: 500px;
+			height: 1000px;
+			border: 1px solid #000;
+			margin: 50px auto;
+			perspective: 500px;
+		}
+		li{
+			list-style: none;
+			width: 200px;
+			height: 200px;
+			margin-top: 50px;
+			border: 1px solid #000;
+			padding: 10px;
+		}
+		ul li:nth-child(1){
+			background-color: blue;
+			transform-origin: 20px 20px;
+			transform: rotate(45deg );
+		}
+		ul li img{
+			width: 200px;
+			height: 200px;
+		}
+		ul li:nth-child(2){
+			transform: rotateX(45deg);
+		}
+		ul li:nth-child(3){
+			transform: rotateY(45deg);
+		}
+		ul li:nth-child(4){
+			transform: rotateZ(45deg);
+		}
+		
+	</style>
+</head>
+<body>
+	<ul>
+		<li>基点转换</li>
+		<li><img src="1.jpg"></li>
+		<li><img src="1.jpg"></li>
+		<li><img src="1.jpg"></li>
+		
+	</ul>
+	
+</body>
+</html>
