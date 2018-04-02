@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>自定义字体</title>
+	<link rel="stylesheet" type="text/css" href="css/fontawesome-all.css">
+	<style type="text/css">
+	@font-face{
+		font-family: test-font;
+		src:url(fonts/Sansation_Light.eot),
+			url(fonts/Sansation_Light.ttf);
+	}
+	@font-face{
+		font-family: test-font;
+		src:url(Sansation_Bold.eot),url(Sansation_Bold.ttf);
+		font-weight: bold;/*此局为一个条件，意思是下边div如果加了font-weight:bold,则调用第二个@font-face,否则则是第一个*/
+
+	}
+		.box{
+			width: 100px;
+			height: 100px;
+			margin: 0 auto;
+			border: 1px solid #000;
+			font-family: test-font;
+			/*font-weight: bold;*/
+		}
+	</style>
+</head>
+<body>
+	<div class="box">hello ! 世界</div>
+	<i class="fas fa-camera-retro"></i>
+	<div style="font-size:3em; color:Tomato">
+  		<i class="fas fa-camera-retro"></i>
+</div>
+
+</body>
+</html>

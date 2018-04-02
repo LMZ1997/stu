@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>综合滑动页面</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.container input,.container a{
+			
+			position: fixed;
+			top: 0px;
+			width: 20%;
+			/*height: 40px;*/
+			background-color: red;
+		}
+		.container input{
+			z-index: 1000;
+			/*background-color: black;*/
+
+		}
+		.container a{
+			z-index: 10;
+			font-size: 18px;
+		}
+		.container #first,.container #first+a{
+			left: 0%;
+		}
+		.container #second,.container #second+a{
+			left: 20%;
+		}
+		.container #third,.container #third+a{
+			left: 40%;
+		}
+		.container #fourth,.container #fourth+a{
+			left: 60%;
+		}
+		.container #fifth,.container #fifth+a{
+			left: 80%;
+		}
+
+
+	</style>
+</head>
+<body>
+	<div class="container">
+		<input type="radio" name="same"  checked id="first"><a href="#">Home</a>
+		<input type="radio" name="same" id="second"><a href="#">Service</a>
+		<input type="radio" name="same" id="third"><a href="#">About</a>
+		<input type="radio" name="same" id="fourth"><a href="#">Team</a>
+		<input type="radio" name="same" id="fifth"><a href="#">Like</a>
+	</div>
+</body>
+</html>
