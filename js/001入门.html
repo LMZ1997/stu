@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js入门</title>
+	<style>
+		
+		.box{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #000;
+			margin: 100px auto;
+
+		}
+		.box1{
+			
+			width: 100px;
+			height: 100px;
+			border: 1px solid #000;
+			margin: 100px auto;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="box" onclick="this.style.background='red'">
+		点我
+	</div>
+
+
+
+
+	<input type="checkbox"  onmouseover="document.getElementById('box1').style.display='block'" onmouseout="document.getElementById('box1').style.display='none'">划过我
+
+	
+	<div  class="box1" id="box1">请注意前边有狼出没</div>
+</body>
+</html>
