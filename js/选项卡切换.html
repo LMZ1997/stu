@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>选项卡切换</title>
+	<style>
+		div{
+			width: 200px;
+			height: 200px;
+			border: 1px solid #000;
+			background-color: green;
+			display: none;
+		}
+	</style>
+	<script>
+		window.onload=function(){
+			var aBtn=document.getElementsByTagName('input');
+			var aDiv=document.getElementsByTagName('div');
+			for (var i = 0; i < aBtn.length; i++) 
+			{
+
+				 aBtn[i].index = i;
+
+				 aBtn[i].onclick=function ()
+				 {	
+
+					 for (var j = 0; j < aBtn.length; j++) 
+					 {
+					 	aBtn[j].style.backgroundColor='';
+					 	
+					 }
+				 	this.style.backgroundColor='yellow';
+					for (var k =0; k <aBtn.length; k++) 
+					{
+						aDiv[k].style.display='none';
+					}
+					 aDiv[this.index].style.display='block';	
+					 // aDiv[i].style.display='block';
+					 // 此处的i值为4，而 aDIV[3]没有指向，因为i本为第一个for循
+					 // 环里的变量，到了其嵌套的其他循环里，i值会变为3。 
+				 }				 
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type="button" value="选项一" style="background-color: yellow">
+	<input type="button" value="选项二">
+	<input type="button" value="选项三">
+	<div style="display: block;">内容1</div>
+	<div>内容2</div>
+	<div>内容6</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>练习</title>
+	<script type="text/javascript">
+		window.onload=function (){
+			var obtn1=document.getElementById('btn1');
+			var obtn2=document.getElementById('btn2');
+			var obtn3=document.getElementById('btn3');
+			var obox=document.getElementById('box');
+			var oChe=obox.getElementsByTagName('input');
+			obtn1.onclick=function (){
+				for (var i = 0; i < oChe.length; i++) {
+						oChe[i].checked=true;
+					}
+			}
+			obtn2.onclick=function (){
+				for (var i = 0; i < oChe.length; i++) {
+						oChe[i].checked=false;
+					}
+			}
+			obtn3.onclick=function (){
+				for (var i = 0; i < oChe.length; i++) {
+						if(oChe[i].checked==true){
+							oChe[i].checked=false;
+						}
+						else{
+							oChe[i].checked=true;
+						}
+					}
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type="button" id="btn1" value="全选">
+	<input type="button" id="btn2" value="全不选">
+	<input type="button" id="btn3" value="反选">
+	<div id='box'>
+		<input type="checkbox"><br>
+		<input type="checkbox"><br>
+		<input type="checkbox"><br>
+		<input type="checkbox"><br>
+		<input type="checkbox"><br>
+		<input type="checkbox"><br>
+		<input type="checkbox"><br>
+		<input type="checkbox"><br>
+		<input type="checkbox"><br>
+		<input type="checkbox"><br>
+		<input type="checkbox"><br>
+	</div>
+</body>
+</html>

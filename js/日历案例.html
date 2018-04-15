@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>日历</title>
+	<style>
+		.beijing{
+			width: 190px;
+			height: 300px;
+			background-color: grey;
+			margin: 50px auto;
+			font-size: 12px;
+		}
+		ul{
+			width: 170px;
+			margin: 10px auto;
+			height: 230px;
+			background-color: green;
+			/*overflow: hidden;*/
+		}
+		ul li{
+			list-style: none;
+			width: 50px;
+			height: 50px;
+			margin-right: 10px;
+			float: left;
+			/*margin-top: 10px;*/
+			background-color: rgba(0,0,0,0.6);
+		}
+		ul li:nth-child(3n){
+			/*margin-right: 0px;*/
+		}
+	</style>
+	<script>
+		window.onload=function (){
+			var obox=document.getElementById('box');
+			var aDiv=obox.getElementsByTagName('div');
+
+		}
+
+	</script>
+</head>
+<body>
+	<div id='box' class="beijing">
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+			<li>7</li>
+			<li>8</li>
+			<li>9</li>
+			<li>10</li>
+			<li>11</li>
+			<li>12</li>
+		</ul>
+		<div>1月的活在<br>1月天气好</div>
+		<div>2月的活在<br>2月天气好</div>
+		<div>3月的活在<br>3月天气好</div>
+		<div>4月的活在<br>4月天气好</div>
+		<div>5月的活在<br>5月天气好</div>
+		<div>6月的活在<br>6月天气好</div>
+		<div>7月的活在<br>7月天气好</div>
+		<div>8月的活在<br>8月天气好</div>
+		<div>9月的活在<br>9月天气好</div>
+		<div>10月的活在<br>10月天气好</div>
+		<div>11月的活在<br>11月天气好</div>
+		<div>12月的活在<br>12月天气好</div>
+	</div>
+	
+</body>
+</html>

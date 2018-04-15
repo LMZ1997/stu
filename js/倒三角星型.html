@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>倒三角星型</title>
+	<style>
+		.sti{
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+		}
+		.stj{
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		// document.write("<table>")
+		// 	 for (var k = 0; k<5; k++) {
+		// 	 	var kongge='';
+		// 	 	document.write("<tr>")
+		// 	 	for (var m = 1;m<5-k;m++) {
+		// 	 			kongge=kongge+"&nbsp;"
+		// 	 	}
+		// 	 	for (var j = 0; j <=k; j++) {
+		// 	 		kongge=kongge+"*";
+		// 	 		document.write('<td>'+kongge+'</td>');
+		// 	 	}				 		
+		// 		 document.write("</tr>")
+		//       }
+		//  document.write("</table>")
+		
+		for (var i = 0; i < 5; i++) {
+			var str='';
+			for (var j = 1; j < 5-i; j++) {
+				str=str+"<span class='sti'></span>"
+			}
+			for (var k = 0; k <=i; k++) {
+				str=str+"<span class='stj'>*</span>"
+			}
+			document.write("<br>");
+			document.write(str);
+		}
+	</script>
+</body>
+</html>
