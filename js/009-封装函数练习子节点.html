@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>封装函数子节点练习</title>
+	<style>
+		ul li{
+			width: 100%;
+			height: 50px;
+			border: 1px solid #000;
+			list-style: none;
+		}
+	</style>
+	<script>
+
+			 function FunctionToRed(obj,attr){
+				var result=[];
+				var atle=obj.children;
+				for (var i = 0; i <atle.length; i++){
+					if(atle[i].className==attr){
+						result.push(atle[i]);
+					}
+				}
+				return result;
+			}
+
+		window.onload=function(){
+			var oUl=document.getElementById('ul1');
+			// var aLi=document.getElementsByClassName('toRed');
+			aLi=FunctionToRed(oUl,'toRed')
+			for (i in ali) {
+				aLi[i].style.background='red';
+				
+			}
+		}
+	</script>
+</head>
+<body>
+<ul class="ul1">
+	<li></li>
+	<li class="toRed"></li>
+	<li></li>
+	<li class="toRed"></li>
+	<li></li>
+	<li class="toRed"></li>
+	<li></li>
+	<li class="toRed"></li>
+</ul>
+</body>
+</html>

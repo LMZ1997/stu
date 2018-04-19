@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>getComputedStyle</title>
+	<style>
+		div{
+			width: 200px;
+			height: 200px;
+			border: 1px solid #000;
+		}
+		.toRed{
+			background-color: red;
+		}
+	</style>
+	<script>
+		window.onload=function(){
+				var oBtn1=document.getElementById('btn1');
+				var oBtn2=document.getElementById('btn2');
+				var oBtn3=document.getElementById('btn3');
+				var oDiv=document.getElementById('box');
+				oBtn1.onclick=function(){
+					oDiv.className='toRed';
+				}
+				oBtn2.onclick=function(){
+					oDiv.style.background='green';
+				}
+				oBtn3.onclick=function(){
+
+				// alert(getComputedStyle(oDiv,false)['background']);
+
+				// getComputedStyle可以用来输出所有样式
+
+				// 下边代码只能输出设置了行内样式的属性，不能输出类定义的样式
+				alert(oDiv.style.backgroundColor);
+				}
+		}
+	</script>
+</head>
+<body>
+	<input type="button" value="变红" id="btn1">
+	<input type="button" value="变绿" id="btn2">
+	<input type="button" value="获取样式" id="btn3">
+	<div id="box">变红为类选择器，变绿为行内样式，优先级行内优先；<br><br>变绿后不能再变红</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>函数返回值</title>
+	<style>
+		div{
+			width: 200px;
+			height: 200px;
+			border: 1px solid #000;
+		}
+	</style>
+	<script>
+			// function css(obj,attr,value){
+
+			// 		obj.style[attr]=value;
+
+			// 		// obj.style.attr=value,不能写style.attr因为style的包含属性没有attr。
+			// }
+
+				// 上边的代码写哪都行
+		
+		window.onload=function(){
+				function css(obj,attr,value){
+
+					obj.style[attr]=value;
+
+					// obj.style.attr=value,不能写style.attr因为style的包含属性没有attr。
+			}
+
+			var oBtn1=document.getElementById('btn1');
+			var oBtn2=document.getElementById('btn2');
+			var oBtn3=document.getElementById('btn3');
+			var oDiv=document.getElementById('box');
+			oBtn1.onclick=function(){
+					css(oDiv,'width','400px');
+			}
+			oBtn2.onclick=function(){
+					css(oDiv,'height','400px');
+			}
+			oBtn3.onclick=function(){
+					css(oDiv,'background','red');
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type="button" value="变宽" id="btn1" >
+	<input type="button" value="变高" id="btn2">
+	<input type="button" value="变红" id="btn3">
+	<div id="box"></div>
+</body>
+</html>
+
+
+

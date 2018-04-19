@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>封装函数进化版</title>
+	<style>
+		div{
+			width: 200px;
+			height: 200px;
+			border: 1px solid #000;
+		}
+	</style>
+
+	<script>
+		window.onload=function(){
+
+			function css(obj,attr,value){
+
+				 if(arguments.length==2){
+
+				 	 // alert(obj.style[attr]);
+
+
+				 	 //下边引用alert(css())就等同于
+				 	 return getComputedStyle(obj,false)[attr];
+
+				 	 // 等同于
+				 	 // alert( arguments[0].style[arguments[1]]);
+
+
+				 	 // 注意点：只能传递行间样式；
+
+
+				 }
+				 else{
+				 	obj.style[attr]=value;
+
+				 	// 等同于
+				 	// arguments[0].style[arguments[1]]=arguments[2];
+				 }
+			}
+			var oBtn1=document.getElementById('btn1');
+			var oBtn2=document.getElementById('btn2');
+			var oDiv=document.getElementById('box');
+			oBtn1.onclick=function(){
+					css(oDiv,'width','400px');
+					css(oDiv,'background','red');
+			}
+
+			oBtn2.onclick=function(){
+					alert(css(oDiv,'width'));
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type="button" value="设置样式" id="btn1" >
+	<input type="button" value="获取样式" id="btn2">
+	<div id="box"></div>
+</body>
+</html>

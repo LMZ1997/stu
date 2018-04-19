@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>删除数组重复项</title>
+	<script>
+		var arr1=[22,35,45,35,68,45,77,35];
+		var arr2=[];
+		function removeSame(){
+			
+			for (var i = 0; i < arr1.length; i++) {
+				var result=false;
+				for(var j=0;j<arr2.length;j++){
+					if(arr1[i]==arr2[j]){
+						result=true;
+						break;
+					}
+				}
+				if(!result){
+					arr2.push(arr1[i]);
+				}
+				
+			}
+		}
+		removeSame();
+		console.log(arr2);
+	</script>
+</head>
+<body>
+
+</body>
+</html>

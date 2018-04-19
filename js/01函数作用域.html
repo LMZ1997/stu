@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>函数的作用域</title>
+	<script>
+		var a=1;
+		function  show(){
+			var a=1;
+			alert(a);
+
+		}
+		show();
+
+
+		var a=1;
+		function show2(){
+			// var a;
+			alert(a);
+			var a=2;
+			// a=2;
+
+			//变量的提升！！！ 此处var =2;等同于在show2函数中最开头写了var a;
+			// 然后最后又写了a=2;
+		}
+		show2();
+	</script>
+</head>
+<body>
+
+</body>
+</html>

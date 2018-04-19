@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>数组排序</title>
+	<script>
+		var arr1=['fix','box','apple','pink','egg'];
+		var arr2=[1,9,100,66,3,55];
+		console.log(arr1.sort());
+		console.log(arr2.sort());//并不能按照数字大小排序；
+		console.log(arr2.sort(function(n1,n2){
+
+				// return n1-n2;
+				//等同于
+				if(n1>n2){
+					result 1;
+					//正数
+				}else if(n1<n2){
+					result -100;
+					//负数
+				}else{
+					result 0;
+				}
+		}))
+	</script>
+</head>
+<body>
+
+</body>
+</html>
