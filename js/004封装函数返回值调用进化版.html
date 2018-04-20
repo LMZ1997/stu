@@ -16,24 +16,16 @@
 			function css(obj,attr,value){
 
 				 if(arguments.length==2){
-
 				 	 // alert(obj.style[attr]);
-
-
-				 	 //下边引用alert(css())就等同于
+				 	 //获取非下边引用alert(css())就等同于
 				 	 return getComputedStyle(obj,false)[attr];
 
 				 	 // 等同于
 				 	 // alert( arguments[0].style[arguments[1]]);
-
-
 				 	 // 注意点：只能传递行间样式；
-
-
 				 }
 				 else{
 				 	obj.style[attr]=value;
-
 				 	// 等同于
 				 	// arguments[0].style[arguments[1]]=arguments[2];
 				 }

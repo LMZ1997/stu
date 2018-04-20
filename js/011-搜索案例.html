@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>搜索案例</title>
+	<script>
+		window.onload=function(){
+			var oTxt=document.getElementById('txt');
+			var oUl=document.getElementById('ul1');
+			var oBtn=document.getElementById('btn');
+			var aLi=oUl.children;
+			oBtn.onclick=function(){
+					var atxt=oTxt.value.toLowerCase();
+					for (var i = 0; i < aLi.length; i++) {
+						var aaLi=aLi[i].innerHTML.toLowerCase();
+					// if(oTxt.value==aLi[i].innerHTML){
+						if(atxt==aaLi){
+							aLi[i].style.background='yellow';
+						}
+						else{
+							aLi[i].style.background='';
+						}
+				}
+			}
+		
+		}
+	</script>
+</head>
+<body>
+	<input type="text" id="txt">
+	<input type="button" id="btn" value="搜索">
+
+<ul id="ul1">
+	<li>Tom</li>
+	<li>Army</li>
+	<li>Jane</li>
+	<li>Maria</li>
+	<li>赵四</li>
+	<li>张三</li>
+</ul>
+</body>
+</html>

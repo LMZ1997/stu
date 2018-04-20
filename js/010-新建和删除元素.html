@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>新建元素-插入元素和删除元素</title>
+	<script>
+		window.onload=function(){
+			var oUl=document.getElementById('ul1');
+			var oBtn1=document.getElementById('btn1');
+			
+			var oTxt=document.getElementById('txt');
+			oBtn1.onclick=function(){
+				var oLi=document.createElement('li');
+				oLi.innerHTML=oTxt.value;
+				var oA=document.createElement('a');
+				oA.innerHTML='del';
+				oA.href='javascript:;';
+				oLi.appendChild(oA);
+				
+				oUl.appendChild(oLi);
+				//插在最后一位!!!!
+				// oUl.insertBefore(oLi,oUl.children[0]);
+				//插在第一位!!!!!
+				// oUl.insertBefore(oLi,oUl.firstElementChild);
+				oA.onclick=function(){
+					oUl.removeChild(oA.parentNode);
+				}
+			}
+		
+
+		}
+	</script>
+</head>
+<body>
+<input type="text" name="" id="txt">
+<input type="button" id="btn1" value="新建元素">;<br>
+<ul id="ul1">
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>
+</body>
+</html>

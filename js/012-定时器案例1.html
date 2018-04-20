@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>定时器案例1</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+		#box1{
+			width: 100px;
+			height: 50px;
+			background-color: red;
+			float: left;
+		}
+		#box2{
+			width: 500px;
+			height: 600px;
+			background-color: blue;
+			margin-left: 20px;
+			float: left;
+			display: none;
+		}
+	</style>
+	<script>
+		window.onload=function(){
+			var timer=null;
+			var leftBox=document.getElementById('box1');
+			var rightBox=document.getElementById('box2');
+
+			leftBox.onmouseover=function(){
+				rightBox.style.display='block';
+				clearTimeout(timer);
+			}
+			leftBox.onmouseout=function(){
+				timer=setTimeout(function(){
+					rightBox.style.display='none'
+				},500);
+				
+			}
+			rightBox.onmouseover=function(){
+				clearTimeout(timer);
+				rightBox.style.display='block';
+			}
+			rightBox.onmouseout=function(){
+				timer=setTimeout(function(){
+					rightBox.style.display='none'
+				},500);
+			}
+		}
+		
+	</script>
+</head>
+<body>
+<div id="box1"></div>
+<div id="box2"></div>
+</body>
+</html>
