@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js实现点选和轮播</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		div{
+			width: 1000px;
+			height: 500px;
+			margin: 100px auto;
+			position: relative;
+		}
+		#ul1{
+			width: 100%;
+			height: 100%;
+		}
+		
+		 #ul1 li{
+			list-style: none;
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		 #ul1 li img{
+			width: 1000px;
+			height: 500px;
+		}
+		#ul2{
+			position: absolute;
+			right: 10px;
+			bottom: 10px;
+			z-index: 1200;
+		}
+		#ul2 li{
+			float: left;
+			margin-right: 30px;
+			color: blue;
+
+		}
+		span{
+			width: 40px;
+			height: 40px;
+			font-size: 30px;
+			text-align: center;
+			line-height: 40px;
+			background-color: rgba(255,255,255,0.3);
+			position: absolute;
+			top: 220px;
+			color: white;
+			z-index: 1000;
+		}
+		#preBtn{
+			left: 10px;
+		}
+		#nextBtn{
+			right: 10px;
+		}
+		#ul2 .active{
+			color: green;
+		}
+	</style>
+	<script>
+		window.onload=function(){
+			var aLi1=document.getElementById('ul1').children;
+			var aLi2=document.getElementById('ul2').children;	
+			var nextBtn=document.getElementById('nextBtn');
+			var preBtn=document.getElementById('preBtn');
+			var now=0;
+			function tab(){
+				for (var i = 0; i < aLi1.length; i++) {
+					aLi1[i].style.zIndex=0;
+				}
+				aLi1[now].style.zIndex=30;
+			}
+			nextBtn.onclick=function(){
+				// for (var i = 0; i < aLi1.length; i++) {
+				// 	aLi1[i].style.zIndex=0;
+				// }
+				now++;
+				tab();
+				// aLi1[now].style.zIndex=30;
+			}
+			preBtn.onclick=function(){
+				now--;
+				tab();
+			}
+			for (var i = 0; i < aLi2.length; i++) {
+				aLi2[i].index=i;
+				aLi2[i].onclick=function(){
+					for(var j=0;j<aLi2.length;j++){
+						aLi2[j].className='';
+					}
+					aLi2[this.index].className='active';
+					now=this.index;
+					tab();
+				}
+			}
+
+		}
+	</script>
+</head>
+<body>.
+	<div id="box">
+		<ul id="ul1">
+			<li style="z-index: 30;"><img src="images/2.jpg"></li>
+			<li><img src="images/3.jpg"></li>
+			<li><img src="images/4.jpg"></li>
+		</ul>
+		<span id="preBtn">&lt;</span>
+		<span id="nextBtn">&gt;</span>
+		<ul id="ul2">
+			<li class="active"></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+
+</body>
+</html>

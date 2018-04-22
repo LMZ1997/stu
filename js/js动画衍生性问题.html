@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js动画(细节问题)</title>
+	<style>
+		#box1{
+			width: 200px;
+			height: 200px;
+			background-color: red;
+			position: absolute;
+			top: 200px;
+			left: 600px;
+		}
+		#box2{
+			width: 1px;
+			height: 800px;
+			border-right: 1px solid black;
+			position: absolute;
+			top: 0px;
+			left: 300px;
+		}
+	</style>
+	<script>
+		window.onload=function(){
+			var oBtn=document.getElementById('btn');
+			var oBox=document.getElementById('box1');
+			var timer=null;
+			oBtn.onclick=function(){
+				
+				timer=setInterval(function(){
+					////此处衍生第三个问题，若初始left值大于目标left值，用负值速度解决
+					var iSpeed;
+					if(300<oBox.offsetLeft){
+						iSpeed=-10;
+					}
+					else{
+						iSpeed=10;
+					}
+					if(Math.abs(300-oBox.offsetLeft)<Math.abs(iSpeed)){
+						oBox.style.left='300px';
+					}
+					else{
+
+					}
+					if(oBox.offsetLeft>=311){
+						clearInterval(timer);
+					}
+					else{ 
+						//此处衍生第二个问题，下边一行代码需写在else{}里边；
+						//此处衍生第四个问题,速度为10不能恰好等于311
+						oBox.style.left=oBox.offsetLeft+iSpeed+'px';
+					}
+
+					//此处衍生第一个问题用 (元素.offsetLeft)解决
+					
+				},30);
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type="button" value="开始动画" id="btn">
+	<div id="box1"></div>
+	<div id="box2"></div>
+</body>
+</html>

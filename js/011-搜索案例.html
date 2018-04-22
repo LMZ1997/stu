@@ -13,7 +13,12 @@
 					for (var i = 0; i < aLi.length; i++) {
 						var aaLi=aLi[i].innerHTML.toLowerCase();
 					// if(oTxt.value==aLi[i].innerHTML){
-						if(atxt==aaLi){
+						//区分大小写
+						//不区分大小写
+						// aaLi.split();
+
+						
+						if(aaLi.search(atxt) != -1){
 							aLi[i].style.background='yellow';
 						}
 						else{
