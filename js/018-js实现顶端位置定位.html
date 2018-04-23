@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		div{
+			width: 100%;
+			height: 100px;
+			background-color: green;
+			position: absolute;
+			left: 0;
+			top: 0px;
+		}
+		body{
+			height: 3000px;
+		}
+	</style>
+	<script>
+		function animation(obj,attr,iTarget){
+			clearInterval(obj.timer);
+			obj.timer=setInterval(function(){
+				if(attr=='opacity'){
+					var curr=parseFloat(getComputedStyle(obj,false)[attr]*100);
+				}else{
+					var curr=parseInt(getComputedStyle(obj,false)[attr]);
+				}
+				if(curr<iTarget){
+					iSpeed=30;
+				}else{
+					iSpeed=-30;
+				}
+				if(attr=='opacity'){
+					if(Math.abs(iTarget-curr)<Math.abs(iSpeed)){
+						clearInterval(obj.timer);
+						obj.style[attr]=iTarget/100;
+					}else{
+						obj.style[attr]=(curr+iSpeed)/100;
+					}
+				}else{
+					if(Math.abs(iTarget-curr)<Math.abs(iSpeed)){
+						clearInterval(obj.timer);
+						obj.style[attr]=iTarget+'px';
+					}
+					else{
+						obj.style[attr]=curr+iSpeed+'px';
+					}
+				}				
+			},30)
+		}
+		window.onscroll=window.onresize=window.onload=function(){
+			var oDiv=document.getElementById('div');
+			var iTop=document.body.scrollTop||document.documentElement.scrollTop;
+			if(iTop>=oDiv.offsetHeight){
+				animation(oDiv,'top',iTop);
+			}
+			else{
+				if(iTop>oDiv.offsetHeight*2){
+					oDiv.style.top=iTop;
+				}
+				else{
+					oDiv.style.top=0;
+				}
+			}
+			
+		}
+	</script>
+</head>
+<body>
+	<div id="div"></div>
+</body>
+</html>
