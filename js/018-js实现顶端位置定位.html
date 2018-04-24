@@ -7,13 +7,19 @@
 			margin: 0;
 			padding: 0;
 		}
-		div{
+		#div1{
 			width: 100%;
 			height: 100px;
 			background-color: green;
-			position: absolute;
-			left: 0;
+		}
+		#div2{
+			width: 100%;
+			height: 0px;
+			background-color: blue;
+			position: fixed;
 			top: 0px;
+			left: 0px;
+
 		}
 		body{
 			height: 3000px;
@@ -29,9 +35,9 @@
 					var curr=parseInt(getComputedStyle(obj,false)[attr]);
 				}
 				if(curr<iTarget){
-					iSpeed=30;
+					iSpeed=20;
 				}else{
-					iSpeed=-30;
+					iSpeed=-20;
 				}
 				if(attr=='opacity'){
 					if(Math.abs(iTarget-curr)<Math.abs(iSpeed)){
@@ -51,25 +57,32 @@
 				}				
 			},30)
 		}
-		window.onscroll=window.onresize=window.onload=function(){
-			var oDiv=document.getElementById('div');
+		var isShow=false;
+		window.onscroll=function(){
+			var oDiv1=document.getElementById('div1');
+			var oDiv2=document.getElementById('div2');
 			var iTop=document.body.scrollTop||document.documentElement.scrollTop;
-			if(iTop>=oDiv.offsetHeight){
-				animation(oDiv,'top',iTop);
-			}
-			else{
-				if(iTop>oDiv.offsetHeight*2){
-					oDiv.style.top=iTop;
-				}
-				else{
-					oDiv.style.top=0;
-				}
-			}
+			
+			 if(iTop>100){
+			 	if(!isShow){
+			 		animation(oDiv2,'height',100);
+			 		isShow=true;
+			 		oDiv1.style.marginTop='200px';
+			 	}	
+			 }
+			 else{
+			 		if(isShow){
+			 			oDiv2.style.height='0px';
+			 			oDiv1.style.marginTop='0px';
+			 			isShow=false;
+			 		}	
+			 }
 			
 		}
 	</script>
 </head>
 <body>
-	<div id="div"></div>
+	<div id="div1">下滑滚动条</div>
+	<div id="div2"></div>
 </body>
 </html>

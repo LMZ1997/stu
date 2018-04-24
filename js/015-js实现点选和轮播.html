@@ -74,32 +74,44 @@
 			function tab(){
 				for (var i = 0; i < aLi1.length; i++) {
 					aLi1[i].style.zIndex=0;
+					aLi2[i].className='';
 				}
 				aLi1[now].style.zIndex=30;
+				aLi2[now].className='active';
+				
 			}
 			nextBtn.onclick=function(){
 				// for (var i = 0; i < aLi1.length; i++) {
 				// 	aLi1[i].style.zIndex=0;
 				// }
 				now++;
+				if(now>=aLi1.length){
+					now=0;
+				}
 				tab();
 				// aLi1[now].style.zIndex=30;
 			}
 			preBtn.onclick=function(){
 				now--;
+				if(now<0){
+					now=aLi1.length-1;
+				}
 				tab();
 			}
 			for (var i = 0; i < aLi2.length; i++) {
-				aLi2[i].index=i;
-				aLi2[i].onclick=function(){
-					for(var j=0;j<aLi2.length;j++){
-						aLi2[j].className='';
-					}
-					aLi2[this.index].className='active';
-					now=this.index;
+					aLi2[i].index=i;
+					aLi2[i].onclick=function(){
+					now=this.index;		
 					tab();
 				}
 			}
+			setInterval(function(){
+				now++;
+				if(now>=aLi1.length){
+					now=0;
+				}
+				tab();
+			},2000)
 
 		}
 	</script>

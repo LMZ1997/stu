@@ -10,15 +10,19 @@
 			var aLi=oUl.children;
 			oBtn.onclick=function(){
 					var atxt=oTxt.value.toLowerCase();
-					var aatxt=atxt.split();
+					var aatxt=atxt.split(' ');
 					for (var i = 0; i < aLi.length; i++) {
+						
+					}
+					for (var i = 0; i < aLi.length; i++) {
+						aLi[i].style.background='';
 						var aaLi=aLi[i].innerHTML.toLowerCase();
 					// if(oTxt.value==aLi[i].innerHTML){
 						//区分大小写
-						//不区分大小写
+						//不区分大小写 
 						for (var j = 0; j < aatxt.length; j++) {
 							if(aaLi.search(aatxt[j]) != -1){
-							aLi[i].style.background='yellow';
+								aLi[i].style.background='yellow';
 							//判断条件：因为一般搜索项是输入内容少，所以atxt写在括号内
 							}
 							else{
