@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>减速与匀速动画合成</title>
+	<style type="text/css">
+		#box1{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			position: absolute;
+			top: 100px;
+			left: 600px;
+			opacity: 1;
+		}
+		#box2{
+			width: 1px;
+			height: 600px;
+			position: absolute;
+			top: 0px;
+			left: 300px;
+			background-color: black;
+		}
+	</style>
+	<script>
+		function animation(obj,opation,isLinear,fnEnd){
+			clearInterval(obj.timer);
+			var iSpeed=0;		
+				obj.timer=setInterval(function(){
+					var isStopAll=true;
+					//上边一行写在for循环外且定时器内
+					for(attr in opation){
+						
+						var isStop=false;
+						var curr=parseFloat(getComputedStyle(obj,false)[attr]);
+						if(attr=='opacity'){
+							curr=curr*100;
+						}
+						if(isLinear){
+							if(curr>opation[attr]){
+								iSpeed=-10;
+							}else{
+								iSpeed=10;
+							}
+							if(Math.abs(opation[attr]-curr)<=Math.abs(iSpeed)){
+								isStop=true;
+							}else{
+								isStopAll=false;
+							}
+						}
+						else{
+							curr=Math.round(curr);
+							iSpeed=(opation[attr]-curr)/7;
+							iSpeed=iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+							if(!iSpeed){
+								isStop=true;
+							}else{
+								isStopAll=false;
+							}
+						}							
+						if(isStop){
+							
+							if(isLinear){
+								if(attr=='opacity'){
+									obj.style[attr]=opation[attr]/100;
+								}
+								else{
+									obj.style[attr]=opation[attr]+'px';
+								}
+							}
+			//!!!!!!!!!!!!!!!!!!!传递的函数参数写在此次函数执行要结束的地方
+							// if(fnEnd){
+							// 	fnEnd();
+							// }
+						}
+						else{
+							if(attr=='opacity'){
+								obj.style[attr]=(curr+iSpeed)/100;
+							}
+							else{
+								obj.style[attr]=curr+iSpeed+'px';
+							}
+						}
+					}
+					if(isStopAll){
+						clearInterval(obj.timer);
+						if(fnEnd){
+								fnEnd();
+							}
+					}
+				},30)
+				
+		}
+		window.onload=function(){
+			var oBox=document.getElementById('box1');
+			var oBtn=document.getElementById('btn');
+			oBtn.onclick=function(){
+				animation(oBox,{'height':500,'width':200},true);
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type="button" value="开始动画" id="btn">
+	<div id="box1">同时变多个属性</div>
+	<div id="box2"></div>
+</body>
+</html>

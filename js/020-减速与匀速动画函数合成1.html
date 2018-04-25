@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>减速与匀速动画合成</title>
+	<style type="text/css">
+		#box1{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			position: absolute;
+			top: 100px;
+			left: 600px;
+			opacity: 1;
+		}
+		#box3{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			position: absolute;
+			top: 100px;
+			left: 750px;
+			opacity: 1;
+		}
+		#box4{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			position: absolute;
+			top: 100px;
+			left: 900px;
+			opacity: 1;
+		}
+		#box2{
+			width: 1px;
+			height: 600px;
+			position: absolute;
+			top: 0px;
+			left: 300px;
+			background-color: black;
+		}
+	</style>
+	<script>
+		function animation(obj,attr,iTarget,isLinear,fnEnd){
+			clearInterval(obj.timer);
+			var iSpeed=0;				
+			obj.timer=setInterval(function(){
+				var isStop=false;
+				var curr=parseFloat(getComputedStyle(obj,false)[attr]);
+				if(attr=='opacity'){
+					curr=curr*100;
+				}
+				if(isLinear){
+					if(curr>iTarget){
+						iSpeed=-10;
+					}else{
+						iSpeed=10;
+					}
+
+					if(Math.abs(iTarget-curr)<=Math.abs(iSpeed)){
+						isStop=true;
+					}	
+				}
+				else{
+					curr=Math.round(curr);
+					iSpeed=(iTarget-curr)/7;
+					iSpeed=iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+
+					if(!iSpeed){
+						isStop=true;
+					}
+				}							
+				if(isStop){
+					clearInterval(obj.timer);
+					if(isLinear){
+						if(attr=='opacity'){
+							obj.style[attr]=iTarget/100;
+						}
+						else{
+							obj.style[attr]=iTarget+'px';
+						}
+					}
+					//传递的函数参数写在此次函数执行要结束的地方
+					if(fnEnd){
+						fnEnd();
+					}
+				}
+				else{
+					if(attr=='opacity'){
+						obj.style[attr]=(curr+iSpeed)/100;
+					}
+					else{
+						obj.style[attr]=curr+iSpeed+'px';
+					}
+				}
+			},30)
+			
+		}
+		window.onload=function(){
+			var oBox=document.getElementById('box1');
+			var oBtn=document.getElementById('btn');
+			var oDiv=document.getElementById('box3')
+			var oHunhe=document.getElementById('box4');
+			oBtn.onclick=function(){
+				animation(oBox,'height',300,true);
+				animation(oDiv,'height',300,false);
+				animation(oHunhe,'height',300,false,function(){
+					animation(oHunhe,'width',300,true,function(){
+						animation(oHunhe,'opacity',30,true)
+					})
+				})
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type="button" value="开始动画" id="btn">
+	<div id="box1">匀速</div>
+	<div id="box3">减速</div>
+	<div id="box4">变高变宽变透明</div>
+	<div id="box2"></div>
+</body>
+</html>
