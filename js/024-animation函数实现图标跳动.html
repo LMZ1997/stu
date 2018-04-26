@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>animation函数实现图标跳动</title>
+	<link rel="stylesheet" href="css/fontawesome-all.css">
+	<style type="text/css">
+		div{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #000;
+			float: left;
+			margin-left: 50px;
+			position: relative;
+		}
+		i{
+			position: absolute;
+			top:30px;
+			left: 30px;
+			font-size: 40px;
+			color: #ff6700;
+		}
+	</style>
+	<script src="js/animation.js"></script>
+	<script>
+		window.onload=function(){
+			var aI=document.getElementsByTagName('i');
+			for (var i = 0; i < aI.length; i++) {
+				aI[i].onmouseover=function(){
+					// var oI=this;
+					animation(this,{'top':20},false,function(){
+						animation(this,{'top':40},false);
+
+					})
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="div1"><i class="fas fa-people-carry"></i></div>
+	<div id="div2"><i class="fas fa-users"></i></div>
+	<div id="div3"><i class="fab fa-accessible-icon"></i></div>
+	<div id="div4"><i class="fas fa-wheelchair"></i></div>
+</body>
+</html>

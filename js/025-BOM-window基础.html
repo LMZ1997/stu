@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>BOM</title>
+	<script>
+		window.onload=function(){
+			var oBtn1 =document.getElementById('btn1');
+			var oBtn2=document.getElementById('btn2');
+			var oBtn3=document.getElementById('btn3');
+			var oBtn4=document.getElementById('btn4');
+			var oBtn5=document.getElementById('btn5');
+			var oTxt=document.getElementById('TXT');
+			oBtn1.onclick=function(){
+				// window.open("about:blank",'_blank')
+				//默认状态为：
+				window.open("about:blank");
+			}
+			oBtn2.onclick=function(){
+				window.open("about:blank",'_self');
+			}
+			oBtn3.onclick=function(){
+				window.open("https://www.kuazhu.com");
+			}
+			oBtn4.onclick=function(){
+				window.open('about:blank');
+				var oWin=window.open('about:blank');
+				document.wrtie(oTxt.value);
+			}
+			oBtn5.onclick=function(){
+				window.location=("https://www.baidu.com");
+			}
+		}
+		
+	</script>
+</head>
+<body>
+	<input type="button" id="btn1" value="不同页面打开新标签页">
+	<input type="button" id="btn2" value="同页面打开新标签页">
+	<input type="button" id="btn3" value="打开固定网址页">
+	
+	<textarea name="" id="TXT" cols="30" rows="10"></textarea>
+	<input type="button" id="btn4" value="运行">
+
+	<input type="button" id="btn5" value="跳转">
+</body>
+</html>

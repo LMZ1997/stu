@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>多物体跟随鼠标运动</title>
+	<style type="text/css">
+		div{
+			width: 100px;
+			height: 100px;
+			background-color: green;
+			position: absolute;
+			left: 0;
+			top:0;
+		}
+	</style>
+	<script>
+		function getPoint(xy){
+			var oEvent=ev||event;
+			var iLeft=document.body.scrollLeft||document.documentElement.scrollLeft;
+			var iTop=document.body.scrollTop||document.documentElement.scrollTop+oEvent.clientY;
+			return ({x:iLeft+oEvent.clientX,y:iTop+oEvent.clientY});
+		}
+		window.onload=function(ev){
+			var aDiv=document.getElementsByTagName('div');
+			aDiv[0].style.left=getPoint(xy)[x]+'px';
+			aDiv[0].style.top=getPoint(xy)[y]+'px';
+			for(i=aDiv.length-1;i>0;i--){
+				aDiv[i].style.left=aDiv[i-1].offsetLeft+'px';
+				aDiv[i].style.top=aDiv[i-1].offsetTop+'px';
+			}
+		}
+	</script>
+</head>
+<body>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+</body>
+</html>
