@@ -4,12 +4,16 @@
 	<meta charset="UTF-8">
 	<title>BOM</title>
 	<script>
+		var res=prompt('are you know these all about--window')
 		window.onload=function(){
 			var oBtn1 =document.getElementById('btn1');
 			var oBtn2=document.getElementById('btn2');
 			var oBtn3=document.getElementById('btn3');
 			var oBtn4=document.getElementById('btn4');
 			var oBtn5=document.getElementById('btn5');
+			var oBtn6=document.getElementById('btn6');
+			var oBtn7=document.getElementById('btn7');
+			var oBtn8=document.getElementById('btn8');
 			var oTxt=document.getElementById('TXT');
 			oBtn1.onclick=function(){
 				// window.open("about:blank",'_blank')
@@ -23,12 +27,20 @@
 				window.open("https://www.kuazhu.com");
 			}
 			oBtn4.onclick=function(){
-				window.open('about:blank');
 				var oWin=window.open('about:blank');
-				document.wrtie(oTxt.value);
+				oWin.document.write(oTxt.value);
 			}
 			oBtn5.onclick=function(){
 				window.location=("https://www.baidu.com");
+			}
+			oBtn6.onclick=function(){
+				alert(window.navigator.userAgent);
+			}
+			oBtn7.onclick=function(){
+				window.history.go(-1);
+			}
+			oBtn8.onclick=function(){
+				window.history.go(1);
 			}
 		}
 		
@@ -42,6 +54,9 @@
 	<textarea name="" id="TXT" cols="30" rows="10"></textarea>
 	<input type="button" id="btn4" value="运行">
 
-	<input type="button" id="btn5" value="跳转">
+	<input type="button" id="btn5" value="location跳转">
+	<input type="button" id="btn6" value="浏览器信息">
+	<input type="button" id="btn7" value="上一页">
+	<input type="button" id="btn8" value="下一页">
 </body>
 </html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>左右键移动物体</title>
+	<style>
+		div{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			position: absolute;
+		}
+	</style>
+	<script>
+		window.onload=function(){
+			var oDiv=document.getElementById('box')
+			document.onkeydown=function(ev){
+				var oEvent=ev||event;
+				if(oEvent.keyCode==37){
+					oDiv.style.left=oDiv.offsetLeft-10+'px';
+				}
+				if(oEvent.keyCode==39){
+					oDiv.style.left=oDiv.offsetLeft+10+'px';
+				}	
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="box"></div>
+</body>
+</html>

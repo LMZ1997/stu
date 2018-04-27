@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>检测碰撞</title>
+	<style>
+		#div1{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		#div2{
+			width: 500px;
+			height: 500px;
+			background-color: grey;
+			margin: 130px auto;
+		}
+	</style>
+	<script>
+		function checkKiss(oDiv,oBox){
+			if((oDiv.offsetLeft+oDiv.offsetWidth)>oBox.offsetLeft && 
+						(oDiv.offsetTop+oDiv.offsetHeight)>oBox.offsetTop &&
+						oDiv.offsetLeft<(oBox.offsetLeft+oBox.offsetWidth) &&
+						oDiv.offsetTop<(oBox.offsetTop+oBox.offsetHeight)){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		window.onload=function(){
+			var oDiv=document.getElementById('div1');
+			var oBox=document.getElementById('div2');
+			oDiv.onmousedown=function(ev){
+				var oEvent=ev||event;
+				var disX=oEvent.clientX-oDiv.offsetLeft;
+				var disY=oEvent.clientY-oDiv.offsetTop;
+				document.onmousemove=function(ev){
+					var oEvent=ev||event;
+					var x=oEvent.clientX-disX;
+					var y=oEvent.clientY-disY;
+					if(x<0){
+						x=0;
+					}else if(x>window.innerWidth-oDiv.offsetWidth){
+						x=window.innerWidth-oDiv.offsetWidth;
+					}
+					if(y<0){
+						y=0;
+					}else if(y>window.innerHeight-oDiv.offsetHeight){
+						y=window.innerHeight-oDiv.offsetHeight;
+					}
+					if(checkKiss(oDiv,oBox)){
+						oBox.style.background='blue';
+					}else{
+						oBox.style.background='grey';
+					}
+					oDiv.style.left=x+'px';
+					oDiv.style.top=y+'px';
+
+				}
+				document.onmouseup=function(ev){
+					document.onmousemove=null;
+					document.onmouseup=null;
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="div1"></div>
+	<div id="div2"></div>
+</body>
+</html>

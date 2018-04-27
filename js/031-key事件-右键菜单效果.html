@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>默认行为和右键菜单</title>
+	<style>
+		div{
+			width: 100px;
+			height: 100px;
+			background-color: #ccc;
+			display: none;
+			position: absolute;
+		}
+	</style>
+	<script>
+		window.onload=function(){
+			var oDiv=document.getElementById('box');
+			document.oncontextmenu=function(ev){
+				return false;
+				var oEvent=ev||event;
+				oDiv.style.display='block';
+					oDiv.style.left=oEvent.clientX+'px';
+					oDiv.style.top=oEvent.clientY+'px';
+				
+			}
+				
+		}
+	</script>
+</head>
+<body>
+	<div id="box"></div>
+</body>
+</html>

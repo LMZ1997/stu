@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>只能输入数字</title>
+	<script>
+		window.onload=function(){
+			var oTxt=document.getElementById('txt');
+			oTxt.onkeydown=function(ev){
+				var oEvent=ev||event;
+				if(oEvent.keyCode!=8 && oEvent.keyCode!=37 && oEvent.keyCode!=38 && (oEvent.keyCode>57||oEvent.keyCode<48)){
+					return false;
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type="text" id="txt" placeholder="只能输入数字">
+</body>
+</html>
