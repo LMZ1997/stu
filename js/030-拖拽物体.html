@@ -40,7 +40,7 @@
 				}
 				document.onmouseup=function(ev){
 					document.onmousemove=null;
-					document.onmouseup=null;
+					document.onmouseup=null;//不清除的话，再页面任何地方点击，都会触发此操作
 				}
 			}
 		}

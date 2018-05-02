@@ -6,7 +6,7 @@
 	<style>
 		div{
 			width: 100px;
-			height: 100px;
+			height: 300px;
 			background-color: #ccc;
 			display: none;
 			position: absolute;
@@ -17,14 +17,20 @@
 			var oDiv=document.getElementById('box');
 			document.oncontextmenu=function(ev){
 				return false;
+
 				var oEvent=ev||event;
+				alert(1);
 				oDiv.style.display='block';
-					oDiv.style.left=oEvent.clientX+'px';
-					oDiv.style.top=oEvent.clientY+'px';
+				oDiv.style.left=oEvent.clientX+'px';
+				oDiv.style.top=oEvent.clientY+'px';
+				
 				
 			}
+			document.onclick=function(){
+				oDiv.style.display='none';
 				
 		}
+			}
 	</script>
 </head>
 <body>

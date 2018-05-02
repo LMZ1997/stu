@@ -27,9 +27,10 @@
 			var aI=document.getElementsByTagName('i');
 			for (var i = 0; i < aI.length; i++) {
 				aI[i].onmouseover=function(){
-					// var oI=this;
-					animation(this,{'top':20},false,function(){
-						animation(this,{'top':40},false);
+					var oI=this;
+					// alert(oI);
+					animation(oI,{'top':20},false,function(){
+						animation(oI,{'top':30},false);
 
 					})
 				}

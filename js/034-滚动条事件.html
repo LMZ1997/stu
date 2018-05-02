@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>滚动条</title>
+	<style>
+		#box{
+			width: 400px;
+			height: 50px;
+			position: relative;
+			background-color: grey;
+		}
+		body{
+			height: 3000px;
+		}
+		#btn{
+			/*width: 60px;*/
+			height: 50px;
+			background-color: red;
+			position: absolute;
+			border-radius: 20px;
+			padding: 10px;
+			box-sizing: border-box;
+		}
+		#div1{
+			width: 30px;
+			height: 30px;
+			background-color: blue;
+		}
+		#div2{
+			width: 500px;
+			height: 500px;
+			border: 1px solid #000;
+			position: relative;
+			overflow: hidden;
+		}
+		#div3{
+			width: 100%;
+			position: absolute;
+		}
+	</style>
+	<script>
+		window.onload=function(){
+			var oBox=document.getElementById('box');
+			var oBtn=document.getElementById('btn');
+			var oDiv=document.getElementById('div1');
+			var oDiv2=document.getElementById('div2');
+			var oDiv3=document.getElementById('div3');
+			oBtn.onmousedown=function(ev){
+				var oEvent=ev||event;
+				var disX=oEvent.clientX-oBtn.offsetLeft;
+				var l=0;
+				document.onmousemove=function(ev){
+					var oEvent=ev||event;
+					l=oEvent.clientX-disX;
+					if(l<0){
+						l=0;
+					}else if(l>=(oBox.offsetWidth-oBtn.offsetWidth)){
+						l=oBox.offsetWidth-oBtn.offsetWidth;
+					}
+					var scale=l/(oBox.offsetWidth-oBtn.offsetWidth);
+					oBtn.style.left=l+'px';
+					oDiv.style.width=30*scale+'px';
+					oDiv.style.height=30*scale+'px';
+					oDiv.style.opacity=scale;
+					hand();
+				}
+				function hand(){
+					if(l<0){
+						l=0;
+					}else if(l>=(oBox.offsetWidth-oBtn.offsetWidth)){
+						l=oBox.offsetWidth-oBtn.offsetWidth;
+					}
+					var scale=l/(oBox.offsetWidth-oBtn.offsetWidth);
+					oBtn.style.left=l+'px';
+					oDiv3.style.top= (-oDiv3.offsetHeight+oDiv2.offsetHeight)*scale+'px';
+				}
+				oBox.onmousewheel=function(ev){
+					var oEvent=ev||event;
+					if(oEvent.wheelDelta>0){
+						l-=10;
+					}else{
+						l+=10;
+					}
+					hand();
+					return false;
+				}
+				document.onmouseup=function(){
+					document.onmousemove=null;
+					document.onmouseup=null;
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<div id="btn">直接拖动也可滚轮</div>
+	</div>
+	<div id="div1"></div>
+	<div id="div2">
+		<div id="div3">陈望道早年曾留学日本，精通日文、英文。他的国文素养也很好，精通语言修辞，同时又具有马克思主义学识。当时满足这些条件的，全国最多不过数十人。
+　　真理的味道非常甜1920年早春时节，陈望道回到了故乡浙江义乌分水塘村的老宅。简陋的柴屋里，只有一盏煤油灯、一块铺板、两条长凳。凭借着一本日文版、一本英文版的《共产党宣言》，他夜以继日地翻译。
+　　2012年11月29日，习近平在带领十八届中共中央政治局常委参观《复兴之路》展览时，曾生动地讲述陈望道翻译《共产党宣言》时因为过分专注，误把墨汁当成红糖吃下去的故事。“一天一个小伙子在家里奋笔疾书，妈妈在外面喊着说：‘你吃粽子要加红糖水，吃了吗？’他说：‘吃了吃了，甜极了。’结果老太太进门一看，这个小伙子埋头写书，嘴上全是黑墨水。真理味道非常甜！”《共产党宣言》全篇译文不足两万字，但陈望道花费了平时译书的五倍功夫。1920年4月底，陈望道完成了《共产党宣言》的翻译。他将译稿带到上海，交给陈独秀等人校对。
+　　1920年8月，第一版《共产党宣言》在上海正式公开出版。初版时印了1000本，很快销售一空。到1926年5月，陈望道翻译的《共产党宣言》重印达17版之多。
+　　《共产党宣言》奠定共产党人坚定理想信念、坚守精神家园的理论基础
+　　陈望道翻译的《共产党宣言》，是中国共产党成立前后在中国传播最早、影响最大的一本马克思主义著作。它为中国共产党的创立和发展奠定了坚实的思想理论基础。
+　　1920年8月，陈独秀、李汉俊、李达、俞秀松、陈望道等在上海正式组成了中国共产党早期组织，并于当年11月制定了一份《中国共产党宣言》的文件。《中国共产党宣言》第一次明确亮出了“中国共产党”的名称。
+　　中国共产党坚持在实践中不断丰富和发展马克思主义
+　　从1848年2月，马克思和恩格斯合著的《共产党宣言》在伦敦正式出版，到中国特色社会主义进入新时代的今天，《共产党宣言》问世以来的170年，正是中华民族由衰而盛的170年。《共产党宣言》全篇译文不足两万字，但陈望道花费了平时译书的五倍功夫。1920年4月底，陈望道完成了《共产党宣言》的翻译。他将译稿带到上海，交给陈独秀等人校对。
+　　1920年8月，第一版《共产党宣言》在上海正式公开出版。初版时印了1000本，很快销售一空。到1926年5月，陈望道翻译的《共产党宣言》重印达17版之多。
+　　《共产党宣言》奠定共产党人坚定理想信念、坚守精神家园的理论基础
+　　陈望道翻译的《共产党宣言》，是中国共产党成立前后在中国传播最早、影响最大的一本马克思主义著作。它为中国共产党的创立和发展奠定了坚实的思想理论基础。
+　　1920年8月，陈独秀、李汉俊、李达、俞秀松、陈望道等在上海正式组成了中国共产党早期组织，并于当年11月制定了一份《中国共产党宣言》的文件。《中国共产党宣言》第一次明确亮出了“中国共产党”的名称。
+　　中国共产党坚持在实践中不断丰富和发展马克思主义
+　　从1848年2月，马克思和恩格斯合著的《共产党宣言》在伦敦正式出版，到中国特色社会主义进入新时代的今天，《共产党宣言》问世以来的170年，正是中华民族由衰而盛的170年。《共产党宣言》全篇译文不足两万字，但陈望道花费了平时译书的五倍功夫。1920年4月底，陈望道完成了《共产党宣言》的翻译。他将译稿带到上海，交给陈独秀等人校对。
+　　1920年8月，第一版《共产党宣言》在上海正式公开出版。初版时印了1000本，很快销售一空。到1926年5月，陈望道翻译的《共产党宣言》重印达17版之多。
+　　《共产党宣言》奠定共产党人坚定理想信念、坚守精神家园的理论基础
+　　陈望道翻译的《共产党宣言》，是中国共产党成立前后在中国传播最早、影响最大的一本马克思主义著作。它为中国共产党的创立和发展奠定了坚实的思想理论基础。
+　　1920年8月，陈独秀、李汉俊、李达、俞秀松、陈望道等在上海正式组成了中国共产党早期组织，并于当年11月制定了一份《中国共产党宣言》的文件。《中国共产党宣言》第一次明确亮出了“中国共产党”的名称。
+　　中国共产党坚持在实践中不断丰富和发展马克思主义
+　　从1848年2月，马克思和恩格斯合著的《共产党宣言》在伦敦正式出版，到中国特色社会主义进入新时代的今天，《共产党宣言》问世以来的170年，正是中华民族由衰而盛的170年。《共产党宣言》全篇译文不足两万字，但陈望道花费了平时译书的五倍功夫。1920年4月底，陈望道完成了《共产党宣言》的翻译。他将译稿带到上海，交给陈独秀等人校对。
+　　1920年8月，第一版《共产党宣言》在上海正式公开出版。初版时印了1000本，很快销售一空。到1926年5月，陈望道翻译的《共产党宣言》重印达17版之多。
+　　《共产党宣言》奠定共产党人坚定理想信念、坚守精神家园的理论基础
+　　陈望道翻译的《共产党宣言》，是中国共产党成立前后在中国传播最早、影响最大的一本马克思主义著作。它为中国共产党的创立和发展奠定了坚实的思想理论基础。
+　　1920年8月，陈独秀、李汉俊、李达、俞秀松、陈望道等在上海正式组成了中国共产党早期组织，并于当年11月制定了一份《中国共产党宣言》的文件。《中国共产党宣言》第一次明确亮出了“中国共产党”的名称。
+　　中国共产党坚持在实践中不断丰富和发展马克思主义
+　　从1848年2月，马克思和恩格斯合著的《共产党宣言》在伦敦正式出版，到中国特色社会主义进入新时代的今天，《共产党宣言》问世以来的170年，正是中华民族由衰而盛的170年。</div>
+	</div>
+</body>
+</html>
