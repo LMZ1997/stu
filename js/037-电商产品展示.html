@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>商城产品展示</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#box{
+			width: 450px;
+			position: relative;
+		}
+		#small_box{
+			width: 450px;
+			height: 450px;
+			border: 1px solid #000;
+			position: absolute;
+		}
+		#small_box img{
+			width: 100%;
+			height: 100%;
+		}
+		#list{
+			width: 100%;
+			height: 54px;
+			position: absolute;
+			top: 452px;
+			left: 20px;
+			
+		}
+		#list li{
+			list-style:none;
+			float: left;
+			margin-right: 5px;
+			border: 1px solid #000;
+		}
+		#big_box{
+			position: absolute;
+			left: 452px;
+			width: 100%
+			height: 100%;
+			border: 1px solid #000;
+			/*display: none;*/
+		}
+		#big_box img{
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div id="small_box">
+			<img src="images/center1.png" alt="">
+			<div id="mask"></div>
+		</div>
+		<div id="list">
+			<ul>
+				<li><img src="images/small1.png" alt=""></li>
+				<li><img src="images/small2.png" alt=""></li>
+				<li><img src="images/small3.png" alt=""></li>
+			</ul>
+		</div>
+		<div id="big_box"><img src="images/big1.png" alt=""></div>
+	</div>
+</body>
+</html>

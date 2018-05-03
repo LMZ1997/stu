@@ -4,6 +4,8 @@
 	<meta charset="UTF-8">
 	<title>愤怒的小鸟</title>
 	<style>
+		*{margin: 0;
+		padding: 0;}
 		#bird{
 			width: 30px;
 			height: 30px;
@@ -11,6 +13,10 @@
 			position: absolute;
 			left: 50%;
 			margin-left: -15px;
+			z-index: 30;
+		}
+		body{
+			overflow: hidden;
 		}
 		.topLine{
 			width: 50px;
@@ -58,8 +64,18 @@
 			var isDie=false;
 
 			moveBirdTimer=setInterval(function(){
-				 iSpeed+=1;
-				oBird.style.top=oBird.offsetTop+iSpeed+'px';
+					 iSpeed+=1;
+				var t = oBird.offsetTop + iSpeed;
+				if(t<0){
+					die();
+					t = 0;
+				}else if(t >= window.innerHeight - oBird.offsetHeight){
+					die();
+					t = window.innerHeight - oBird.offsetHeight;	
+				}
+				//判断条件写在这是因为涉及到iSpeed，别处判断是ispeed不会实时同步
+				oBird.style.top = t + 'px';
+				// oBird.style.top=oBird.offsetTop+iSpeed+'px';
 			},30)
 
 			document.onkeydown=function(){
@@ -87,14 +103,14 @@
 			moveLineTimer=setInterval(function(){
 				var aTopLine=document.getElementsByClassName('topLine');
 				var aBottomLine=document.getElementsByClassName('bottomLine');
-
 				for (var i = aTopLine.length - 1; i >= 0; i--) {
 					if(aTopLine[i].leftData==-10){
 						document.body.removeChild(aTopLine[i]);
 						document.body.removeChild(aBottomLine[i]);
 					}
-					if(checkKiss(oBird,aTopLine[i])||checkKiss(oBird,aBottomLine[i])||oBird.offsetTop<0||oBird.offsetTop>window.innerHeight-oBird.offsetHeight){
+					if(checkKiss(oBird,aTopLine[i])||checkKiss(oBird,aBottomLine[i])){
 						die();
+						continue;
 					}
 
 					aBottomLine[i].style.left=aTopLine[i].style.left=aTopLine[i].leftData-1+'%';
@@ -102,15 +118,16 @@
 				}
 			},100)
 			function die(){
+				// if(oBird.offsetTop+iSpeed<=0){
+				// 	oBird.style.top=0+'px';
+				// }else if(oBird.offsetTop+iSpeed>=window.innerHeight-oBird.offsetHeight){
+				// 	// oBird.style.bottom=0+'px';
+				// 	oBird.style.top=window.innerHeight-oBird.offsetHeight+'px';
+				// }
 				clearInterval(moveBirdTimer);
 				clearInterval(addLineTimer);
 				clearInterval(moveLineTimer);
-				isDie=true;
-				if(oBird.offsetTop<=0){
-					oBird.style.top=0+'px';
-				}else if(oBird.offsetTop>=window.innerHeight-oBird.offsetHeight){
-					oBird.style.bottom=0+'px';
-				}
+				isDie=true;	
 			}
 			
 		}
