@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单事件</title>
+	<script>
+		window.onload=function(){
+			var oIn=document.getElementById('in1');
+			var oTxt=document.getElementById('txt');
+			oIn.onfocus=function(){
+				oTxt.style.color='green';
+				oTxt.innerHTML='输入3-6位用户名';
+			}
+			oIn.onblur=function(){
+				var l=oIn.value.length;
+				if(l>=3&&l<=6){
+					oTxt.style.color='green';
+					oTxt.innerHTML='输入正确';
+				}else{
+					oTxt.style.color='red';
+					oTxt.innerHTML='输入格式有误';
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<form action="">
+		<input type="text" id="in1">
+		<span id="txt"></span><br>
+		<input type="submit" id="sub" value="提交">
+	</form>
+</body>
+</html>
