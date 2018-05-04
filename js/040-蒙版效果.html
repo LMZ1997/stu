@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>蒙版效果</title>
+	<style>
+		#mask{
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0,0,0,0.3);
+			display: none;
+			position: absolute;
+		}
+
+		#login{
+			width: 200px;
+			height: 200px;
+			background-color: green;
+			left: 50%;
+			margin-left: -100px;
+			top: 50%;
+			margin-top: -100px;
+			display: none;
+			position: absolute;
+		}
+		body{
+			height: 3000px;
+		}
+	</style>
+	<script>
+		function $(id){
+			return document.getElementById(id);
+		}
+		window.onload=function(){
+			var oIn1=$('in1');
+			var oMask=$('mask');
+			var oLog=$('login');
+			var oIn2=$('in2');
+			oIn1.onclick=function(ev){
+				var oEvent=ev||event;
+				oMask.style.display='block';
+				oLog.style.display='block';
+				oEvent.stopPropagation();
+				document.body.style.overflow='hidden';
+			}
+			document.onclick=function(){
+				oMask.style.display='none';
+				oLog.style.display='none';
+				document.body.style.overflow='auto';
+			}
+			oLog.onclick=function(ev){
+				var oEvent=ev||event;
+					oEvent.stopPropagation();
+				// window.location('http:www.kuazhu.com')
+			}
+			oIn2.onclick=function(){
+				window.location=('https://www.baidu.com');
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type="button" value="登录" id='in1'>
+	<div id="mask"></div>
+	<div id="login">
+		<input type="button" value="跳转百度" id="in2">
+	</div>
+</body>
+</html>

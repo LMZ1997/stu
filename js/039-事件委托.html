@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件委托</title>
+	<script>
+		window.onload=function(){
+			var oUl=document.getElementById('ul1');
+			oUl.addEventListener('click',function(ev){
+				var oEvent=ev||event;
+				oUl.removeChild(oEvent.target.parentNode);
+			},false)
+		}
+	</script>
+</head>
+<body>
+	<ul id="ul1">
+		<li>li1<a href="#">del</a></li>
+		<li>li2<a href="#">de2</a></li>
+		<li>li3<a href="#">de3</a></li>
+		<li>li4<a href="#">de4</a></li>
+		<li>li5<a href="#">de5</a></li>
+		<li>li6<a href="#">de6</a></li>
+	</ul>
+</body>
+</html>
