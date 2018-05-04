@@ -33,21 +33,88 @@
 		#list li{
 			list-style:none;
 			float: left;
-			margin-right: 5px;
-			border: 1px solid #000;
+			margin-right: 10px;
 		}
 		#big_box{
 			position: absolute;
 			left: 452px;
 			width: 100%
-			height: 100%;
 			border: 1px solid #000;
-			/*display: none;*/
+			display: none;
+			width: 600px;
+			height: 600px;
+			overflow: hidden;
+			border: 1px solid #ccc;
 		}
 		#big_box img{
 			position: absolute;
 		}
+		#mask{
+			width: 320px;
+			height: 320px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background-color: rgba(255,255,0,0.5);
+			display: none;
+			cursor: move;
+
+		}
+		.active{
+			border: 1px solid red;
+		}
 	</style>
+	<script>
+		window.onload=function(){
+			var oSmallImg=document.getElementById('small_box').children[0];
+			var oList=document.getElementById('list');
+			var aLi=oList.getElementsByTagName('li');
+			var oMask=document.getElementById('mask');
+			var oSmallBox=document.getElementById('small_box');
+			var oBigBox=document.getElementById('big_box');
+			var oBigImg=oBigBox.children[0];
+			for (var i =0;i<aLi.length; i++) {
+				aLi[i].index=i;
+				aLi[i].onmouseover=function(){
+					for(var j=0;j<aLi.length;j++){
+							aLi[j].className='';
+				    }
+				    this.className='active';
+				    oSmallImg.src='images/center"+this.index+".png';
+				}
+				
+			}
+			oSmallBox.onmouseover=function(){
+				oMask.style.display='block';
+				oBigBox.style.display='block';
+				oSmallBox.onmousemove=function(ev){
+					var oEvent=ev||event;
+					var l=oEvent.clientX-oMask.offsetWidth*0.5;
+					var t=oEvent.clientY-oMask.offsetHeight*0.5;
+					if(l<0){
+						l=0;
+					}else if(l>oSmallBox.offsetWidth-oMask.offsetWidth){
+						l=oSmallBox.offsetWidth-oMask.offsetWidth;
+					}
+					if(t<0){
+						t=0;
+					}else if(t>oSmallBox.offsetHeight-oMask.offsetHeight){
+						t=oSmallBox.offsetHeight-oMask.offsetHeight;
+					}
+					oMask.style.left=l+'px';
+					oMask.style.top=t+'px';
+					oBigImg.style.left=-oBigBox.offsetWidth/(oSmallImg.offsetWidth/l)+'px';
+					oBigImg.style.top=-oBigBox.offsetHeight/(oSmallImg.offsetHeight/t)+'px';
+				}
+
+			}
+			oSmallBox.onmouseout=function(){
+				oMask.style.display='none';
+				oBigBox.style.display='none';
+			}
+
+		}
+	</script>
 </head>
 <body>
 	<div id="box">
@@ -57,7 +124,7 @@
 		</div>
 		<div id="list">
 			<ul>
-				<li><img src="images/small1.png" alt=""></li>
+				<li class="active"><img src="images/small1.png" alt=""></li>
 				<li><img src="images/small2.png" alt=""></li>
 				<li><img src="images/small3.png" alt=""></li>
 			</ul>
