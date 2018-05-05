@@ -3,10 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>表单事件</title>
+	<style>
+		li{
+			list-style: none;
+		}
+	</style>
 	<script>
 		window.onload=function(){
 			var oIn=document.getElementById('in1');
 			var oTxt=document.getElementById('txt');
+			var data=['Tom','Tommy','Amy','Marial'];
+			var oSub=document.getElementById('sub');
+			var oList=document.getElementById('list');
+			var isOne=true;
+			var isOk=false;
 			oIn.onfocus=function(){
 				oTxt.style.color='green';
 				oTxt.innerHTML='输入3-6位用户名';
@@ -16,18 +26,46 @@
 				if(l>=3&&l<=6){
 					oTxt.style.color='green';
 					oTxt.innerHTML='输入正确';
+					isOk=true;
 				}else{
 					oTxt.style.color='red';
 					oTxt.innerHTML='输入格式有误';
+					
+				}
+			}
+			oIn.oninput=function(){
+				if(!isOne){
+					return false;
+				}
+				for(var i=0;i<data.length;i++){
+					var oLi=document.createElement('li');
+					oLi.innerHTML=data[i];
+					oList.appendChild(oLi);
+					// oLi.onclick=function(){
+					// 	oIn.value=this.innerHTML;
+					// }
+					isOne=false;
+					
+				}
+			}
+			oList.onclick=function(ev){
+				var oEvent=ev||event;
+				oIn.value=oEvent.target.innerHTML;
+				// isOne=false;
+			}
+			oSub.onclick=function(){
+				if(!isOk){
+					return false;
 				}
 			}
 		}
 	</script>
 </head>
 <body>
-	<form action="">
+	<form action="https://www.baidu.com">
 		<input type="text" id="in1">
 		<span id="txt"></span><br>
+		<ul id="list"></ul>
 		<input type="submit" id="sub" value="提交">
 	</form>
 </body>
