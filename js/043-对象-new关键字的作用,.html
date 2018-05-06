@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>new关键字的作用</title>
+	<script>
+		alert('打开控制台console');
+		function show1(){
+			console.log(this);
+			//this为window,是因为所有代码都是以window为平台写的
+		}
+		show1();
+		function show2(){
+			console.log(this);
+		}
+		new show2();
+		var arr=[];
+		console.log(arr);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

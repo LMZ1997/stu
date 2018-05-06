@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象的属性</title>
+	<script>
+		var obj={};
+		Object.defineProperty(obj,"name",{value:"Lisa",enumerable:true,writable:true,configurable:true});
+		console.log(obj.name);
+		//多属性名
+		Object.defineProperties(obj,{
+			"age":{value:20,enumerable:true,writable:true,configurable:true},
+			"sex":{value:"男",enumerable:false,writable:false,configurable:false},
+		})
+		console.log(obj);
+	</script>
+</head>
+<body>
+	 
+</body>
+</html>

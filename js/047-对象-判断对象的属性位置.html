@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>判断属性</title>
+	<script>
+		function Person(name,age){
+			this.name=name;
+			this.age=age;
+			// console.log('I am '+this.age+' years old');
+		}
+		Person.prototype.showName=function(){
+			console.log('I am '+this.name);
+		}
+		Person.prototype.showAge=function(){
+			console.log('I am '+this.age+' years old');
+		}
+		var p1= new Person('Amy',22);
+		var p2=new Person('Lisa',20);
+		p2.legs=2;
+		console.log('p1上有legs属性吗',p1.hasOwnProperty("legs"));
+		console.log('p2上有legs属性吗',p2.hasOwnProperty("legs"));//判断对象在自己的对象实例上是否有此属性；
+
+
+		console.log("legs" in p1)//判断对象在自己所属的原型链上是否有此属性；
+		console.log("legs" in p2)//判断对象在自己所属的原型链上是否有此属性；
+
+
+		function hasPrototypeProperty(obj,attr){
+			return !obj.hasOwnProperty(attr)&&attr in obj;
+		}
+		console.log('判断对象实例上无此属性而原型对象上有此属性',hasPrototypeProperty(p1,name));
+		console.log('判断对象实例上无此属性而原型对象上有此属性',hasPrototypeProperty(p2,legs));
+	</script>
+	
+
+</head>
+<body>
+	
+</body>
+</html>

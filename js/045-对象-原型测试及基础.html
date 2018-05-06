@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>原型</title>
+	<script>
+		function Person(name,age){
+			this.name=name;
+			this.age=age;
+			console.log('I am '+this.age+' years old');
+		}
+		Person.prototype.showName=function(){
+			console.log('I am '+this.name);
+		}
+		Person.prototype.showAge=function(){
+			console.log('I am '+this.age+' years old');
+		}
+		var p1= new Person('Amy',220);
+		// console.log(p1.showAge());
+
+
+		// console.log(Person);
+		console.log("0::",Person.prototype);
+		console.log(Person.prototype.constructor);
+		console.log(Person);
+		console.log('是否相等',Person.prototype.constructor==Person);
+		console.log("1::",Person.prototype.__proto__);
+		console.log("2::",Object.prototype);
+		console.log("3::",Person.prototype.__proto__==Object.prototype);
+		//Object.prototype是所有对象的基类；
+		console.log("4::",p1);
+		console.log("5::",p1.__proto__);
+		console.log("6::",Person.prototype);
+		console.log("7::",p1.__proto__==Person.prototype);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>加new变为创建对象最好的方法</title>
+	<script>
+		function createPerson(name,age){
+
+			alert('打开控制台console');
+				
+			// var obj=new Object; //new 关键字偷偷做了此步骤 --> this=new object;
+
+
+			// obj.name=name;//obj转化为this,因为new只把object赋值给了this;
+			this.name=name;
+			// obj.age=age;
+			this.age=age;
+
+			// console.log('I am'+obj.name);
+			this.showName=showName;
+			this.showAge=showAge;
+
+			// return obj;//new 关键字偷偷返回了函数，此处无需return;
+		}	
+		
+		//this代表谁取决于执行时
+		function showName(){
+			console.log('I am '+this.name);
+		}
+		function showAge(){
+			console.log('I am ' +this.age+' years old');
+		}
+			
+
+		// var p1=createPerson('Tom',18);
+		//加new变为最完善的;！！！！！！！！！！！！！！！！！！！！
+		var p1= new createPerson('Tom',18);
+		p1.showName();
+		p1.showAge();
+		console.log(p1);
+		
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
