@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>通过this指向改变做继承函数3</title>
+	<script>
+
+		//主要说明继承函数2的问题
+		function Person(name,age){
+			this.age=age;
+			this.name=name;
+		}
+		Person.prototype.showName=function(){
+			console.log('I am '+this.name);
+		}
+
+		// Person.prototype.showAge=function(){
+		// 	console.log('I am '+this.age+ " years old");
+		// }
+		Object.defineProPerty(Person,"showAge",{value:function(){
+			console.log('I am '+this.age+ " years old");
+		}})
+		//用此方法为Person添加属性，会造成下边的for in遍历读取不到此属性，从而导致p1或s1调用不到showAge();
+		var p1=new Person('Tom',18);
+		p1.showName();
+		p1.showAge();
+		function Student(name,age,className){
+			this.className=className;
+			Person.call(this,name,age);
+		}
+		
+		// Student.prototype=Person.prototype;
+		for(key in Person.prototype){
+			Student.prototype[key]=Person.prototype[key];
+		}
+		Student.prototype.showClassName=function(){
+			console.log('I am from '+this.className);
+		}
+		var s1=new Student('Amy',16,'Math1');
+		s1.showName();
+		s1.showAge();
+		p1.showName();
+		p1.showAge();
+
+		s1.showClassName();
+		console.log('下边这个出错就对了');
+		p1.showClassName();
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

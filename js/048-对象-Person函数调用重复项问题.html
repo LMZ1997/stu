@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Person函数创建对象的小问题</title>
+	<script>
+		function Person(name,age){
+			this.name=name;
+			this.age=age;
+			// console.log('I am '+this.age+' years old');
+
+			Person.prototype.showName=function(){
+				console.log('I am '+this.name);
+			}
+			console.log('showName was added');
+			if(!this.showAge){
+				Person.prototype.showAge=function(){
+					console.log('I am '+this.age+' years old');
+				}
+				console.log('这个提示只一次','showAge was added')
+			}
+			
+		}
+		
+		var p1= new Person('Amy',22);
+		console.log(p1.name);
+		var p2=new Person('Lisa',20);
+		console.log(p2.name);
+		console.log('此时p1和p2调用的showName方法是及其基类上的，所以相等',p1.showName==p2.showName);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

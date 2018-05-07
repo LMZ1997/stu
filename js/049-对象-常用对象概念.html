@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象常用概念</title>
+	<script>
+		function Person(name,age){
+			this.name=name;
+			this.age=age;
+			Person.prototype.showName=function(){
+				console.log('I am '+this.name);
+			}
+		}
+		Person.sum=function(n1,n2){
+			return n1+n2;
+		}
+		var p1=new Person('Tom',18);
+		console.log(p1.name);
+		console.log('Person称为构造函数或类；')
+		console.log('showName是Person的实例方法；')
+		console.log('sum是Person的静态方法；')
+		console.log('p1称为对象实例；')
+		//Person称为构造函数或类；
+		//showName是Person的实例方法；
+		//sum是Person的静态方法；
+		//p1称为对象实例
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>继承</title>
+	<script>
+		function Person(name,age){
+			this.age=age;
+			this.name=name;
+		}
+		Person.prototype.showName=function(){
+			console.log('I am '+this.name);
+		}
+		Person.prototype.showAge=function(){
+			console.log('I am '+this.age+ " years old");
+		}
+		var p1=new Person('Tom',18);
+		
+		function Student(name,age,className){
+			this.className=className;
+			Person.call(this,name,age);
+		}
+		
+		Student.prototype=Person.prototype;
+		Student.prototype.showClassName=function(){
+			console.log('I am from '+this.className);
+		}
+		var s1=new Student('Amy',16,'Math1');
+		s1.showName();
+		s1.showAge();
+		s1.showClassName();
+		p1.showName();
+		p1.showAge();
+		console.log('p1调用showClassName会找不到班级');
+		p1.showClassName();
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

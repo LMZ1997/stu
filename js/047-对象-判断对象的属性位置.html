@@ -15,22 +15,26 @@
 		Person.prototype.showAge=function(){
 			console.log('I am '+this.age+' years old');
 		}
+
+		Person.prototype.LEGS=2;
+
 		var p1= new Person('Amy',22);
 		var p2=new Person('Lisa',20);
-		p2.legs=2;
-		console.log('p1上有legs属性吗',p1.hasOwnProperty("legs"));
-		console.log('p2上有legs属性吗',p2.hasOwnProperty("legs"));//判断对象在自己的对象实例上是否有此属性；
-
-
-		console.log("legs" in p1)//判断对象在自己所属的原型链上是否有此属性；
-		console.log("legs" in p2)//判断对象在自己所属的原型链上是否有此属性；
+		p2.sex=2;
+		console.log(p1);
+		console.log('p1上有name属性吗',p1.hasOwnProperty("name"));
+		console.log('p2上有sex属性吗',p2.hasOwnProperty("sex"));//判断对象在自己的对象实例上是否有此属性；
+        console.log('delete总是',delete p1.sex);//总是返回true;	
+		console.log('p1!原型链!上有无sex',"sex" in p1)//判断对象在自己所属的原型链上是否有此属性；
+		console.log('p2!原型链!上有无sex',"sex" in p2)//判断对象在自己所属的原型链上是否有此属性；
+        console.log('delete总是',delete p2.sex);//总是返回true;
 
 
 		function hasPrototypeProperty(obj,attr){
 			return !obj.hasOwnProperty(attr)&&attr in obj;
 		}
-		console.log('判断对象实例上无此属性而原型对象上有此属性',hasPrototypeProperty(p1,name));
-		console.log('判断对象实例上无此属性而原型对象上有此属性',hasPrototypeProperty(p2,legs));
+		console.log('判断对象实例上无此属性而原型对象上有此属性',hasPrototypeProperty(p1,'name'));
+		console.log('判断对象实例上无此属性而原型对象上有此属性',hasPrototypeProperty(p2,'LEGS'));
 	</script>
 	
 
