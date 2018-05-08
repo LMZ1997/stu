@@ -34,7 +34,7 @@
 
 		Student.prototype=new Person();
 			console.log('同样是输出student.prototype   ',Student.prototype);
-		Student.prototype.constructor=Student;
+		Student.prototype.constructor=Student;//主要为了实现s1的克隆，不写也不会产生错误；
 			// console.log(Student.prototype);
 
 		Student.prototype.showClassName=function(){

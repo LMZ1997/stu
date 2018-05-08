@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象实现选项卡功能</title>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+		}
+		.btn{
+			overflow: hidden;
+		}
+		.btn li{
+			list-style: none;
+			background-color: black;
+			border-radius: 10px;
+			float: left;
+			margin-right: 10px;
+			color: white;
+			width: 60px;
+			text-align: center;
+			cursor: pointer;
+		}
+		.content li{
+			list-style: none;
+			width: 200px;
+			height: 300px;
+			border: 1px solid #000;
+			display: none;
+
+		}
+		.btn li.active{
+			background-color: green;
+		}
+	</style>
+	<script>
+		// var aBtn=null;
+		// var aCont=null;
+		window.onload=function(){
+			new Tab();
+		}
+		function Tab(){
+			 this.aBtn=document.getElementById('btn').children;
+			 this.aCont=document.getElementById('content').children;
+			 var _self=this;
+			for (var i = 0; i < this.aBtn.length; i++) {
+				this.aBtn[i].index=i;
+				this.aBtn[i].onclick=this.fnClick.bind(this,this.aBtn[i])
+			}
+		}
+		Tab.prototype.fnClick=function(oBtn){
+			console.log(this);
+			for (var j = 0;j < this.aBtn.length; j++) {
+				this.aBtn[j].className='';
+				this.aCont[j].style.display='none';
+			}
+			this.aBtn[oBtn.index].className='active';
+			this.aCont[oBtn.index].style.display='block';
+		}
+		
+	</script>
+</head>
+<body>
+	<ul id="btn" class="btn">
+		<li class="active">btn1</li>
+		<li >btn2</li>
+		<li >btn3</li>
+	</ul>
+	<ul id="content" class="content">
+		<li style="display: block;">content1</li>
+		<li >content2</li>
+		<li >content3</li>
+	</ul>
+</body>
+</html>
