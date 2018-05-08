@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>说明052遇到的缺陷</title>
+	<title>解决052遇到的缺陷</title>
 	<script>
+
 
 		//主要说明继承函数2的问题
 		function Person(name,age){
@@ -27,14 +28,14 @@
 			this.className=className;
 			Person.call(this,name,age);
 		}
-
-
-		// Student.prototype=Person.prototype;
-		//被替代
+		
+		/*
 		for(key in Person.prototype){
 			Student.prototype[key]=Person.prototype[key];
-		}
-		
+		}*/
+		Student.prototype=new Person();
+		//将student.prototype指向person的一个对象实例，只是为了通过这个对象实例的__proto__去获取person.prototype的方法
+
 		Student.prototype.showClassName=function(){
 			console.log('I am from '+this.className);
 		}

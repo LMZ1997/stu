@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Object.create创建对象</title>
+	<script>
+		var obj={name:"Tom"};
+		var obj2=Object.create(obj);
+		//创建一个对象obj2，其上无任何属性，仅有__proto__，且指向有name属性的obj对象。
+		var obj3=Object.create(null);
+		//创建一个完全空白的对象obj3，连__proto都没有
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

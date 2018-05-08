@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>说明052遇到的缺陷</title>
+	<title>说明054遗留的问题</title>
 	<script>
+
 
 		//主要说明继承函数2的问题
 		function Person(name,age){
+			console.log('      person会执行多次');
 			this.age=age;
 			this.name=name;
 		}
@@ -27,22 +29,24 @@
 			this.className=className;
 			Person.call(this,name,age);
 		}
-
-
-		// Student.prototype=Person.prototype;
-		//被替代
-		for(key in Person.prototype){
-			Student.prototype[key]=Person.prototype[key];
-		}
 		
+		console.log('同样是输出student.prototype     ',Student.prototype);
+
+		Student.prototype=new Person();
+			console.log('同样是输出student.prototype   ',Student.prototype);
+		Student.prototype.constructor=Student;
+			// console.log(Student.prototype);
+
 		Student.prototype.showClassName=function(){
 			console.log('I am from '+this.className);
 		}
 		var s1=new Student('Amy',16,'Math1');
+		var s2=new s1.__proto__.constructor();
+		console.log('通过s1克隆的s2',s2);
 		p1.showName();
 		p1.showAge();
 		s1.showName();
-		s1.showAge();//此处会有问题
+		s1.showAge();
 		s1.showClassName();
 	</script>
 </head>

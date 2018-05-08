@@ -18,10 +18,20 @@
 		
 		function Student(name,age,className){
 			this.className=className;
-			Person.call(this,name,age);
+			Person.call(this,name,age);//属性的继承
 		}
+
+		/*
+		Student.prototype.showName=function(){
+			console.log('I am '+this.name);
+		}
+		Student.prototype.showAge=function(){
+			console.log('I am '+this.age+ " years old");
+		}
+		*///等同于
+		Student.prototype=Person.prototype;//方法的继承
+		//缺陷：两个构造函数调用方法的地址相同，任一个改变，两个会同步变化
 		
-		Student.prototype=Person.prototype;
 		Student.prototype.showClassName=function(){
 			console.log('I am from '+this.className);
 		}

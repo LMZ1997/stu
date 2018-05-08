@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>说明052遇到的缺陷</title>
+	<title>解决054遗留问题--做较完美继承</title>
 	<script>
+
 
 		//主要说明继承函数2的问题
 		function Person(name,age){
+			console.log('      person执行次数变少');
 			this.age=age;
 			this.name=name;
 		}
@@ -28,13 +30,13 @@
 			Person.call(this,name,age);
 		}
 
+		// Student.prototype=new Person();
+		//解决person多次执行
+		Student.prototype=Object.create(Person.prototype);
 
-		// Student.prototype=Person.prototype;
-		//被替代
-		for(key in Person.prototype){
-			Student.prototype[key]=Person.prototype[key];
-		}
-		
+
+		Student.prototype.constructor=Student;
+			// console.log(Student.prototype);
 		Student.prototype.showClassName=function(){
 			console.log('I am from '+this.className);
 		}
@@ -42,7 +44,7 @@
 		p1.showName();
 		p1.showAge();
 		s1.showName();
-		s1.showAge();//此处会有问题
+		s1.showAge();
 		s1.showClassName();
 	</script>
 </head>
