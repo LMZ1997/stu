@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象做拖拽</title>
+	<style>
+		#div1{
+			width: 200px;
+			height: 200px;
+			background-color: red;
+			position: absolute;
+			top: 0px;
+			left: 0px;
+		}
+	</style>
+	<script>
+		// var oDiv=null;
+		// var disX=0;
+		// var disY=0;
+		window.onload=function(){
+			new fnWin_onload();	
+		}
+		function fnWin_onload(){
+			this.disY=0;
+			this.disX=0;
+			this.oDiv=document.getElementById('div1');
+			this.oDiv.onmousedown=this.fnDown.bind(this);		
+		}
+		fnWin_onload.prototype.fnDown=function(ev){
+			var oEvent=ev||event;
+			console.log(this)
+			this.disX=oEvent.clientX-this.oDiv.offsetLeft;
+			this.disY=oEvent.clientY-this.oDiv.offsetTop;
+			// var _self=this;
+			// document.onmousemove=function(ev){
+			// 	_self.fnMove();
+			// 	console.log(_self);
+			// }
+			document.onmousemove=this.fnMove.bind(this);
+			document.onmouseup=this.fnUp;
+		}
+		fnWin_onload.prototype.fnMove=function(ev){
+			var oEvent=ev||event;			
+			this.oDiv.style.left=oEvent.clientX-this.disX+'px';
+			this.oDiv.style.top=oEvent.clientY-this.disY+'px';
+		}
+		fnWin_onload.prototype.fnUp=function(){
+			document.onmousemove=null;
+			document.onmouseup=null;
+		}
+	</script>
+</head>
+<body>
+		<div id="div1"></div>
+</body>
+</html>

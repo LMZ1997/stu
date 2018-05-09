@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>加move距离的限制在拖拽上</title>
+	<script>
+		window.onload=function(){
+			new fnWin_onload({width:200,height:200,background:'red'});	
+			new fnWin_onload({width:300,height:300,background:'blue'});	
+			new moveControl({width:100,height:100,background:'green'})
+		}
+		function fnWin_onload(opation){
+			this.disY=0;
+			this.disX=0;
+			this.width=opation.width;
+			this.height=opation.height;
+			this.background=opation.background;
+			this.fninit();
+			this.fnBindEvent();		
+		}
+		fnWin_onload.prototype.fninit=function(){
+			 this.oDiv=document.createElement('div');
+			 this.oDiv.style.width=this.width+'px';
+			 this.oDiv.style.height=this.height+'px';
+			 this.oDiv.style.background=this.background;
+			 this.oDiv.style.position='absolute';
+			 document.body.appendChild(this.oDiv);
+		}
+		 fnWin_onload.prototype.fnBindEvent=function(){
+			 this.oDiv.onmousedown=function(ev){
+			 	var oEvent=ev||event;
+				 console.log(this);
+				this.disX=oEvent.clientX-this.oDiv.offsetLeft;
+				this.disY=oEvent.clientY-this.oDiv.offsetTop;
+				document.onmousemove=this.fnMove.bind(this);
+				document.onmouseup=this.fnUp;
+			}.bind(this);
+			 
+		}
+		fnWin_onload.prototype.fnMove=function(ev){
+			var oEvent=ev||event;			
+			this.oDiv.style.left=oEvent.clientX-this.disX+'px';
+			this.oDiv.style.top=oEvent.clientY-this.disY+'px';
+		}
+		fnWin_onload.prototype.fnUp=function(){
+			document.onmousemove=null;
+			document.onmouseup=null;
+		}
+		function moveControl(opation){
+			fnWin_onload.call(this,opation);//方法继承
+
+		}
+		//属性继承
+		moveControl.prototype=Object.create(fnWin_onload.prototype);
+		moveControl.prototype.constructor=moveControl;
+		moveControl.prototype.fnMove=function(ev){
+			var oEvent=ev||event;	
+			var l=	oEvent.clientX-this.disX	
+			var t=oEvent.clientY-this.disY
+			if(l<0){
+				l=0;
+			}else if(l>=window.innerWidth-this.oDiv.offsetWidth){
+				l=window.innerWidth-this.oDiv.offsetWidth;
+			}
+			if(t<0){
+				t=0;
+			}else if(t>window.innerHeight-this.oDiv.offsetHeight){
+				t=window.innerHeight-this.oDiv.offsetHeight;
+			}
+			this.oDiv.style.left=l+'px';
+			this.oDiv.style.top=t+'px';
+		}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

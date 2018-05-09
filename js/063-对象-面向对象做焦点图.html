@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象做焦点图(轮播图)</title>
+</head>
+<body>
+	<div id="div1"></div>
+	<script>
+
+		function Carousel(){
+			this.oBox=document.getElementById('div1');
+			this.oUl=null;
+			this.init();
+		}
+		new Carousel();
+		Carousel.prototype.init=function(){
+			this.oUl=document.createElement('ul');
+			// console.log(oUl);
+			this.oBox.appendChild(oUl);
+		}
+	
+	</script>
+</body>
+</html>

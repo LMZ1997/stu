@@ -9,6 +9,8 @@
 			height: 200px;
 			background-color: red;
 			position: absolute;
+			top: 0px;
+			left: 0px;
 		}
 	</style>
 	<script>
@@ -16,16 +18,16 @@
 			var oDiv=document.getElementById('div1');
 			oDiv.onmousedown=function(ev){
 				var oEvent=ev||event;
-				var disX=oEvent.cilentX-oDiv.offsetLeft;
+				var disX=oEvent.clientX-oDiv.offsetLeft;
 				var disY=oEvent.clientY-oDiv.offsetTop;
-				oDiv.onmousemove=function(ev){
+				document.onmousemove=function(ev){
 					var oEvent=ev||event;
-					oDiv.offsetLeft=oEvent.cilentX-disX;
-					oDiv.offsetTop=oEvent.clientY-disY;
+					oDiv.style.left=oEvent.clientX-disX+'px';
+					oDiv.style.top=oEvent.clientY-disY+'px';
 				}
-				oDiv.onmouseup=function(){
-					oDiv.onmousemove=null;
-					oDiv.onmouseup=null;
+				document.onmouseup=function(){
+					document.onmousemove=null;
+					document.onmouseup=null;
 				}
 			}
 		}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>优化面向对象做拖拽的方法</title>
+	<script>
+		window.onload=function(){
+			new fnWin_onload({width:200,height:200,background:'red'});	
+			new fnWin_onload({width:300,height:300,background:'blue'});	
+		}
+		function fnWin_onload(opation){
+			this.disY=0;
+			this.disX=0;
+			// this.oDiv=document.createElement('div');
+			// this.oDiv.style.width=opation.width+'px';
+			// this.oDiv.style.height=opation.height+'px';
+			// this.oDiv.style.background=opation.background+'px';
+			// document.body.appendChild(this.oDiv);
+			this.width=opation.width;
+			this.height=opation.height;
+			this.background=opation.background;
+			this.fninit();
+			
+
+			// this.oDiv.onmousedown=this.fnDown.bind(this);
+			this.fnBindEvent();		
+		}
+		fnWin_onload.prototype.fninit=function(){
+			 this.oDiv=document.createElement('div');
+			 this.oDiv.style.width=this.width+'px';
+			 this.oDiv.style.height=this.height+'px';
+			 this.oDiv.style.background=this.background;
+			 this.oDiv.style.position='absolute';
+			 document.body.appendChild(this.oDiv);
+		}
+		 fnWin_onload.prototype.fnBindEvent=function(){
+			 	this.oDiv.onmousedown=function(ev){
+			 		var oEvent=ev||event;
+				 	console.log(this);
+					this.disX=oEvent.clientX-this.oDiv.offsetLeft;
+					this.disY=oEvent.clientY-this.oDiv.offsetTop;
+					document.onmousemove=this.fnMove.bind(this);
+					document.onmouseup=this.fnUp;
+				}.bind(this);
+			 
+		}
+		// fnWin_onload.prototype.fnDown=function(ev){
+			// var oEvent=ev||event;
+			// console.log(this)
+			// this.disX=oEvent.clientX-this.oDiv.offsetLeft;
+			// this.disY=oEvent.clientY-this.oDiv.offsetTop;
+			// document.onmousemove=this.fnMove.bind(this);
+			// document.onmouseup=this.fnUp;
+		// }
+		fnWin_onload.prototype.fnMove=function(ev){
+			var oEvent=ev||event;			
+			this.oDiv.style.left=oEvent.clientX-this.disX+'px';
+			this.oDiv.style.top=oEvent.clientY-this.disY+'px';
+		}
+		fnWin_onload.prototype.fnUp=function(){
+			document.onmousemove=null;
+			document.onmouseup=null;
+		}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
