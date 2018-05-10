@@ -23,10 +23,13 @@
 		}
 		
 		var p1= new Person('Amy',22);
-		console.log(p1.name);
-		console.log(p1.age);
+		p1.showName();
+		p1.showAge();
+
 		var p2=new Person('Lisa',20);
-		console.log(p2.name);
+		p2.showName();
+		p2.showAge();
+
 		console.log('此时p1和p2调用的showName方法是及其基类上的，所以相等',p1.showName==p2.showName);
 	</script>
 </head>

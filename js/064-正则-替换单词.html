@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则-替换</title>
+	<script>
+		var str='this is a dog,that is a cat,Is yours';
+		var reg=/is/;
+		console.log(str.replace(reg,'*'));
+		var a2=/\bis\b/;
+		console.log(str.replace(a2,'*'));
+		var a3=/\bis\b/g;
+		console.log(str.replace(a3,'*'));
+		var a4=/\bis\b/gi;
+		console.log(str.replace(a4,'*'));
+		console.log('g:global全局；i:ignoreCase忽略大小写');
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

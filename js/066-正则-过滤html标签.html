@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则-过滤html标签</title>
+<script>
+		window.onload=function(){
+			var oBtn=document.getElementById('btn');
+			var oTxt1=document.getElementById('txt1');
+			var oTxt2=document.getElementById('txt2');
+			oBtn.onclick=function(){
+				var str=oTxt1.value;
+				var reg=/<[\w|\/]+>/gi;
+				oTxt2.value=str.replace(reg,'#');
+			}
+		}
+	</script>
+</head>
+<body>
+	<textarea name="" id="txt1" cols="30" rows="10" ></textarea>
+	<input type="button" id="btn" value="提交">
+	<textarea name="" id="txt2" cols="30" rows="10"></textarea>
+</body>
+</html>
