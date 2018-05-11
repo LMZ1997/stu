@@ -24,13 +24,13 @@
 	<script src="js/animation.js"></script>
 	<script>
 		window.onload=function(){
-			var aI=document.getElementsByTagName('i');
-			for (var i = 0; i < aI.length; i++) {
-				aI[i].onmouseover=function(){
-					var oI=this;
+			var aDiv=document.getElementsByTagName('div');
+			for (var i = 0; i < aDiv.length; i++) {
+				aDiv[i].onmouseenter=function(){
+					// var oI=this;
 					// alert(oI);
-					animation(oI,{'top':20},false,function(){
-						animation(oI,{'top':30},false);
+					animation(aDiv[i].children[0],{'top':20},false,function(){
+						animation(aDiv[i].children[0],{'top':30},false);
 
 					})
 				}

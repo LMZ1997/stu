@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则-邮箱检验</title>
+	<script>
+		window.onload=function(){
+			var oBtn=document.getElementById('btn');
+			var reg=/^\w+@\w+\.[a-z]{2,5}$/;
+
+			//   ^  ： 开始,前面不能有任何东西
+			//   $  :  结束，后面不能有任何东西
+			//   w+ :  表示此处至少一个字符
+			//   [a-z]  : 表示此处只有一个字符且在a-z之间
+			//  [a-z]{2,5} :表示此处2-5个字符且在a-z之间
+			//  [a-z]{4} :表示此处4个字符且在a-z之间
+			oBtn.onclick=function(){
+				var  str=txt.value;
+				console.log(str);
+				console.log(reg.test(str));
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type="text" id="txt">
+	<input type="button" value="提交" id="btn">
+</body>
+</html>

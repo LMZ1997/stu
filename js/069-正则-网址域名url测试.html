@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>网址url解析</title>
+	<script>
+		var str='this is a web name is https://www.kuazhu.com';
+		var reg=/\w+:\/\/\w+\.\w+\.\w+/;
+
+		console.log(reg.test(str));
+		console.log(str.replace(reg,'*url*'));
+
+		var reg2 = /(\w+):\/\/(\w+)\.([0-9a-z-]+)\.(\w+)/;
+		//() 把括号里面的正常表达匹配的结果当作一个原子来看,起到分组的效果,
+		console.log(str.match(reg2));
+		console.log(str.match(reg));
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

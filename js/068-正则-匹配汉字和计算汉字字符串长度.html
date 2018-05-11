@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则-匹配汉字</title>
+	<script>
+		var str='zai啊呀ya';
+		var reg = /[\u4e00-\u9fa5]+/g;
+		console.log(str.replace(reg,'*'))
+
+
+		var str2='zai啊呀ya';
+		var reg2=/[\u4e00-\u9fa5]/g;
+		console.log(str.replace(reg,'*'))
+
+		//reg与reg2区分在一个'+'上，带加号是把所有汉字整体替代为bb,
+		function getLength(){
+			return str.replace(reg2,'bb').length;
+		}
+		console.log('带汉字的字符串',str2);
+		console.log('转化后带汉字的字符串',str2.replace(reg2,'bb'));
+		console.log('计算带汉字的字符串长度',getLength(str2));
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

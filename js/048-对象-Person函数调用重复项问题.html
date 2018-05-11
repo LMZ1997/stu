@@ -9,6 +9,7 @@
 			this.age=age;
 			// console.log('I am '+this.age+' years old');
 
+			//每次new时，对象上都会执行添加showName函数操作，浪费资源
 			Person.prototype.showName=function(){
 				console.log('I am '+this.name);
 			}
