@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象做焦点图</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		li{
+			list-style: none;
+		}
+		.oLeft,.oRight{
+			width: 30px;
+			height: 30px;
+			background-color: rgba(0,0,0,0.5);
+			position: absolute;
+			top: 50%;
+			margin-top: -15px;
+			z-index: 99;
+			color: #fff;
+			font-size: 20px;
+			line-height: 30px;
+			text-align: center;
+			cursor: pointer;
+		}
+		.oLeft{
+			left: 0px;
+		}
+		.oRight{
+			right: 0px;
+		}
+	</style>
+	<script>
+		window.onload=function(){
+			new Carousel({
+				id:'div1',
+				aImg:['images/ad2.jpg','images/ad5.jpg','images/ad4.jpg'],
+				width:1000,
+				height:500
+			});
+		}
+		function Carousel(option){
+			this.oBox=null;
+			this.id=option.id;
+			this.aImg=option.aImg;
+			this.oLeft=null;
+			this.oRight=null;
+			this.width=option.width;
+			this.height=option.height;
+			// this.oUl=null;
+			this.init();
+		}
+		Carousel.prototype.init=function(){
+			this.oBox=document.getElementById(this.id);
+			this.oBox.style.position='relative';
+			this.oBox.style.width=this.width+'px';
+			this.oBox.style.height=this.height+'px';
+			var oUl=document.createElement('ul');
+			// this.aImg=option.aImg;
+			for (var i = 0;i<this.aImg.length; i++) {
+				var oLi=document.createElement('li');
+				oLi.style.position='absolute';
+				if(i==0){
+					oLi.style.opacity=1;
+					oLi.style.zIndex=50;
+				}else{
+					oLi.style.opacity=0.5;
+					oLi.style.zIndex=0;
+				}			
+				var oImg=document.createElement('img');
+				oImg.src=this.aImg[i];
+				oImg.style.width=this.width+'px';
+				oImg.style.height=this.height+'px';
+				oUl.appendChild(oLi);
+				oLi.appendChild(oImg);
+			}
+			this.oBox.appendChild(oUl);
+			this.oLeft=document.createElement('span');
+			this.oLeft.className='oLeft';
+			this.oRight=document.createElement('span');
+			this.oRight.className='oRight';
+			this.oBox.appendChild(this.oLeft);
+			this.oBox.appendChild(this.oRight);
+			this.oLeft.innerHTML='&lt;'
+			this.oRight.innerHTML='&gt;'
+		}
+	</script>
+</head>
+<body>
+	<div id="div1"></div>
+</body>
+</html>
