@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则对象的方法</title>
+	<script>
+		var reg=/[a-z]/g;
+		console.log(reg.lastIndex);
+
+		console.log(reg.test('ab'));
+		console.log(reg.lastIndex);
+
+		console.log(reg.test('ab'));
+		console.log(reg.lastIndex);
+
+		console.log(reg.test('ab'));
+		console.log(reg.lastIndex);
+
+		console.log(reg.test('ab'));
+		console.log(reg.lastIndex);
+
+		var reg2=/\d{4}-\d{2}-\d{2}/g;
+		console.log(reg2.lastIndex);
+		console.log(reg2.exec('sdada 2018-05-11 asdsadad'));
+		console.log(reg2.lastIndex);//?/?????????????
+
+		var reg3=/(\d{4})-(\d{2})-(\d{2})/g;
+		console.log(reg3.lastIndex);
+		console.log(reg3.exec('sdada 2018-05-11 asdsadad'));
+		console.log(reg3.lastIndex);
+
+		var str='addada2018-05-10dasdsadas2018-05-11adsasda';
+		var reg4=/(\d{4})-(\d{2})-(\d{2})/g;
+		var arr=[];
+		var result=[];
+		while(arr=reg4.exec(str)){
+			result.push(arr[3]+'/'+arr[2]+'/'+arr[1]);
+		}
+		console.log(result);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

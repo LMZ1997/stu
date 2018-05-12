@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则-量词</title>
+	<script>
+		var str1='1231ada##';
+		var str2='adaaabbeeee';
+		console.log(str1.replace(/[0-9]/g),'*');
+		console.log('等价',str2.replace(/a{1,}/g,'*'));
+		console.log('等价',str2.replace(/a+/g,'*'));
+		console.log(str2.replace(/a{3}/g,'*'));
+		console.log(str2.replace(/a{3,4}/g,'*'));
+
+
+		console.log('1::','absc123213'.replace(/[0-9]/g,'#'));
+		console.log('2::','absc123213'.replace(/[0-9|a-z]/g,'#'));
+		console.log('3::','absc12asd3213-faf--'.replace(/[0-9|-]/g,'#'));
+		console.log('3::','absc12asd3213-faf--'.replace(/[^0-9|-]/g,'#'),'取反');
+		console.log('4::','absc12asd3213-faf--'.replace(/[ab]/g,'#'));
+		console.log('4::','absc12asd3213-faf--'.replace(/ab/g,'#'));
+		console.log('5::','absc    d32\n-faf--'.replace(/\s/g,'#'));
+		console.log('贪婪模式','12345'.replace(/\d{3,4}/g,'*'));
+		console.log('非贪婪模式','12345'.replace(/\d{2,4}?/g,'*'));
+		console.log('6::','e2bscd32faf2e'.replace(/\d\w+\d/,'*'));
+		console.log('6::','e2bscd32faf2e'.replace(/^\d\w+\d$/,'*'));
+		console.log("7::",'this is a dog'.replace(/is/g,'*'))
+		console.log("7::",'this is a dog'.replace(/\bis\b/g,'*'));
+		console.log('8::','a1b2c3d4f5555e'.replace(/\w\d{4}/,'*'));
+		console.log('8::','a1b2c3d4f5555e'.replace(/(\w\d){4}/,'*'));
+		console.log("9::",'date2018-05-11dff'.replace(/\d{4}-\d{2}-\d{2}/,'*'))
+		console.log("9::",'date2018-05-11dff'.replace(/(\d{4})-(\d{2})-(\d{2})/,'$3/$2/$1'));
+		console.log("10::前瞻",'a1b2x#'.replace(/\w(?=\d)/g,'*'))
+		console.log("10::负向前瞻",'a1b2x#'.replace(/\w(?!\d)/g,'*'))
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
