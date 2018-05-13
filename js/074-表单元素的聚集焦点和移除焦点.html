@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单元素的聚焦和移焦</title>
+</head>
+<body>
+	<form action="https://www.baidu.com">
+		<div>
+			用户名：<input type="text" name='username'>
+		</div>
+		<div>
+			年龄：<input type="text" name='age'>
+		</div>	
+	</form>
+</body>
+<script>
+	var oForm=document.forms[0];
+	var oUsername=oForm.username;
+	var oAge=oForm.age;
+
+	oAge.focus();
+	oAge.blur();
+	oUsername.focus();
+</script>
+</html>

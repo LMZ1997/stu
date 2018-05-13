@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单提交重置的默认行为</title>
+</head>
+<body>
+	<form action="https://www.baidu.com">
+		<div>
+			用户名：<input type="text" name='username'>
+		</div>
+		<div>
+			年龄：<input type="text" name='age'>
+		</div>
+		<div>
+			性别：<input type="radio" name="sex">男<input type="radio" name="sex">女<input type="radio" name="sex">保密
+		</div>
+		<div>
+			爱好：<input type="checkBox" name="favorite">足球<input type="checkBox" name="favorite">篮球<input type="checkBox" name="favorite">全选
+		</div>
+		<div>
+			<input type="submit" value="提交1">
+
+			<input type="image" src="images/3.png" style="width: 50px">
+			<!-- 	点击图片也可以实现提交功能 -->
+
+			<button type="submit" id="btn1">提交2</button>
+			<input type="reset" value="重置">
+			<button type="button" id='btn2'>重置</button>
+		</div>
+	</form>
+	<form action=""></form>
+</body>
+<script>
+	var oForm=document.forms[0];
+	var oBtn1=document.getElementById('btn1');
+	var oBtn2=document.getElementById('btn2');
+
+	oBtn1.onclick=function(){
+		oForm.submit();
+	}
+	oForm.onsubmit=function(){
+		console.log('submit...');
+		return false;
+		//此处虽然清除默认行为，但其它的button按钮仍可以调用oForm的submit()方法；实现提交功能；
+	}
+	
+	oForm.onreset=function(){
+		console.log('reset...');
+		return false;
+		//此处清除默认行为，其它的button按钮仍也被禁止调用oForm的reset()方法；不能实现重置功能
+	}
+	oBtn2.onclick=function(){
+		oForm.reset();
+	}
+</script>
+</html>

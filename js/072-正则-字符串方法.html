@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则-字符串方法</title>
+	<script>
+		var reg=/a/g;
+		var str='abcdea';
+		//等价于
+		//var str=new String('abcde');
+		//search方法忽略全局匹配 g ,
+		console.log('1::',str.search(reg));
+
+		var reg2=/\d{4}-\d{2}-\d{2}/;
+		var reg22=/\d{4}-\d{2}-\d{2}/g;
+		var reg222=/(\d{4})-(\d{2})-(\d{2})/g;
+		var str2='adasd2018-05-10adad2018-05-11sdas';
+		//非全局匹配的match方法输出结果跟exec方法相同
+		console.log('2::',str2.match(reg2));
+		console.log('2::',str2.match(reg22));
+		//全局匹配下match忽略分组，exec需要分组
+		console.log('2::',str2.match(reg222));
+
+		var reg3=/\d/g;
+		var str3='a1b2c3d4';
+		var str33='a b c d '
+		console.log('3::',str3.split(/\s/));//???????????????
+		
+		console.log('3::',str3.split(reg3));//根据正则匹配的内容把字符串分隔成数组
+
+		var reg4=/\d/g;
+		var str4='a1b2c3d4';
+		console.log('4::',str4.replace(reg4,function(match){
+			return match*1+1;
+			//return parseInt(match)+1;
+		}))
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

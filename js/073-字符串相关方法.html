@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>字符串相关应用</title>
+	<script>
+		var str='abbcfa';
+		var str2='你好，hello';
+		console.log(str2.charAt(0));
+		console.log(str2.charCodeAt(0));
+		console.log('1::',str.indexOf('a'));
+		console.log('1::',str.lastIndexOf('a'));
+		console.log('2::',str.concat(str2));
+		console.log('3::',str.slice(0,2));
+		console.log('4::',str.slice(0,));
+		console.log('5::',str.slice(-3,-1));//？？？？？？？？？？？？？？必须从左向右
+		console.log('6::',str.substr(1,2));
+		console.log('7::',str.substr(-2,2));
+		console.log('8::',str.substring(1,3));//这个最没用
+
+		var str3='adhttps://www.kuazhu.com/name:小米&age:18 ad';
+		var en=encodeURIComponent(str3);//URL编码
+		console.log('URL编码',en);
+		console.log('URL解码',decodeURIComponent(en));//URL解码
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

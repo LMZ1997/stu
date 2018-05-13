@@ -5,29 +5,29 @@
 	<title>正则对象的方法</title>
 	<script>
 		var reg=/[a-z]/g;
-		console.log(reg.lastIndex);
+		console.log('1::',reg.lastIndex);
 
-		console.log(reg.test('ab'));
-		console.log(reg.lastIndex);
+		console.log('2::',reg.test('ab'));
+		console.log('2::',reg.lastIndex);
 
-		console.log(reg.test('ab'));
-		console.log(reg.lastIndex);
+		console.log('3::',reg.test('ab'));
+		console.log('3::',reg.lastIndex);
 
-		console.log(reg.test('ab'));
-		console.log(reg.lastIndex);
+		console.log('4::',reg.test('ab'));
+		console.log('4::',reg.lastIndex);
 
-		console.log(reg.test('ab'));
-		console.log(reg.lastIndex);
+		console.log('5::',reg.test('ab'));
+		console.log('5::',reg.lastIndex);
 
 		var reg2=/\d{4}-\d{2}-\d{2}/g;
-		console.log(reg2.lastIndex);
-		console.log(reg2.exec('sdada 2018-05-11 asdsadad'));
-		console.log(reg2.lastIndex);//?/?????????????
+		console.log('6::',reg2.lastIndex);
+		console.log('6::',reg2.exec('sdada 2018-05-11 asdsadad'));
+		console.log('6::',reg2.lastIndex);
 
 		var reg3=/(\d{4})-(\d{2})-(\d{2})/g;
-		console.log(reg3.lastIndex);
-		console.log(reg3.exec('sdada 2018-05-11 asdsadad'));
-		console.log(reg3.lastIndex);
+		console.log('7::',reg3.lastIndex);
+		console.log('7::',reg3.exec('sdada 2018-05-11 asdsadad'));
+		console.log('7::',reg3.lastIndex);
 
 		var str='addada2018-05-10dasdsadas2018-05-11adsasda';
 		var reg4=/(\d{4})-(\d{2})-(\d{2})/g;
@@ -36,7 +36,7 @@
 		while(arr=reg4.exec(str)){
 			result.push(arr[3]+'/'+arr[2]+'/'+arr[1]);
 		}
-		console.log(result);
+		console.log('8::',result);
 	</script>
 </head>
 <body>
