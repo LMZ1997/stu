@@ -208,32 +208,194 @@
         }
     </style>
     <script>
+        function err(obj,omsg,message){
+            omsg.style.display='block';
+            obj.style.borderColor='red';
+            omsg.className='err';
+            omsg.innerHTML=message;
+        }
         window.onload = function(){
           var oForm=document.forms[0];
+          var oUsername=oForm.username;
           var oPhone=oForm.phone;
-          var aMsg=document.querySelectorAll('.cancel');
-          oPhone.focus=function(){
-            // oPhone.style.borderColor='#488ee7';
-           
+          var oPwd=oForm.password;
+          var aMsg=document.querySelectorAll('.msg');
+          var aCancel=document.querySelectorAll('.cancel');
+          var oDiv=document.getElementById('pwdChecklist');
+          var aLi=document.querySelectorAll('.pwd-checklist-item');
+          init();
+          
+          checkUsername();
+          checkOphone();
+          checkPwd();
+
+          function init(){
+            oUsername.focus();   
+            aMsg[0].style.display='block';
+            aMsg[0].className='tiptext';
+            aMsg[0].innerHTML='设置后不可更改<br>中英文均可,最长14个英文或7个汉字';
+            oForm.onclick=function(ev){
+                var oEvent=ev||event;
+                var oSpan=oEvent.target;
+                if(oSpan.className=='cancel'){
+                    var oInput=oSpan.previousElementSibling;
+                    oSpan.style.display='none';
+                    oInput.value='';
+                    oInput.focus();
+                }
+            }
+            oForm.oninput=function(ev){
+                var oEvent=ev||event;
+                var oInput=oEvent.target;          
+                var oSpan=oInput.nextElementSibling;
+                oSpan.style.display='block';
+                oInput.style.borderColor='#488ee7'
+            }
           }
-          oPhone.onblur=function(){
-             var sVal=oPhone.value;
-             var reg1=/^\s+$/;
-             var reg2=/^1[3578]\d{9}$/;
-             console.log(aMsg[1]);
-             if(reg1.test(sVal)){
-                aMsg[1].style.display='block';
-                oPhone.style.borderColor='red';
-                aMsg.innerHTML='请输入手机号';
-             }else if(reg2.test(sVal)){
-                aMsg[1].style.display='block';
-                oPhone.style.borderColor='#ddd';
-             }else{
-                 aMsg[1].style.display='block';
-                 oPhone.style.borderColor='red';
-                 aMsg.innerHTML='手机号码格式不正确';
+          function checkOphone(){
+                oPhone.onfocus=function(){
+                    aMsg[1].style.display='block';
+                    aMsg[1].className='tiptext';
+                    aMsg[1].innerHTML='请输入中国大陆手机号，其他用户不可见';
+                    oPhone.style.borderColor='#488ee7';
+                }
+                // oPhone.oninput=function(){
+                //     aCancel[1].style.display='block';
+                //     oPhone.style.borderColor='#488ee7' 
+                // }
+                // aCancel[1].onclick=function(){
+                //     aCancel[1].style.display='none';
+                //     oPhone.value='';
+                //     oPhone.focus();
+                //     oPhone.borderColor=''
+                // }
+                oPhone.onblur=function(){
+                    oPhone.style.borderColor='#ddd';
+                    aMsg[1].style.display='none';
+                    var sVal=oPhone.value;
+                    var reg1=/^\s+$/;
+                    var reg2=/^1[3578]\d{9}$/;
+                    if(sVal==''){
+
+                    }
+                    else if(reg1.test(sVal)){
+                        err(oPhone,aMsg[1],'请输入手机号');
+                     }else if(!reg2.test(sVal)){
+                        err(oPhone,aMsg[1],'手机号码格式不正确');
+                    }else{
+                        aMsg[1].style.display='block';
+                        oPhone.style.borderColor='#ddd';
+                        aMsg[1].innerHTML='';
+                        aMsg[1].className='ok';               
+                    }
+                }
+                oPhone.onkeydown=function(ev){
+                    var oEvent=ev||event;
+                    if((oEvent.keyCode<48||oEvent.keyCode>57)&&oEvent.keyCode!=8&&oEvent.keyCode!=37&&oEvent.keyCode!=39){
+                        return false;
+                    }
+                }
+
+          }
+          function checkUsername(){
+                oUsername.onfocus=function(){
+                    aMsg[0].style.display='block';
+                    aMsg[0].className='tiptext';
+                    aMsg[0].innerHTML='设置后不可更改<br>中英文均可,最长14个英文或7个汉字';
+                    oUsername.style.borderColor='#488ee7';
+                }
+                oUsername.onblur=function(){
+                    oUsername.style.borderColor='#ddd';
+                    aMsg[0].style.display='none';
+                    var sVal=oUsername.value;
+                    var reg1=/^\s+$/;
+                    var reg2=/[^\u4e00-\u9fa5|a-z|0-9_]/;
+                    var reg3=/^\d+$/;
+                    if(sVal==''){
+
+                    }
+                    else if(reg1.test(sVal)){
+                        err(oUsername,aMsg[0],'请输入用户名');
+                     }else if(getLength(sVal)>14){
+                        err(oUsername,aMsg[0],'用户名不能超过7个汉字或14个字符');
+                    }
+                    else if(reg2.test(sVal)||reg3.test(sVal)){
+                        err(oUsername,aMsg[0],'用户名仅支持中英文、数字和下划线,且不能为纯数字');
+                    }else{
+                        aMsg[0].style.display='block';
+                        oUsername.style.borderColor='#ddd';
+                        aMsg[0].innerHTML='';
+                        aMsg[0].className='ok';               
+                    }
+                }
+
+          }
+          function checkPwd(){
+            oPwd.onfocus=function(){
+                aMsg[2].style.display='block';
+                oPwd.style.borderColor='#488ee7';
+                oDiv.style.display='block';
+            }
+            var reg1=/^\w{6,14}$/;
+            var reg2=/[0-9a-z\?\,\{\}\(\)]/i;
+            var reg3=/\s/;
+            var suc1=false;
+            var suc2=false;
+            var suc3=false;
+            var classSuc='pwd-checklist-item pwd-checklist-item-success';
+            var classErr='pwd-checklist-item pwd-checklist-item-error'; 
+             oPwd.oninput=function(){
+                    aCancel[2].style.display='block';
+                    oPwd.style.borderColor='#488ee7';              
+                    var sVal=oPwd.value;                   
+                    if(sVal==''){
+
+                    }
+                    if(reg1.test(sVal)){
+                        aLi[0].className=classSuc;
+                        suc1=true;
+                    }else{
+                        aLi[0].className=classErr;
+                        suc1=false;
+                    }
+                    if(reg2.test(sVal)){
+                        aLi[1].className=classSuc;
+                        suc2=true;
+                    }else{
+                        aLi[1].className=classErr;
+                         suc2=false;
+                    }
+                    if(!reg3.test(sVal)){
+                        aLi[2].className=classSuc;
+                        suc3=true;
+                    }else{
+                        aLi[2].className=classErr;
+                         suc3=false;
+                    }
+                }
+             oPwd.onblur=function(){
+                if(oPwd.value==0){
+                    aMsg[2].style.display='none';
+                    oDiv.style.display='none';
+                    oPwd.style.borderColor='#ddd';
+                }else{
+                    if(suc1&&suc2&&suc3){
+                        oDiv.style.display='none';
+                         aMsg[2].style.display='block';
+                        oPwd.style.borderColor='#ddd';
+                        aMsg[2].className='ok';
+                     }
+                }
+               
              }
           }
+          function getLength(sVal){
+            return sVal.replace(/[\u4e00-\u9fa5]/g,'aa').length;
+          }
+          
+          
+          
+          
         }
     </script>
 </head>
