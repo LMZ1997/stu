@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>loading</title>
+	<style>
+		.loader{
+			position: relative;
+			width: 4px;
+			height: 20px;
+			background-color: red;		
+			margin:0 auto;			
+			transform: scale(1,1);
+			animation: loading 0.3s linear 0s alternate-reverse infinite;
+		
+		}
+		.loader:after,.loader:before{
+			content: '';
+			width: 4px;
+			height: 20px;
+			background-color: red;
+			position: absolute;
+			top: 50%;
+			left:50%;
+			
+		}
+		.loader:after{
+			margin:-10px 0 0 -10px;
+			transform:scale(1,0.3);
+			animation: loading 0.3s linear 0.5s infinite alternate-reverse;
+		}
+		.loader:before{
+			margin:-10px 0 0 8px;
+			transform:scale(1,0.5);
+			animation: loading 0.3s linear 0.2s infinite alternate-reverse ;
+		}
+		@keyframes loading{
+			from{
+				opacity: 0.2;
+				transform: scale(1,0.5);
+			}
+			to{
+				opacity: 1;
+				transform: scale(1,1);
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="loader"></div>
+</body>
+</html>
