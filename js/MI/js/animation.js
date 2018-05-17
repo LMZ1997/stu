@@ -25,7 +25,7 @@
 						}
 						else{
 							curr=Math.round(curr);
-							iSpeed=(opation[attr]-curr)/7;
+							iSpeed=(opation[attr]-curr)/4;
 							iSpeed=iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
 							if(!iSpeed){
 								isStop=true;

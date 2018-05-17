@@ -1,5 +1,7 @@
 
 handleCart();
+handleNav();
+handleSearch();
 function handleCart(){
 	var oCartBox=document.querySelector('.cart_box');
 	var oCart=document.querySelector('.cart');
@@ -29,11 +31,210 @@ function handleCart(){
 }
 function handleNav(){
 	var aNavLi=document.querySelectorAll('.content .art_head a');
-	var oNavContent=document.querySelector('.nav_content')
-
+	var oNavContent=document.querySelector('.nav_content');
+	var oNavUl=document.querySelector('.nav_content ul');
+	var timer=null;
+	var index=0;
+	/*
 	aNavLi[0].onmouseenter=function(){
-		oNavContent.style.height='200px';
-		oNavContent.style.borderTop='1px solid #000';
+		clearTimeout(timer);
+		animation(oNavContent,{height:200});
+		oNavContent.style.borderTop='1px solid #ccc';
+	}
+	aNavLi[0].onmouseleave=function(){
+		timer=setTimeout(function(){
+			animation(oNavContent,{height:0});
+			oNavContent.style.borderTop='none';
+		},300)			
+	}
+	oNavContent.onmouseenter=function(){
+		clearTimeout(timer);
+		oNavContent.style.height='200px'
+		oNavContent.style.borderTop='1px solid #ccc';
+		;
+	}
+	oNavContent.onmouseleave=function(){
+		timer=setTimeout(function(){
+			oNavContent.style.height='0px';
+			oNavContent.style.borderTop='none';
+		},300)	
+	}
+	*/	
+	var aNavitems=[
+		[
+			{
+				img:'images/shangou1.png',
+				name:'小米MIX2',
+				price:1599
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2',
+				price:1599,
+				tag:'热门'
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2',
+				price:1599,
+				tag:'热门'
+			}
+		],
+		[
+			{
+				img:'images/shangou1.png',
+				name:'小米MIX2',
+				price:2599
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2',
+				price:2599,
+				tag:'热门'
+			}
+		],
+		[
+			{
+				img:'images/shangou1.png',
+				name:'小米MIX2',
+				price:3599
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2',
+				price:3599,
+				tag:'热门'
+			}
+		],
+		[
+			{
+				img:'images/shangou1.png',
+				name:'小米MIX2',
+				price:4599
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2',
+				price:4599,
+				tag:'热门'
+			}
+		],
+		[
+			{
+				img:'images/shangou1.png',
+				name:'小米MIX2',
+				price:5599
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2',
+				price:5599,
+				tag:'热门'
+			}
+		],
+		[
+			{
+				img:'images/shangou1.png',
+				name:'小米MIX2',
+				price:6599
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2',
+				price:6599,
+				tag:'热门'
+			}
+		],
+		[
+			{
+				img:'images/shangou1.png',
+				name:'小米MIX2',
+				price:7599
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2',
+				price:7599,
+				tag:'热门'
+			}
+		],
+		[
+			{
+				img:'images/shangou1.png',
+				name:'小米MIX2',
+				price:8599
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2',
+				price:8599,
+				tag:'热门'
+			}
+		],
+	]
+	for (var i = 0; i < aNavLi.length-2; i++) {
+		aNavLi[i].index=i;
+		aNavLi[i].onmouseenter=function(){	
+			clearTimeout(timer);	
+			loadData(this.index);
+			animation(oNavContent,{height:200});
+			oNavContent.style.borderTop='1px solid #ccc';
+		}
+		aNavLi[i].onmouseleave=function(){		
+			timer=setTimeout(function(){
+				oNavUl.innerHTML='';
+				animation(oNavContent,{height:0});
+				oNavContent.style.borderTop='1px solid #ccc';
+			},300)	
+		}
+		oNavContent.onmouseenter=function(){
+			clearTimeout(timer);
+			oNavContent.style.height='200px'
+			oNavContent.style.borderTop='1px solid #ccc';
+		}
+		oNavContent.onmouseleave=function(){
+			timer=setTimeout(function(){
+				oNavUl.innerHTML='';
+				oNavContent.style.height='0px';
+				oNavContent.style.borderTop='none';
+			},300)	
+		}
+	}
+	function loadData(index){
+		oNavUl.innerHTML='';
+		var aDatas=aNavitems[index];
+		for(var i= 0;i<aDatas.length;i++){
+			var oNavLi=document.createElement('li');
+			var oDiv=document.createElement('div');
+			var oImg=document.createElement('img');
+			var oName=document.createElement('span');
+			var oPrice=document.createElement('span');
+			var oTag=document.createElement('span');
+			oNavUl.appendChild(oNavLi);
+			oNavLi.appendChild(oDiv);
+			oNavLi.appendChild(oName);
+			oNavLi.appendChild(oPrice);
+			oDiv.appendChild(oImg);
+			oImg.src=aDatas[i].img;
+			oName.className='product_name';
+			oName.innerHTML=aDatas[i].name;
+			oPrice.innerHTML=aDatas[i].price+'元起';
+			oPrice.className='product_price';
+			oDiv.className='img_box'
+			oTag.innerHTML=aDatas[i].tag;
+		}
+	}			
+}
+function handleSearch(){
+	var oInput=document.getElementById('search');
+	var oSearchI=document.querySelector('.search');
+	oInput.onfocus=function(){
+		oInput.style.border='1px solid #ff6700';
+		oSearchI.style.border='1px solid #ff6700';
+	}
+	oInput.onblur=function(){
+		oInput.style.border='1px solid #b0b0b0';
+		oSearchI.style.border='1px solid #b0b0b0';
 	}
 }
 

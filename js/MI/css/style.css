@@ -47,6 +47,13 @@
 	margin: 0;
 	padding: 0;
 }
+.clearfix:after{
+	clear: both;
+	content: "";
+	display: block;
+	height: 0px;
+	visibility: hidden;
+}
 /*html body{
 	width: 100%;
 }*/
@@ -125,10 +132,6 @@
 	top: 40px;
 	right: 0px;
 	z-index: 2000;
-	display: block;
-	/*position: absolute;
-	top:0;
-	right:0;*/
 	overflow: hidden;
 	z-index: 200000;
 	box-shadow: 0 5px 5px rgba(0,0,0,0.2);
@@ -146,13 +149,14 @@
 }
 .nav_content{
 	width: 100%;
-	height: 200px;
+	height: 0px;
 	position: absolute;
 	top: 140px;
 	left: 0px;
 	z-index: 1000;
 	background-color: white;
 	box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+	overflow: hidden;
 }
 .nav_content ul{
 	list-style: none;
@@ -167,8 +171,7 @@
 	position: relative;
 	text-align: center;
 }
-.nav_content ul li:after{
-	content: '热卖';
+.nav_content .navTag{
 	color:#ff6700;
 	width: 50px;
 	height: 20px;
@@ -193,7 +196,7 @@
 	left: 50%;
 	margin-left: -50px;
 	bottom: 40px;
-	/*background-color: red;*/
+	top: 160px;
 }
 .nav_content ul li .product_price{
 	width: 100px;
@@ -203,9 +206,9 @@
 	font-size: 14px;
 	position: absolute;
 	left: 50%;
+	top: 180px;
 	margin-left: -50px;
-	bottom: 20px;
-	/*background-color: red;*/
+	/*bottom: 20px;*/
 	color: #ff6700;
 }
 .nav_content ul li .img_box img{
@@ -213,9 +216,8 @@
 	height: 100px;
 }
 .art_head{
-	/*background-color: blue;*/
 	height: 80px;
-	overflow: hidden;
+	position: relative;
 }
 .content .art_head img{
 	width: 60px;
@@ -225,7 +227,9 @@
 .content .art_head .art_head_font{
 	width: 650px;
 	margin: 0 auto;
-	margin-top:25px;
+	/*margin-top:25px;*/
+	padding-top: 25px;
+	box-sizing: border-box;
 	/*background-color: green;*/
 }
 .content .art_head a{
@@ -249,9 +253,30 @@
 }
 .content .art_head .search_all input{
 	width: 250px;
-	height: 40px;
+	height: 42px;
 	float: right;
 	margin-top: 20px;
+	border: 1px solid #b0b0b0;
+}
+.content .art_head .goods ul{
+	width: 252px;
+	position: absolute;
+	right: 61px;
+	top: 64px;
+	z-index: 20000;
+}
+.content .art_head .goods ul li{
+	list-style: none;
+	width: 100%;
+	height: 30px;
+	background-color: #b0b0b0;
+	color: white;
+}
+.content .art_head .goods ul li span:first-child{
+	float: left;
+}
+.content .art_head .goods ul li span:last-child{
+	float: right;
 }
 .content .art_head .search_all .hongmi,.mix{
 	height: 30px;
@@ -280,6 +305,7 @@
 	margin-top: 20px;
 	line-height: 42px;
 	position: relative;
+	border-left: none;
 }
 .content .art_head .search_all .search:hover{
 	background-color: #ff6700;
