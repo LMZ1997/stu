@@ -258,6 +258,9 @@
 	margin-top: 20px;
 	border: 1px solid #b0b0b0;
 }
+.content .art_head .goods{
+	display: none;
+}
 .content .art_head .goods ul{
 	width: 252px;
 	position: absolute;

@@ -228,13 +228,30 @@ function handleNav(){
 function handleSearch(){
 	var oInput=document.getElementById('search');
 	var oSearchI=document.querySelector('.search');
+	var aSearchSpan=document.querySelectorAll('.content .art_head .search_all .hongmi,.content .art_head .search_all .mix')
+	var oGoods=document.querySelector('.content .art_head .goods');
+	var aGoodsLi=document.querySelectorAll('.goods li');
 	oInput.onfocus=function(){
 		oInput.style.border='1px solid #ff6700';
 		oSearchI.style.border='1px solid #ff6700';
+		oGoods.style.display='block';
+		aSearchSpan[0].style.display='none';
+		aSearchSpan[1].style.display='none';
 	}
 	oInput.onblur=function(){
 		oInput.style.border='1px solid #b0b0b0';
 		oSearchI.style.border='1px solid #b0b0b0';
+		oGoods.style.display='none';
+		aSearchSpan[0].style.display='block';
+		aSearchSpan[1].style.display='block';
+	}
+	for (var i = 0; i < aGoodsLi.length; i++) {
+		aGoodsLi[i].onmouseover=function(){
+			this.style.background='#ccc';
+		}
+		aGoodsLi[i].onmouseout=function(){
+			this.style.background='#b0b0b0';
+		}
 	}
 }
 
