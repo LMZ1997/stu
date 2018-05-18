@@ -2,6 +2,9 @@
 handleCart();
 handleNav();
 handleSearch();
+lunBo();
+handleCate();
+handTimer();
 function handleCart(){
 	var oCartBox=document.querySelector('.cart_box');
 	var oCart=document.querySelector('.cart');
@@ -235,6 +238,7 @@ function handleSearch(){
 		oInput.style.border='1px solid #ff6700';
 		oSearchI.style.border='1px solid #ff6700';
 		oGoods.style.display='block';
+		oGoods.children[0].style.border='1px solid #ff6700';
 		aSearchSpan[0].style.display='none';
 		aSearchSpan[1].style.display='none';
 	}
@@ -250,8 +254,314 @@ function handleSearch(){
 			this.style.background='#ccc';
 		}
 		aGoodsLi[i].onmouseout=function(){
-			this.style.background='#b0b0b0';
+			this.style.background='white';
 		}
 	}
+}
+function lunBo(){
+	function Carousel(option){
+			this.oBox=document.getElementById(option.id);
+			this.oUl=null;
+			this.now=0;
+			this.aImg=option.aImg;
+			this.width=option.width;
+			this.height=option.height;
+			this.oBox.zIndex=9;
+			// this.oLi=null;
+			// this.oImg=null;
+			this.oLeft=null;
+			this.oRight=null;
+			this.init();//此处要放在最后，所有声明属性的后边
+			this.bindEvent();
+			this.playDuration=option.playDuration;
+			if(option.playDuration){
+				this.move();
+			}
+	}
+	Carousel.prototype.init=function(){
+			this.oBox.style.width=this.width+'px';
+			this.oBox.style.height=this.height+'px';
+			this.oBox.style.position='relative';
+			this.oUl=document.createElement('ul');
+			this.botUl=document.createElement('ul');
+			this.botUl.className='botUl';
+			for (var i = 0; i < this.aImg.length; i++) {
+				var oLi=document.createElement('li');
+				var botLi=document.createElement('li');
+				var oImg=document.createElement('img');
+				oLi.style.position='absolute';
+				if(i==0){
+					oLi.style.opacity=1;
+					oLi.style.zIndex=50;
+					botLi.className='active';
+				}else{
+					oLi.style.opacity=0.5;
+					oLi.style.zIndex=0;
+					botLi.className='';
+				}			
+				oImg.src=this.aImg[i];
+				oImg.style.width=this.width+'px';
+				oImg.style.height=this.height+'px';			
+				this.oUl.appendChild(oLi);
+				oLi.appendChild(oImg);				
+				this.botUl.appendChild(botLi);			
+			}
+
+			this.oLeft=document.createElement('span');
+			this.oRight=document.createElement('span');
+			this.oLeft.className='oLeft';
+			this.oRight.className='oRight';
+			this.oLeft.innerHTML='&lt;';		
+			this.oRight.innerHTML='&gt;';
+			this.oBox.appendChild(this.oLeft);
+			this.oBox.appendChild(this.oRight);	
+			this.oBox.appendChild(this.botUl);
+			this.oBox.appendChild(this.oUl);
+	}
+	Carousel.prototype.bindEvent=function(){
+			this.oRight.onclick=function(){
+				this.now++;
+				this.Tab();
+			}.bind(this);
+			this.oLeft.onclick=function(){
+				this.now--;
+				this.Tab();
+			}.bind(this);
+			this.botUl.addEventListener('click',function(ev){
+					var oEvent=ev||event;
+					// this.botUl.children.className='';
+					for(var j=0;j<this.botUl.children.length;j++){
+						this.botUl.children[j].className='';
+					}
+					oEvent.target.className='active';
+					for(k=0;k<this.botUl.children.length;k++){
+						if(this.botUl.children[k].className=='active'){
+							this.now=k;
+							console.log(this.now)
+						}
+					}
+					this.Tab();
+			}.bind(this),false)
+	}
+	Carousel.prototype.Tab=function(){
+			for (var i = 0; i < this.oUl.children.length; i++) {
+					this.oUl.children[i].style.zIndex=0;
+					this.oUl.children[i].style.opacity=0;
+					this.botUl.children[i].className='';
+				}
+				if(this.now>=this.oUl.children.length){
+					this.now=0;
+				}else if(this.now<0){
+					this.now=this.oUl.children.length-1;
+				}
+				this.oUl.children[this.now].style.zIndex=50;
+				// this.oUl.children[this.now].style.opacity=1;
+				animation(this.oUl.children[this.now],{opacity:100});
+				this.botUl.children[this.now].className='active';
+	}
+	Carousel.prototype.move=function(){
+			var Timer=null;
+			// Timer=setInterval(function(){
+			// 	this.now++;
+			// 	if(this.now>=this.oUl.children.length){
+			// 		this.now=0;
+			// 	}
+			// 	console.log(this);
+			// 	this.Tab();
+			// }.bind(this),1000)
+
+			//等同于
+			Timer=setInterval(this.oRight.onclick,this.playDuration);
+			this.oBox.onmouseover=function(){
+				clearInterval(Timer);
+			}
+			this.oBox.onmouseout=function(){
+				Timer=setInterval(this.oRight.onclick,this.playDuration);
+			}.bind(this);
+	}
+	new Carousel({
+		id:'div1',
+		aImg:['images/lunbo1.jpg','images/lunbo2.jpg','images/lunbo3.jpg','images/lunbo4.jpg','images/lunbo5.jpg'],
+		width:1300,
+		height:500,
+		playDuration:2000
+	});	
+}
+function handleCate(){
+	var oCate=document.querySelector('.art_art_top .cate');
+	var oCateUl=oCate.getElementsByTagName('ul')[0];
+	var aCateLi=document.querySelectorAll('.art_art .art_art_top_left ul li');
+	var oBox=document.querySelector('.art_art .art_art_top_left');
+	var timer=null;
+	for (var i = 0; i < aCateLi.length; i++) {
+		aCateLi[i].index=i;	
+		aCateLi[i].onmouseover=function(){
+			oCate.children[0].innerHTML='';
+			for (var j = 0; j < aCateLi.length; j++) {
+				aCateLi[j].style.background=''
+			}
+			this.style.background='#ff6700';
+			oCate.style.display='block';
+			loadData(this.index);
+		}
+	}
+	oBox.onmouseleave=function(){
+		timer=setTimeout(function(){
+			for (var j = 0; j < aCateLi.length; j++) {
+				aCateLi[j].style.background=''
+			}
+			oCate.style.display='none';
+		},300)		
+	}
+	oCate.onmouseover=function(){
+		clearTimeout(timer);
+		oCate.style.display='block';
+	}
+	oCate.onmouseleave=function(){
+		for (var j = 0; j < aCateLi.length; j++) {
+				aCateLi[j].style.background=''
+		}
+		oCate.style.display='none';
+	}
+	function loadData(index){
+		var datas=aCateItems[index];
+		if(!datas){
+			return;
+		}
+		for (var i = 0; i < datas.length; i++) {
+			 var oLi=document.createElement('li');
+			 var oImg=document.createElement('img');
+			 var oA=document.createElement('a');
+			 oA.innerHTML=datas[i].name;
+			 oImg.src=datas[i].img;
+			 oCateUl.appendChild(oLi);
+			 oLi.appendChild(oImg);
+			 oLi.appendChild(oA);
+		}
+	}
+	var aCateItems=[
+		[
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			}
+			,{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			}
+			,{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			}
+			,{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			}
+			,{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			}
+			,{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			}
+			,{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			}
+
+		],
+		[
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			}
+			,{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			}
+			,{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			}
+			,{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			},
+			{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			}
+			,{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			}
+			,{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			}
+			,{
+				img:'images/shangou2.png',
+				name:'小米MIX2S'
+			}
+
+		]
+	]
+}
+function handTimer(){
+	var nextTimer=new Date(2018/5/19 12:00:00);
+	var now=new Date();
 }
 
