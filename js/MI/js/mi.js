@@ -5,6 +5,7 @@ handleSearch();
 lunBo();
 handleCate();
 handTimer();
+handleElec();
 function handleCart(){
 	var oCartBox=document.querySelector('.cart_box');
 	var oCart=document.querySelector('.cart');
@@ -561,7 +562,128 @@ function handleCate(){
 	]
 }
 function handTimer(){
-	var nextTimer=new Date(2018/5/19 12:00:00);
-	var now=new Date();
+	var aTimer=document.querySelectorAll('.shangou .shangou_art .timer');
+	var nextTimer=new Date('2018/5/19 12:00:00');
+	function toStr(num){
+		if(num<10){
+			return '0'+num
+		}else{
+			return ''+num
+		}
+	}
+	timer=setInterval(time,500)
+	function time(){
+		var now=new Date();
+		var time=nextTimer.getTime()-now.getTime();
+		if(time<0){
+			time=0;
+			clearInterval(timer);
+		}
+		var timeLast=parseInt(time/1000);
+		var h=parseInt(timeLast/3600);
+		var m=parseInt((timeLast%3600)/60);
+		var s=(timeLast%3600)%60;
+		aTimer[0].innerHTML=toStr(h);
+		aTimer[1].innerHTML=toStr(m);
+		aTimer[2].innerHTML=toStr(s);
+	}
+	time();	
+}
+function handleElec(){
+	var aLi=document.querySelectorAll('.jiadian_list li');
+	var aElecUl=document.querySelectorAll('.shouji_right');
+	var oElecUl=aElecUl[1];
+	loadData(0);
+	for (var i = 0; i < aLi.length; i++) {
+		aLi[i].index=i;
+		aLi[i].onmouseover=function(){
+			for(var j = 0;j<aLi.length; j++){
+				aLi[j].className='';
+			}
+			this.className='active';
+			loadData(this.index);
+		}		
+	}
+	function loadData(index){
+		var adataE=ElecItems[index];
+		for (var i = 0; i < adataE.length; i++) {
+			var oLi=document.createElement('li');
+			var oImg=document.createElement('img');
+			oImg.src=adataE[i].img;
+			var oSpanName=document.createElement('span');
+			oSpanName.innerHTML=adataE[i].name;
+			var oSpanPrice=document.createElement('span');
+			oSpanPrice.innerHTML=adataE[i].price;
+			var oDelPrice=document.createElement('del');
+			oDelPrice.innerHTML=adataE[i].delPrice;
+			oElecUl.appendChild(oLi);
+			oLi.appendChild(oImg);
+			oLi.appendChild(oSpanPrice);
+			oLi.appendChild(oSpanName);
+			oLi.appendChild(oDelPrice);
+		}
+	}
+	var ElecItems=[
+		[
+			{
+				img:"images/hot1.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2199,
+				delPrice:2299
+			},
+			{
+				img:"images/hot1.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2199,
+				delPrice:2299
+			},
+			{
+				img:"images/hot1.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2199,
+				delPrice:2299
+			},
+			{
+				img:"images/hot1.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2199,
+				delPrice:2299
+			},
+		],
+		[
+			{
+				img:"images/hot1.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2199,
+				delPrice:2299
+			},
+			{
+				img:"images/hot1.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2199,
+				delPrice:2299
+			},
+			{
+				img:"images/hot1.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2199,
+				delPrice:2299
+			},
+			{
+				img:"images/hot1.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2199,
+				delPrice:2299
+			},
+		],
+	]
 }
 
