@@ -249,13 +249,13 @@
 	line-height: 80px;
 	float: right;
 	position: relative;
-	/*border: 1px solid #000;*/
 }
 .content .art_head .search_all input{
 	width: 250px;
 	height: 42px;
 	float: right;
 	margin-top: 20px;
+	outline: none;
 	border: 1px solid #b0b0b0;
 }
 .content .art_head .goods{
@@ -344,7 +344,7 @@
 	position: absolute;
 	top:0px;
 	left: 300px;
-	background-color: red;
+	background-color: white;
 	min-width: 500px;
 	height: 500px;
 	z-index: 10000;

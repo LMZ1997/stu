@@ -563,7 +563,7 @@ function handleCate(){
 }
 function handTimer(){
 	var aTimer=document.querySelectorAll('.shangou .shangou_art .timer');
-	var nextTimer=new Date('2018/5/19 12:00:00');
+	var nextTimer=new Date('2018/9/18 15:20:00');
 	function toStr(num){
 		if(num<10){
 			return '0'+num
@@ -593,10 +593,104 @@ function handleElec(){
 	var aLi=document.querySelectorAll('.jiadian_list li');
 	var aElecUl=document.querySelectorAll('.shouji_right');
 	var oElecUl=aElecUl[1];
-	loadData(0);
+	var ElecItems=[
+		[
+			{
+				img:"images/hot2.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2299,
+				delPrice:2299
+			},
+			{
+				img:"images/hot2.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2299,
+				delPrice:2299
+			},
+			{
+				img:"images/hot2.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2299,
+				delPrice:2299
+			},
+			{
+				img:"images/hot2.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2299,
+				delPrice:2299
+			},
+			{
+				img:"images/hot2.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2299,
+				delPrice:2299
+			},
+			{
+				img:"images/hot2.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2299,
+				delPrice:2299
+			},
+			{
+				img:"images/hot2.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2299,
+				delPrice:2299
+			},
+			{
+				img:"images/xiaobai.jpg",
+				name:'小白摄像机',
+				price:399			
+			},
+			{
+				name:'浏览更多',
+				price:'热门',
+				classNameI:'fas fa-arrow-right'		
+			}
+		],
+		[
+			{
+				img:"images/hot1.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2199,
+				delPrice:2299
+			},
+			{
+				img:"images/hot1.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2199,
+				delPrice:2299
+			},
+			{
+				img:"images/hot1.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2199,
+				delPrice:2299
+			},
+			{
+				img:"images/hot1.jpg",
+				name:'小米6 4GB+64GB',
+				tag:'变焦双摄,4轴防抖,晓龙835处理器',
+				price:2199,
+				delPrice:2299
+			}
+		]
+	]
+	loadData(0);	
 	for (var i = 0; i < aLi.length; i++) {
 		aLi[i].index=i;
 		aLi[i].onmouseover=function(){
+			oElecUl.innerHTML='';
 			for(var j = 0;j<aLi.length; j++){
 				aLi[j].className='';
 			}
@@ -606,84 +700,56 @@ function handleElec(){
 	}
 	function loadData(index){
 		var adataE=ElecItems[index];
-		for (var i = 0; i < adataE.length; i++) {
+		if(!adataE){
+			return;
+		}
+		for (var i = 0; i < adataE.length-2; i++) {
 			var oLi=document.createElement('li');
 			var oImg=document.createElement('img');
 			oImg.src=adataE[i].img;
 			var oSpanName=document.createElement('span');
 			oSpanName.innerHTML=adataE[i].name;
+			var oSpanTag=document.createElement('span');
+			oSpanTag.innerHTML=adataE[i].tag;
 			var oSpanPrice=document.createElement('span');
 			oSpanPrice.innerHTML=adataE[i].price;
 			var oDelPrice=document.createElement('del');
 			oDelPrice.innerHTML=adataE[i].delPrice;
 			oElecUl.appendChild(oLi);
+
 			oLi.appendChild(oImg);
-			oLi.appendChild(oSpanPrice);
 			oLi.appendChild(oSpanName);
-			oLi.appendChild(oDelPrice);
+			oLi.appendChild(oSpanTag);
+			oLi.appendChild(oSpanPrice);		
+			oSpanPrice.appendChild(oDelPrice);
 		}
-	}
-	var ElecItems=[
-		[
-			{
-				img:"images/hot1.jpg",
-				name:'小米6 4GB+64GB',
-				tag:'变焦双摄,4轴防抖,晓龙835处理器',
-				price:2199,
-				delPrice:2299
-			},
-			{
-				img:"images/hot1.jpg",
-				name:'小米6 4GB+64GB',
-				tag:'变焦双摄,4轴防抖,晓龙835处理器',
-				price:2199,
-				delPrice:2299
-			},
-			{
-				img:"images/hot1.jpg",
-				name:'小米6 4GB+64GB',
-				tag:'变焦双摄,4轴防抖,晓龙835处理器',
-				price:2199,
-				delPrice:2299
-			},
-			{
-				img:"images/hot1.jpg",
-				name:'小米6 4GB+64GB',
-				tag:'变焦双摄,4轴防抖,晓龙835处理器',
-				price:2199,
-				delPrice:2299
-			},
-		],
-		[
-			{
-				img:"images/hot1.jpg",
-				name:'小米6 4GB+64GB',
-				tag:'变焦双摄,4轴防抖,晓龙835处理器',
-				price:2199,
-				delPrice:2299
-			},
-			{
-				img:"images/hot1.jpg",
-				name:'小米6 4GB+64GB',
-				tag:'变焦双摄,4轴防抖,晓龙835处理器',
-				price:2199,
-				delPrice:2299
-			},
-			{
-				img:"images/hot1.jpg",
-				name:'小米6 4GB+64GB',
-				tag:'变焦双摄,4轴防抖,晓龙835处理器',
-				price:2199,
-				delPrice:2299
-			},
-			{
-				img:"images/hot1.jpg",
-				name:'小米6 4GB+64GB',
-				tag:'变焦双摄,4轴防抖,晓龙835处理器',
-				price:2199,
-				delPrice:2299
-			},
-		],
-	]
+		var oLiUl=document.createElement('li');
+		oElecUl.appendChild(oLiUl);
+		var oUl=document.createElement('ul');
+		var oLi1=document.createElement('li');
+		var oDiv1=document.createElement('div');
+		oDiv1.innerHTML=adataE[7].name;
+		var oSpan1=document.createElement('span');
+		oSpan1.innerHTML=adataE[7].price+'元';
+		var oImg1=document.createElement('img');
+		oImg1.src=adataE[7].img;
+		oLi1.appendChild(oDiv1);
+		oLi1.appendChild(oSpan1);
+		oLi1.appendChild(oImg1);
+		var oLi2=document.createElement('li');
+		var oDiv2=document.createElement('div');
+		oDiv2.innerHTML=adataE[8].name;
+		var oSpan2=document.createElement('span');
+		oSpan2.innerHTML=adataE[8].price;
+		var oI=document.createElement('i');
+		oI.className=adataE[8].classNameI;
+		oLi2.appendChild(oDiv2);
+		oLi2.appendChild(oSpan2);
+		oLi2.appendChild(oI);
+		oUl.appendChild(oLi1);
+		oUl.appendChild(oLi2);
+		oUl.className='xiaobai';
+		oLiUl.appendChild(oUl);
+	}	
 }
 

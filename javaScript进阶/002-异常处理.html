@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>主动释放异常</title>
+	<script>
+		function mul(n1,n2){
+			if(isNaN(parseInt(n1))||isNaN(parseInt(n2))){
+				throw new Error('is not a number');
+			}
+			return n1*n2
+		}
+		console.log(mul(12,12));
+		// console.log(mul(12,'abs'));
+		//此句若未注释，会在console面板显示‘is not a number’;
+		try{
+			console.log(mul(12,'abc'));
+		}catch(e){
+			console.log(e)
+		}finally{
+			console.log('不管程序是否错误，始终会走到finally这步')
+		}
+		
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

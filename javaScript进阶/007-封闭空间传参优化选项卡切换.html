@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>封闭空间传参简化</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		li{
+			list-style: none;
+			width: 500px;
+			height: 30px;
+			border: 1px solid #000;
+			margin: 0 auto;
+		}
+		.active{
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li class="active"></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</body>
+<script>
+	var aLi=document.getElementsByTagName('li');
+	var lastOne=0;
+	for (var i = 0; i < aLi.length; i++) {
+
+		(function(index){
+			aLi[index].onmouseover=function(){
+				aLi[lastOne].className=''
+				aLi[index].className='active';
+				lastOne=index;
+			}		
+		})(i);
+	}
+	
+</script>
+</html>

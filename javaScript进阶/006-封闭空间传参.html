@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>封闭空间传参</title>
+</head>
+<body>
+	<input type="button" id="btn" value="点我">
+	<div></div>
+</body>
+<script>
+	(function(d,window){
+		var oBtn=d.getElementById('btn');
+		var oDiv=d.getElementsByTagName('div')[0];
+		// oBtn.onclick=function(){
+		// 	console.log('点击了btn');
+		// }
+		window.ooBtn=oBtn;
+	})(document,window)
+	//此处的ooBtn实际代表着oBtn;不同是ooBtn是定于在window的全局变量，oBtn仅限作用于function内部
+	ooBtn.onclick=function(){
+		alert('点击了ooBtn');
+	}
+</script>
+</html>
