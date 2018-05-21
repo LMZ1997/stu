@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数节流--延时</title>
+</head>
+<body>
+	
+</body>
+<script>
+	function throttle(fn,delay){
+		var timer=null;
+		return function(){
+			clearTimeout(timer);
+			timer=setTimeout(fn,delay);
+		}
+	}
+	window.onresize=throttle(function(){
+		console.log('aa');
+	},200);
+	//一直拉动窗口改变尺寸，会一直调用throttle函数，此函数中的clearTimeout(timer)会一直清除上一个生成的setTimerout,所以只有最后停下拉动窗口的时候，再次调用函数，clear掉倒数第二个延时器后，代码继续执行，会产生最后一个延时器，不会再有clear来清除，所以每次拉动只会触发一此console.log('aa');
+</script>
+</html>

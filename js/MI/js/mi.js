@@ -17,7 +17,7 @@ function handleCart(){
 		oCart.style.background='white';
 		oCartA.style.color='#ff6700';
 		// oCartContent.style.height='100px';
-		oLoader.style.display='block';
+		// oLoader.style.display='block';
 		animation(oCartContent,{height:'100'},false,function(){
 			oLoader.style.display='none';
 			oCartSpan.style.display='block';
