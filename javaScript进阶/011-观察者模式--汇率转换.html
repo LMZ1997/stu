@@ -11,18 +11,19 @@
 	(function(w){
 		function Local(name){
 			this.foreigns=[];
-			this.init(name);
 			this.oInput=null;
+			this.init(name);		
 		}
 		Local.prototype={
 			constructor:Local,
 			__proto__:Object.prototype,
 			init:function(name){
 				var oP=document.createElement('p');
-				var oInput=document.createElement('input');
+				this.oInput=document.createElement('input');
 				oP.innerHTML=name;
-				op.appendChild(oInput);
 				document.body.appendChild(oP);
+				oP.appendChild(this.oInput);
+				
 			},
 			register:function(foreign){
 				this.foreigns.push(foreign);
@@ -33,30 +34,36 @@
 						this.foreigns[i].listener(this.oInput.value);
 					}
 				}.bind(this)
-			}
-
+			}		
 		}
+		w.Local=Local;
 	})(window);
 	(function(w){
-		function Foreign(name,rate){
+		function Foreign(name,rate,local){
+			this.oInput=null;
 			this.init(name);
+			this.rate=rate;
+			local.register(this);
+		
 		}
 		Foreign.prototype={
 			constructor:Foreign,
 			__proto__:Object.prototype,
 			init:function(name){
 				var oP=document.createElement('p');
-				var oInput=document.createElement('input');
+				this.oInput=document.createElement('input');
 				oP.innerHTML=name;
-				op.appendChild(oInput);
+				oP.appendChild(this.oInput);
 				document.body.appendChild(oP);
 			},
 			listener:function(val){
-				this.oInput.value=val/rate;
+				this.oInput.value=val/this.rate;
 			}
 		}
+		w.Foreign=Foreign;
 	})(window);
 	var rmb=new Local('人民币');
-	var usd=new Foreign('美元',6);
+	var usd=new Foreign('美元',6,rmb);
+	rmb.publish();
 </script>
 </html>
