@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>oAjax</title>
+</head>
+<body>
+	<input type="button" value="请求数据" id="btn">
+</body>
+<script>
+	var oBtn=document.getElementById('btn');
+	oBtn.onclick=function(){
+		//建立连接
+		var oAjax=new XMLHttpRequest();
+		//请求数据
+		oAjax.open('GET','http://127.0.0.1:3000/019-test.txt',true);
+		//发送
+		oAjax.send();
+		//获取
+		console.log(oAjax.status)
+		oAjax.onreadystatechange=function(){
+			if(oAjax.readyState==4){
+				console.log(oAjax.status)
+				if(oAjax.status==200){
+					console.log('获取到数据',oAjax.responseText);
+				}else{
+					console.log('获取不到数据',oAjax.status);
+				}
+				
+			}
+		}
+	}
+	
+</script>
+</html>
