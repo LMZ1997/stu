@@ -3,8 +3,36 @@
 <head>
 	<meta charset="UTF-8">
 	<title>单例模式--登陆框</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		 }
+		 #box{
+		 	width: 200px;
+		 	height: 200px;
+		 	position: absolute;
+		 	top: 50%;
+		 	left: 50%;
+		 	margin-top: -100px;
+		 	margin-left: -100px;
+		 	background-color: #ccc;
+		 	display: none;
+		 }
+	</style>
 </head>
 <body>
-	
+	<input type="button" value="登录" id="btn">
+	<div id="box"></div>
 </body>
+<script>
+	(function(w){
+		var oDiv=document.getElementById('box');
+		var oInput=document.getElementById('btn');
+		oInput.onclick=function(){
+			oDiv.style.display='block';
+			oDiv.innerHTML='此方法弊端：如果网友一直不按登录按钮，只是浏览，那么会闲置一个div，影响性能'
+		}
+	})(window)
+</script>
 </html>

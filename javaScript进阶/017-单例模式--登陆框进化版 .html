@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>单例模式--登陆框进化版</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		 }
+		 #box{
+		 	width: 200px;
+		 	height: 200px;
+		 	position: absolute;
+		 	top: 50%;
+		 	left: 50%;
+		 	margin-top: -100px;
+		 	margin-left: -100px;
+		 	background-color: #ccc;
+		 }
+	</style>
+</head>
+<body>
+	<input type="button" value="登录" id="btn">
+</body>
+<script>
+	var oInput=document.getElementById('btn');
+
+	// var obj=null;
+	function createLogin(){
+		// if(!obj){
+			var oDiv=document.createElement('div');
+			oDiv.id='box';
+			document.body.appendChild(oDiv);
+			// obj=oDiv;
+			return oDiv;
+		// }		
+	}
+	function getSingle(fn){
+		var obj=null;
+		return function(){
+			if(!obj){
+				obj=fn();
+			}
+			return obj;
+		}
+	}
+	var createSingleLogin=getSingle(createLogin);
+	oInput.onclick=function(){
+		createSingleLogin();
+		// createLogin();
+	}
+</script>
+</html>

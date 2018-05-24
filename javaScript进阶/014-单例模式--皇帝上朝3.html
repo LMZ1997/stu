@@ -8,15 +8,16 @@
 	
 </body>
 <script>
+	console.log('确保5天都是同一个皇帝上朝say平身');
 	(function(w){
 		var king=null;
 		function King(){
 			if(!king){
 				this.name='皇帝';
 				this.id=Math.random();
-				King=this;
+				king=this;
 			}
-			return King;
+			return king;
 		}
 		King.prototype={
 			constructor:King,

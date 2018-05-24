@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>单例模式--登陆框2</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		 }
+		 #box{
+		 	width: 200px;
+		 	height: 200px;
+		 	position: absolute;
+		 	top: 50%;
+		 	left: 50%;
+		 	margin-top: -100px;
+		 	margin-left: -100px;
+		 	background-color: #ccc;
+		 }
+	</style>
+</head>
+<body>
+	<input type="button" value="登录" id="btn">
+	<!-- <div id="box"></div> -->
+</body>
+<script>
+	var oInput=document.getElementById('btn');
+
+	(function(w){
+		var oBox=null;
+		
+		function CreateLogin(){
+			if(!oBox){
+				var oDiv=document.createElement('div');
+				oDiv.id='box';
+				document.body.appendChild(oDiv);	
+				oBox=oDiv;
+			}
+		}
+		/*
+		等同于以下方法			
+		function CreateLogin(){
+			var fn=(function(){
+				return function(){
+					if(!oBox){
+						var oDiv=document.createElement('div');
+						oDiv.id='box';
+						document.body.appendChild(oDiv);	
+						oBox=oDiv;
+					}
+				}				
+			})()
+			return fn();
+		}
+		*/
+
+		w.CreateLogin=CreateLogin;
+	})(window);
+	oInput.onclick=function(){
+		new CreateLogin();
+	}
+</script>
+</html>

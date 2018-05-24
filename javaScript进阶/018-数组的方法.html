@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数组</title>
+</head>
+<body>
+	
+</body>
+<script>
+	var arr=[45,60,39,75];
+	var res=arr.forEach(function(value,index){
+		console.log('index '+index+'::'+value);
+	})
+	console.log(res+'此方法无返回值');
+
+
+	var arr1=arr.map(function(value,index){
+		// return 10;
+	})
+	console.log('2：：：'+arr1);
+	var arr2=arr.map(function(value,index){
+		return value+10;
+	})
+	console.log('2：：：'+arr);
+	console.log('2：：：'+arr2);
+
+
+	var arr3=arr.filter(function(value,index){
+		return value>=60;
+	})
+	var arr4=arr.filter(function(value,index){
+		return 2;
+	})
+	console.log('3：：：'+arr);
+	console.log('3：：：'+arr3);
+	console.log('3：：：'+arr4);//此类方法return后跟判断表达式
+
+
+	var rbs=arr.every(function(value,index){
+		return value>60;
+	})
+	console.log(rbs);
+
+
+	var rbs1=arr.some(function(value,index){
+		return value>60;
+	})
+	console.log(rbs1);
+</script>
+</html>
