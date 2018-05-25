@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>oAjax的GET获取数组</title>
+</head>
+<body>
+	<input type="button" value="请求数据" id="btn">
+	<ul id="ul1"></ul>
+</body>
+<script>
+	var oBtn=document.getElementById('btn');
+	oBtn.onclick=function(){
+		//建立连接
+		var oAjax=new XMLHttpRequest();
+		//请求数据
+		oAjax.open('GET','http://127.0.0.1:3000/021-arr.txt',true);
+		//true在此表示异步执行
+		//发送
+		oAjax.send();
+		//获取
+		console.log(oAjax.status)
+		oAjax.onreadystatechange=function(){
+			if(oAjax.readyState==4){
+				console.log(oAjax.status)
+				if(oAjax.status==200){
+					console.log('获取到de数据',oAjax.responseText);
+					var oUl=document.getElementById('ul1');
+					var arr=JSON.parse(oAjax.responseText);
+					for (var i = 0; i <arr.length; i++) {
+						var oLi=document.createElement('li');
+						oLi.innerHTML='名字'+arr[i].name+'年龄'+arr[i].age;
+						oUl.appendChild(oLi);
+					}
+				}else{
+					console.log('获取不到数据',oAjax.status);
+				}	
+			}
+		}
+	}
+	
+</script>
+</html>

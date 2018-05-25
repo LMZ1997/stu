@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>oAjax的GET请求</title>
+</head>
+<body>
+	<input type="button" value="请求数据" id="btn">
+</body>
+<script>
+	var oBtn=document.getElementById('btn');
+	oBtn.onclick=function(){
+		//建立连接
+		var oAjax=new XMLHttpRequest();
+		//请求数据
+		oAjax.open('GET','http://127.0.0.1:3000/s?name=Tom&age=18',true);
+		//true在此表示异步执行
+		//发送
+		oAjax.send();
+		//获取
+		oAjax.onreadystatechange=function(){
+			if(oAjax.readyState==4){
+				console.log(oAjax.status)
+				if(oAjax.status==200){
+					console.log('获取到de数据',oAjax.responseText);
+				}else{
+					console.log('获取不到数据',oAjax.status);
+				}	
+			}
+		}
+	}
+	
+</script>
+</html>

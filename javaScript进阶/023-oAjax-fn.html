@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>oAjax的GET和POST封装函数</title>
+</head>
+<body>
+	<input type="button" value="发送POST请求" id="btn">
+</body>
+<script>
+	(function(w){
+		function ajax(method,url,data,fnSucess,fnFailed){
+			//建立连接
+			var oAjax=new XMLHttpRequest();
+			if(method=='POST'){
+				//请求数据
+				oAjax.open(method,url,true);
+				//true在此表示异步执行
+				oAjax.setRequestHeader('content-type','application/x-www-form-urlencoded');
+				//发送
+				oAjax.send(data);
+			}else{
+				if(data){
+					url=url+'?'+data;
+				}
+				oAjax.open(method,url,true);
+				oAjax.send();
+			}
+
+			//获取
+			oAjax.onreadystatechange=function(){
+				if(oAjax.readyState==4){
+					if(oAjax.status==200){					
+						fnSucess(oAjax.responseText);
+					}else{						
+						fnFailed(oAjax.status);
+					}	
+				}
+			}
+		}
+		w.ajax=ajax;
+	})(window);
+	
+	var oBtn=document.getElementById('btn');
+	oBtn.onclick=function(){
+		/*
+		ajax('POST',
+			 'http://127.0.0.1:3000/postReq',
+			 'name=Tom&age=23',
+			 function(val){
+			 	 console.log('获取到de数据',val);
+			 },
+			 function(status){
+			 	 console.log('获取不到数据',status);
+			 }
+		)
+		*/
+		ajax('GET',
+			 'http://127.0.0.1:3000/021-arr.txt',
+			 '',
+			 function(val){
+			 	 console.log('获取到de数据',val);
+			 },
+			 function(status){
+			 	 console.log('获取不到数据',status);
+			 }
+		)
+	}
+	
+</script>
+</html>
