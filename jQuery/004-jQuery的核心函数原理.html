@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery都核心函数核心原理</title>
+	<script src="js/jQuery-1.12.4.js"></script>
+	<script>
+		//jQuery对象是一个伪数组
+		var res=$(function(){
+			console.log('1::', $(null));
+			console.log('2::', $(undefined));
+			console.log('3::', $(NaN));
+			console.log('4::', $(0));
+			console.log('5::', $(''));
+			console.log('6::', $('div'));
+			console.log('7::', $('#box2'));
+			console.log('7::', $('.box3'));
+			console.log('8::', $('<h1>我是标题</h1>'));
+		})
+		console.log('0::', res);
+	</script>
+</head>
+<body>
+	<div></div>
+	<div id="box2"></div>
+	<div class="box3"></div>
+</body>
+</html>

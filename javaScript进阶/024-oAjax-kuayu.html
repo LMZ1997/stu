@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>oAjax的GET和POST封装函数</title>
+	<title>oAjax的跨域请求</title>
 </head>
 <body>
 	<input type="button" value="请求" id="btn">
@@ -44,7 +44,7 @@
 	var oBtn=document.getElementById('btn');
 	oBtn.onclick=function(){
 		ajax('GET',
-			 'http://127.0.0.1:3000/021-arr.txt',
+			 'http://www.a.com:3000/021-arr.txt',
 			 '',
 			 function(val){
 			 	 console.log('获取到de数据',val);

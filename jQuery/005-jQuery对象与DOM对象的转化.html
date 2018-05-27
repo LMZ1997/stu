@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery对象与DOM对象的转换</title>
+	<script src="js/jQuery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			var $div=$('div');
+			console.log($div);
+
+			$div.css({
+				fontSize:'60px',
+			});
+
+			var oDiv=$div[0];//将jQuery对象转化为DOM对象
+			oDiv.style.color='red';
+
+			var oDiv3=document.getElementById('div3');
+			var $div3=$(oDiv3);//将DOM转化为jQuery对象
+			$div3.css({
+				color:'blue',
+			})
+		})
+
+	</script>
+</head>
+<body>
+	<div>1</div>
+	<div>2</div>
+	<div id="div3">3</div>
+</body>
+</html>

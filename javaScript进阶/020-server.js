@@ -10,6 +10,11 @@ var server=http.createServer(function(req,res){
 	// res.StatusCode=404;
 	var urlStr=req.url;
 	console.log("req.url:::",urlStr);
+	
+	if(urlStr=='/favicon.ico'){
+		res.StatusCode=404;
+		res.end();
+	}	
 	if(urlStr.search(/\?/) != -1){
 		var pram=url.parse(urlStr,true).query;
 		var pramStr=JSON.stringify(pram);
@@ -17,10 +22,6 @@ var server=http.createServer(function(req,res){
 		res.end(pramStr);
 	}
 	else{
-		if(urlStr=='/favicon.ico'){
-			res.StatusCode=404;
-			res.end();
-		}
 		var File='./'+urlStr;
 		fs.readFile(File,function(err,data){
 			if(err){

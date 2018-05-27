@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>oAjax的GET和POST封装函数</title>
+	<title>oAjax的跨域请求</title>
 </head>
 <body>
 	<input type="button" value="请求" id="btn">
@@ -23,7 +23,10 @@
 				if(data){
 					url=url+'?'+data;
 				}
+				
 				oAjax.open(method,url,true);
+
+				oAjax.setRequestHeader('test','kuazhu');//此句需写在open于send之间。
 				oAjax.send();
 			}
 
@@ -32,6 +35,8 @@
 				if(oAjax.readyState==4){
 					if(oAjax.status==200){					
 						fnSucess(oAjax.responseText);
+						console.log(oAjax.getResponseHeader('Content-type'));
+						console.log(oAjax.getResponseHeader('Date'));
 					}else{						
 						fnFailed(oAjax.status);
 					}	
@@ -44,7 +49,7 @@
 	var oBtn=document.getElementById('btn');
 	oBtn.onclick=function(){
 		ajax('GET',
-			 'http://127.0.0.1:3000/021-arr.txt',
+			 'http://www.a.com:3000/021-arr.txt',
 			 '',
 			 function(val){
 			 	 console.log('获取到de数据',val);

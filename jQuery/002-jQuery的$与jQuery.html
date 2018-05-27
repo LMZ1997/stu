@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>$与jQuery</title>
+	<script src="js/jQuery-1.12.4.js"></script>
+	<script>
+		window.onload=function(){
+			alert('注意顺序：第一')
+		}
+		//window.onload是等到DOM以及DOM内元素的src地址全部请求完才会执行
+		$(document).ready(function(){
+			alert('注意顺序：第二');
+		})
+		$(document).ready(function(){
+			alert('注意顺序：第三');
+		})
+		$(function(){
+			alert('第四：注意代码');
+		})
+		jQuery(function(){
+			alert('第五：注意代码')
+		})
+	</script>
+</head>
+<body>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<img src="images/1.jpg" alt="">
+</body>
+</html>

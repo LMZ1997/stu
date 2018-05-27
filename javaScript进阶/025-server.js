@@ -1,0 +1,63 @@
+var http=require('http');
+var fs=require('fs');
+var url=require('url');
+var querystring=require('querystring');
+var server=http.createServer(function(req,res){
+	res.setHeader('Content-type','text/html;charset=UTF-8');
+	res.setHeader('Access-Control-Allow-Origin','http://www.b.com:3000');
+	//表示：允许127.0.0.1：3000对localhost:3000进行跨域请求
+	res.setHeader('Access-Control-Allow-Headers','test');
+	//表示：  允许test的header进行复杂请求，复杂请求首先
+	//     运行option请求，再运行GET或POST请求
+	res.setHeader('Access-Control-Expose-Headers','Date');
+	//   只有6个普通的Response Headers可以直接请求,(如Content-type等)，
+	// 其他的若在页面中请求，需要在此声明(如Date);
+	var urlStr=req.url;
+	console.log("req.url:::",urlStr);
+	if(urlStr=='/favicon.ico'){
+			res.StatusCode=404;
+			res.end();
+	}
+
+	console.log(req.method);
+
+	if(req.method=='POST'){//POST请求
+		var body='';
+		req.on('data',function(chunk){
+			body+=chunk;
+		});
+		req.on('end',function(){
+			var bodyObj=querystring.parse(body);
+			var	bodyStr=JSON.stringify(bodyObj);
+			res.StatusCode=200;
+			res.end(bodyStr);
+		})
+	}else{//GET请求
+		if(urlStr.search(/\?/) != -1){
+			var pram=url.parse(urlStr,true).query;
+			var pramStr=JSON.stringify(pram);
+			res.StatusCode=200;
+			res.end(pramStr);
+		}
+		else{
+			var File='./'+urlStr;
+			console.log(urlStr);
+			fs.readFile(File,function(err,data){
+				if(err){
+					console.log('read file err:::'+err);
+					res.StatusCode=404;
+					res.end('read file err');
+				}else{
+					res.StatusCode=200;
+					res.end(data);
+				}
+			})
+		}		
+	}
+
+
+});
+
+server.listen(3000,'127.0.0.1',function(){
+	console.log('server is running at http://127.0.0.1:3000');
+});

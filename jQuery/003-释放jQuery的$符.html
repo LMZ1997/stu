@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>释放$</title>
+	
+	<script>
+		(function(w){
+			function test(){
+				alert('test $')
+			}
+			w.$=test;
+		})(window)
+	</script>
+	<script src="js/jQuery-1.12.4.js"></script>
+	<script>
+		// jQuery.noConflict();//释放$的控制
+		var Meng=jQuery.noConflict();
+		$();
+		$(function(){
+			alert('输出不了');
+		});
+
+		jQuery(function(){
+			alert('aabb');
+		});
+		Meng(function(){
+			alert('Meng代替jQuery');
+		})
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
