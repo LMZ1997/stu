@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery选择元素</title>
+		<script src="js/jquery-1.12.4.js"></script>
+		<script>
+			$(function(){
+				console.log($('div:eq(0)'));//不同于div.get(0)	
+				console.log($('div:eq(1)'));	
+				console.log($('div:eq(1)').index());	
+				console.log($('div:eq(-1)'));//代表倒数第一个	
+
+				console.log($('div:empty'))//无文本内容和子元素的
+				console.log($('div:parent'))//有文本内容或子元素的
+				console.log($('div:contains(段落)'))
+				console.log($('div:has(p)'))
+			})
+		</script>
+</head>
+<body>
+	<div style="border:1px solid #000;width: 100px; height: 100px"></div>
+	<div>
+		<p>我是段落</p>
+	</div>
+	<div>
+		<span>我是span</span>
+	</div>
+</body>
+</html>

@@ -13,8 +13,11 @@
 				fontSize:'60px',
 			});
 
-			var oDiv=$div[0];//将jQuery对象转化为DOM对象
-			oDiv.style.color='red';
+			var oDiv0=$div[0];//将jQuery对象转化为DOM对象
+			oDiv0.style.color='red';
+
+			var oDiv1=$div.get(1);//将jQuery对象转化为DOM对象
+			oDiv1.style.color='green';
 
 			var oDiv3=document.getElementById('div3');
 			var $div3=$(oDiv3);//将DOM转化为jQuery对象

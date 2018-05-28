@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>静态方法回顾</title>
+	<script>
+		function Person(){
+
+		}
+		Person.prototype.sayHi=function(){//属于对象实例的方法
+			console.log('Hi-----不是静态方法')
+		};
+		Person.sayHello=function(){//属于Person的静态方法
+			console.log('Hello-----是静态方法')
+		}
+		var p=new Person();//不是静态方法
+		p.sayHi();
+		Person.sayHello();//静态方法
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

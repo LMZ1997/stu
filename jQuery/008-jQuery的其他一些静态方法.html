@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery的其他一些静态方法</title>
+<!--  	$.trim(str) 去除字符串两边的空格并返回
+	$.isWindow(arg) 判断参数对象是不是window对象
+	$.isArray(arg) 判断参数对象是不是真数组
+	$.isFunction(arg) 判断参数对象是不是函数
+	$.holdReady(布尔值) 参考为true时暂停jQuery入口函数的执行,参数为false时恢复jQuery入口函数的执行 -->
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		var str='  -a--b  c_  ';
+		var aLi=$('li');
+		var arr=[11,22,33,44];
+		$(function(){
+			console.log($.trim(str));
+			console.log($.isWindow(window));
+			console.log($.isArray('1::',aLi));
+			console.log($.isArray('1::',arr));
+		})
+	</script>
+</head>
+<body>
+	<ul>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</body>
+</html>

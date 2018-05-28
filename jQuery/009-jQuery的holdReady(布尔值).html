@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery的holdReady(布尔值)</title>
+		<script src="js/jquery-1.12.4.js"></script>
+		<script>
+			$(function(){
+				$.holdReady(true);//暂停此段代码
+				alert('开始执行');
+				$('button').onclick=function(){
+					$.holdReady(false);
+				}
+			})
+		</script>
+</head>
+<body>
+	<button>点击后alert</button>
+</body>
+</html>

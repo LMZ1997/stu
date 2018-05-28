@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuey操作节点属性</title>
+	<script src="js/jquery-1.12.4.js"></script>
+</head>
+<body>
+	<input type="text" name="n1" value="aaa">
+	<input type="text" name="n2" value="bbb" gender="gender">
+	<input type="text" name="n3" value="ccc" gender="gender">
+	<input type="checkbox">
+</body>
+	<script>
+		$(function(){
+			console.log($('input'));
+			console.log('1:::',$('input').attr('name'));//获取到的是第一个jQuery对象的属性
+			console.log('1:::',$('input').prop('name'));//获取到的是第一个jQuery对象的属性
+
+			console.log('2::',$('input').eq(1).attr('value'));//一个参数代表获取属性
+			console.log('2::',$('input').eq(1).prop('value'));
+
+			$('input').eq(2).attr('index',0);//两个参数代表设置属性
+
+			console.log('3处说明了prop常用在有true和false的节点属性上,如(checked,selected,disaled)')
+			console.log('3::',$('input').eq(-1).attr('checked'));
+			console.log('3::',$('input').eq(-1).prop('checked'));
+
+			// $('input').eq(-1).attr('checked',true);
+			$('input').eq(-1).prop('checked',true);
+
+			$('input').eq(1).removeAttr('gender');
+
+			// $('input').attr('id','b1,b2,b3');
+			// $('input').prop('id','b1 b2 b3');
+
+
+		})
+	</script>
+</html>
