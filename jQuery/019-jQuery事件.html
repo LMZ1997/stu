@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery事件</title>
+	<style>
+		div{
+			width: 200px;
+			height: 200px;
+			border: 1px solid #000;
+		}
+	</style>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			function test(){
+				alert('click事件test')
+			}
+			$('div').click(function(){
+				alert('click事件')
+			})
+			$('div').on('mouseover',function(){
+				alert('mouseover事件')
+			})
+			$('div').click(test);
+
+			// $('div').off();//移除所有事件
+			// $('div').off('mouseover');//移除相应事件函数
+			$('div').off('click',test);//移除相应事件名对应的函数事件
+		})
+	</script>
+</head>
+<body>
+	<div>mouseover然后回车点击div</div>
+	<div>mouseover然后回车点击div</div>
+	<div>mouseover然后回车点击div</div>
+</body>
+</html>

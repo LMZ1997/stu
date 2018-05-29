@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery的css方法</title>
+	<style>
+		.box1{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+		}
+		.box2{
+			width: 200px;
+			height: 200px;
+			background-color: blue;
+		}
+	</style>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			console.log($('div').css('width'));//没有传值就是获取属性，且只获取第一个input
+			console.log($('div').css('width',300));//仍是一个jQuery对象，可继续用css方法设置，如：
+			// $('div').css('width',400).css('height',50);
+			$('.box2').css({
+				'width':300,
+				'height':70,
+				'backgroundColor':'green'
+			})
+		})
+	</script>
+</head>
+<body>
+	<div class="box1"></div>
+	<div class="box2"></div>
+</body>
+</html>

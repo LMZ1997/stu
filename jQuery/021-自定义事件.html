@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义事件</title>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			$('div').on('myOwn',function(){
+				alert('自定义事件,必须用on,并且只能引用trigger自动触发事件')
+			});
+			$('div').trigger('myOwn');
+		})
+	</script>
+</head>
+<body>
+	<div></div>
+</body>
+</html>

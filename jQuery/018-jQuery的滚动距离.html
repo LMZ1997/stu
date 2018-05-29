@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery的滚动距离scroll</title>
+	<style>
+		.a1{
+			width: 300px;
+			height: 300px;
+			border: 1px solid #000;
+			overflow:auto;/*显示滚动条*/
+		}
+		.a2{
+			width: 2000px;
+			height: 2000px;
+		}
+	</style>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			var oBtn=$('button')[0];
+			oBtn.onclick=function(){
+				console.log($('.a1').scroll());
+				console.log('top:::',$('.a1').scrollTop());
+				console.log('left:::',$('.a1').scrollLeft());
+				$('.a1').scrollTop(500);
+				$('.a1').scrollLeft(500);
+				console.log('滚动条再次变化')
+			}
+
+		})
+	</script>
+</head>
+<body>
+	<button>滚动条后点我</button>
+	<div class="a1">
+		<div class="a2"></div>
+	</div>
+</body>
+</html>

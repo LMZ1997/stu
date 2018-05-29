@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery的html和text方法</title>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			console.log('1::',$('div').html());//没有传值就是获取属性
+			// $('div').html('<h1>我是标题</h1>')；//传值就是设置属性
+			console.log('1::',$('div').text());
+			$('div').text('<h1>我是标题</h1>');//h1也作为文本
+		})
+	</script>
+</head>
+<body>
+	<div>
+		我是DIV
+		<p>我是段落</p>
+	</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery的val获取值和设置值</title>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			console.log($('input').val());//没有传值就是获取属性，且只获取第一个input
+			$('input').val('设置后的值')
+		})
+	</script>
+</head>
+<body>
+	<input type="text" value="默认的值">
+	<input type="text" value="默认的值">
+</body>
+</html>

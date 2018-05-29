@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery操作位置方法</title>
+	<style>
+		.a1{
+			width: 300px;
+			height: 200px;
+			border: 1px solid #000;
+			margin-left: 500px;
+			background-color: green;
+		}
+		.a2{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+		}
+		.b1{
+			width: 300px;
+			height: 200px;
+			border: 1px solid #000;
+			background-color: blue;
+			margin-top: 50px;
+			margin-left: 500px;
+		}
+		.b2{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+		}
+	</style>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			console.log($('.a2').offset());
+			console.log($('.a2').offset().left);
+			// $('.a2').offset('top',200);
+			console.log($('.a2').offset().top);
+
+			console.log($('.b2').position());
+			console.log($('.b2').position().top);//position方法不能设置值，只能获取值
+		})
+	</script>
+</head>
+<body>
+	<div class="a1">
+		<div class="a2"></div>
+	</div>
+	<div class="b1">
+		<div class="b2"></div>
+	</div>
+</body>
+</html>
