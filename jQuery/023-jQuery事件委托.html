@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery事件委托</title>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			/*
+			$('li').click(function(){
+				alert($(this).html());
+			});
+			*/
+			//用事件委托才能触发动态创建的li的事件，因为直接若在li上添加事件，动态创建的li之前并不存在，所以未能添加上li事件，若在ul上添加事件,动态创建的li也会有li事件，因为ul本来就存在
+			$('ul').delegate('li','click',function(){
+				console.log(this);//this仍是li,因为事件仍是li触发
+				alert($(this).html());
+			});
+			$('button').click(function(){
+				var $li=$('<li>我是动态创建的li</li>');
+				$('ul').append($li);
+			})
+
+		})
+	</script>
+</head>
+<body>
+	<button>动态创建li</button>
+	<ul>
+		<li>我是第1个li</li>
+		<li>我是第2个li</li>
+		<li>我是第3个li</li>
+		<li>我是第4个li</li>
+	</ul>
+</body>
+</html>

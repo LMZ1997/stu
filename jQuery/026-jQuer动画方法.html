@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery动画</title>
+	<style>
+		div{
+			width: 200px;
+			height: 200px;
+			background: red;
+			display: none;
+		}
+	</style>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			$('button').eq(0).click(function(){
+				$('div').show(1000,function(){
+					alert('show后执行回调函数');
+				});
+			})
+			$('button').eq(1).click(function(){
+				$('div').hide(1000,function(){
+					alert('hide后执行回调函数');
+				})
+			});
+			$('button').eq(2).click(function(){
+				$('div').toggle(1000,function(){
+					alert('toggle状态后执行回调函数')
+				})
+			});
+			$('button').eq(3).click(function(){
+				$('div').slideDown(1000,function(){
+					alert('slideDown后执行回调函数')
+				})
+			});
+			$('button').eq(4).click(function(){
+				$('div').slideUp(1000,function(){
+					alert('slideUp后执行回调函数')
+				})
+			});
+			$('button').eq(5).click(function(){
+				$('div').slideToggle(1000,function(){
+					alert('slideToggle后执行回调函数')
+				})
+			});
+			$('button').eq(6).click(function(){
+				$('div').fadeIn(1000,function(){
+					alert('fadeIn后执行回掉函数')
+				})
+			});
+			$('button').eq(7).click(function(){
+				$('div').fadeOut(1000,function(){
+					alert('fadeOut后执行回掉函数')
+				})
+			});
+			$('button').eq(8).click(function(){
+				$('div').fadeTo(1000,0.5,function(){
+					alert('淡出到的值会影响其他淡出淡入的最终效果')
+				})
+			})
+			$('button').eq(9).click(function(){
+				$('div').fadeToggle(1000,function(){
+					alert('fadeToggle后执行回掉函数')
+				})
+			})
+		})
+	</script>
+</head>
+<body>
+	<button>显示</button>
+	<button>隐藏</button>
+	<button>切换</button>
+	<button>卷入</button>
+	<button>卷出</button>
+	<button>切换</button>
+	<button>淡入</button>
+	<button>淡出</button>
+	<button>淡出到</button>
+	<button>切换</button>
+	<div></div>
+</body>
+</html>

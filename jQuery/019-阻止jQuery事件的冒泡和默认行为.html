@@ -34,16 +34,16 @@
 			$('.grandfather').on('click',function(){
 				alert('is click grandfather');
 			})
-			$('a').click=function(ev){
+			$('a').click(function(ev){
 				alert('阻止默认行为进入百度网');
 				// return false;
 				ev.preventDefault();
-			}
+			})
 		})
 	</script>
 </head>
 <body>
-	<a href="https:www.baidu.com">百度网</a><br>
+	<a href="https://www.baidu.com">百度网</a><br>
 	<div class="grandfather">
 		<div class="father">
 			<br>在father处阻止冒泡

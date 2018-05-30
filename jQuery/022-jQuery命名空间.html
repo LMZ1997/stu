@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery命名空间</title>
+	<style>
+		.son{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+		}
+		.father{
+			width: 300px;
+			height: 300px;
+			background-color: green;
+			margin:100px auto;
+		}
+	</style>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			$('.son').on('click.a1',function(){
+				alert('click son1');
+			});
+			$('.son').on('click.a2',function(){
+				alert('click son2 ');
+			});
+			$('.father').on('click.a1',function(){
+				alert('冒泡触发 click father1');
+			});
+			$('.father').on('click.a2',function(){
+				alert('click father2');
+			})
+			$('.son').trigger('click.a1');
+		})
+	</script>
+</head>
+<body>
+	<div class="father">
+		<div class="son"></div>
+	</div>
+</body>
+</html>

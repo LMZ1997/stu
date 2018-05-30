@@ -17,11 +17,12 @@
 				alert('自动触发click事件')
 			})
 			$('div').trigger('click');
-			$('input').click(function(){
-				alert('自动触发事件且阻止默认行为')
+			$('input').click(function(ev){
+				alert('自动触发事件且阻止默认行为');
+				ev.preventDefault();
 			})
-			// $('input').trigger('click');
-			$('input').triggerHandler('click');
+			// $('input').trigger('click');//不能阻止默认行为和冒泡
+			$('input').triggerHandler('click');//能阻止默认行为和冒泡
 		})
 	</script>
 </head>

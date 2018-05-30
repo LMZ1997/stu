@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery停止动画-延时动画和动画速度</title>
+	<style>
+		div{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #000;
+			background-color: red;
+			margin-top: 20px;
+		}
+	</style>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			$('button').click(function(){
+				$('div').delay(1000);//延时1s
+				$('div').eq(0).animate({
+					width:800
+				},2000,'swing');
+				$('div').eq(1).animate({
+					width:800
+				},2000,'linear');
+				//速度参数要写在回调函数前边即可
+			})
+		})
+	</script>
+</head>
+<body>
+	<button>开始动画(延时1s)</button>
+	<div></div>
+	<div></div>
+</body>
+</html>

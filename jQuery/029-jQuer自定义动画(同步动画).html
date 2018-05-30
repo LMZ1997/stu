@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery自定义动画</title>
+	<style>
+		div{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #000;
+			background-color: red;
+		}
+	</style>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			$('button').click(function(){
+				$('div').animate({
+					width:400,
+					height:400,
+					opacity:0.5
+				},1000)
+			})
+		})
+	</script>
+</head>
+<body>
+	<button>开始动画</button>
+	<div></div>
+</body>
+</html>
