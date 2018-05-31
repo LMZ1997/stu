@@ -58,8 +58,10 @@
 	<script src="js/jquery-1.12.4.js"></script>
 	<script>
 		$(function(){
-			var timer=null;
 			$('li').eq(0).mouseenter(function(){
+				$('span').eq(0).animate({
+					// transform:rotateZ(-270deg),
+				},500)
 				$(this).css({
 					'color':'#ff6700'
 				})
@@ -67,29 +69,21 @@
 					height:60
 				},500)
 			})
-			$('li').eq(0).mouseleave(function(){
+			$('li').eq(0).mouseleave(
+				timer=setTimerout(function(){
 				$(this).css({
 					'color':'black'
 				})
 				$('.box1').animate({
 					height:0
 				},500)
-			},500)
+			}),500)
 			$('box1').mouseenter(function(){
+				clearTimeout(timer);
 				$(this).css({
 					height:60
 				})
 			})
-			$('box1').mouseleave(
-				function(){
-				$('this').animate({
-					height:0
-				},500)
-			},500)
-
-
-
-
 			$('li').eq(1).mouseenter(function(){
 				$('span').eq(1).animate({
 					// transform:rotateZ(-270deg)
@@ -101,20 +95,15 @@
 					height:60
 				},500)
 			})
-			$('box2').mouseenter(function(){
-				$(this).css({
-					'height':60
-				})
-			})
-			$('li').eq(1).mouseleave(function(){
+			$('li').eq(0).mouseleave(
+				timer=setTimerout(function(){
 				$(this).css({
 					'color':'black'
 				})
 				$('.box1').animate({
 					height:0
 				},500)
-			},500)
-
+			}),500)
 		})
 	</script>
 </head>
