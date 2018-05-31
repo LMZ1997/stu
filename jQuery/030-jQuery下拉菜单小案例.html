@@ -27,13 +27,14 @@
 			line-height: 30px;
 		}
 		ul{
-			width: 100%;
-			height: 100%;
+			width: 100px;
+			height: 30px;
 			text-align: center;
 		}
 		span{
 			margin-left: 5px;
-			transform: rotateZ(-90deg);
+			transform: rotateZ(270deg);
+			transition: all 0.5s;
 			display: inline-block
 		}
 		p{
@@ -46,78 +47,84 @@
 		}
 		.box1{
 			float: left;
-			height: 0px;
+			height: 30px;
 			overflow: hidden;
 		}
 		.box2{
 			float: right;
-			height: 0px;
+			height: 30px;
 			overflow: hidden;
 		}
 	</style>
 	<script src="js/jquery-1.12.4.js"></script>
 	<script>
 		$(function(){
-			$('li').eq(0).mouseenter(function(){
-				$('span').eq(0).animate({
-					// transform:rotateZ(-270deg),
-				},500)
-				$(this).css({
-					'color':'#ff6700'
+			$('.box1').mouseenter(function(){
+				$('li').eq(0).css({
+					color:'#ff6700'
 				})
 				$('.box1').animate({
-					height:60
+					height:90
 				},500)
-			})
-			$('li').eq(0).mouseleave(
-				timer=setTimerout(function(){
-				$(this).css({
-					'color':'black'
-				})
-				$('.box1').animate({
-					height:0
-				},500)
-			}),500)
-			$('box1').mouseenter(function(){
-				clearTimeout(timer);
-				$(this).css({
-					height:60
+				$('span').eq(0).css({
+					transform:'rotateZ(450deg)'
 				})
 			})
-			$('li').eq(1).mouseenter(function(){
-				$('span').eq(1).animate({
-					// transform:rotateZ(-270deg)
-				},500)
-				$(this).css({
-					'color':'#ff6700'
+			$('.box1').mouseleave(function(){
+					$('li').eq(0).css({
+						color:'black'
+					})
+					$('.box1').animate({
+						height:30
+					},500)
+					$('span').eq(0).css({
+						transform:'rotateZ(270deg)'
+					})								
+			})
+
+
+			$('.box2').mouseenter(function(){
+				$('li').eq(1).css({
+					color:'#ff6700'
 				})
 				$('.box2').animate({
-					height:60
-				},500)
-			})
-			$('li').eq(0).mouseleave(
-				timer=setTimerout(function(){
-				$(this).css({
-					'color':'black'
+					height:90
+				},500);
+				$('span').eq(1).css({
+					transform:'rotateZ(450deg)'
 				})
-				$('.box1').animate({
-					height:0
-				},500)
-			}),500)
+			})
+			$('.box2').mouseleave(function(){
+				$('li').eq(1).css({
+					color:'black'
+				})
+				$('.box2').animate({
+					height:30
+				},500);
+				$('span').eq(1).css({
+					transform:'rotateZ(270deg)'
+				})
+			})
 		})
 	</script>
 </head>
 <body>
 	<div class="box">
-		<ul>
+	<!-- 	<ul>
 			<li>我的淘宝<span>&lt;</span></li>
 			<li>收藏夹<span>&lt;</span></li>
-		</ul>
+		</ul> -->
 		<div class="box1">
+			<ul>
+				<li>我的淘宝<span>&lt;</span></li>
+			</ul>
 			<p>已买到的宝贝</p>
 			<p>我的足迹</p>
 		</div>
 		<div class="box2">
+			<ul>
+				<li>收藏夹<span>&lt;</span></li>
+			</ul>
 			<p>已买到的宝贝</p>
 			<p>我的足迹</p>
 		</div>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery操作DOM节点</title>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			$('button').on('click',function(){
+				var $li=$('<li>子元素li</li>');
+
+				//插入到父元素最后面
+				// $('ul').append($li);
+				// $li.appendTo($('ul'))
+
+				//插入到父元素最前面
+				// $('ul').prepend($li);
+				// $li.prependTo($('ul'));
+
+				var $brother=$('<li>兄弟元素li</li>');
+				//作为元素的兄弟插入到元素的后边
+				// $('ul').after($brother);
+				//作为元素的兄弟插入到元素的前边
+				$('ul').before($brother);
+
+			})
+		})
+	</script>
+</head>
+<body>
+	<button>发动操作</button>
+	<ul>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+	</ul>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery替换节点</title>
+	<style>
+		div{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #000;
+		}
+	</style>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			$('button').click(function(){
+				var $h1=$('<h1>我是标题</h1>')
+				// $('div').replaceWith($h1);
+				// $('div').replaceWith('<h1>我是标题</h1>');//HTML代码，被替换的在前
+				$h1.replaceAll($('div'))//替换掉所有选中的节点,被替换的在后
+			})
+			
+		})
+	</script>
+</head>
+<body>
+	<button>替换节点</button>
+	<div>原来的元素</div>
+	<div>原来的元素</div>
+	<div>原来的元素</div>
+</body>
+</html>

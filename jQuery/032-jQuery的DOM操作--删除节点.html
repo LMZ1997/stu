@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>删除节点</title>
+	<style>
+		div{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #000;
+		}
+	</style>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+
+		$(function(){
+			$('div').click(function(){
+				alert('click div')
+			})
+			$('button').click(function(){
+				var $div=$('div').remove()//删除jQuery对象中的节点同时删除事件
+				// $('div').empey();//清空jQuery对象总节点的内容
+				// $('div').detach();//删除jQuery对象中的节点但保留事件
+			})
+			
+		})
+	</script>
+</head>
+<body>
+	<button>删除节点</button>
+	<div>自身携带事件</div>
+</body>
+</html>

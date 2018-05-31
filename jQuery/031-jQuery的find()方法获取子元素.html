@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery的find方法获取子元素</title>
+	<style>
+		.father{
+			width:300px;
+			height: 300px;
+			border: 1px solid #000;
+		}
+		.son{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #000;
+		}
+	</style>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			var $father=$('.father');
+			var $son=$father.find('.son');
+			$son.hover(function(){
+				//移入事件
+				$(this).css({
+					background:'red'
+				})
+			},function(){
+				//移出事件
+				$(this).css({
+					background:'white'
+				})
+			})
+		})
+	</script>
+</head>
+<body>
+	<div class="father">
+		<div class="son">hover me</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery结合Ajax</title>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			$('button').click(function(){
+				$.ajax({
+					url:'http://127.0.0.1:3000/036-data.json',
+					type:'GET',
+					// data:'name=leo&age=88',
+					// data:{
+					// 	name:'leo',
+					// 	age:88
+					// }
+					dataType:'json',
+					success:function(data,stastusMsg,jqXHR){
+						console.log("success::",data,stastusMsg,jqXHR);
+					},
+					err:function(jqXHR,stastusMsg){
+						console.log('err:::',jqXHR,stastusMsg);
+					},
+					complete:function(jqXHR,stastusMsg){
+						console.log('complete:::',jqXHR,stastusMsg);
+					},//无论请求是否成功，都会执行此函数;
+					timeout:3000,//数据请求最大时间，过时为请求超时
+					statusCode:{
+						404:function(){
+							console.log('NOT FOUND');
+						}
+					},
+					headers:{
+						test:'LMZ'
+					}
+				})
+			})
+		})
+	</script>
+</head>
+<body>
+	<button>发送请求</button>
+</body>
+</html>

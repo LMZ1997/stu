@@ -23,13 +23,22 @@
 				$('div').eq(1).animate({
 					width:800
 				},2000,'linear');
+				$('div').eq(2).animate({
+					width:300,
+				},1000).animate({height:300},1000);
+
 				//速度参数要写在回调函数前边即可
+			})
+			$('button').eq(1).click(function(){
+				$('div').eq(2).stop(true,false)
 			})
 		})
 	</script>
 </head>
 <body>
 	<button>开始动画(延时1s)</button>
+	<button>停止动画</button>
+	<div></div>
 	<div></div>
 	<div></div>
 </body>
