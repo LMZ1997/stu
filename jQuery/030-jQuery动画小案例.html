@@ -7,35 +7,131 @@
 		body{
 			background-color: rgba(0,0,0,0.5);
 		}
-		div{
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.box{
 			width: 200px;
 			height: 30px;
-			background-color: rgba(255,255,255,0.6);
+			background-color: white;
+			margin:10px auto;
 		}
 		li{
 			list-style: none;
 			float: left;
-			margin-right: 20px;
-			color: white;
+			color: black;
+			font-size: 13px;
+			width: 100px;
+			height: 30px;
+			line-height: 30px;
 		}
 		ul{
 			width: 100%;
 			height: 100%;
+			text-align: center;
 		}
 		span{
 			margin-left: 5px;
 			transform: rotateZ(-90deg);
 			display: inline-block
 		}
+		p{
+			font-size: 13px;
+			width: 100px;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			background-color: white;
+		}
+		.box1{
+			float: left;
+			height: 0px;
+			overflow: hidden;
+		}
+		.box2{
+			float: right;
+			height: 0px;
+			overflow: hidden;
+		}
 	</style>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			var timer=null;
+			$('li').eq(0).mouseenter(function(){
+				$(this).css({
+					'color':'#ff6700'
+				})
+				$('.box1').animate({
+					height:60
+				},500)
+			})
+			$('li').eq(0).mouseleave(function(){
+				$(this).css({
+					'color':'black'
+				})
+				$('.box1').animate({
+					height:0
+				},500)
+			},500)
+			$('box1').mouseenter(function(){
+				$(this).css({
+					height:60
+				})
+			})
+			$('box1').mouseleave(
+				function(){
+				$('this').animate({
+					height:0
+				},500)
+			},500)
+
+
+
+
+			$('li').eq(1).mouseenter(function(){
+				$('span').eq(1).animate({
+					// transform:rotateZ(-270deg)
+				},500)
+				$(this).css({
+					'color':'#ff6700'
+				})
+				$('.box2').animate({
+					height:60
+				},500)
+			})
+			$('box2').mouseenter(function(){
+				$(this).css({
+					'height':60
+				})
+			})
+			$('li').eq(1).mouseleave(function(){
+				$(this).css({
+					'color':'black'
+				})
+				$('.box1').animate({
+					height:0
+				},500)
+			},500)
+
+		})
+	</script>
 </head>
 <body>
-	<div>
+	<div class="box">
 		<ul>
-			<li>购物车<span>&lt;</span></li>
+			<li>我的淘宝<span>&lt;</span></li>
 			<li>收藏夹<span>&lt;</span></li>
 		</ul>
-
+		<div class="box1">
+			<p>已买到的宝贝</p>
+			<p>我的足迹</p>
+		</div>
+		<div class="box2">
+			<p>已买到的宝贝</p>
+			<p>我的足迹</p>
+		</div>
 	</div>
 </body>
 </html>
