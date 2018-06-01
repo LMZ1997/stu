@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>全局配置</title>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			$('button').click(function(){
+				//$.ajaxSetup(对象参数) //给所有的ajax请求设置默认的初始化参数
+				$.ajaxSetup({
+					//url:'http://127.0.0.1/036-data.json',
+					url:'./036-data.json',
+					dataType:'json',
+				})
+				$.ajax({
+					// url:'./036-data.json',
+					type:'GET',
+					// dataType:'json',
+					success:function(data){
+						console.log(data);
+					},
+					error:function(){
+						console.log('error')
+					}
+				})
+			})
+		})
+	</script>
+</head>
+<body>
+	<button>获取数据</button>
+</body>
+</html>

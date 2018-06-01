@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象级别的插件</title>
+	<style>
+		div{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #000;
+		}
+	</style>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		(function($){
+			console.log($.prototype==$.fn);
+			/*
+			$.fn.setColor=function(options){
+				var defaults={
+					color:'red'
+				}
+				option=$.extend(defaults,options);//若没有传参，则options=defaults,否则options=options
+
+				// this.css('backgroundColor',option.color);
+				this.each(function(){
+					console.log(this);//这里的this变为DOM对象
+					this.style.backgroundColor=options.color;
+				});
+			})
+			*/
+			$.fn.extend({
+				setColor:function(options){
+					var defaults={
+						color:'red'
+					};
+					option=$.extend(defaults,options);//若没有传参，则options=defaults,否则options=options
+
+					// this.css('backgroundColor',option.color);
+					this.each(function(){
+						console.log(this);//这里的this变为DOM对象
+						this.style.backgroundColor=options.color;
+					});
+				}
+			})
+				//其他插件
+		})(jQuery);
+	</script>
+	<script>
+		$(function(){
+			$('button').click(function(){
+				$('div').setColor({
+					color:'blue'
+				});
+			})
+		})
+	</script>
+</head>
+<body>
+	<button>变色</button>
+	<div></div>
+	<div></div>
+	<div></div>
+</body>
+</html>

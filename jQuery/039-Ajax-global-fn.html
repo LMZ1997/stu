@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>全局回调函数</title>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			$('button').click(function(){
+				$(document).ajaxStart(function(){
+					console.log('ajaxStart')
+				});
+				$(document).ajaxStop(function(){
+					console.log('ajaxStop')
+				});
+				$(document).ajaxSuccess(function(){
+					console.log('ajaxSuccess')
+				});
+				$(document).ajaxError(function(){
+					console.log('ajaxError')
+				});
+				$(document).ajaxComplete(function(){
+					console.log('ajaxComplete')
+				});
+				$(document).ajaxSend(function(){
+					console.log('ajaxSend')
+				})
+				$.ajax({
+					//url:'http://127.0.0.1/036-data.json',
+					url:'./036-data.json',
+					type:'GET',
+					dataType:'json',
+					success:function(data){
+						console.log(data);
+					},
+					error:function(){
+						console.log('error')
+					}
+				});
+				$.ajax({
+					url:'./036-data.json',
+					type:'GET',
+					dataType:'json',
+					success:function(data){
+						console.log(data);
+					},
+					error:function(){
+						console.log('error')
+					},
+					global:false
+				})
+			})
+		})
+	</script>
+</head>
+<body>
+	<button>获取数据</button>
+</body>
+</html>

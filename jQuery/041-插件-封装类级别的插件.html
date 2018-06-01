@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>类级别的插件</title>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			console.log($);//是一个构造函数也称为类
+			/*
+			$.sayHi=function(){
+				alert('Hi');
+			}
+			$.sayHi();
+			*/
+
+			/*
+			$.extend({
+				sayHi:function(){
+					alert('Hi');
+				},
+			})
+			$.sayHi();
+			*/
+
+			//多作用于不同人完成同一页面
+			var obj={
+				sayHi:function(){
+					alert('Hi');
+				}
+			}
+			$.zs=obj;
+			$.zs.sayHi();
+		})
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

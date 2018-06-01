@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery结合Ajax</title>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			$('button').click(function(){
+				/*
+				$.get("./036-data.json",function(data){
+					console.log(data);
+				})
+				*/
+
+				/*
+				$.get("./036-data.json",{name:'Leo',age:88},function(data){
+					console.log(data.name);
+				},'json')
+				*/
+
+				/*
+				$.getJSON("./036-data.json",{name:'Leo',age:88},function(data){
+					console.log(data.name);
+				})
+				*/
+				$.getScript('./036-test.js',function(data){
+					console.log(data);
+				})
+			})
+		})
+	</script>
+</head>
+<body>
+	<button>发送请求</button>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jqXHR方法</title>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			$('button').click(function(){
+				var jqXHR=$.ajax({
+					//url:'http://127.0.0.1/036-data.json',
+					url:'./036-data.json',
+					type:'GET',
+					dataType:'json',
+				});
+				jqXHR.done(function(data,statusMsg,jqXHR){
+					console.log('done:::',data,statusMsg,jqXHR);
+				});
+				jqXHR.fail(function(jqXHR,statusMsg){
+					console.log('fail:::',jqXHR,statusMsg);
+				});
+				jqXHR.always(function(arg1,arg2,arg3){
+					console.log('always:::',arg1,arg2,arg3)
+				});
+			})
+		})
+	</script>
+</head>
+<body>
+	<button>获取数据</button>
+</body>
+</html>

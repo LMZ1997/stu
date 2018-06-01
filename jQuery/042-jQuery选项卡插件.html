@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选项卡插件</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.tab{
+			width: 400px;
+			margin:50px auto;
+		}
+		li{
+			list-style: none;
+		}
+		.btn{
+			overflow: hidden;
+		}
+		.btn>li{
+			float: left;
+			width: 40px;
+			height: 20px;
+			border: 1px solid #000;
+			text-align: center;
+			line-height: 20px;
+		}
+		.btn>li.active{
+			background-color: yellow
+		}
+		.content>li{
+			width: 200px;
+			height:300px;
+			border: 1px solid #000;
+			display: none;
+		}
+	</style>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		(function($){
+			$.fn.extend({
+				tab:function(){
+					var $aLi=null;
+					$('.tab').each(function(){
+						$aLi=$(this).find('.btn>li');
+					});
+					$aLi.on('click',function(){
+						$(this).addClass('active').siblings().removeClass('active');
+						var $index=$(this).index();
+						$('.tab').find('.content>li').eq($index).show().siblings().hide();		
+					})
+				}
+			})
+		})(jQuery)
+	</script>
+	<script>
+		$(function(){
+			$('.tab').tab();
+		})
+	</script>
+</head>
+<body>
+	<div class="tab">
+		<ul class="btn">
+			<li class="active">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<ul class="content">
+			<li style="display: block">content1</li>
+			<li>content2</li>
+			<li>content3</li>
+			<li>content4</li>
+		</ul>
+	</div>
+</body>
+</html>
