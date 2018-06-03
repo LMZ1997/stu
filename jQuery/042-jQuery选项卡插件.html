@@ -40,15 +40,23 @@
 	<script>
 		(function($){
 			$.fn.extend({
-				tab:function(){
+				tab:function(options){
 					var $aLi=null;
+					var defaults={
+						menu:'.btn>li',
+						content:'.content>li',
+						menuClass:'active',
+						event:'click'
+					}
+					options=$.extend(defaults,options)
+					//若没有传参options，则调用defaults，否则调用options
 					$('.tab').each(function(){
-						$aLi=$(this).find('.btn>li');
+						$aLi=$(this).find(options.menu);
 					});
-					$aLi.on('click',function(){
-						$(this).addClass('active').siblings().removeClass('active');
+					$aLi.on(options.event,function(){
+						$(this).addClass(options.menuClass).siblings().removeClass(options.menuClass);
 						var $index=$(this).index();
-						$('.tab').find('.content>li').eq($index).show().siblings().hide();		
+						$('.tab').find(options.content).eq($index).show().siblings().hide();		
 					})
 				}
 			})
@@ -56,7 +64,12 @@
 	</script>
 	<script>
 		$(function(){
-			$('.tab').tab();
+			$('.tab').tab({
+				menu:'.btn>li',
+				content:'.content>li',
+				menuClass:'active',
+				event:'click'
+			});
 		})
 	</script>
 </head>

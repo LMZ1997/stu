@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>引用插件</title>
+	<style>
+		.container{
+			position: absolute;
+			top:50%;
+			left: 50%;
+			/*;*/
+		}
+		body{
+			overflow: hidden;
+		}
+		.book{
+			width: 922px;
+			height: 600px;
+			position: absolute;
+			left:-461px;
+			top:-300px;
+			background-color: red;
+			}
+	</style>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script src="turnjs4/lib/turn.min.js"></script>
+	<script>
+		$(function(){
+			$('.book').turn();
+		})
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="book">
+			<div style="background:url(turnjs4/samples/basic/pages/1.jpg);"></div>
+			<div style="background:url(turnjs4/samples/basic/pages/2.jpg);"></div>
+			<div style="background:url(turnjs4/samples/basic/pages/3.jpg);"></div>
+			<div style="background:url(turnjs4/samples/basic/pages/4.jpg);"></div>
+			<div style="background:url(turnjs4/samples/basic/pages/5.jpg);"></div>
+			<div style="background:url(turnjs4/samples/basic/pages/6.jpg);"></div>
+			<div style="background:url(turnjs4/samples/basic/pages/7.jpg);"></div>
+		</div>
+	</div>
+</body>
+</html>

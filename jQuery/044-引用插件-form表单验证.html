@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>引用form表单插件</title>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script src="jquery-validation-1.17.0/dist/jquery.validate.min.js"></script>
+	<script>
+		$(function(){
+			$('#reg').validate({
+				rules:{
+					username:{
+						required:true,
+						minlength:2,
+						maxlength:8，
+						renglength:[2,8],
+					},
+					password:{
+						required:true,
+						number:true,
+					}
+				},
+				messages:{
+					username:{
+						required:'请输入用户名',
+						minlength:'用户名最少两位字符',
+						maxlength:'用户名最多八位字符',
+						renglength:'用户名由2-8为字符组成'
+					},
+					password:{
+						required:'请输入密码',
+						number:'只能输入字符'
+					}
+				}
+			});
+		})
+	</script>
+</head>
+<body>
+	<form action="https:www.baidu.com" id="reg">
+		<div>
+			用户名：<input type="text" name="username" id="username">	
+		</div>
+		<div>
+			密码：<input type="text" name="password" id="password">	
+		</div>
+		<div>
+			邮箱：<input type="text" name="email" id="email">	
+		</div>
+		<div>
+			密码：<input type="submit" value="提交">	
+		</div>
+	</form>
+</body>
+</html>
