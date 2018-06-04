@@ -3,6 +3,18 @@
 <head>
 	<meta charset="UTF-8">
 	<title>引用form表单插件</title>
+	<style>
+		input{
+			outline: none;
+		}
+		input.error{
+			border: 1px solid red;
+		}
+		label.error{
+			margin-left: 5px;
+			color: red;
+		}
+	</style>
 	<script src="js/jquery-1.12.4.js"></script>
 	<script src="jquery-validation-1.17.0/dist/jquery.validate.min.js"></script>
 	<script>
@@ -12,12 +24,15 @@
 					username:{
 						required:true,
 						minlength:2,
-						maxlength:8，
+						maxlength:8,
 						renglength:[2,8],
 					},
 					password:{
 						required:true,
 						number:true,
+					},
+					email:{
+						required:true,
 					}
 				},
 				messages:{
@@ -30,6 +45,9 @@
 					password:{
 						required:'请输入密码',
 						number:'只能输入字符'
+					},
+					email:{
+						required:'请输入邮箱',
 					}
 				}
 			});

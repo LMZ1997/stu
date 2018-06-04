@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>真伪数组的转换</title>
+	<script>
+		window.onload=function(){
+			var aLi=document.querySelectorAll('li');
+			var likeArr={0:'aaa',1:'bbb',2:'ccc',length:3};
+			var arr=[11,22,33,44,55];
+
+			//call/applay 改变this指向
+			var arr1=[];var arr2=[];
+			 /*1：：*/ //arr1.push(arr);
+			/*1：：*/ arr2.push.apply(arr1,arr);
+			console.log('两中方法相同',arr1);
+
+			[].push.apply(arr1,arr);//一样仍是改变了this指向，使arr被push进入arr1;
+
+			//由于低版本的兼容性问题，而slice返回的是确定的真数组，所以需使用一下方法，例子：
+			[].slice.call(aLi);
+		}
+	</script>
+</head>
+<body>
+	<ul>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</body>
+</html>
