@@ -3,20 +3,55 @@
 <head>
 	<meta charset="UTF-8">
 	<title>页面切换插件</title>
+	<style>
+		#menu{
+			width: 300px;
+			height: 30px;
+			position: fixed;
+			top: 0px;
+			left: 0px;
+			z-index: 999;
+		}
+		#menu li{
+			float: left;
+			list-style: none;
+			margin-right: 10px;
+		}
+	</style>
 	<link rel="stylesheet" href="fullPage.js-master/dist/jquery.fullpage.css">
-		
-	<script src="fullPage.js-master/dist/jquery.fullpage.min.js"></script>
 <script src="js/jquery-1.12.4.js"></script>
+	<script src="fullPage.js-master/dist/jquery.fullpage.min.js"></script>
+	
 	<script>
 		$(function(){
-			$('#fullpage').fullpage();
+			$('#fullpage').fullpage({
+				sectionsColor:['pink','#b0b0b0','green','tomato'],
+				//controlArrows:false,//默认是true，是否显示幻灯片左右箭头,不显示多用于移动设备，左右用手指滑动
+				verticalCentered:false,//每一屏的内容是否垂直居中，默认为true;
+				//resize:false,//字体大小是否随页面缩放而变化
+				scrollingSpeed:2000,//页面滚动速度，此处是2s;
+				anchors:['page1','page2','page3','page4'],//为每一屏添加锚链接，作用显示在网页地址栏，可使网页打开时直接跳转到某一屏
+				lockAnchors:false,//锁定(隐藏)网页地址栏的锚链接
+				css3:true,//若浏览器支持css3,那么动画调用css3,效果更好
+				menu:'#menu',
+			});
 		})
 	</script>
 </head>
 <body>
+	<ul id="menu">
+		<li data-menuanchor='page1'><a href="#page1">第一屏</a></li>
+		<li data-menuanchor='page2'><a href="#page2">第二屏</a></li>
+		<li data-menuanchor='page3'><a href="#page3">第三屏</a></li>
+		<li data-menuanchor='page4'><a href="#page4">第四屏</a></li>
+	</ul>
 	<div id="fullpage">
 		<div class="section">第一屏</div>
-		<div class="section">第二屏</div>
+		<div class="section">
+			<div class="slide">幻灯片1</div>
+			<div class="slide">幻灯片2</div>
+			<div class="slide">幻灯片3</div>
+		</div>
 		<div class="section">第三屏</div>
 		<div class="section">第四屏</div>
 	</div>

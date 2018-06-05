@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>kquery的each和map测试</title>
+	<!-- <script src="js/jquery-1.12.4.js"></script> -->
+	<script src="js/kquery-1.0.js"></script>
+	<script>
+		$(function(){
+			var aLi=document.querySelectorAll('li');
+			var arr=[11,22,33,44];
+			var likeArr={0:'aaa',1:'bbb',length:2};
+			var obj={name:'Tom',age:'18'};
+			$.each(arr,function(index,value){
+				console.log(index,value);
+			});
+		})
+	</script>
+</head>
+<body>
+	<ul>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</body>
+</html>

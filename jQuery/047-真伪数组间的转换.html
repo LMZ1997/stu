@@ -11,14 +11,25 @@
 
 			//call/applay 改变this指向
 			var arr1=[];var arr2=[];
-			 /*1：：*/ //arr1.push(arr);
-			/*1：：*/ arr2.push.apply(arr1,arr);
+			//arr1.push(arr);
+			arr2.push.apply(arr1,arr);
+			//用arr2只是间接调用其上的push方法
 			console.log('两中方法相同',arr1);
 
-			[].push.apply(arr1,arr);//一样仍是改变了this指向，使arr被push进入arr1;
+			//一样仍是改变了this指向，使后者被push进入前者;
+			var obj={}; var arr3=[];
+			//转换为伪数组(因为this指向的obj为伪数组)
+			[].push.apply(obj,aLi);
+			console.log(obj);
+			//转换为真数组(因为this指向的arr3为真数组)
+			[].push.apply(arr3,aLi);
+			console.log(arr3);
+			
+			
 
-			//由于低版本的兼容性问题，而slice返回的是确定的真数组，所以需使用一下方法，例子：
-			[].slice.call(aLi);
+			//把伪数组转化为真数组，由于低版本的兼容性问题(低版本apply方法，支持转换真数组，不支持转换伪数组),slice方法的返回值是真数组，是最兼容的方法，例子：
+			var aFinally=[].slice.call(likeArr);
+			console.log(aFinally);
 		}
 	</script>
 </head>

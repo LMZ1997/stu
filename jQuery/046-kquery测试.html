@@ -4,12 +4,15 @@
 	<meta charset="UTF-8">
 	<title>kquery测试</title>
 	<script src="js/kquery-1.0.js"></script>
-	<!-- <script src="js/jquery-1.12.4.js"></script> -->
-<!-- 	<script>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
 		$(function(){
-			console.log('kquery...')
+			var likeArr={0:'aaa',1:'bbb',length:2};
+			var l=$('likeArr').toArray();
+			console.log('6::',l);
+
 		})
-	</script> -->
+	</script>
 </head>
 <body>
 	<ul>
@@ -20,7 +23,19 @@
 	</ul>
 </body>
 <script>
-	console.log($('         <div><p></p></div><div><p></p></div>'));
-	console.log($('li'));
+	console.log('1:::',$('         <div><p></p></div><div><p></p></div>'));
+	console.log('1:::',$('ul li'));
+	console.log('2:::',$('li'));
+	// var aLi=document.getElementsByTagName('li');
+	var aLi=document.querySelectorAll('li');
+	console.log('3:::',$(aLi));
+	console.log('4:::',$(true));
+	console.log('5:::',$(1234));
+	console.log('7::',$('li').get(0));
+	console.log('7::',$('li').get(-1));
+	console.log('8::',$('li').eq(1));
+	console.log('8::',$('li').eq(-2));
+	console.log('9::',$('li').first());
+	console.log('9::',$('li').last());
 </script>
 </html>
