@@ -66,7 +66,7 @@ var
 				this.length=1;
 				return this;
 			}
-		}
+		},
 		selector:"",
 		length:0,
 		jquery:'1.0',
@@ -75,7 +75,7 @@ var
 		splice:[].splice,
 		toArray:function(){
 			return [].slice.call(this)
-		}
+		},
 		get:function(num){
 			//arguments.length==1说明传参了，这里不直接用num，
 			//  是因为若传来的参数num=0；则判断条件为假,如下
@@ -110,6 +110,8 @@ var
 			return kquery.each(this,fn)
 		},
 		map:function(fn){
+			//kquery.map调用的是构造函数的静态方法(且返回的是一个数组)
+			// , 为的是构建对象实例上的map方法
 			return kquery(kquery.map(this,fn))
 		}
 	}
@@ -142,9 +144,12 @@ var
 			}
 		},
 		each:function(arr,fn){
+			//若是数组
 			if(kquery.isArray(arr)){
 				for (var i = 0; i < arr.length; i++) {
 					var res=fn.call(arr[i],i,arr[i]);//改变了this
+					//用res接收返回值，判断是否返回了true或false
+					//  ,因为返回值会影响遍历结果，下边写了影响的效果
 					if(res==true){
 						continue;
 					}
@@ -153,6 +158,7 @@ var
 					}
 				}	
 			}
+			//若是对象
 			else{
 				for(key in arr){
 					var res=fn.call(arr[key],key,arr[key]);
@@ -164,37 +170,168 @@ var
 					}
 				}
 			}
+			//传什么进来返回出去什么
 			return arr;
 		},
+		//原生jquery的map方法里的this没有处理，指的是window，所以这里也没有用fn.call改变this指向
 		map:function(arr,fn){
 			var retArr=[];
 			if(kquery.isArray(arr)){
-				for (var i = 0; i < arr.length; i++) {
-					var res=fn.call(arr[i],arr[i],i){
-						if(res){
+				for (var i = 0; i < arr.length; i++){
+					var res=fn(arr[i],i)
+					if(res){
 							return retArr.push(res)
-						}
-						else{
-							return retArr;
-						}
 					}
+					/*
+					else{
+						return retArr;
+					}
+					*/
 				}
 			}
 			else{
 				for(key in arr){
-					var res=fn.call(arr[key],arr[key],key){
-						if(res){
-							return retArr.push(res)
-						}
-						else{
-							return retArr;
-						}
+					var res=fn(arr[key],key)
+					if(res){
+						return retArr.push(res)
 					}
+					/*
+					else{
+						return retArr;
+					}
+					*/
 				}
 			}
 			return retArr;
 		}
 	});
+	kquery.fn.extend({
+		html:function(content){
+			if(content){
+				this.each(function(){
+					this.innerHTML=content;
+				});
+				return this;
+			}
+			else{
+				return this[0].innerHTML;
+			}
+		},
+		text:function(content){
+			if(content){
+				this.each(function(){
+					this.innerText=content;
+				});
+				return this;
+			}
+			else{
+				var str='';
+				this.each(function(){
+					str+=this.innerText;
+				});
+				return str;
+			}
+		},
+		attr:function(arg1,arg2){
+			if(typeof arg1=='object'){
+				//先遍历传来的对象参数
+				dom=this;//
+				kquery.each(arg1,function(attr,value){
+					//再遍历所有元素，并设置相应属性值
+					dom.each(function(){
+						this.setAttribute(attr,value);
+					})
+				});
+				// return this;
+			}
+			else{
+				if(arguments.length==1){//传一个非对象参数的情况(获取属性)
+					//只获取第一个元素的对应属性
+					return this[0].getAttribute(arg1);
+				}
+				else if(arguments.length==2){//传2个参数的情况(设置属性)
+					//设置所有元素的对应属性
+					this.each(function(){
+						this.setAttribute(arg1,arg2);
+					})
+				}
+				// return this;
+			}
+			return this;
+		},
+		removeAttr:function(attr){
+			if(attr){
+				this.each(function(){
+					this.removeAttribute(attr);					
+				});
+				return this;
+			}
+			/*什么都不做
+			else{
+				return this;
+			}
+			*/
+		},
+		val:function(val){
+			if(val){
+				this.each(function(){
+					this.value=val;
+				});
+				return this;
+			}
+			else{
+				return this[0].value;
+			}	
+		},
+		css:function(arg1,arg2){
+			if(kquery.isString(arg1)){
+				if(arguments.length==1){
+					if(this[0].currentStyle){//低版本浏览器兼容问题
+						return this[0].currentStyle[arg1];
+					}
+					else{
+						return getComputedStyle(this[0],false)[arg1];	
+					}	
+				}
+				else if(arguments.length==2){
+					this.each(function(){
+						this.style[arg1]=arg2;
+					});
+					return this;
+				}
+			}
+			else if(typeof arg1=='object'){
+				this.each(function(){
+					for(key in arg1){
+						this.style[key]=arg1[key];
+					};
+				});
+				return this;
+			}
+		},
+		hasClass:function(str){
+			var res=false;
+			if(str){
+				var reg=/\bbox1\b/;
+				if(reg.test(this.className)){
+					res=true;
+					return false;//查找到一个就证明有此class,就可以退出了，提高效率
+				}
+			}
+			return res;
+		},
+		addClass:function(str){
+			if(str){
+				this.each(function(){
+					var $this=kquery(this);//把DOM转换为kquery对象
+					if(!$this.hasClass(str)){
+						this.className=this.className+' '+str;
+					}
+				})
+				return this;
+			}
+		},
+	})
 
 
 

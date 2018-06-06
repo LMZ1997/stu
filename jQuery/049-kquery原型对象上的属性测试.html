@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>原型对象上的属性测试</title>
+	<style>
+		div{
+			width: 100px;
+			height: 100px;
+			background-color: blue;
+			color: black;
+			margin-bottom: 10px;
+		}
+	</style>
+	<!-- <script src="js/jquery-1.12.4.js"></script> -->
+	<script src="js/kquery-1.0.js"></script>
+	<script>
+		$(function(){
+			$('button')[0].onclick=function(){
+					/*
+				console.log('1:::',$('li').html());
+				console.log('2:::',$('li').html('haha'));
+				console.log('3:::',$('li').html('<p>P标签</p>'));
+				*/
+				console.log('1:::',$('li').text());
+				console.log('2:::',$('li').text('haha'));
+				console.log('3:::',$('li').text('<p>P标签</p>'));
+				console.log('4:::',$('li').attr('class'));
+				console.log('5:::',$('li').attr('class','b1'));
+				console.log('6:::',$('li').attr({
+					class:'finally',
+					name:'finally'
+				}));
+				console.log($('li').removeAttr('name'));
+
+				console.log('7:::',$('input').val());
+				console.log('7:::',$('input').val('hhh'));
+
+				console.log('8:::',$('div').css('width'));
+				console.log('8:::',$('div').css('width','200px'));
+				console.log('8:::',$('div').css({
+					height:200,
+					backgroundColor:'red'
+				}));
+
+				console.log('9:::',$('div').addClass('box1'));
+			}	
+		})
+	</script>
+</head>
+<body>
+	<button>测试</button>
+	<ul>
+		<li class="a1" name='b1'>li1</li>
+		<li class="a2" name='b2'>li2</li>
+		<li class="a3" name='b3'>li3</li>
+		<li class="a4" name='b4'>li4</li>
+	</ul>
+		<input type="text" value="aaa">
+		<input type="text" value="bbb">
+		<div>css1</div>
+		<div>css2</div>
+</body>
+</html>
