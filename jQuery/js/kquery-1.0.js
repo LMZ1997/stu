@@ -109,7 +109,7 @@ var
 		each:function(fn){
 			return kquery.each(this,fn)
 		},
-		map:function(fn){
+		map:function(fn){//原型上的map方法返回的是jquery对象
 			//kquery.map调用的是构造函数的静态方法(且返回的是一个数组)
 			// , 为的是构建对象实例上的map方法
 			return kquery(kquery.map(this,fn))
@@ -178,9 +178,9 @@ var
 			var retArr=[];
 			if(kquery.isArray(arr)){
 				for (var i = 0; i < arr.length; i++){
-					var res=fn(arr[i],i)
+					var res=fn(arr[i],i)//map方法里的this代表window，所以无需改变this指向
 					if(res){
-							return retArr.push(res)
+							retArr.push(res)
 					}
 					/*
 					else{
@@ -193,7 +193,7 @@ var
 				for(key in arr){
 					var res=fn(arr[key],key)
 					if(res){
-						return retArr.push(res)
+						retArr.push(res)
 					}
 					/*
 					else{
@@ -203,8 +203,20 @@ var
 				}
 			}
 			return retArr;
+		},
+		toWords:function(str){
+			return str.match(/\b\w+\b/g);
+		},
+		addEvent:function(dom,eventName,fn){
+			if(dom.addEventListener){
+				this.addEventListener(eventName,fn);
+			};
+			else{
+				this.attachEvent('on'+eventName,fn);
+			};
 		}
 	});
+	//kquery原型对象上的属性方法
 	kquery.fn.extend({
 		html:function(content){
 			if(content){
@@ -312,25 +324,161 @@ var
 		hasClass:function(str){
 			var res=false;
 			if(str){
-				var reg=/\bbox1\b/;
-				if(reg.test(this.className)){
-					res=true;
-					return false;//查找到一个就证明有此class,就可以退出了，提高效率
-				}
+				var reg=eval('/\\b'+str+'\\b/');//eval可以将其括号中的内容(字符串)当作HTML代码来用；
+				this.each(function(){
+					if(reg.test(this.className)){
+						res=true;
+						return false;//查找到一个就证明有此class,就可以退出了，提高效率
+					}
+				});	
 			}
 			return res;
 		},
 		addClass:function(str){
+			//把str转化为数组,因为str不同单词间可能和有n个空格隔着
+			// var classNames=str.split();//只适用于不同单词间有一个空格隔开的情况
+			// var classNames=str.match(/\b\w+\b/g);
+			var classNames=kquery.toWords(str);
 			if(str){
 				this.each(function(){
 					var $this=kquery(this);//把DOM转换为kquery对象
-					if(!$this.hasClass(str)){
-						this.className=this.className+' '+str;
-					}
+					for (var i = 0; i < classNames.length; i++) {
+						if(!$this.hasClass(classNames[i])){
+							this.className=this.className+' '+classNames[i];
+						}	
+					};	
 				})
-				return this;
+				// return this;
 			}
+			return this;
 		},
+		removeClass:function(str){
+			if(str){
+				//解决传进来的参数间隔着多个空格的问题
+				var classNames=kquery.toWords(str);
+				this.each(function(){
+					for (var i = 0; i < classNames.length; i++) {
+						var reg=eval('/\\b'+classNames[i]+'\\b/');
+						if(reg.test(this.className)){
+							this.className=this.className.replace(reg,'')
+						}
+					}
+					
+				});	
+			}
+			else{
+				this.each(function(){
+					this.className='';
+				})
+			}
+			return this
+		},
+		toggleClass:function(str){		
+			if(str){
+				var res;
+				var classNames=kquery.toWords(str);
+				this.each(function(){
+					var $this=kquery(this);//把DOM转换为kquery对象
+					for (var i = 0; i < classNames.length; i++) {
+						var reg=eval('/\\b'+classNames[i]+'\\b/');
+						if(reg.test(this.className)){
+							$this.removeClass(classNames[i]);
+						}
+						else{
+							$this.addClass(classNames[i]);
+						}
+					}
+					
+				});			
+			}
+			else{
+				this.each(function(){
+					if(this.className.length==0){					
+					 	this.className=res;
+					}
+					else{
+						res=this.className;
+						this.className='';
+					}	
+				});			
+			}
+			return this;
+		}
+	});
+	//kquery原型对象上的DOM操作方法
+	kquery.fn.extend({
+		empty:function(){
+			this.each(function(){
+				this.innerHTML=''
+			});
+			return this;
+		},
+		remove:function(selector){
+			var doms=document.querySelectorAll(selector);
+			this.each(function(){
+				for (var i = 0; i < doms.length; i++) {
+					if(doms[i]==this){
+						var parentNode=this.parentNode;
+						parentNode.removeChild(this);
+					}
+				}
+			});
+			return this;	
+		},
+		append:function(source){
+			if(source){
+				//传入的参数类型有jquery对象,DOM节点,HTML代码片段
+				var $source=kquery(source);//将参数转换为jquery对象
+				this.each(function(){
+					var parentNode=this;
+					$source.each(function(index,value){//$source可以是多个对象
+						if(index==0){
+							parentNode.appendChild(this);
+						//appendChild工作原理是插入一个,再次运行时,删除上一个插入的节点
+						}
+						else{
+							var dom=this.cloneNode(true);
+							parentNode.appendChild(dom);
+						}
+						
+					})
+				})
+			}
+			return this;
+		},
+		prepend:function(source){
+			if(source){
+				//传入的参数类型有jquery对象,DOM节点,HTML代码片段
+				var $source=kquery(source);//将参数转换为jquery对象
+				this.each(function(){
+					var parentNode=this;
+					$source.each(function(index,value){//$source可以是多个对象
+						if(index==0){
+							parentNode.insertBefore(this,parentNode.firstChild);
+						//appendChild工作原理是插入一个,再次运行时,删除上一个插入的节点
+						}
+						else{
+							var dom=this.cloneNode(true);
+							parentNode.insertBefore(dom,parentNode.firstChild);
+						}
+						
+					})
+				})
+			}
+			return this;
+		}
+	});
+	//kquery原型对象上的事件方法
+	kquery.fn.extend({
+		on:function(eventName,fn){
+			this.each(function(){
+				// this.addEventListener(eventName,fn);
+				kquery.addEvent(this,eventName,fn);
+
+				kquery(this).addEvent(eventName,fn);
+			});
+			return this;
+		}
 	})
 
 

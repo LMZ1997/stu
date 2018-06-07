@@ -43,7 +43,12 @@
 					backgroundColor:'red'
 				}));
 
-				console.log('9:::',$('div').addClass('box1'));
+				// console.log('9:::',$('div').addClass('box1   box3'));
+				console.log('9:::',$('div').hasClass('box1'));
+				// console.log('9:::',$('div').removeClass('box1   box2'));
+				// console.log('9:::',$('div').removeClass('box1   box2'));//参数中间有多个空格隔着
+				console.log('9:::',$('div').toggleClass('box1          box2'));
+				// console.log('9:::',$('div').toggleClass('box1'));
 			}	
 		})
 	</script>
@@ -58,7 +63,7 @@
 	</ul>
 		<input type="text" value="aaa">
 		<input type="text" value="bbb">
-		<div>css1</div>
-		<div>css2</div>
+		<div class="box1 box2 box3">css1</div>
+		<div class="box1 box2">css2</div>
 </body>
 </html>
