@@ -10,23 +10,31 @@
 			border: 1px solid #000;
 		}
 	</style>
-	<script src="js/jquery-1.12.4.js"></script>
-	<!-- <script src="js/kquery-1.0.js"></script> -->
+	<!-- <script src="js/jquery-1.12.4.js"></script> -->
+	<script src="js/kquery-1.0.js"></script>
 	<script>
 		$(function(){
-			$('button')[0].onclick=function(){
+			// $('button')[0].onclick=function(){
+			// 	// console.log($('div').empty());
+			// 	// console.log($('div').remove('.box1'))
+			// 	// console.log($('div').append($('p')));
+			// 	console.log($('div').append($('.p1')));
+			// 	// console.log($('div').append($('<p>p2</p>')));
+
+
+			// 	// console.log($('div').prepend($('p')));
+			// 	// console.log($('div').prepend($('.p1')));
+			// 	// console.log($('div').prepend($('<p>p2</p>')));
+
+			// }
+			$('button').on('click',function(){
 				// console.log($('div').empty());
 				// console.log($('div').remove('.box1'))
-				// console.log($('div').append($('p')));
-				console.log($('div').append($('.p1')));
 				// console.log($('div').append($('<p>p2</p>')));
-
-
+				console.log($('div').append($('.p1')));
 				// console.log($('div').prepend($('p')));
 				// console.log($('div').prepend($('.p1')));
-				console.log($('div').prepend($('<p>p2</p>')));
-
-			}
+			})
 		})
 	</script>
 </head>
@@ -35,8 +43,7 @@
 	<div class="box1">44</div>
 	<div>33</div>
 	<div class="box1">11</div>
-	<p class=".p1">pp1</p>
-	<p class=".p1">pp2</p>
-	<p>pp3</p>
+	<p class="p1">pp1</p>
+	<p>pp2</p>
 </body>
 </html>

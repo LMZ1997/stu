@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>kquery事件测试</title>
+	<style>
+		div{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #000;
+		}
+	</style>
+	<!-- <script src="js/jquery-1.12.4.js"></script> -->
+	<script src="js/kquery-1.0.js"></script>
+	<script>
+		$(function(){
+			function test(){
+				alert('click1')
+			}
+			$('button').eq(0).on('click',test);
+			$('button').eq(0).on('click',function(){
+				alert('click2');
+			});
+			
+			$('button').eq(0).on('mouseout',function(){
+				alert('mouseout');
+			});
+
+			// $('button').off();
+			// $('button').off('click');
+			$('button').off('click','test');//这有问题
+
+			$('button').eq(2).on('click',function(){
+				$('body').append($('div').clone(true));//这有问题
+			});
+			$('div').eq(0).on('click',function(){
+				alert('click 11')
+			})
+			$('div').eq(1).on('click',function(){
+				alert('click 22')
+			})
+			
+		})
+	</script>
+</head>
+<body>
+	<button>按钮1</button>
+	<button>按钮2</button>
+	<button>测试</button>
+	<div>11</div>
+	<div>22</div>
+</body>
+</html>

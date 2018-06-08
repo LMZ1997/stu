@@ -91,7 +91,7 @@ var
 				return this.toArray();
 			}
 		},
-		eq:function(){
+		eq:function(num){
 			if(arguments.length==1){
 				return kquery(this.get(num));
 			}
@@ -205,17 +205,20 @@ var
 			return retArr;
 		},
 		toWords:function(str){
+			//  \w+ ：表示多个字符的单词
 			return str.match(/\b\w+\b/g);
 		},
+		//addEvent是为了解决浏览器版本低兼容性问题而创建的(低版本没有addEventListener)
 		addEvent:function(dom,eventName,fn){
 			if(dom.addEventListener){
-				this.addEventListener(eventName,fn);
-			};
+				dom.addEventListener(eventName,fn);
+			}
 			else{
-				this.attachEvent('on'+eventName,fn);
-			};
+				dom.attachEvent('on'+eventName,fn);
+			}
 		}
 	});
+
 	//kquery原型对象上的属性方法
 	kquery.fn.extend({
 		html:function(content){
@@ -338,7 +341,8 @@ var
 			//把str转化为数组,因为str不同单词间可能和有n个空格隔着
 			// var classNames=str.split();//只适用于不同单词间有一个空格隔开的情况
 			// var classNames=str.match(/\b\w+\b/g);
-			var classNames=kquery.toWords(str);
+			var classNames=kquery.toWords(str);//解决参数中有多个class值的问题，不
+							//能用字符串来判断，只能用数组循环数组中的值来判断
 			if(str){
 				this.each(function(){
 					var $this=kquery(this);//把DOM转换为kquery对象
@@ -354,7 +358,6 @@ var
 		},
 		removeClass:function(str){
 			if(str){
-				//解决传进来的参数间隔着多个空格的问题
 				var classNames=kquery.toWords(str);
 				this.each(function(){
 					for (var i = 0; i < classNames.length; i++) {
@@ -376,7 +379,8 @@ var
 		toggleClass:function(str){		
 			if(str){
 				var res;
-				var classNames=kquery.toWords(str);
+				var classNames=kquery.toWords(str);//用数组来做，是为了解决
+				       //测试代码的str里的单词间隔着多个空格的问题
 				this.each(function(){
 					var $this=kquery(this);//把DOM转换为kquery对象
 					for (var i = 0; i < classNames.length; i++) {
@@ -405,6 +409,7 @@ var
 			return this;
 		}
 	});
+
 	//kquery原型对象上的DOM操作方法
 	kquery.fn.extend({
 		empty:function(){
@@ -426,22 +431,25 @@ var
 			return this;	
 		},
 		append:function(source){
+			console.log(source);
 			if(source){
 				//传入的参数类型有jquery对象,DOM节点,HTML代码片段
 				var $source=kquery(source);//将参数转换为jquery对象
-				this.each(function(){
+
+				this.each(function(index,value){
 					var parentNode=this;
-					$source.each(function(index,value){//$source可以是多个对象
-						if(index==0){
+					if(index==0){
+						$source.each(function(){//$source可以是多个对象
 							parentNode.appendChild(this);
-						//appendChild工作原理是插入一个,再次运行时,删除上一个插入的节点
-						}
-						else{
-							var dom=this.cloneNode(true);
-							parentNode.appendChild(dom);
-						}
-						
-					})
+							//appendChild工作原理是插入一个,再次运行时,删除上一个插入的节点
+						});
+					}
+					else{
+						$source.each(function(){
+							var dom=this.cloneNode(true);//复制一份
+							parentNode.appendChild(dom);//插入克隆的那一份
+						})	
+					}					
 				})
 			}
 			return this;
@@ -450,19 +458,20 @@ var
 			if(source){
 				//传入的参数类型有jquery对象,DOM节点,HTML代码片段
 				var $source=kquery(source);//将参数转换为jquery对象
-				this.each(function(){
+				this.each(function(index,value){
 					var parentNode=this;
-					$source.each(function(index,value){//$source可以是多个对象
-						if(index==0){
+					if(index==0){
+						$source.each(function(){//$source可以是多个对象
 							parentNode.insertBefore(this,parentNode.firstChild);
-						//appendChild工作原理是插入一个,再次运行时,删除上一个插入的节点
-						}
-						else{
+							//appendChild工作原理是插入一个,再次运行时,删除上一个插入的节点
+						})
+					}
+					else{
+						$source.each(function(){
 							var dom=this.cloneNode(true);
-							parentNode.insertBefore(dom,parentNode.firstChild);
-						}
-						
-					})
+							parentNode.insertBefore(dom,parentNode.firstChild);	
+						})
+					}
 				})
 			}
 			return this;
@@ -472,12 +481,67 @@ var
 	kquery.fn.extend({
 		on:function(eventName,fn){
 			this.each(function(){
-				// this.addEventListener(eventName,fn);
-				kquery.addEvent(this,eventName,fn);
-
-				kquery(this).addEvent(eventName,fn);
+				if(!this.bucketEvent){
+					this.bucketEvent={};
+				}
+				if(!this.bucketEvent[eventName]){//等同于!obj[key]
+					this.bucketEvent[eventName]=[];//等同于obj[key]=[]
+					this.bucketEvent[eventName].push(fn);//等同于obj[key].push(fn)					
+					kquery.addEvent(this,eventName,function(){
+						kquery.each(this.bucketEvent[eventName],function(){
+							this();
+						})
+					})	
+				}
+				else{
+					this.bucketEvent[eventName].push(fn);
+				}
 			});
 			return this;
+		},
+		off:function(eventName,fnName){
+			if(arguments.length==0){
+				this.each(function(){
+					this.bucketEvent={};//清空对象
+				})
+			}
+			else if(arguments.length==1){
+				this.each(function(){
+					this.bucketEvent[eventName]=[];//清空数组
+				})
+			}
+			else if(arguments.length==2){
+				this.each(function(){
+					var dom=this;
+					if(this.bucketEvent&&this.bucketEvent[eventName]){
+						kquery.each(this.bucketEvent[eventName],function(index,value){
+							if(this==fnName){
+								//从数组index的位置删除一个单位元素在返回出数组
+								dom.bucketEvent[eventName].slice(index,1);
+							}
+						})
+					}
+				})
+			};
+		},
+		clone:function(copyEvent){
+			var res=[];
+			this.each(function(){
+				var dom=this;
+				if(copyEvent&&this.bucketEvent){
+					kquery.each(this.bucketEvent,function(eventName,fnArr){
+						kquery.each(fnArr,function(){
+							kquery(dom).on(eventName,this);
+							// kquery.addEvent(dom,eventName,this);
+						})
+					})
+				}
+				else{
+					var dom=this.cloneNode();
+					res.push(dom);
+				}
+			});
+			return kquery(res);
 		}
 	})
 
