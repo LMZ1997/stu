@@ -1,0 +1,40 @@
+.nav-header{
+	height: 44px;
+	background-color:pink;
+}
+.nav-left{
+	line-height: 44px;
+}
+.nav-left li{
+	line-height: 44px;
+	margin-right: 10px;
+}
+.dropdown{
+	height: 44px;
+	line-height: 44px;
+	position: relative;/*为下拉菜单设置定位用*/
+	background-color: yellow;
+}
+.header{
+	width: 100%;
+	height: 100px;
+	background-color: red;
+}
+.nav-login{
+	color: #ea675a;
+}
+.dropdown-layer{
+	background-color: blue;
+	position: absolute;
+	top: 44px;
+	left: 0px;
+	/*width: 100px;*/
+	white-space: nowrap;
+}
+.dropdown-arrow{
+	margin-left: 5px;
+	transform: rotate(180deg);
+}
+.transition{
+	transition: all 0.5s;
+}
