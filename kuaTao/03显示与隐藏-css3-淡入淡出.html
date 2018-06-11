@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>显示于隐藏测试</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/common.css">
+	<style>
+		.box1{
+			color: #000;
+		}
+		#box{
+			width: 200px;
+			height: 200px;
+			background: red;
+			/*display: none;*/
+		}
+		.fadeOut{
+			opacity: 0;
+			/*visibility: hidden;/*可以隐藏元素绑定的事件*/*/
+		}
+	</style>
+</head>
+<body>
+
+	<button>显示</button>
+	<button>隐藏</button>
+	<div id="box" class="transtion"></div>
+	<div class="box1">测试占据空间</div>
+</body>
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+	
+	var slient={
+		init:function($elem){//判断初始状态元素是否显示,根据情况使相应按钮的函数不能触发
+			if($elem.is(':hidden')){
+				$elem.data('status','hidden')
+			}
+			else{
+				$elem.data('status','shown')
+			}
+		},
+		show:function($elem){
+			if($elem.data('status')=='shown') return;//直接跳出函数
+			
+			if($elem.data('status')=='show') return;//该方法解决已经点击了show,元素1s后采后把状态改为shown,那么在此期间,连续点击不会再次触发事件
+
+			$elem.data('status','show').trigger('show');//在显示前,trigger触发自定义事件show(作用于某些在显示东西前，先loading的效果)
+
+			setTimeout(function(){//定时器是为了模拟网速,加载慢时会遇到的问题(如上)
+				$elem.show();//点击第一次后，元素的data上新增一个状态show,就是将要显示了
+				$elem.trigger('shown');//在显示后,trigger触发自定义事件show
+				$elem.data('status','shown');//show函数执行后，元素状态更改
+			},1000)
+			
+		},
+		hide:function(){
+			if($elem.data('status')=='hidden') return;//直接跳出函数
+			if($elem.data('status')=='hide') return;//原理同上
+
+			$elem.data('status','hide').trigger('hide');
+			$elem.hide();
+			$elem.trigger('hidden');
+			$elem.data('status','hidden');//hide函数执行后，元素显示状态更改
+		}
+	}
+	var css3={
+		fade:{//淡入淡出
+			init:function($elem){
+				if($elem.is(':hidden')){
+					$elem.data('status','hidden')
+				}
+				else{
+					$elem.data('status','shown')
+				}
+			},
+			show:function($elem){
+				if($elem.data('status')=='shown') return;
+				if($elem.data('status')=='show') return;
+
+				$elem.data('status','show').trigger('show');
+				$elem.show();
+				//off函数删除上一个未执行完的transitionend函数
+				$elem.off('transitionend').one('transitionend',function(){
+					$elem.data('status','shown').trigger('shown');
+				});
+				setTimeout(function(){
+					$elem.removeClass('fadeOut');//opactiy只改透明度，元素仍占据空间
+				},20);
+			},
+			hide:function($elem){
+				if($elem.data('status')=='hidden') return;
+				if($elem.data('status')=='hide') return;
+				$elem.data('status','hide').trigger('hide');
+				//one关键词绑定事件是让此事件执行完一次就移除掉
+				$elem.off('transitionend').one('transitionend',function(){//过渡完成后触发
+					$elem.hide();//dispaly=none--目的是解放元素占据的空间
+					$elem.trigger('hidden').data('status','hidden');
+				});
+				$elem.addClass('fadeOut');
+			}
+		},
+	}
+	var $elem=$('#box');
+
+	$elem.on('show shown hide hidden',function(ev){
+		if(ev.type=='show'){
+			console.log('1::显示前需要被触发的自定义事件')
+		}
+		else if(ev.type=='shown'){
+			console.log('2::显示后需要被触发的自定义事件')
+		}
+		else if(ev.type=='hide'){
+			console.log('3::隐藏前需要被触发的自定义事件')
+		}
+		else if(ev.type=='hidden'){
+			console.log('4::隐藏后需要被触发的自定义事件')
+		}
+	});
+
+	// slient.init($elem);
+		css3.fade.init($elem);
+	$('button').eq(0).on('click',function(){
+		css3.fade.show($elem);
+	})
+	$('button').eq(1).on('click',function(){
+		css3.fade.hide($elem);
+	})
+</script>
+</html>

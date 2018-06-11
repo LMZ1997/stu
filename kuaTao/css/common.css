@@ -32,3 +32,6 @@ body{
 .link:hover{
 	color: #ea675a;
 }
+.transtion{
+	transition: all 0.5s;
+}

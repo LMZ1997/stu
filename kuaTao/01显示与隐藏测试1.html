@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>显示于隐藏测试</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<style>
+		#box{
+			width: 200px;
+			height: 200px;
+			background: red;
+			/*display: none;*/
+		}
+	</style>
+</head>
+<body>
+
+	<button>显示</button>
+	<button>隐藏</button>
+	<div id="box"></div>
+</body>
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+	
+	var slient={
+		show:function($elem){
+			$elem.trigger('show');//在显示前,trigger触发自定义事件show(作用于某些在显示东西前，先loading的效果)
+			$elem.show();
+			$elem.trigger('shown');//在显示后,trigger触发自定义事件show
+		},
+		hide:function(){
+			$elem.hide();
+		}
+	}
+	var $elem=$('#box');
+	$elem.on('show',function(){
+		console.log('显示前需要被触发的自定义事件')
+	})
+	$elem.on('shown',function(){
+		console.log('显示后需要被触发的自定义事件')
+	})
+	$('button').eq(0).on('click',function(){
+		slient.show($elem);
+	})
+	$('button').eq(1).on('click',function(){
+		slient.hide($elem);
+	})
+</script>
+</html>

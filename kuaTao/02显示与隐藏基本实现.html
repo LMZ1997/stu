@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>显示于隐藏测试</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<style>
+		#box{
+			width: 200px;
+			height: 200px;
+			background: red;
+			/*display: none;*/
+		}
+	</style>
+</head>
+<body>
+
+	<button>显示</button>
+	<button>隐藏</button>
+	<div id="box">1s后显示</div>
+</body>
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+	
+	var slient={
+		init:function($elem){//判断初始状态元素是否显示,根据情况使相应按钮的函数不能触发
+			if($elem.is(':hidden')){
+				$elem.data('status','hidden')
+			}
+			else{
+				$elem.data('status','shown')
+			}
+		},
+		show:function($elem){
+			if($elem.data('status')=='shown') return;//直接跳出函数
+			
+			if($elem.data('status')=='show') return;//该方法解决已经点击了show,元素1s后采后把状态改为shown,那么在此期间,连续点击不会再次触发事件
+
+			$elem.data('status','show').trigger('show');//在显示前,trigger触发自定义事件show(作用于某些在显示东西前，先loading的效果)
+
+			setTimeout(function(){//定时器是为了模拟网速,加载慢时会遇到的问题(如上)
+				$elem.show();//点击第一次后，元素的data上新增一个状态show,就是将要显示了
+				$elem.trigger('shown');//在显示后,trigger触发自定义事件show
+				$elem.data('status','shown');//show函数执行后，元素状态更改
+			},1000)
+			
+		},
+		hide:function(){
+			if($elem.data('status')=='hidden') return;//直接跳出函数
+			if($elem.data('status')=='hide') return;//原理同上
+
+			$elem.trigger('hide');
+			$elem.data('status','hide').hide();
+			$elem.trigger('hidden');
+			$elem.data('status','hidden');//hide函数执行后，元素显示状态更改
+		}
+	}
+	var $elem=$('#box');
+
+	/*
+	$elem.on('show',function(){
+		console.log('显示前需要被触发的自定义事件')
+	})
+	$elem.on('shown',function(){
+		console.log('显示后需要被触发的自定义事件')
+	})
+	*/
+	//自定义事件优化
+	$elem.on('show shown hide hidden',function(ev){
+		if(ev.type=='show'){
+			console.log('1::显示前需要被触发的自定义事件')
+		}
+		else if(ev.type=='shown'){
+			console.log('2::显示后需要被触发的自定义事件')
+		}
+		else if(ev.type=='hide'){
+			console.log('3::隐藏前需要被触发的自定义事件')
+		}
+		else if(ev.type=='hidden'){
+			console.log('4::隐藏后需要被触发的自定义事件')
+		}
+	});
+	slient.init($elem);
+	$('button').eq(0).on('click',function(){
+		slient.show($elem);
+	})
+	$('button').eq(1).on('click',function(){
+		slient.hide($elem);
+	})
+</script>
+</html>
