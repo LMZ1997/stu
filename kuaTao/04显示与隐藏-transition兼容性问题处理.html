@@ -17,7 +17,6 @@
 		}
 		.fadeOut{
 			opacity: 0;
-			/*visibility: hidden;/*可以隐藏元素绑定的事件*/*/
 		}
 	</style>
 </head>
@@ -29,7 +28,9 @@
 	<div class="box1">测试占据空间</div>
 </body>
 <script src="js/jquery-1.12.4.js"></script>
+<script src="js/transitionSupport.js"></script>
 <script>
+	console.log(kuazhu.transition);//判断当前浏览器是否支持transition过渡
 	/*
 		slient和css方法的初始化有很多相同代码，所以把相同的抽取出来，做一个公用的初始化函数
 		function init();
@@ -90,23 +91,14 @@
 				$elem.addClass('transtion');//保障用户遗忘加过渡
 				init($elem,function(){
 					$elem.addClass('fadeOut');//若元素初始状态为隐藏，需要加opaity=0;才能使接下来改变opacity后产生过渡
-				});
-				/*
-				if($elem.is(':hidden')){
-					$elem.data('status','hidden');
-					$elem.addClass('fadeOut');//若元素初始状态为隐藏，需要加opaity=0;才能使接下来改变opacity后产生过渡
-				}
-				else{
-					$elem.data('status','shown')
-				}
-				*/
+				});			
 			},
 			show:function($elem){
 				show($elem,function(){
 					$elem.show();
 					//off函数删除上一个未执行完的transitionend函数
-					$elem.off('transitionend').one('transitionend',function(){
-						$elem.data('status','shown').trigger('shown');
+					$elem.off(kuazhu.transition.end).one(kuazhu.transition.end,function(){
+						$elem.trigger('shown').data('status','shown');
 					});
 					setTimeout(function(){
 						$elem.removeClass('fadeOut');//opactiy只改透明度，元素仍占据空间
@@ -116,7 +108,7 @@
 			hide:function($elem){
 				hide($elem,function(){
 					//one关键词绑定事件是让此事件执行完一次就移除掉
-					$elem.off('transitionend').one('transitionend',function(){//过渡完成后触发
+					$elem.off(kuazhu.transition.end).one(kuazhu.transition.end,function(){//过渡完成后触发
 						$elem.hide();//dispaly=none--目的是解放元素占据的空间
 						$elem.trigger('hidden').data('status','hidden');
 					});

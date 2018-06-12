@@ -11,31 +11,37 @@
 		}
 		#box{
 			width: 200px;
-			height: 200px;
+			/*height: 200px;*/
 			background: red;
 			display: none;
+			padding-top: 30px; 
+			padding-bottom: 30px;
 		}
 		.fadeOut{
 			opacity: 0;
-			/*visibility: hidden;/*可以隐藏元素绑定的事件*/*/
+		}
+		.slideUpDownCollapse{
+			height: 0  !important;/*类的优先级低于id*/
+			padding-bottom: 0 !important;
+			padding-top: 0 !important;
 		}
 	</style>
 </head>
 <body>
-
 	<button>显示</button>
 	<button>隐藏</button>
-	<div id="box" class="transtion"></div>
+	<div id="box" class="transtion">
+		<p>行高1</p>
+		<p>行高2</p>
+		<p>行高3</p>
+		<p>行高4</p>
+	</div>
 	<div class="box1">测试占据空间</div>
 </body>
 <script src="js/jquery-1.12.4.js"></script>
+<script src="js/transitionSupport.js"></script>
 <script>
-	/*
-		slient和css方法的初始化有很多相同代码，所以把相同的抽取出来，做一个公用的初始化函数
-		function init();
-		function show();
-		function hide();
-	*/
+	console.log(kuazhu.transition);//判断当前浏览器是否支持transition过渡
 	function init($elem,hiddenCallBack){
 		if($elem.is(':hidden')){//判断初始状态元素是否显示,根据情况使相应按钮的函数不能触发
 			$elem.data('status','hidden');
@@ -62,7 +68,6 @@
 		callBack();
 	}
 
-
 	var slient={
 		init:function($elem){
 			init($elem);
@@ -84,47 +89,61 @@
 			});
 		}
 	}
+
 	var css3={
 		fade:{//淡入淡出
 			init:function($elem){
-				$elem.addClass('transtion');//保障用户遗忘加过渡
-				init($elem,function(){
-					$elem.addClass('fadeOut');//若元素初始状态为隐藏，需要加opaity=0;才能使接下来改变opacity后产生过渡
-				});
-				/*
-				if($elem.is(':hidden')){
-					$elem.data('status','hidden');
-					$elem.addClass('fadeOut');//若元素初始状态为隐藏，需要加opaity=0;才能使接下来改变opacity后产生过渡
-				}
-				else{
-					$elem.data('status','shown')
-				}
-				*/
+				css3._init($elem,'fadeOut');	
 			},
 			show:function($elem){
-				show($elem,function(){
-					$elem.show();
-					//off函数删除上一个未执行完的transitionend函数
-					$elem.off('transitionend').one('transitionend',function(){
-						$elem.data('status','shown').trigger('shown');
-					});
-					setTimeout(function(){
-						$elem.removeClass('fadeOut');//opactiy只改透明度，元素仍占据空间
-					},20);
-				});		
+				css3._show($elem,'fadeOut');		
 			},
 			hide:function($elem){
-				hide($elem,function(){
-					//one关键词绑定事件是让此事件执行完一次就移除掉
-					$elem.off('transitionend').one('transitionend',function(){//过渡完成后触发
-						$elem.hide();//dispaly=none--目的是解放元素占据的空间
-						$elem.trigger('hidden').data('status','hidden');
-					});
-					$elem.addClass('fadeOut');
-				});	
+				css3._hide($elem,'fadeOut');
 			}
 		},
+		slideUpDown:{
+			init:function($elem){
+				$elem.height($elem.height());//用于存储元素的高度,以免隐藏后再显示时元素本身并没有高度，那就不知道伸展多高停下了
+				css3._init($elem,'slideUpDownCollapse');	
+			},
+			show:function($elem){
+				css3._show($elem,'slideUpDownCollapse')		
+			},
+			hide:function($elem){
+				css3._hide($elem,'slideUpDownCollapse')
+			}
+		}
 	}
+	css3._init=function($elem,className){
+		$elem.addClass('transtion');//保障用户遗忘加过渡
+			init($elem,function(){
+			$elem.addClass(className);
+		});	
+	}
+	css3._show=function($elem,className){
+		show($elem,function(){
+			$elem.show();
+			$elem
+			.off(kuazhu.transition.end)//解决用户频繁点击触发多次事件
+			.one(kuazhu.transition.end,function(){
+				$elem.trigger('shown').data('status','shown');
+			});
+			setTimeout(function(){
+				$elem.removeClass(className);//
+			},20);
+		});
+	}
+	css3._hide=function($elem,className){
+		hide($elem,function(){
+			$elem.off(kuazhu.transition.end).one(kuazhu.transition.end,function(){
+				$elem.hide();
+				$elem.trigger('hidden').data('status','hidden');
+			});
+			$elem.addClass(className);
+		});	
+	}
+
 	var $elem=$('#box');
 
 	$elem.on('show shown hide hidden',function(ev){
@@ -143,12 +162,12 @@
 	});
 
 	// slient.init($elem);
-		css3.fade.init($elem);
+		css3.slideUpDown.init($elem);
 	$('button').eq(0).on('click',function(){
-		css3.fade.show($elem);
+		css3.slideUpDown.show($elem);
 	})
 	$('button').eq(1).on('click',function(){
-		css3.fade.hide($elem);
+		css3.slideUpDown.hide($elem);
 	})
 </script>
 </html>
