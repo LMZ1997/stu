@@ -11,11 +11,13 @@
 		}
 		#box{
 			width: 200px;
-			/*height: 200px;*/
+			height: 200px;
 			background: red;
 			display: none;
 			padding-top: 30px; 
 			padding-bottom: 30px;
+			padding-left: 30px;
+			padding-right: 30px;
 		}
 		.fadeOut{
 			opacity: 0 !important;
@@ -193,25 +195,87 @@
 	var js={
 		fade:{
 			init:function($elem){
-				$elem.removeClass('transition');//避免js本身和css3中的过渡产生冲突
-				init($elem);
+				js._init($elem);
 			},
 			show:function($elem){
+				js._show($elem,'fadeIn')
+			},
+			hide:function($elem){
+				js._hide($elem,'fadeOut')
+			}
+		},
+		slideUpDown:{
+			init:function($elem){
+				js._init($elem);
+			},
+			show:function($elem){
+				js._show($elem,'slideDown');
+			},
+			hide:function($elem){
+				js._hide($elem,'slideUp');
+			}
+		},
+		slideLeftRight:{
+			init:function($elem){
+				$elem.removeClass('transition');//避免js本身和css3中的过渡产生冲突
+				console.log($elem.css('height'));
+				init($elem,function(){
+					var styles={
+						width:$elem.css('width'),
+
+						paddingLeft:$elem.css('paddingLeft'),
+						paddingRight:$elem.css('paddingRight')
+					};
+					$elem.data('styles',styles);//为了在其他函数中也可以引用styles对象
+					$elem.css({//判断元素初始状态为隐藏后，需要将元素的水平宽度设置为0;
+						width:'0px',
+						paddingLeft:'0px',
+						paddingRight:'0px'
+					});
+				});
+			},
+			show:function($elem){
+				var styles=$elem.data('styles');
 				show($elem,function(){
-					//js动画开始前都需要stop函数去停止动画
-					$elem.stop().fadeIn(function(){
+					$elem.show();//作用于diplay='none'——>display='block';
+					$elem.stop().animate(styles,function(){
 						$elem.trigger('shown').data('status','shown');
 					})
 				})
 			},
 			hide:function($elem){
 				hide($elem,function(){
-					$elem.stop().fadeOut(function(){
+					$elem.stop().animate({
+						width:'0px',
+						paddingLeft:'0px',
+						paddingRight:'0px'
+					}	
+					,function(){
+						$elem.hide();//作用于diplay='block'——>display='none';
 						$elem.trigger('hidden').data('status','hidden');
-					})
-				})
+					});
+				})	
 			}
 		}
+	}
+	js._init=function($elem){
+		$elem.removeClass('transition');//避免js本身和css3中的过渡产生冲突
+		init($elem);
+	}
+	js._show=function($elem,mode){
+		show($elem,function(){
+			//js动画开始前都需要stop函数去停止动画
+			$elem.stop()[mode](function(){
+				$elem.trigger('shown').data('status','shown');
+			})
+		})
+	}
+	js._hide=function($elem,mode){
+		hide($elem,function(){
+			$elem.stop()[mode](function(){
+				$elem.trigger('hidden').data('status','hidden');
+			})
+		})
 	}
 	var $elem=$('#box');
 
@@ -231,12 +295,12 @@
 	});
 
 	// slient.init($elem);
-		js.fade.init($elem);
+		js.slideLeftRight.init($elem);
 	$('button').eq(0).on('click',function(){
-		js.fade.show($elem);
+		js.slideLeftRight.show($elem);
 	})
 	$('button').eq(1).on('click',function(){
-		js.fade.hide($elem);
+		js.slideLeftRight.hide($elem);
 	})
 </script>
 </html>
