@@ -1,57 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>显示于隐藏测试</title>
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="css/common.css">
-	<style>
-		.box1{
-			color: #000;
-		}
-		#box{
-			width: 200px;
-			height: 200px;
-			background: red;
-			display: none;
-			padding-top: 30px; 
-			padding-bottom: 30px;
-			padding-left: 30px;
-			padding-right: 30px;
-		}
-		.fadeOut{
-			opacity: 0 !important;
-			visibility: hidden !important;
-		}
-		.slideUpDownCollapse{
-			height: 0  !important;/*类的优先级低于id*/
-			padding-bottom: 0 !important;
-			padding-top: 0 !important;
-		}
-		.slideLeftRightCollapse{
-			width: 0  !important;/*类的优先级低于id*/
-			padding-left: 0 !important;
-			padding-right: 0 !important;
-		}
-	</style>
-</head>
-<body>
-	<button>显示</button>
-	<button>隐藏</button>
-	<div id="box" class="transition">
-		<p>行高1</p>
-		<p>行高2</p>
-		<p>行高3</p>
-		<p>行高4</p>
-	</div>
-	<div class="box1">测试占据空间</div>
-</body>
-<script src="js/jquery-1.12.4.js"></script>
-<script src="js/transitionSupport.js"></script>
-<script>
-	console.log(kuazhu.transition);//判断当前浏览器是否支持transition过渡
+;(function($){
 	function init($elem,hiddenCallBack){
-		if($elem.is(':hidden')){//判断初始状态元素是否显示,根据情况使相应按钮的函数不能触发
+		if($elem.is(':hidden')){
 			$elem.data('status','hidden');
 			if(typeof hiddenCallBack=='function'){
 				hiddenCallBack();
@@ -66,11 +15,11 @@
 		if($elem.data('status')=='show') return;
 
 		$elem.data('status','show').trigger('show');
-		callBack();//把show函数里不同的部分用回调函数执行，具体代码在每个方法的show里
+		callBack();
 	};
 	function hide($elem,callBack){
-		if($elem.data('status')=='hidden') return;//直接跳出函数
-		if($elem.data('status')=='hide') return;//原理同上
+		if($elem.data('status')=='hidden') return;
+		if($elem.data('status')=='hide') return;
 
 		$elem.data('status','hide').trigger('hide');
 		callBack();
@@ -82,10 +31,10 @@
 		},
 		show:function($elem){
 			show($elem,function(){
-				setTimeout(function(){//定时器是为了模拟网速,加载慢时会遇到的问题(如上)
-					$elem.show();//点击第一次后，元素的data上新增一个状态show,就是将要显示了
-					$elem.trigger('shown');//在显示后,trigger触发自定义事件show
-					$elem.data('status','shown');//show函数执行后，元素状态更改
+				setTimeout(function(){
+					$elem.show();
+					$elem.trigger('shown');
+					$elem.data('status','shown');
 				},1000);
 			})						
 		},
@@ -93,7 +42,7 @@
 			hide($elem,function(){
 				$elem.hide();
 				$elem.trigger('hidden');
-				$elem.data('status','hidden');//hide函数执行后，元素显示状态更改
+				$elem.data('status','hidden');
 			});
 		}
 	}
@@ -113,7 +62,7 @@
 		//上下卷入卷出
 		slideUpDown:{
 			init:function($elem){
-				$elem.width($elem.width());//用于存储元素的高度,以免隐藏后再显示时元素本身并没有高度，那就不知道伸展多高停下了
+				$elem.width($elem.width());
 				css3._init($elem,'slideUpDownCollapse');	
 			},
 			show:function($elem){
@@ -164,7 +113,7 @@
 		}
 	}
 	css3._init=function($elem,className){
-		$elem.addClass('transtion');//保障用户遗忘加过渡
+		$elem.addClass('transtion');
 			init($elem,function(){
 			$elem.addClass(className);
 		});	
@@ -173,7 +122,7 @@
 		show($elem,function(){
 			$elem.show();
 			$elem
-			.off(kuazhu.transition.end)//解决用户频繁点击触发多次事件
+			.off(kuazhu.transition.end)
 			.one(kuazhu.transition.end,function(){
 				$elem.trigger('shown').data('status','shown');
 			});
@@ -278,12 +227,11 @@
 		}
 	}
 	js._init=function($elem){
-		$elem.removeClass('transition');//避免js本身和css3中的过渡产生冲突
+		$elem.removeClass('transition');
 		init($elem);
 	}
 	js._show=function($elem,mode){
 		show($elem,function(){
-			//js动画开始前都需要stop函数去停止动画
 			$elem.stop()[mode](function(){
 				$elem.trigger('shown').data('status','shown');
 			})
@@ -298,17 +246,9 @@
 	}
 	js._customInit=function($elem,options){
 		$elem.removeClass('transition');
-		/*
-		var styles={
-				height:$elem.css('height'),
-				paddingTop:$elem.css('paddingTop'),
-				paddingBotom:$elem.css('paddingBotom'),
-				opacity:$elem.css('opacity')
-			};
-		*/
 		var styles={};
 		for(key in options){
-			styles[key]=$elem.css(key);//作用同上，不过这个可以由用户控制
+			styles[key]=$elem.css(key);
 		}
 		$elem.data('styles',styles);
 		
@@ -334,30 +274,31 @@
 			});
 		})	
 	}
-	var $elem=$('#box');
-
-	$elem.on('show shown hide hidden',function(ev){
-		if(ev.type=='show'){
-			console.log('1::显示前需要被触发的自定义事件')
+	
+	$.fn.extend({//调用extend方法,使外部对象也可以调用此showHide方法
+		showHide:function(){
+			/*  两个都为fasle的话，显示和隐藏默认调用slient方法
+				css3:false,
+				js:false,
+				mode:'slideUpDown'
+			*/
+			var showHideType=null;
+			if(options.css3&&kuazhu.transition.isSupport){//css3并且判断是否支持css3
+				showHideFn=css3[options.mode]
+			}
+			else if(options.js){//js
+				showHideFn=js[options.mode]
+			}
+			else{//slient
+				showHideFn=slient[options.mdoe]
+			}
+			showHideFn.init($elem);//直接初始化
+			return {
+				show:showHideFn.show,
+				hide:showHideFn.hide
+			}
 		}
-		else if(ev.type=='shown'){
-			console.log('2::显示后需要被触发的自定义事件')
-		}
-		else if(ev.type=='hide'){
-			console.log('3::隐藏前需要被触发的自定义事件')
-		}
-		else if(ev.type=='hidden'){
-			console.log('4::隐藏后需要被触发的自定义事件')
-		}
-	});
-
-	// slient.init($elem);
-		js.fadeSlideLeftRight.init($elem);
-	$('button').eq(0).on('click',function(){
-		js.fadeSlideLeftRight.show($elem);
 	})
-	$('button').eq(1).on('click',function(){
-		js.fadeSlideLeftRight.hide($elem);
-	})
-</script>
-</html>
+
+	
+})(jquery)

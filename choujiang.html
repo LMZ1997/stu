@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>抽奖</title>
+	<style>
+		img{
+			width:300px;
+			height: 200px;
+		}
+		.img1{
+			position: absolute;
+			left: 100px;
+			z-index: 3;
+		}
+		.img2{
+			position: absolute;
+			z-index: 2;
+				left: 100px;
+		}
+		.img3{
+			position: absolute;
+			z-index: 1;
+				left: 100px;
+		}
+		div{
+			width: 300px;
+			border: 1px solid #000;
+			color: red;
+			line-height: 300px;
+			text-align: center;
+			position: relative;
+			top: 46px;
+			left: 84px;
+			border:none;
+		}
+
+	</style>
+	<script src="jQuery/js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			$('button').on('click',function(){
+				var jqXHR=$.ajax({
+					url:'http://10.196.18.35:3000',
+					type:'GET',
+					dataType:'json',
+				});
+				jqXHR.done(function(data,statusMsg,jqXHR){
+					setTimeout(function(){
+						$('.img1').css('display','none')
+						setTimeout(function(){
+							$('.img2').css('display','none')
+							setTimeout(function(){
+								var name=data.name.slice(0,4);
+								var price=data.name.slice(4,7);
+								$('.box').html('恭喜 '+name+' 获得了 '+price)
+								// $('.box')[0].innerHTML(data.name)
+								console.log(data);
+							},700)
+							
+						},1800)
+						
+					},500)
+					
+				});
+				jqXHR.fail(function(jqXHR,statusMsg){
+					console.log('fail:::',statusMsg)
+				});
+			})
+		})
+	</script>
+</head>
+<body>
+	<button>抽奖</button>
+	<img src="dan.jpg" alt="" class="img1">
+	<img src="dan.gif" alt="" class="img2">
+	<img src="dan.png" alt="" class="img3">
+	<div class="box"></div>
+</body>
+</html>
