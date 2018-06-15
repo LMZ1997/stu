@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试shou-hide插件</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/common.css">
+	<style>
+		.box1{
+			color: #000;
+		}
+		#box{
+			width: 200px;
+			height: 200px;
+			background: red;
+			display: none;
+			padding-top: 30px; 
+			padding-bottom: 30px;
+			padding-left: 30px;
+			padding-right: 30px;
+			/*overflow: hidden;*/
+		}
+		.fadeOut{
+			opacity: 0 !important;
+			visibility: hidden !important;
+		}
+		.slideUpDownCollapse{
+			height: 0  !important;/*类的优先级低于id*/
+			padding-bottom: 0 !important;
+			padding-top: 0 !important;
+		}
+		.slideLeftRightCollapse{
+			width: 0  !important;/*类的优先级低于id*/
+			padding-left: 0 !important;
+			padding-right: 0 !important;
+		}
+	</style>
+</head>
+<body>
+	<button>显示</button>
+	<button>隐藏</button>
+	<div id="box" class="transition" >
+		<p>行高1</p>
+		<p>行高2</p>
+		<p>行高3</p>
+		<p>行高4</p>
+	</div>
+	<div class="box1">测试占据空间</div>
+</body>
+<script src="js/jquery-1.12.4.js"></script>
+<script src="js/transitionSupport.js"></script>
+<script src="js/show-hide.js"></script>
+<script>
+	var $elem=$('#box');
+
+	$elem.on('show shown hide hidden',function(ev){
+		if(ev.type=='show'){
+			console.log('1::显示前需要被触发的自定义事件')
+		}
+		else if(ev.type=='shown'){
+			console.log('2::显示后需要被触发的自定义事件')
+		}
+		else if(ev.type=='hide'){
+			console.log('3::隐藏前需要被触发的自定义事件')
+		}
+		else if(ev.type=='hidden'){
+			console.log('4::隐藏后需要被触发的自定义事件')
+		}
+	});
+	/*
+	var showHide=$elem.showHide($elem,{
+		css3:true,
+		js:false,
+		mode:'slideLeftRight'
+	})
+	*/
+	$elem.showHide({
+		css3:true,
+		js:false,
+		mode:'slideLeftRight'
+	})
+	$('button').eq(0).on('click',function(){
+		// js.fadeSlideLeftRight.show($elem);
+		// showHide.show($elem)
+		$elem.showHide('show');
+	})
+	$('button').eq(1).on('click',function(){
+		// js.fadeSlideLeftRight.hide($elem);
+		// showHide.hide($elem)
+		$elem.showHide('hide');
+	})
+</script>
+</html>

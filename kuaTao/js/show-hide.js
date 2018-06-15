@@ -62,7 +62,7 @@
 		//上下卷入卷出
 		slideUpDown:{
 			init:function($elem){
-				$elem.width($elem.width());
+				$elem.height($elem.height());
 				css3._init($elem,'slideUpDownCollapse');	
 			},
 			show:function($elem){
@@ -75,7 +75,7 @@
 		//左右卷入卷出
 		slideLeftRight:{
 			init:function($elem){
-				$elem.height($elem.height());
+				$elem.width($elem.width());
 				css3._init($elem,'slideLeftRightCollapse');	
 			},
 			show:function($elem){
@@ -101,7 +101,7 @@
 		//淡入淡出左右卷入卷出
 		fadeSlideLeftRight:{
 			init:function($elem){
-				$elem.height($elem.width());
+				$elem.width($elem.width());
 				css3._init($elem,'fadeOut slideLeftRightCollapse');	
 			},
 			show:function($elem){
@@ -113,7 +113,7 @@
 		}
 	}
 	css3._init=function($elem,className){
-		$elem.addClass('transtion');
+			$elem.addClass('transition');
 			init($elem,function(){
 			$elem.addClass(className);
 		});	
@@ -122,7 +122,7 @@
 		show($elem,function(){
 			$elem.show();
 			$elem
-			.off(kuazhu.transition.end)
+			.off(kuazhu.transition.end)//kuazhu.transition.end是指过渡结束的事件名
 			.one(kuazhu.transition.end,function(){
 				$elem.trigger('shown').data('status','shown');
 			});
@@ -133,7 +133,9 @@
 	}
 	css3._hide=function($elem,className){
 		hide($elem,function(){
-			$elem.off(kuazhu.transition.end).one(kuazhu.transition.end,function(){
+			$elem
+			.off(kuazhu.transition.end)
+			.one(kuazhu.transition.end,function(){
 				$elem.hide();
 				$elem.trigger('hidden').data('status','hidden');
 			});
@@ -275,14 +277,13 @@
 		})	
 	}
 	
-	$.fn.extend({//调用extend方法,使外部对象也可以调用此showHide方法
-		showHide:function(){
-			/*  两个都为fasle的话，显示和隐藏默认调用slient方法
+	function showHide($elem,options){//静态函数
+		/*  两个都为fasle的话，显示和隐藏默认调用slient方法
 				css3:false,
 				js:false,
 				mode:'slideUpDown'
 			*/
-			var showHideType=null;
+			var showHideFn=null;
 			if(options.css3&&kuazhu.transition.isSupport){//css3并且判断是否支持css3
 				showHideFn=css3[options.mode]
 			}
@@ -290,15 +291,40 @@
 				showHideFn=js[options.mode]
 			}
 			else{//slient
-				showHideFn=slient[options.mdoe]
+				showHideFn=slient;
 			}
+
 			showHideFn.init($elem);//直接初始化
-			return {
+			console.log(showHideFn.init)
+			return {//将方法返回出去
 				show:showHideFn.show,
 				hide:showHideFn.hide
 			}
+	}
+	$.fn.extend({//调用extend方法,使外部对象也可以调用此showHide方法
+		showHide:function(options){//使所有jquery对象都有一个showHide方法
+			
+			var defaults={//默认参数，防止用户没有设置参数
+				css3:false,
+				js:false,
+				mode:'fade'
+			}
+			this.each(function(){
+				var $elem=$(this);
+				var mode=$elem.data('mode');//第一次调用showHide进来时(是初始化),元素$elem上没有mode
+				if(!mode){//第一次调用showHide进来时(是初始化),元素$elem上没有mode
+					options=$.extend(defaults,options);
+					mode=showHide($elem,options);//这个showHide是调用静态函数showHide,将返回的方法存在mode中
+					$elem.data('mode',mode)//元素data属性上设置mode属性，第二次调用赋值给mode
+				}//第二次调用showHide进来时(是调用显示隐藏代码)有mode，所以直接执行下边函数
+				
+				if(typeof mode[options]=='function'){//可以用else代替吗
+					console.log(mode[options])
+					mode[options]($elem);
+				}
+				
+			});
+			return this;
 		}
-	})
-
-	
-})(jquery)
+	})	
+})(jQuery)
