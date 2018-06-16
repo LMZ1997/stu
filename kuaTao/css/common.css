@@ -1,37 +1,54 @@
-a{
-	text-decoration: none;
-	color: #f3f5f6;
-}
-li{
-	list-style: none;
-}
-body{
-	font-size: 13px;
-	color: #f3f5f6;
-}
-.clearfix:after{
-	clear: both;
-	content: '';
-	display: block;
-	height: 0px;
-	visibility: none;
-}
-.container{
-	width: 1200px;
-	margin:0 auto;
-}
-.fl{
-	float: left;
-}
-.fr{
-	float: right;
-}
-.link{
-	color: #4d555d;
-}
-.link:hover{
-	color: #ea675a;
-}
-.transtion{
-	transition: all 0.5s;
-}
+
+/*公共样式开始*/
+	a{
+		text-decoration: none;
+	}
+	.link{
+		color: #4d555d;
+	}
+	li{
+		list-style: none;
+	}
+	body{
+		font-size: 13px;
+		color: #f3f5f6;
+	}
+	.clearfix:after{
+		clear: both;
+		content: '';
+		display: block;
+		height: 0px;
+		visibility: none;
+	}
+	.container{
+		width: 1200px;
+		margin:0 auto;
+	}
+	.fl{
+		float: left;
+	}
+	.fr{
+		float: right;
+	}
+	.link:hover{
+		color: #ea675a;
+	}
+	.transition{
+		transition: all 0.5s;
+	}
+/*公共样式结束*/
+/*下拉菜单公共样式开始*/
+	.dropdown{
+		position: relative;/*为下拉菜单设置定位用*/
+	}
+	.dropdown-layer{
+		position: absolute;
+		/*white-space: nowrap;是元素中的内容显示在一行*/
+		display: none;
+	}
+	[class*='-active'] .dropdown-arrow{/*所有以active结尾的,子元素deopdown-arroe都可以用
+		transform: rotate(180deg);
+	}
+	/*只需给某一元素加上dropdown-active的类，便可以使其下边有相应类名的子元素执行某些参数*/
+
+/*下拉菜单公共样式结束*/

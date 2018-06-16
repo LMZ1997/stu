@@ -1,40 +1,66 @@
-.nav-header{
-	height: 44px;
-	background-color:pink;
-}
-.nav-left{
-	line-height: 44px;
-}
-.nav-left li{
-	line-height: 44px;
-	margin-right: 10px;
-}
-.dropdown{
-	height: 44px;
-	line-height: 44px;
-	position: relative;/*为下拉菜单设置定位用*/
-	background-color: yellow;
-}
-.header{
-	width: 100%;
-	height: 100px;
-	background-color: red;
-}
-.nav-login{
-	color: #ea675a;
-}
-.dropdown-layer{
-	background-color: blue;
-	position: absolute;
-	top: 44px;
-	left: 0px;
-	/*width: 100px;*/
-	white-space: nowrap;
-}
-.dropdown-arrow{
-	margin-left: 5px;
-	transform: rotate(180deg);
-}
-.transition{
-	transition: all 0.5s;
-}
+/*顶部导航开始*/
+	.nav-header{
+		height: 44px;
+		background-color:#f3f5f7;
+	}
+	.nav-left{
+		line-height: 44px;
+	}
+	.nav-left li{
+		line-height: 44px;
+		margin-right: 10px;
+	}
+	.nav-login{
+		color: #ea675a;
+		text-decoration: none;
+	}
+	.nav-header .dropdown{
+		height: 44px;
+		line-height: 44px;
+	}
+	.nav-header .dropdown-toggle{
+		display: block;/*因为a标签是行内元素*/
+		height: 44px;
+		line-height: 44px;
+		padding: 0 10px;
+	}
+	.nav-header .dropdown-layer{
+		background-color: #fff;
+		top: 44px;
+		left: 0px;
+		/*width: 100px;*/
+		border: 1px solid #f3f5f7;
+		display: none;
+	}
+	.nav-header .menu-item{
+		display: block;
+		line-height: 30px;
+		padding: 0 5px;
+		white-space: nowrap;
+	}
+	.nav-header .menu-item:hover{
+		background-color: #f3f5f7;
+	}
+	.dropdown-arrow{
+		margin-left: 5px;	
+	}
+	/*只需给某一元素加上dropdown-active的类，便可以使其下边有相应类名的子元素执行某些参数*/
+	.menu-active .dropdown-layer{
+		display: block;
+	}
+	.menu-active .dropdown-toggle{
+		background-color: #fff;
+		border-left: 1px solid #f3f5f7;
+		border-right: 1px solid #f3f5f7;
+	}
+	.menu-active .dropdown-arrow{
+		transform: rotate(180deg);
+	}
+/*顶部导航结束*/
+/*头部开始*/
+	.header{
+		width: 100%;
+		height: 100px;
+		background-color: red;
+	}
+/*头部结束*/
