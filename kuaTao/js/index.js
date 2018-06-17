@@ -1,13 +1,12 @@
-$(function(){//入口函数
-	$('.dropdown').hover(function(){
-		var $this=$(this);
-		// console.log($this.data());data返回值是一个对象
-		// {active:'menu'}
-		var activeClass=$this.data('active')+'-active';
-		$this.addClass(activeClass)
-	},function(){
-		var $this=$(this);
-		var activeClass=$this.data('active')+'-active';
-		$this.removeClass(activeClass)
+;$(function(){
+	var $dropdown=$('.dropdown');
+	$dropdown.dropdown({
+		css3:true,
+		js:false,
+		mode:'slideUpDown',
+		 delay:200   // 划过元素时不会立即出发下拉效果
+	});
+	$dropdown.on('dropdown-show dropdown-shown dropdown-hide dropdown-hidden',function(ev){
+		console.log(ev.type)
 	})
-});
+})

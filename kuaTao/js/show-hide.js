@@ -20,7 +20,6 @@
 	function hide($elem,callBack){
 		if($elem.data('status')=='hidden') return;
 		if($elem.data('status')=='hide') return;
-
 		$elem.data('status','hide').trigger('hide');
 		callBack();
 	}
@@ -295,7 +294,6 @@
 			}
 
 			showHideFn.init($elem);//直接初始化
-			console.log(showHideFn.init)
 			return {//将方法返回出去
 				show:showHideFn.show,
 				hide:showHideFn.hide
@@ -319,7 +317,6 @@
 				}//第二次调用showHide进来时(是调用显示隐藏代码)有mode，所以直接执行下边函数
 				
 				if(typeof mode[options]=='function'){//可以用else代替吗
-					console.log(mode[options])
 					mode[options]($elem);
 				}
 				

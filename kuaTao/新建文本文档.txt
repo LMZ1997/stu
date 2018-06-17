@@ -1,0 +1,4 @@
+this.$elem.hover(this.show.bind(this),this.hide.bind(this)),这个地方为什么不能用下边那句代码代替
+
+
+迅速划过下拉菜单有小bug,手机qq有图片

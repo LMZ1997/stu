@@ -19,8 +19,25 @@
 			<ul class="fr">
 				<li class="dropdown fl" data-active='menu'><!-- data-active是解决同一地方的下大菜单样式不同的问题 -->
 					<a href="#" class="link dropdown-toggle">我的跨淘<i class="fas dropdown-arrow transition">&#xf107;</i></a>
-					<ul class="dropdown-layer">
+					<ul class="dropdown-layer dropdown-left">
+						<li ><a href="#" class="menu-item">已买到的宝贝yaya</a></li>
+						<li><a href="#" class="menu-item">我的足迹</a></li>
+					</ul>
+				</li>
+				<li class="dropdown fl" data-active='menu'>
+					<a href="#" class="link dropdown-toggle">我的淘<i class="fas dropdown-arrow transition">&#xf107;</i></a>
+					<ul class="dropdown-layer dropdown-left">
 						<li ><a href="#" class="menu-item">已买到的宝贝</a></li>
+						<li><a href="#" class="menu-item">我的足迹</a></li>
+					</ul>
+				</li>
+				<li class="nav-category fl">
+					<a href="#" class="link">商品分类</a>
+				</li>
+				<li class="dropdown fl" data-active='menu'>
+					<a href="#" class="link dropdown-toggle">买家中心<i class="fas dropdown-arrow transition">&#xf107;</i></a>
+					<ul class="dropdown-layer dropdown-right">
+						<li ><a href="#" class="menu-item">已买到的宝贝yayaya</a></li>
 						<li><a href="#" class="menu-item">我的足迹</a></li>
 					</ul>
 				</li>
@@ -32,5 +49,8 @@
 	</div>
 </body>
 <script src="js/jquery-1.12.4.js"></script>
+<script src="js/transitionSupport.js"></script>
+<script src="js/show-hide.js"></script>
+<script src="js/dropdown.js"></script>
 <script src="js/index.js"></script>
 </html>

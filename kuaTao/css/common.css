@@ -43,12 +43,34 @@
 	}
 	.dropdown-layer{
 		position: absolute;
-		/*white-space: nowrap;是元素中的内容显示在一行*/
 		display: none;
+		overflow: hidden;
 	}
-	[class*='-active'] .dropdown-arrow{/*所有以active结尾的,子元素deopdown-arroe都可以用
+	.dropdown-left{/*让下拉层里的字贴着左边向右延伸*/
+		left: 0px;
+	}
+	.dropdown-right{/*让下拉层里的字贴着右边向左延伸*/
+		right: 0px;
+	}
+	[class*='-active'] .dropdown-arrow{/*所有以active结尾的,子元素deopdown-arroe都可以用*/
 		transform: rotate(180deg);
 	}
-	/*只需给某一元素加上dropdown-active的类，便可以使其下边有相应类名的子元素执行某些参数*/
+	/*显示隐藏插件所需样式开始*/
+		.fadeOut{
+				opacity: 0 !important;
+				visibility: hidden !important;
+		}
+		.slideUpDownCollapse{
+			height: 0  !important;/*类的优先级低于id*/
+			padding-bottom: 0 !important;
+			padding-top: 0 !important;
+		}
+		.slideLeftRightCollapse{
+			width: 0  !important;/*类的优先级低于id*/
+			padding-left: 0 !important;
+			padding-right: 0 !important;
+		}
+	/*显示隐藏插件所需样式结束*/
+	/*只需给某一元素加上dropdown-active的类，便可以使其下边有相应类名的子元素执行某些参数
 
 /*下拉菜单公共样式结束*/

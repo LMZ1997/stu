@@ -14,6 +14,10 @@
 		color: #ea675a;
 		text-decoration: none;
 	}
+	.nav-category{
+		line-height: 44px;
+		margin:0 10px;
+	}
 	.nav-header .dropdown{
 		height: 44px;
 		line-height: 44px;
@@ -27,7 +31,6 @@
 	.nav-header .dropdown-layer{
 		background-color: #fff;
 		top: 44px;
-		left: 0px;
 		/*width: 100px;*/
 		border: 1px solid #f3f5f7;
 		display: none;
@@ -36,7 +39,7 @@
 		display: block;
 		line-height: 30px;
 		padding: 0 5px;
-		white-space: nowrap;
+		white-space: nowrap;/*使元素中的内容显示在一行*/
 	}
 	.nav-header .menu-item:hover{
 		background-color: #f3f5f7;
