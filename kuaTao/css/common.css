@@ -52,6 +52,13 @@
 	.dropdown-right{/*让下拉层里的字贴着右边向左延伸*/
 		right: 0px;
 	}
+	.dropdown-loading{
+		width: 32px;
+		height: 32px;
+		margin: 20px;
+		background: url(../images/loading.gif) no-repeat;
+
+	}
 	[class*='-active'] .dropdown-arrow{/*所有以active结尾的,子元素deopdown-arroe都可以用*/
 		transform: rotate(180deg);
 	}
