@@ -11,7 +11,6 @@
 	}
 	body{
 		font-size: 13px;
-		color: #f3f5f6;
 	}
 	.clearfix:after{
 		clear: both;
@@ -81,3 +80,52 @@
 	/*只需给某一元素加上dropdown-active的类，便可以使其下边有相应类名的子元素执行某些参数
 
 /*下拉菜单公共样式结束*/
+
+/*搜索公共样式开始*/
+	.search{
+		position: relative;
+		margin-top: 36px;
+		margin-left: 150px;
+	}
+	.search-input{
+		outline: none;
+		width: 400px;
+		height: 40px;
+		padding: 0 10px;
+		box-sizing: border-box;
+	}
+	.search-btn{
+		width: 80px;
+		height: 40px;
+		border:none;
+		box-sizing: border-box;
+		border:1px solid #ccc;
+		border-left: none;
+		cursor: pointer;
+		outline-width: 0px;
+		background-color: black;
+		color: white;
+	}
+	.search-layer{
+		width: 100%;
+		border: 1px solid #ccc;
+		border-top: none;
+		box-sizing: border-box;
+		position: absolute;
+		top: 100%;
+		left: 0px;
+		display: none;
+	}
+	.search-item{
+		width: 100%;
+		height: 30px;
+		line-height: 30px;
+		padding: 0 10px;
+		box-sizing: border-box;
+		background-color: #fff;
+		cursor: pointer;
+	}
+	.search-item:hover{
+		background-color: #f3f5f7;
+	}
+/*搜索公共样式结束*/

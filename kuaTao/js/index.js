@@ -16,7 +16,7 @@
 		$.getJSON(loadUrl,function(data){
 			var html='';
 			for(var i=0;i<=data.length;i++){
-				html+='<li ><a href="'+data[i].url+'" class="menu-item">'+data[i].name+'</a></li>'
+				html+='<li ><a href="'+data[i].url+'" class="menu-item link">'+data[i].name+'</a></li>'
 			}
 			//模拟网络延时，在crome浏览器测试需要先启动一个server服务
 			
@@ -34,6 +34,7 @@
 		// eventName:'click',
 		 delay:200   // 划过元素时不会立即出发下拉效果
 	});
+	/*html文件里的button已删掉，这个是留着给另一个index.html做测试*/
 	$('button').eq(0).click(function(){
 		console.log(this)
 		$dropdown.dropdown('show');//运行此行代码需先将dropdown暴露出去，具体见dropdown.js
