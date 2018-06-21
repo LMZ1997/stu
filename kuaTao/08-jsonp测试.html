@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试接送jsonp</title>
+</head>
+<body>
+	<button>获取数据</button>
+</body>
+<script src="js/jquery-1.12.4.js"></script>
+<script>
+	$(function(){
+		$('button').on('click',function(){
+			$.ajax({
+				url:'http:127.0.0.1:3000/getData',
+				dataType:'jsonp',
+				jsonp:'callback',//callback为一个函数名，需要与服务器端约定
+			})
+			.done(function(){
+				console.log(data);
+			})
+		})
+	})
+</script>
+</html>
