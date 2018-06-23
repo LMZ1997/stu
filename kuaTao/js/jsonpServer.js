@@ -15,7 +15,7 @@ var server=http.createServer(function(req,res){
 	var callback=prams.callback;
 	var obj='{"name":"Tom","age":18}';//实际是字符串
 	console.log(prams.callback);
-	var resStr=callback+'('+obj+")";///类似于执行 函数名(obj);
+	var resStr=callback+'('+obj+')';///类似于执行 函数名(obj);
 	// var pramStr=JSON.stringify(prams);
 	// res.StatusCode=200;
 	res.end(resStr);
