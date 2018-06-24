@@ -83,6 +83,7 @@
 		height: 40px;
 		padding: 0 10px;
 		box-sizing: border-box;
+		outline: none;
 	}
 	.header .search-btn{
 		width: 80px;
