@@ -23,7 +23,7 @@
 			if(this.getInputVal()==''){
 				return false;
 			}
-			this.$searchForm.trigger('subnit');
+			this.$searchForm.trigger('submit');
 		},
 		getInputVal:function(){
 			return $.trim(this.$searchInput.val());
@@ -36,7 +36,7 @@
 				ev.stopPropagation();
 			});
 			$(document).on('click',$.proxy(this.hideLayer,this));
-			this.$searchLayer.showHide($.proxy(this.options,this));
+			this.$searchLayer.showHide(this.options);
 		},
 		getData:function(){//要使每个函数都单一的做一件事
 			var self=this;
@@ -46,6 +46,7 @@
 					jsonp:'callback'
 				})
 				.done(function(data){//这里传递参数需要用[ ]包裹
+					console.log('aa')
 					self.$elem.trigger('getdata',[data,self.$searchLayer]);
 				})
 				.fail(function(err){
@@ -61,17 +62,26 @@
 		},
 		hideLayer:function(){
 			this.$searchLayer.showHide('hide');
+		},
+		appendLayer:function(html){
+			this.$searchLayer.html(html);
+		},
+		setInputVal:function(val){
+			$searchInput.val(removeHTMLTag($(this).html(val)));
+			function removeHTMLTag(str){
+				return str.replace(/<[^<|>]+>/g,'')
+			}
 		}
 	}
 	Search.DEFAULTS={
 		autocomplete:false,
 		css3:false,
-		js:false,
-		mode:'fade',
+		js:true,
+		mode:'slideUpDown',
 		url:'https://suggest.taobao.com/sug?code=utf-8&_ksTS=1529744566102_802&k=1&area=c2c&bucketid=6&q='
 	}
 	$.fn.extend({
-		search:function(options){
+		search:function(options,valueOfHtml){
 			return this.each(function(){
 				var $this=$(this);
 				var search=$this.data('.search');
@@ -80,8 +90,10 @@
 					search=new Search($(this),options);
 					$this.data('search',search);
 				}
+				console.log('1::',options)
 				if(typeof search[options]=='function'){
-					search[options]();
+					console.log('in')
+					search[options](valueOfHtml);
 				}
 			})
 		}	

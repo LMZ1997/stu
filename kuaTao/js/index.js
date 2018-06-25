@@ -46,29 +46,43 @@
 	/*下拉菜单*/
 	/*搜索框*/
 		var $search=$('.search');
-		$search.search({
+		$search
+		.search({
 			autocomplete:true,
-			css3:true,
-			js:true,
-			mode:'fade',
-			url:'https://suggest.taobao.com/sug?code=utf-8&_ksTS=1529744566102_802&k=1&area=c2c&bucketid=6&q='
+			// css3:true,
+			// js:true,
+			// mode:'fade',
+			// url:'https://suggest.taobao.com/sug?code=utf-8&_ksTS=1529744566102_802&k=1&area=c2c&bucketid=6&q='
+		})
+		.on('getdata',function(ev,data,$Layer){
+			var $this=$(this);//this为.search那个DOM节点
+			var html=createSearchLayer(data,5);
+			$Layer.html(html).showHide('show');
+			// $this.search('appendLayer',html); ????????????????????????????????????
+			// $this.search('showLayer');
+		})
+		.on('getNoData',function($Layer){
+			$Layer.html('').showHide('hide');
+		})
+		.on('click','.search-item',function(){//事件委托
+			// $searchInput.val(removeHTMLTag($(this).html()));
+			// $searchForm.trigger('submit');
+			$search.search('setInputVal',$(this).html());
+			$search.search('submit');
 		});
-		$search.on('getdata',function(ev,data,$Layer){
+
+		function createSearchLayer(data,maxNum){
 			if(data.result.length==0){
-				$Layer.html('').hide();//若查询不到相应数据则不执行以下代码，提高效率
 				return;
 			}
 			var html='';
-			var dataNum=5;
 			for(var i=0;i<data.result.length;i++){
-				if(i>dataNum) break;//控制数据的数量
+				if(i>maxNum) break;//控制数据的数量
 				html+='<li class="search-item">'+data.result[i][0]+'</li>'
 			}
-			$Layer.html(html).showHide('show');
-		});
-		$search.on('getNoData',function($Layer){
-			$Layer.html('').showHide('hide');
-		})
+			return html;
+		};
+	
 	/*搜索框*/
 	
 })
