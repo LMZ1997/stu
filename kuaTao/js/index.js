@@ -49,17 +49,19 @@
 		$search
 		.search({
 			autocomplete:true,
-			// css3:true,
-			// js:true,
-			// mode:'fade',
-			// url:'https://suggest.taobao.com/sug?code=utf-8&_ksTS=1529744566102_802&k=1&area=c2c&bucketid=6&q='
 		})
 		.on('getdata',function(ev,data,$Layer){
 			var $this=$(this);//this为.search那个DOM节点
 			var html=createSearchLayer(data,5);
 			$Layer.html(html).showHide('show');
 			// $this.search('appendLayer',html); ????????????????????????????????????
-			// $this.search('showLayer');
+			// if(html){
+			// 	$this.search('showLayer');
+			// }
+			// else{
+			// 	$this.search('hideLayer');//感觉此句代码无用是错觉，NO有用
+			// }
+			
 		})
 		.on('getNoData',function($Layer){
 			$Layer.html('').showHide('hide');
@@ -67,7 +69,7 @@
 		.on('click','.search-item',function(){//事件委托
 			// $searchInput.val(removeHTMLTag($(this).html()));
 			// $searchForm.trigger('submit');
-			$search.search('setInputVal',$(this).html());
+			$search.search('setInputVal',$(this).html());//?/????????????????????????????????
 			$search.search('submit');
 		});
 
@@ -81,8 +83,7 @@
 				html+='<li class="search-item">'+data.result[i][0]+'</li>'
 			}
 			return html;
-		};
-	
+		};	
 	/*搜索框*/
 	
 })
