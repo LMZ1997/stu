@@ -60,7 +60,10 @@
 					this.getData();
 				}
 			}.bind(this))
-			.on('focus',$.proxy(this.showLayer,this))
+			.on('focus',function(){
+				console.log('11');
+				this.showLayer()
+			}.bind(this))
 			.on('click',function(ev){
 				ev.stopPropagation();
 			});

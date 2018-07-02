@@ -6,6 +6,9 @@
 	.link{
 		color: #4d555d;
 	}
+	.link:hover{
+		color: #ea675a;
+	}
 	li{
 		list-style: none;
 	}
@@ -29,9 +32,7 @@
 	.fr{
 		float: right;
 	}
-	.link:hover{
-		color: #ea675a;
-	}
+	
 	.transition{
 		transition: all 0.5s;
 	}

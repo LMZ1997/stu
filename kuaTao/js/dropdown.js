@@ -95,7 +95,7 @@
 				var dropdown=$this.data('dropdown');
 				if(!dropdown){
 					options=$.extend(DropDown.DEFAULTS,options)//解决用户不传参的问题
-					dropdown=new DropDown($(this),options);
+					dropdown=new DropDown($this,options);
 					$this.data('dropdown',dropdown);
 				}
 				if(typeof dropdown[options]=='function'){

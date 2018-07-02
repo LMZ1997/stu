@@ -173,7 +173,7 @@
 					paddingBotom:'0px',
 				})
 			},
-			show:function(){
+			show:function($elem){
 				js._customShow($elem);
 			},
 			hide:function($elem){
