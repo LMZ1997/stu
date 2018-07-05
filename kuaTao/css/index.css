@@ -220,7 +220,60 @@
 	/*category部分结束*/
 	/*carousel开始*/
 		.carousel{
-			margin:10px;
+			position: relative;
+			background-color: red;
+		}
+		.carousel-item{
+			width: 768px;
+			width: 504px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: none;
+		}
+		.carousel-item img{
+			width: 768px;
+			width: 504px;
+		}
+		.btns{
+			position: absolute;
+			left: 50%;
+			bottom: 20px;
+		}
+		.btns-item{
+			width: 12px;
+			height: 12px;
+			background-color: rgba(0,0,0,0.8);
+			float: left;
+			margin-right: 5px;
+			border-radius: 50%;
+		}
+		.carousel-container .btn-item.active{
+			background: #fff;
+		}
+		.control{
+			position: absolute;
+			top: 50%;
+			width: 30px;
+			height: 40px;
+			background-color: rgba(0,0,0,0.8);
+			color: #fff;
+			line-height: 40px;
+			text-align: center;
+			font-size: 20px;
+			display: none;
+			cursor: pointer;
+		}
+		.control-left{
+			left: 0px;
+		}
+		.control-right{
+			right: 0px;
+		}
+		.focus .carousel-container,
+		.focus .carousel-container .carousel-item img{
+			width: 768px;
+			height: 504px;
 		}
 	/*carousel结束*/
 /*主要内容结束*/
