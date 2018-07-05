@@ -37,10 +37,15 @@
 			.on('click','.control-left',function(){
 				self.tab(self.getCorrectIndex(self.now-1))
 			})
+			.on('click','.btns-item',function(){
+				self.tab(self.$btnsItem.index($(this)))
+			})
 		},
 		fade:function(index){
 			this.$carouselItem.eq(this.now).showHide('hide');
+			this.$btnsItem.eq(this.now).removeClass('active');
 			this.$carouselItem.eq(index).showHide('show');
+			this.$btnsItem.eq(index).addClass('active');
 			this.now=index;
 		},
 		getCorrectIndex:function(index){
