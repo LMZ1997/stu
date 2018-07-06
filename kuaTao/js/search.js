@@ -61,7 +61,6 @@
 				}
 			}.bind(this))
 			.on('focus',function(){
-				console.log('11');
 				this.showLayer()
 			}.bind(this))
 			.on('click',function(ev){
@@ -116,7 +115,7 @@
 			this.isHaveHtml=!!html;
 		},
 		setInputVal:function(val){
-			$searchInput.val(removeHTMLTag($(this).html(val)));
+			this.$searchInput.val(removeHTMLTag(val));
 			function removeHTMLTag(str){
 				return str.replace(/<[^<|>]+>/g,'')
 			}
@@ -134,13 +133,13 @@
 		search:function(options,valueOfHtml){
 			return this.each(function(){
 				var $this=$(this);
-				var search=$this.data('.search');
+				var search=$this.data('search');
 				if(!search){
 					options=$.extend(Search.DEFAULTS,options);
 					search=new Search($(this),options);
 					$this.data('search',search);
 				}
-				console.log('1::',options)
+				// console.log('1::',options)
 				if(typeof search[options]=='function'){
 					console.log('in')
 					search[options](valueOfHtml);

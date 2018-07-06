@@ -1,5 +1,5 @@
 ;$(function(){
-	/*下拉菜单分类导航公共函数*/
+	/*公共函数*/
 		function loadHtmlOnce($elem,callback){
 			var loadUrl=$elem.data('load');//获取需要请求的地址
 			var isLoaded=$elem.data('isLoaded');
@@ -9,7 +9,17 @@
 				callback($elem,data);
 			})
 		}
-	/*下拉菜单分类导航公共函数*/
+		function loadImage(url,success,error){
+			var image=new Image();
+			image.onload=function(){
+				if(typeof success=='function') success(url);
+			};
+			image.onerror=function(){
+				if(typeof success=='function') error(url);
+			}
+			image.src=url
+		}
+	/*公共函数*/
 	/*下拉菜单*/
 		var $menu=$('.nav-header .dropdown');
 		/*
@@ -51,20 +61,21 @@
 		.on('getdata',function(ev,data,$Layer){
 			var $this=$(this);//this为.search那个DOM节点
 			var html=createSearchLayer(data,5);
-			$Layer.html(html).showHide('show');
-			// $this.search('appendLayer',html); ????????????????????????????????????
-			// if(html){
-			// 	$this.search('showLayer');
-			// }
-			// else{
-			// 	$this.search('hideLayer');//感觉此句代码无用是错觉，NO有用
-			// }
+			// $Layer.html(html).showHide('show');
+			$this.search('appendLayer',html); //????????????????????????????????????
+			if(html){
+				$this.search('showLayer');
+			}
+			else{
+				$this.search('hideLayer');//感觉此句代码无用是错觉，NO有用
+			}
 			
 		})
 		.on('getNoData',function($Layer){
-			$Layer.html('').showHide('hide');
+			// $Layer.html('').showHide('hide');
+			$search.search('appendLayer','').search('hideLayer');
 		})
-		.on('click','.search-item',function(){//事件委托
+		.on('click','.search-item',function(){//事件委托,$(this)为点击的某一个serach-item
 			// $searchInput.val(removeHTMLTag($(this).html()));
 			// $searchForm.trigger('submit');
 			$search.search('setInputVal',$(this).html());//?/????????????????????????????????
@@ -95,7 +106,7 @@
 
 				html+='<dl class="category-details"><dt class="category-details-title fl"><a href="#" class="category-details-title-link">'+data[i].title+'</a></dt><dd class="category-details-item fl">';
 				
-				for (var j = 0; j < data[i].items.length.length; j++){
+				for (var j = 0; j < data[i].items.length; j++){
 					html+='<a href="#" class="link">'+data[i].items[j]+'</a>'
 				} 
 				html+='</dd></dl>';
@@ -112,9 +123,36 @@
 		})
 	/*分类导航结束*/
 	/*轮播图开始*/
-		var $carousel=$('.carousel-container');
-		$carousel.carousel({
+		/*按需加载图片*/
+		var $focusCarousel=$('.carousel-container');
+		$focusCarousel.loadedImageNum=0;
+		$focusCarousel.loaded={};
+		$focusCarousel.totalImageNum=$focusCarousel.find('img').length;
+		$focusCarousel.on('carousel-show',$focusCarousel.loadFn=function(ev,index,elem){	
+			$focusCarousel.trigger('carousel-load',[index,elem])//确定什么时候加载		
+		})
+		$focusCarousel.on('carousel-load',function(index,elem){//具体加载函数
+			if($focusCarousel.loaded[index]!='loaded'){
+				$img=$(elem).find('img');
+				var imgUrl=$img.data('src');
+				loadImage(imgUrl,function(url){
+					$img.attr('src',url)
+				},function(url){
+					$img.attr('src','images/error.gif')
+				});
+				$focusCarousel.loadedImageNum++;
+				$focusCarousel.loaded[index]='loaded';
 
+				if($focusCarousel.totalImageNum==$focusCarousel.loadedImageNum){
+					$focusCarousel.trigger('carousel-loaded')
+				}
+			}
+		})
+		$focusCarousel.on('carousel-loaded',function(){//加载后的善后工作
+			$focusCarousel.off('carousel-show',$focusCarousel.loadFn)//删除函数
+		})
+		$focusCarousel.carousel({
+			mode:'slide'
 		})
 	/*轮播图结束*/
 })

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>移动测试</title>
+	<link rel="stylesheet" href="css/fontawesome-all.css">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/common.css">
+	<style type="text/css">
+		button{
+			width: 60px;
+			height: 60px;
+		}
+		div{
+			width: 100px;
+			height:100px;
+			background-color: red;
+			position: absolute;
+			left: 0px;
+			top: 100px;
+		}
+	</style>
+</head>
+<body>
+	<button>&lt;</button>
+	<button>&gt;</button>
+	<div class="box transition"></div>
+</body>
+<script src="js/jquery-1.12.4.js"></script>
+<script src="js/transitionSupport.js"></script>
+<script src="js/move.js"></script>
+<script type="text/javascript">
+	;(function($){
+		var $elem=$('.box');
+		$elem.on('move moved',function(ev){
+			console.log(ev.type)
+		})
+		$elem.move({//初始化move插件
+			css3:true,
+			js:false
+		})
+		// var move=new Js($('.box'));
+		$('button').eq(0).on('click',function(){
+			$elem.move('to',0,100);
+			// $elem.move('to',null,100);
+		})
+		$('button').eq(1).on('click',function(){
+			$elem.move('to',200,200);
+			// $elem.move('to',null,200);
+		})
+	})(jQuery)
+</script>
+</html>

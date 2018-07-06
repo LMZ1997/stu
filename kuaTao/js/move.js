@@ -1,36 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>移动测试</title>
-	<link rel="stylesheet" href="css/fontawesome-all.css">
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="css/index.css">
-	<link rel="stylesheet" href="css/common.css">
-	<style type="text/css">
-		button{
-			width: 60px;
-			height: 60px;
-		}
-		div{
-			width: 100px;
-			height:100px;
-			background-color: red;
-			position: absolute;
-			left: 0px;
-			top: 100px;
-		}
-	</style>
-</head>
-<body>
-	<button>&lt;</button>
-	<button>&gt;</button>
-	<div class="box transition"></div>
-</body>
-<script src="js/jquery-1.12.4.js"></script>
-<script src="js/transitionSupport.js"></script>
-<script type="text/javascript">
-	;(function($){
+;(function($){
 		function init($elem){
 			this.$elem=$elem;
 			this.currentX=parseFloat(this.$elem.css('left'));
@@ -51,7 +19,7 @@
 			this.$elem.removeClass('transition');
 		}
 		Slient.prototype={
-			construector:Slient,
+			constructor:Slient,
 			to:function(x,y){
 				var self=this;
 				to.call(this,x,y,function(){
@@ -78,7 +46,7 @@
 			})
 		}
 		Css3.prototype={
-			construector:Css3,
+			constructor:Css3,
 			to:function(x,y){
 				var self=this;
 				to.call(this,x,y,function(){
@@ -94,10 +62,10 @@
 				})
 			},
 			x:function(x){
-				this.move(x);
+				this.to(x);
 			},
 			y:function(y){
-				this.move(y)
+				this.to(y)
 			}
 		}
 		function Js($elem){
@@ -120,20 +88,13 @@
 				})
 			},
 			x:function(x){
-				this.move(x);
+				this.to(x);
 			},
 			y:function(y){
-				this.move(y)
+				this.to(y)
 			}
 		}
-
-		var default1={
-			css3:true,
-			js:true
-		};
-
 		var mode=null;
-		console.log()
 		function move($elem,options){
 			if(options.css3&&kuazhu.transition.isSupport){
 				mode=new Css3($elem);
@@ -146,25 +107,31 @@
 			}
 			//return mode 返回的mode对象包含函数太多，很多并没有用
 			return {
-				to:mode.to.bind(mode),
+				to:mode.to.bind(mode),//改变mode中的this指向
 				x:mode.x.bind(mode),
 				y:mode.y.bind(mode)
 			}
 		}
-     
-		$('.box').on('move moved',function(ev){
-			console.log(ev.type)
-		})
-		// var move=new Js($('.box'));
-		var moveMode=move($('.box'),default1);
-		$('button').eq(0).on('click',function(){
-			moveMode.to(0,100);
-			// moveMode.to(null,0);//只在y轴上移动
-		})
-		$('button').eq(1).on('click',function(){
-			moveMode.to(200,200);
-			// moveMode.to(null,300);//只在y轴上移动
-		})
-	})(jQuery)
-</script>
-</html>
+
+		var DEFAULTS={
+			css3:true,
+			js:true
+		};
+
+	$.fn.extend({
+		move:function(options,x,y){
+			return this.each(function(){
+				var $this=$(this);
+				var moveMode=$this.data('moveMode');
+				if(!moveMode){
+					options=$.extend(DEFAULTS,options);
+					moveMode=move($this,options);
+					$this.data('moveMode',moveMode);
+				}
+				if(typeof moveMode[options]=='function'){
+					moveMode[options](x,y);
+				}
+			})
+		}	
+	})
+})(jQuery)
