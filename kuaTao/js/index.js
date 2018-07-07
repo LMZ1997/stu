@@ -124,35 +124,66 @@
 	/*分类导航结束*/
 	/*轮播图开始*/
 		/*按需加载图片*/
-		var $focusCarousel=$('.carousel-container');
-		$focusCarousel.loadedImageNum=0;
-		$focusCarousel.loaded={};
-		$focusCarousel.totalImageNum=$focusCarousel.find('img').length;
-		$focusCarousel.on('carousel-show',$focusCarousel.loadFn=function(ev,index,elem){	
-			$focusCarousel.trigger('carousel-load',[index,elem])//确定什么时候加载		
-		})
-		$focusCarousel.on('carousel-load',function(index,elem){//具体加载函数
-			if($focusCarousel.loaded[index]!='loaded'){
-				$img=$(elem).find('img');
-				var imgUrl=$img.data('src');
-				loadImage(imgUrl,function(url){
-					$img.attr('src',url)
-				},function(url){
-					$img.attr('src','images/error.gif')
-				});
-				$focusCarousel.loadedImageNum++;
-				$focusCarousel.loaded[index]='loaded';
+			/*按需加载封装函数开始*/
+				function carouselLoadImages($elem){
+					$elem.loadedImageNum=0;
+					$elem.loaded={};
+					$elem.totalImageNum=$elem.find('.carousel-img').length;
 
-				if($focusCarousel.totalImageNum==$focusCarousel.loadedImageNum){
-					$focusCarousel.trigger('carousel-loaded')
+					$elem.on('carousel-show',$elem.loadFn=function(ev,index,elem){	
+						if($elem.loaded[index]!='loaded'){
+							$elem.trigger('carousel-load',[index,elem])//确定什么时候加载		
+						}	
+					})
+					$elem.on('carousel-load',function(ev,index,elem){//具体加载函数
+							$imgs=$(elem).find('.carousel-img');
+							$imgs.each(function(){
+								var $img=$(this);
+								var imgUrl=$img.data('src');
+								loadImage(imgUrl,function(url){
+									$img.attr('src',url)
+								},function(url){
+									$img.attr('src','images/error.gif')
+								});
+								$elem.loadedImageNum++;
+								$elem.loaded[index]='loaded';
+
+								if($elem.totalImageNum==$elem.loadedImageNum){
+									$elem.trigger('carousel-loaded')
+								}
+							})
+								
+					})
+					$elem.on('carousel-loaded',function(){//加载后的善后工作
+						$elem.off('carousel-show',$elem.loadFn)//删除函数
+					})
 				}
-			}
-		})
-		$focusCarousel.on('carousel-loaded',function(){//加载后的善后工作
-			$focusCarousel.off('carousel-show',$focusCarousel.loadFn)//删除函数
-		})
+			/*按需加载封装函数结束*/
+		var $focusCarousel=$('.focus .carousel-container');
+		carouselLoadImages($focusCarousel);
 		$focusCarousel.carousel({
-			mode:'slide'
+			css3:true,
+			js:true,
+			activeIndex:0,
+			mode:'slide',
+			interval:2000
 		})
 	/*轮播图结束*/
+	/*今日热销轮播开始*/
+		var $todaysCarousel=$('.todays .carousel-container');
+		carouselLoadImages($todaysCarousel);
+		$todaysCarousel.carousel({
+			css3:true,
+			js:true,
+			activeIndex:0,
+			mode:'slide'
+		})
+	/*今日热销轮播结束*/
+	/*楼层选项卡开始*/
+		var $floor=$('.container-floor');
+		$floor.tab({
+			activeIndex:0,
+			interval:2000
+		})
+	/*楼层选项卡结束*/
 })

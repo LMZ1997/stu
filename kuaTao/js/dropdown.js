@@ -64,6 +64,7 @@
 		},
 		show:function(){
 			if(this.options.delay){//避免用户快速划过触发不必要的事件，影响性能
+				clearTimeout(this.Timer)
 				this.Timer=setTimeout(function(){
 					this.$dropdownLayer.showHide('show');
 			 		this.$elem.addClass(this.activeClass)
