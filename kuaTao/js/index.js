@@ -125,12 +125,12 @@
 	/*轮播图开始*/
 		/*按需加载图片*/
 			/*按需加载封装函数开始*/
-				function carouselLoadImages($elem){
+				function carouselLoadImages($elem,triggerName){
 					$elem.loadedImageNum=0;
 					$elem.loaded={};
 					$elem.totalImageNum=$elem.find('.carousel-img').length;
 
-					$elem.on('carousel-show',$elem.loadFn=function(ev,index,elem){	
+					$elem.on(triggerName,$elem.loadFn=function(ev,index,elem){	
 						if($elem.loaded[index]!='loaded'){
 							$elem.trigger('carousel-load',[index,elem])//确定什么时候加载		
 						}	
@@ -160,7 +160,7 @@
 				}
 			/*按需加载封装函数结束*/
 		var $focusCarousel=$('.focus .carousel-container');
-		carouselLoadImages($focusCarousel);
+		carouselLoadImages($focusCarousel,'carousel-show');
 		$focusCarousel.carousel({
 			css3:true,
 			js:true,
@@ -171,7 +171,7 @@
 	/*轮播图结束*/
 	/*今日热销轮播开始*/
 		var $todaysCarousel=$('.todays .carousel-container');
-		carouselLoadImages($todaysCarousel);
+		carouselLoadImages($todaysCarousel,'carousel-show');
 		$todaysCarousel.carousel({
 			css3:true,
 			js:true,
@@ -181,6 +181,7 @@
 	/*今日热销轮播结束*/
 	/*楼层选项卡开始*/
 		var $floor=$('.container-floor');
+		carouselLoadImages($floor,'tab-show');
 		$floor.tab({
 			activeIndex:0,
 			interval:2000
