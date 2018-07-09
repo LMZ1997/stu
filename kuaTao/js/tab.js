@@ -13,18 +13,22 @@
 		constructor:Tab,
 		_init:function(){
 			var self=this;
-			//初始化
-			this.$tabItems.eq(this.now).addClass('tab-item-active');
-			this.$tabPanels.eq(this.now).show();
+			var timer=null;
+			//初始化showhide插件
+			this.$tabPanels.showHide(this.options);
+			
 			this.$tabPanels.on('show shown hide hidden',function(ev){
 				self.$elem.trigger('tab-'+ev.type,[self.$tabPanels.index(this),this])
 			});
+			//初始化面板状态
+			this.$tabItems.eq(this.now).addClass('tab-item-active');
+			this.$tabPanels.eq(this.now).showHide('show');
 			var eventName=this.options.eventName=='click'?'click':'mouseenter';
-			//初始化showhide插件
-			this.$tabPanels.showHide(this.options);
+			
 			this.$elem.on(eventName,'.tab-item',function(){
 				var index=self.$tabItems.index(this);
-				if(self.options.dalay){
+				if(self.now == index) return;
+				if(self.options.delay){
 					clearTimeout(timer);
 					timer=setTimeout(function(){
 						self.toggle(index);
@@ -44,6 +48,7 @@
 			}
 		},
 		toggle:function(index){
+			if(this.now == index) return;
 			this.$tabItems.eq(this.now).removeClass('tab-item-active');
 			this.$tabPanels.eq(this.now).showHide('hide');
 			this.$tabItems.eq(index).addClass('tab-item-active');

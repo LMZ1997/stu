@@ -428,7 +428,7 @@
 	}
 	.floor-item{
 		width: 200px;
-		height: 232px;
+		height: 234px;
 		cursor: pointer;
 		text-align: center;
 	}
@@ -470,8 +470,11 @@
 
 
 
-	.floor2{
-		width: 100%;
-		height: 500px;
+	.floor{
+		margin: 0 auto;
+		width: 1200px;
+		height: 538px;
+		/*background-color: orange;*/
+		margin-top: 10px;
 	}	
 /*楼层结束*/

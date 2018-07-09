@@ -141,7 +141,9 @@
 								var $img=$(this);
 								var imgUrl=$img.data('src');
 								loadImage(imgUrl,function(url){
-									$img.attr('src',url)
+									setTimeout(function(){
+										$img.attr('src',url)
+									},500)
 								},function(url){
 									$img.attr('src','images/error.gif')
 								});
@@ -154,7 +156,7 @@
 							})
 								
 					})
-					$elem.on('carousel-loaded',function(){//加载后的善后工作
+					$elem.on('carousel-loaded',function(){//加载完成的善后工作(删除加载函数)
 						$elem.off('carousel-show',$elem.loadFn)//删除函数
 					})
 				}
@@ -180,11 +182,169 @@
 		})
 	/*今日热销轮播结束*/
 	/*楼层选项卡开始*/
-		var $floor=$('.container-floor');
+		var $floors=$('.floor');
+		var $win=$(window);
+		var $doc=$(document);
+		/*
 		carouselLoadImages($floor,'tab-show');
-		$floor.tab({
+		$floors.tab({
 			activeIndex:0,
-			interval:2000
+			interval:0
 		})
+		*/
+		function getDataOnce($elem,dataUrl,callback){
+			var data=$elem.data('url');
+			if(!data){
+				$.getJSON(dataUrl,function(resData){
+					$elem.data('url',resData);
+					callback(resData);
+				})
+			}else{
+				callback(data);
+			}
+		}
+		function buildFloorHtml(oneOfData){
+			var html='';
+
+			html += '<div class="container">';
+			
+			/*头部(hd)部分*/
+			html += '<div class="floor-hd">';
+			html += '	<h2 class="floor-title fl">';
+			html += '		<span class="floor-title-num">'+oneOfData.num+'F</span>';
+			html += '		<span class="floor-title-text">'+oneOfData.text+'</span>';
+			html += '	</h2>';
+			html += '	<ul class="tab-item-wrap fr">';
+			for(var i = 0;i<oneOfData.tabs.length;i++){
+				html +=	'<li class="fl"> <a class="tab-item" href="javascript:;">'+oneOfData.tabs[i]+'</a></li>';
+				if(i != oneOfData.tabs.length-1){//添加分割线部分
+					html +=	 '<li class="fl tab-line"></li>';
+				}
+			}
+			html += '	</ul>';
+			html += '</div>';
+			/*身体(bd)部分*/
+			html += '<div class="floor-bd">';
+			for(var i = 0;i<oneOfData.items.length;i++){
+				html += '	<ul class="tab-panel clearfix">';
+					for(var j = 0;j<oneOfData.items[i].length;j++){
+						html += '<li class="floor-item fl">';
+						html += '	<p class="floor-item-pic">';
+						html += '		<a href="#">';
+						html += '			<img src="images/floor/loading.gif" class="carousel-img" data-src="images/floor/1/1/'+(j+1)+'.png" alt="">';
+						html += '		</a>';
+						html += '	</p>';
+						html += '	<p class="floor-item-name">';
+						html += '		<a class="link" href="#">'+oneOfData.items[i][j].name+ '</a>';
+						html += '	</p>';
+						html += '	<p class="floor-item-price">￥'+oneOfData.items[i][j].price+'</p>';
+						html += '</li>';
+					}																					
+				html += '	</ul>';			
+			}			
+			html += '</div>';
+			
+			
+
+			html += '</div>';
+
+			return html;
+		}
 	/*楼层选项卡结束*/
+	
+		/*按需加载楼层的Html开始*/
+			function loadFloorHTML($elem){
+				$elem.loadedImageNum=0;
+				$elem.loaded={};
+
+				$elem.totalImageNum=$elem.length;
+
+				$doc.on('floor-show',$elem.loadFn=function(ev,index,elem){	
+					if($elem.loaded[index]!='loaded'){
+						$doc.trigger('floor-load',[index,elem])	
+					}	
+				})
+				$doc.on('floor-load',function(ev,index,elem){     //对应下边这个函数为固定回调，里边的传参可以读取到数据
+					getDataOnce($doc,'data/floor/floorData.json',function(floorData){
+						var html = buildFloorHtml(floorData[index]);//floorData[0]
+						// clearTimeout($elem.timer);
+						setTimeout(function(){
+							$(elem).html(html);
+							carouselLoadImages($floors,'tab-show');
+							$floors.tab({
+								activeIndex:0,
+								interval:0
+							})
+						},500)
+					});
+					$elem.loaded[index] = 'loaded';
+					$elem.loadedImageNum++;
+					if($elem.loadedImageNum == $elem.totalImageNum){
+						$doc.trigger('floor-loaded')
+					}
+							
+				})
+				$doc.on('floor-loaded',function(){
+					$doc.off('floor-show',$elem.loadFn);
+					$win.off('scroll resize',timeToShow);
+				})
+			}
+			function lazyLoad(options){
+				var item={},
+				totalItemNum =  options.totalItemNum,
+				loadedItemNum = 0,
+				loadFn = null,
+				$elem = options.$elem,
+				eventName = options.eventName,
+				eventPrefix = options.eventPrefix;//前缀
+				$doc.on(eventName,$elem.loadFn=function(ev,index,elem){	
+					if($elem.loaded[index]!='loaded'){
+						$doc.trigger('floor-load',[index,elem])	
+					}	
+				})
+				$doc.on('floor-load',function(ev,index,elem){     //对应下边这个函数为固定回调，里边的传参可以读取到数据
+					console.log(index);
+					getDataOnce($doc,'data/floor/floorData.json',function(floorData){
+						var html = buildFloorHtml(floorData[index]);//floorData[0]
+						clearTimeout($elem.timer);
+						$elem.timer=setTimeout(function(){
+							$(elem).html(html);
+							carouselLoadImages($floors,'tab-show');
+							$floors.tab({
+								activeIndex:0,
+								interval:0
+							})
+						},500)
+					});
+					$elem.loaded[index] = 'loaded';
+					$elem.loadedImageNum++;
+					if($elem.loadedImageNum == $elem.totalImageNum){
+						$doc.trigger('floor-loaded')
+					}
+							
+				})
+				$doc.on('floor-loaded',function(){
+					$doc.off('floor-show',$elem.loadFn);
+					$win.off('scroll resize',timeToShow);
+				})
+			}
+		/*按需加载楼层的Html结束*/
+		/*判断楼层是否位于可视区*/
+		function isView($elem){
+			return ($win.height() + $win.scrollTop() > $elem.offset().top) && ($win.scrollTop() < $elem.offset().top+$elem.height())
+		}
+		function timeToShow(){
+			$floors.each(function(index){
+				if(isView($(this))){
+					$doc.trigger('floor-show',[index,this])
+				}
+			})
+		}		
+		$win.on('scroll resize',$floors.loadFn=function(){
+			clearTimeout($floors.floorTimer)
+			$floors.floorTimer=setTimeout(function(){
+				timeToShow()
+			},200)
+		});
+		loadFloorHTML($floors);//其实不需要传参
 })
