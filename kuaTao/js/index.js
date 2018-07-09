@@ -290,43 +290,29 @@
 				})
 			}
 			function lazyLoad(options){
-				var item={},
-				totalItemNum =  options.totalItemNum,
+				var item = {},
+			    totalItemNum =  options.totalItemNum,
 				loadedItemNum = 0,
 				loadFn = null,
 				$elem = options.$elem,
 				eventName = options.eventName,
-				eventPrefix = options.eventPrefix;//前缀
-				$doc.on(eventName,$elem.loadFn=function(ev,index,elem){	
-					if($elem.loaded[index]!='loaded'){
-						$doc.trigger('floor-load',[index,elem])	
-					}	
-				})
-				$doc.on('floor-load',function(ev,index,elem){     //对应下边这个函数为固定回调，里边的传参可以读取到数据
-					console.log(index);
-					getDataOnce($doc,'data/floor/floorData.json',function(floorData){
-						var html = buildFloorHtml(floorData[index]);//floorData[0]
-						clearTimeout($elem.timer);
-						$elem.timer=setTimeout(function(){
-							$(elem).html(html);
-							carouselLoadImages($floors,'tab-show');
-							$floors.tab({
-								activeIndex:0,
-								interval:0
-							})
-						},500)
-					});
-					$elem.loaded[index] = 'loaded';
-					$elem.loadedImageNum++;
-					if($elem.loadedImageNum == $elem.totalImageNum){
-						$doc.trigger('floor-loaded')
+				eventPrefix = options.eventPrefix;
+			
+				$elem.on(eventName,loadFn = function(ev,index,elem){//确定加载时机
+					if(item[index] != 'loaded'){//具体加载
+						$elem.trigger(eventPrefix+'-load',[index,elem,function(){
+							item[index] = 'loaded';
+							loadedItemNum++;
+							if(loadedItemNum == totalItemNum){//整个加载结束
+								$elem.trigger(eventPrefix+'-loaded')
+							}
+						}])
 					}
-							
-				})
-				$doc.on('floor-loaded',function(){
-					$doc.off('floor-show',$elem.loadFn);
-					$win.off('scroll resize',timeToShow);
-				})
+				});
+
+				$elem.on(eventPrefix+'-loaded',function(){
+					$elem.off(eventName,loadFn)
+				});
 			}
 		/*按需加载楼层的Html结束*/
 		/*判断楼层是否位于可视区*/
@@ -339,7 +325,44 @@
 					$doc.trigger('floor-show',[index,this])
 				}
 			})
-		}		
+		}
+		$doc.on('floor-loadItem',function(ev,index,elem,success){
+			var $elem = $(elem);
+			//请求数据
+			getDataOnce($doc,'data/floor/floorData.json',function(floorData){
+				var html = buildFloorHtml(floorData[index]);
+				//模拟网络延时
+				setTimeout(function(){
+					$elem.html(html);
+					//加载图片
+					lazyLoad({
+						totalItemNum:$elem.find('.floor-img').length,
+						$elem:$elem,
+						eventName:'tab-show',
+						eventPrefix:'tab'		
+					});
+					$elem.tab({
+						css3:false,
+						js:false,
+						mode:'fade',
+						eventName:'mouseenter',
+						activeIndex:0,
+						delay:200,
+						interval:0
+					});					
+				},1000)
+			});
+			success();
+		});	
+		$doc.on('floor-loaded',function(){
+			$win.off('scroll resize',$floors.loadFn);	
+		})	
+		lazyLoad({
+			totalItemNum:$floors.length,
+			$elem:$doc,
+			eventName:'floor-show',
+			eventPrefix:'floor'	
+		});
 		$win.on('scroll resize',$floors.loadFn=function(){
 			clearTimeout($floors.floorTimer)
 			$floors.floorTimer=setTimeout(function(){
