@@ -61,7 +61,9 @@
 				}
 			}.bind(this))
 			.on('focus',function(){
-				this.showLayer()
+				if(this.getInputVal()){
+					this.showLayer()
+				}	
 			}.bind(this))
 			.on('click',function(ev){
 				ev.stopPropagation();
@@ -78,7 +80,8 @@
 				return;
 			}
 
-			if(self.jqXHR){//有时因为网络原因，ajax请求可能会重叠，
+			if(self.jqXHR){//有时因为网络原因，ajax请求可能会重叠(比如快速输入两个
+				          //字符，每个字符都会发送请求)，
 						//此处是判断上一次请求是否已经完成，(若已完成
 						//那么此处的this.jqXHR值为null,即判断条件为假)
 						//若未完成，则会停止上次请求，然后根据最新条件
@@ -141,7 +144,6 @@
 				}
 				// console.log('1::',options)
 				if(typeof search[options]=='function'){
-					console.log('in')
 					search[options](valueOfHtml);
 				}
 			})

@@ -30,14 +30,12 @@
 		},
 		show:function($elem){
 			show($elem,function(){
-				setTimeout(function(){
-					$elem.show();
-					$elem.trigger('shown');
-					$elem.data('status','shown');
-				},1000);
+				$elem.show();
+				$elem.trigger('shown');
+				$elem.data('status','shown');
 			})						
 		},
-		hide:function(){
+		hide:function($elem){
 			hide($elem,function(){
 				$elem.hide();
 				$elem.trigger('hidden');
@@ -316,7 +314,7 @@
 					$elem.data('mode',mode)//元素data属性上设置mode属性，第二次调用赋值给mode
 				}//第二次调用showHide进来时(是调用显示隐藏代码)有mode，所以直接执行下边函数
 				
-				if(typeof mode[options]=='function'){//可以用else代替吗
+				if(typeof mode[options]=='function'){
 					mode[options]($elem);
 				}
 				

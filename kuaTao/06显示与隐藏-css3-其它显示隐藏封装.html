@@ -36,7 +36,7 @@
 <body>
 	<button>显示</button>
 	<button>隐藏</button>
-	<div id="box" class="transtion">
+	<div id="box" class="transition">
 		<p>行高1</p>
 		<p>行高2</p>
 		<p>行高3</p>
@@ -208,12 +208,12 @@
 	});
 
 	// slient.init($elem);
-		css3.fadeSlideLeftRight.init($elem);
+		css3.slideLeftRight.init($elem);
 	$('button').eq(0).on('click',function(){
-		css3.fadeSlideLeftRight.show($elem);
+		css3.slideLeftRight.show($elem);
 	})
 	$('button').eq(1).on('click',function(){
-		css3.fadeSlideLeftRight.hide($elem);
+		css3.slideLeftRight.hide($elem);
 	})
 </script>
 </html>

@@ -76,8 +76,8 @@
 		
 	}
 	Tab.DEFAULTS={
-		css3:true,
-		js:true,
+		css3:false,
+		js:false,
 		mode:'fade',
 		eventName:'mouseenter',
 		delay:200,

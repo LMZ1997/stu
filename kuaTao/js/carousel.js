@@ -75,7 +75,7 @@
 				self.direction=1;
 				self.tab(self.getCorrectIndex(self.now+1));
 			})
-			.on('click','.control-left',function(){
+			.on('click','.control-left',function(){//self.tab=this.slide||this.fade;
 				self.direction=-1;
 				self.tab(self.getCorrectIndex(self.now-1))
 			})

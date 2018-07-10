@@ -200,7 +200,7 @@
 			width: 84px;
 			text-align: right;
 			padding-right: 10px;
-			/*border-right: 1px solid #fff;*/
+			/*border-right: 1px solid #ccc;*/
 			box-sizing: border-box;
 		}
 		.category-details-title-link{
@@ -464,12 +464,6 @@
 	
 
 
-
-
-
-
-
-
 	.floor{
 		margin: 0 auto;
 		width: 1200px;
@@ -478,3 +472,37 @@
 		margin-top: 10px;
 	}	
 /*楼层结束*/
+/*左边楼层选择栏开始*/
+	.elevator{
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		margin-left: -660px;
+		margin-top: -100px;
+	}
+	.elevator-item{
+		display: block;
+		width: 40px;
+		height: 35px;
+		line-height: 35px;
+		text-align: center;
+		border-top: 1px solid #ccc;
+	}
+	.elevator-active .elevator-item-num{
+		display: none;
+	}
+	.elevator-active .elevator-item-text{
+		display: block;
+		color: #ea675a;
+	}
+	/*.elevator-active .elevator-item-text{
+		display: block;
+		color: #ea675a;
+	}*/
+	.elevator-item-num{
+		
+	}
+	.elevator-item-text{
+		display: none;
+	}
+/*左边楼层选择栏结束*/
