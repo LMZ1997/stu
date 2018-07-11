@@ -506,3 +506,18 @@
 		display: none;
 	}
 /*左边楼层选择栏结束*/
+/*右边工具栏开始*/
+	.tools{
+		position: fixed;
+		right: 10px;
+		top: 50%;
+		background-color: red;
+	}
+	.tools .tools-item{
+		display: block;
+		width: 40px;
+		height: 40px;
+		line-height: 40px;
+		text-align: center;
+	}
+/*右边工具栏结束*/

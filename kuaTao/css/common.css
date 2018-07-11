@@ -71,11 +71,15 @@
 			height: 0  !important;/*类的优先级低于id*/
 			padding-bottom: 0 !important;
 			padding-top: 0 !important;
+			border-top-width: 0 !important;
+			border-bottom-width: 0 !important; 
 		}
 		.slideLeftRightCollapse{
 			width: 0  !important;/*类的优先级低于id*/
 			padding-left: 0 !important;
 			padding-right: 0 !important;
+			border-left-width: 0 !important;
+			border-right-width: 0 !important;
 		}
 	/*显示隐藏插件所需样式结束*/
 	/*只需给某一元素加上dropdown-active的类，便可以使其下边有相应类名的子元素执行某些参数

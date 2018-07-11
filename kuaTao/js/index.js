@@ -321,7 +321,6 @@
 		
 			$elem.on(eventName,loadFn = function(ev,index,elem){//确定加载时机
 				if(item[index] != 'loaded'){//具体加载
-					console.log('loaded...',index,elem)
 					$elem.trigger(eventPrefix+'-load',[index,elem,function(){
 						item[index] = 'loaded';
 						loadedItemNum++;
@@ -331,7 +330,6 @@
 					}])
 				}
 			});
-			console.log(eventName)
 			$elem.on(eventPrefix+'-loaded',function(){
 				$elem.off(eventName,loadFn)
 			});
