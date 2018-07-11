@@ -2,8 +2,9 @@
 /*公共样式开始*/
 	a{
 		text-decoration: none;
+		color: #4d555d;
 	}
-	.link{
+	a.link{
 		color: #4d555d;
 	}
 	.link:hover{

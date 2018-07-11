@@ -32,44 +32,31 @@
 					error($img,imgUrl);
 				});
 			})
-		}	
-		/*按需加载图片封装函数开始*/
-				function carouselLoadImages($elem,triggerName){
-					$elem.loadedImageNum=0;
-					$elem.loaded={};
-					$elem.totalImageNum=$elem.find('.carousel-img').length;
-
-					$elem.on(triggerName,$elem.loadFn=function(ev,index,elem){	
-						if($elem.loaded[index]!='loaded'){
-							$elem.trigger('carousel-load',[index,elem])//确定什么时候加载		
-						}	
-					})
-					$elem.on('carousel-load',function(ev,index,elem){//具体加载函数
-							$imgs=$(elem).find('.carousel-img');
-							$imgs.each(function(){
-								var $img=$(this);
-								var imgUrl=$img.data('src');
-								loadImage(imgUrl,function(url){
-									setTimeout(function(){
-										$img.attr('src',url)
-									},500)
-								},function(url){
-									$img.attr('src','images/error.gif')
-								});
-								$elem.loadedImageNum++;
-								$elem.loaded[index]='loaded';
-
-								if($elem.totalImageNum==$elem.loadedImageNum){
-									$elem.trigger('carousel-loaded')
-								}
-							})
-								
-					})
-					$elem.on('carousel-loaded',function(){//加载完成的善后工作(删除加载函数)
-						$elem.off('carousel-show',$elem.loadFn)//删除函数
-					})
+		}
+		function lazyLoad(options){
+			var item = {},
+		    totalItemNum =  options.totalItemNum,
+			loadedItemNum = 0,
+			loadFn = null,
+			$elem = options.$elem,
+			eventName = options.eventName,
+			eventPrefix = options.eventPrefix;
+		
+			$elem.on(eventName,loadFn = function(ev,index,elem){//确定加载时机
+				if(item[index] != 'loaded'){//具体加载
+					$elem.trigger(eventPrefix+'-load',[index,elem,function(){
+						item[index] = 'loaded';
+						loadedItemNum++;
+						if(loadedItemNum == totalItemNum){//整个加载结束
+							$elem.trigger(eventPrefix+'-loaded')
+						}
+					}])
 				}
-		/*按需加载封装函数结束*/
+			});
+			$elem.on(eventPrefix+'-loaded',function(){
+				$elem.off(eventName,loadFn)
+			});
+		}	
 	/*公共函数*/
 	/*下拉菜单*/
 		var $menu=$('.nav-header .dropdown');
@@ -174,10 +161,25 @@
 		})
 	/*分类导航结束*/
 	/*轮播图开始*/
-		/*按需加载图片*/
+		//按需加载图片
 			
 		var $focusCarousel=$('.focus .carousel-container');
-		carouselLoadImages($focusCarousel,'carousel-show');
+		// carouselLoadImages($focusCarousel,'carousel-show');
+		lazyLoad({
+			totalItemNum:$focusCarousel.find('.carousel-img').length,
+			$elem:$focusCarousel,
+			eventName:'carousel-show',
+			eventPrefix:'focusCarousel'
+		})
+		$focusCarousel.on('focusCarousel-load',function(ev,index,elem,success){
+			var $imgs = $(elem).find('.carousel-img');
+			loadImages($imgs,function($img,url){
+				$img.attr('src',url);
+				success();
+			},function($img,url){
+				$img.attr('src','images/error.gif');
+			})
+		})
 		$focusCarousel.carousel({
 			css3:true,
 			js:true,
@@ -188,7 +190,22 @@
 	/*轮播图结束*/
 	/*今日热销轮播开始*/
 		var $todaysCarousel=$('.todays .carousel-container');
-		carouselLoadImages($todaysCarousel,'carousel-show');
+		// carouselLoadImages($todaysCarousel,'carousel-show');
+		lazyLoad({
+			totalItemNum:$todaysCarousel.find('.carousel-img').length,
+			$elem:$todaysCarousel,
+			eventName:'carousel-show',
+			eventPrefix:'todaysCarousel'
+		})
+		$todaysCarousel.on('todaysCarousel-load',function(ev,index,elem,success){
+			var $imgs = $(elem).find('.carousel-img');
+			loadImages($imgs,function($img,url){
+				$img.attr('src',url);
+				success();
+			},function($img,url){
+				$img.attr('src','images/error.gif');
+			})
+		})
 		$todaysCarousel.carousel({
 			css3:true,
 			js:true,
@@ -310,30 +327,7 @@
 					})
 				}
 			*/
-		function lazyLoad(options){
-			var item = {},
-		    totalItemNum =  options.totalItemNum,
-			loadedItemNum = 0,
-			loadFn = null,
-			$elem = options.$elem,
-			eventName = options.eventName,
-			eventPrefix = options.eventPrefix;
 		
-			$elem.on(eventName,loadFn = function(ev,index,elem){//确定加载时机
-				if(item[index] != 'loaded'){//具体加载
-					$elem.trigger(eventPrefix+'-load',[index,elem,function(){
-						item[index] = 'loaded';
-						loadedItemNum++;
-						if(loadedItemNum == totalItemNum){//整个加载结束
-							$elem.trigger(eventPrefix+'-loaded')
-						}
-					}])
-				}
-			});
-			$elem.on(eventPrefix+'-loaded',function(){
-				$elem.off(eventName,loadFn)
-			});
-		}
 		/*按需加载楼层的Html结束*/
 		$floors.on('tab-load',function(ev,index,elem,success){
 			var $imgs = $(elem).find('.floor-img');
@@ -424,4 +418,12 @@
 			})
 		}) 
 	/*左边栏楼层选择器结束*/
+	/*右边楼层回到顶部开始*/
+		var $back=$('.tools .back')
+		$back.on('click',function(){
+			$('body,html').animate({
+				scrollTop:0
+			})
+		})
+	/*右边楼层回到顶部结束*/
 })

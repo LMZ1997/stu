@@ -509,9 +509,9 @@
 /*右边工具栏开始*/
 	.tools{
 		position: fixed;
-		right: 10px;
+		right: 0;
 		top: 50%;
-		background-color: red;
+		margin-top: -102px;
 	}
 	.tools .tools-item{
 		display: block;
@@ -519,5 +519,38 @@
 		height: 40px;
 		line-height: 40px;
 		text-align: center;
+		border: 1px solid #ccc;
+		position: relative;
+		margin-bottom: 1px;
+		color: #fff;
+	}
+	.tools .tools-item .tools-icon{
+		width: 40px;
+		height: 40px;
+		line-height: 40px;
+		text-align: center;
+		position: relative;
+		z-index: 5;
+		background-color: #ccc;
+	}
+	.tools .tools-item .tools-item-text{
+		width: 60px;
+		height: 40px;
+		text-align: center;
+		line-height: 40px;
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		background: #ccc;
+		z-index: 2
+	}
+	.tools .tools-item:hover .tools-item-text{
+		left: -60px;
+		background: #ea675a;
+	}
+	.tools-item:hover .tools-icon{
+
+		background: #ea675a;
+
 	}
 /*右边工具栏结束*/
