@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>cookie</title>
+</head>
+<body>
+</body>
+<script>
+	document.cookie='name=Tom';
+
+	var oDate=new Date();
+	oDate.setDate(oDate.getDate()+14);//14天后过期
+	document.cookie='age=18;expires='+oDate
+
+
+	console.log(document.cookie);
+</script>
+</html>

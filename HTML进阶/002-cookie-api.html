@@ -1,0 +1,32 @@
+<!Doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>获取，存储，删除cookie</title>
+</head>
+<body>
+	
+</body>
+<script>
+	function setCookie(key,value,iDate){//iDate为几天后过期
+		var oDate=new Date();
+		oDate.setDate(oDate.getDate()+14);//2周
+		document.cookie=key+'='+value+';expires='+oDate
+	}
+	function getCookie(key){
+		var value='';
+		var str=document.cookie;
+		var arr1=str.split(';');
+		for(var i=0;i<arr1.length;i++){
+			var arr2=arr[i].split('=');
+			if(arr2[0]=key){
+				value=arr2[1];//arr2中只可能有2个元素;一个为key值，一个为value值
+			}
+		}
+		return value;
+	}
+	function removeCookie(key){//value值随便设置
+		setCookie(key,anything,-1);//-1为当前日期的前一天，即key值对应的cookie数据已过期
+	}
+</script>
+</html>

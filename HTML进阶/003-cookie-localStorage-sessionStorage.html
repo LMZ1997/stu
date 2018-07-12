@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	
+</body>
+<script>
+	localStorage.setItem('name','Tom');
+	localStorage.setItem('age','18');
+	console.log(localStorage.getItem('age'));
+	localStorage.removeItem('age');
+	console.log('添加数据的长度：',localStorage.length);
+	localStorage.clear();
+	localStorage.setItem('name','Leo');
+	localStorage.setItem('age','88');
+	console.log('数据0的键值：',localStorage.key(0));
+	console.log('数据1的键值：',localStorage.key(1));
+
+	console.log('\n\n\n')//sessionStorage的方法基本等同于localStorage,但session设置的数据在更换浏览器页面后会消失
+
+	sessionStorage.setItem('name','Leo');
+	sessionStorage.setItem('age','88');
+	console.log(sessionStorage.getItem('age'));
+	sessionStorage.removeItem('age');
+	
+	console.log('添加数据的长度：',sessionStorage.length);
+	sessionStorage.clear();
+	sessionStorage.setItem('name','Tom');
+	sessionStorage.setItem('age','18');
+
+	console.log('数据0的键值：',sessionStorage.key(0));
+	console.log('数据1的键值：',sessionStorage.key(1));
+</script>
+</html>

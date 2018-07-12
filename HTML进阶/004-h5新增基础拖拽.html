@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>基础拖拽</title>
+	<style>
+		.target{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+		}
+		.container{
+			width: 300px;
+			height: 300px;
+			background-color: blue;
+			margin:100px auto;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<div class="container" id="container">红的往这拖</div>
+	<div class="target" id="target" draggable='true'>托我</div>
+</body>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			$('#target').on('dragstart',function(ev){//在jQuery环境中需要用到originEvent,在原生js环境中不需要，直接ev.dataTransfer
+				ev.originalEvent.dataTransfer.setData('targetId',ev.target.id);
+			})
+			$('#container')
+			.on('drop',function(ev){
+				var targetId=ev.originalEvent.dataTransfer.getData('targetId');
+				$('#container').append($('#'+targetId))
+			})
+			.on('dragover',function(ev){
+				ev.preventDefault();
+			})
+
+		})
+	</script>
+</html>
