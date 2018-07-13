@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ctx图形及坐标轴</title>
+	<style>
+		#canvas{
+			border: 1px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+</body>
+<script>
+	var oCanvas=document.getElementById('canvas');
+	oCanvas.width=800;
+	oCanvas.height=600;
+	var ctx=oCanvas.getContext('2d');
+	ctx.save();
+
+	ctx.beginPath();
+	ctx.strokeStyle='#f00';
+	ctx.fillStyle='#ff0';
+	ctx.strokeRect(100,100,100,100);
+	ctx.fillRect(100,100,100,100);
+
+	ctx.beginPath();
+	ctx.strokeStyle='red';
+	ctx.fillStyle='blue';
+	ctx.translate(200,200);//移动坐标轴
+	ctx.strokeRect(0,0,100,100);
+	ctx.fillRect(0,0,100,100);
+
+	ctx.beginPath();
+	ctx.strokeStyle='red';
+	ctx.fillStyle='green';
+	ctx.translate(100,100);//移动坐标轴
+	ctx.rotate(Math.PI/4);//顺时针旋转坐标轴
+	ctx.strokeRect(0,0,100,100);
+	ctx.fillRect(0,0,100,100);
+
+	ctx.restore();//恢复坐标系(前提先save)
+	ctx.beginPath();
+	ctx.arc(600,200,100,0,2*Math.PI,true);
+	ctx.strokeStyle='red';
+	ctx.fillStyle='pink';
+	ctx.fill();
+	ctx.stroke();
+
+</script>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>彩球案例</title>
+	<style>
+		#canvas{
+			background-color: #000;
+			margin-left: 180px;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+</body>
+<script>
+	var oCanvas=document.getElementById('canvas');
+	oCanvas.width=1000;
+	oCanvas.height=600;
+	var ctx=oCanvas.getContext('2d');
+	ctx.beginPath();
+	function getRandom(min,max){
+		return Math.round(min+(max-min)*Math.random());
+	}
+	var colorArr=['red','blue','green','pink','orange','tomato','gold','yellow']
+	var ballArr=[];
+	function Ball(x,y,color){
+		this.x=x;
+		this.y=y;
+		this.color=color;
+		this.r=40;
+
+		//初始化一组要改变的值
+		this.dx=getRandom(-5,5);
+		this.dy=getRandom(-5,5);
+		this.dr=getRandom(1,3);
+
+	}
+	Ball.prototype={
+		constructor:Ball,
+		render:function(){
+			ctx.save();
+			ctx.beginPath();
+			ctx.fillStyle=this.color;
+			ctx.arc(this.x,this.y,this.r,0,2*Math.PI,true);
+			ctx.fill();
+
+			ctx.restore();
+		},
+		update:function(){
+			this.x+=this.dx;
+			this.y+=this.dy;
+			this.r-=this.dr;
+			if(this.r<0){
+				this.r=0;
+			}
+		}
+	}
+	oCanvas.addEventListener('mousemove',function(ev){
+
+		var ball=new Ball(ev.offsetX,ev.offsetY,colorArr[getRandom(0,colorArr.length-1)]);
+		ballArr.push(ball);
+		// setTimeout(function(){
+		// 		ctx.clearRect(0,0,oCanvas.width,oCanvas.height)
+		// 	for(var i=0;i<ballArr.length;i++){
+		// 		ballArr[i].render();
+		// 		ballArr[i].update();
+		// 	}
+		// },100)
+	})
+	setInterval(function(){
+				ctx.clearRect(0,0,oCanvas.width,oCanvas.height)
+			for(var i=0;i<ballArr.length;i++){
+				ballArr[i].render();
+				ballArr[i].update();
+			}
+		},50)
+</script>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>填充文字</title>
+	<style>
+		#canvas{
+			border: 1px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+</body>
+<script>
+		var oCanvas=document.getElementById('canvas');
+		oCanvas.width=600;
+		oCanvas.height=600;
+		var ctx=oCanvas.getContext('2d');
+
+		var str='HELLO LICAN'
+		ctx.font = '50px sans-serif';
+		ctx.fillText(str,0,200);
+		ctx.strokeText(str,0,300);
+
+		ctx.beginPath();
+		var img=new Image();
+		img.src='images/dogLogo.png';
+		img.onload=function(){
+			// ctx.drawImage(img,200,0);
+			// ctx.drawImage(img,200,0,300,300)//变成大小300*300的；
+			ctx.drawImage(img,0,0,50,50,200,0,100,100)//在（0，0）的位置选取大小50*50的部分图片，放置在（200，0）的位置，再缩放到100*100的大小
+		}
+		
+</script>
+</html>

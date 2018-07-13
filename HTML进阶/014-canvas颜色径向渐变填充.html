@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>渐变</title>
+	<style>
+	#canvas{
+		border: 1px solid #000;
+	}
+</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+</body>
+<script>
+	var oCanvas=document.getElementById('canvas');
+	oCanvas.width=600;
+	oCanvas.height=600;
+	var ctx=oCanvas.getContext('2d');
+	//径向渐变(RadialGradient) var radialGradient = createRadialGradient(起始圆心x,起始圆心y,起始圆半径,终止圆心x,终止圆心y,终止圆半径);-->括号内两个圆
+	var radialGradient=ctx.createRadialGradient(300,300,0,300,300,100);
+	radialGradient.addColorStop(0.1,'#f00');
+	radialGradient.addColorStop(1,'#0f0');
+	ctx.fillStyle=radialGradient;
+	ctx.arc(300,300,100,0,2*Math.PI,true)
+	ctx.fill()
+</script>
+</html>

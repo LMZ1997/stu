@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas画线</title>
+	<style>
+		#canvas{
+			border: 1px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+</body>
+<script>
+	var oCanvas=document.getElementById('canvas');
+	oCanvas.width=800;
+	oCanvas.height=600;
+
+	var ctx=oCanvas.getContext('2d');
+	ctx.moveTo(0,0);
+	ctx.lineTo(200,200);
+	ctx.lineTo(200,300)
+	ctx.strokeStyle="#f00";
+	ctx.lineWidth=2;
+	ctx.closePath();
+	ctx.fillStyle='#ff0';
+	ctx.stroke();
+	ctx.fill();
+
+
+	ctx.beginPath();//画笔样式会延用上边的
+	ctx.moveTo(400,0);
+	ctx.lineTo(600,200);
+	ctx.stroke();
+</script>
+</html>

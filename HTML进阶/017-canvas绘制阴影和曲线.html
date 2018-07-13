@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>绘制阴影和曲线</title>
+	<style>
+		#canvas{
+			border: 1px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+</body>
+<script>
+	var oCanvas=document.getElementById('canvas');
+	oCanvas.width=600;
+	oCanvas.height=600;
+
+	var ctx=oCanvas.getContext('2d');
+
+	ctx.beginPath();
+	ctx.fillStyle='#f00';
+	ctx.fillShadow(10);
+	ctx.fillRect(290,290,150,100);
+</script>
+</html>

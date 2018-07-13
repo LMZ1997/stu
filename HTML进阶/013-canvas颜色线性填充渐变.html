@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>渐变</title>
+	<style>
+	#canvas{
+		border: 1px solid #000;
+	}
+</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+</body>
+<script>
+	var oCanvas=document.getElementById('canvas');
+	oCanvas.width=600;
+	oCanvas.height=600;
+	var ctx=oCanvas.getContext('2d');
+	//线性渐变(LinearGradient) var linearGradient = cxt.createLinearGradient(起始x,起始y,终止x,终止y); linearGradient.addColorStop(百分比,颜色)
+	var linearGradient=ctx.createLinearGradient(300,300,500,400);
+	linearGradient.addColorStop(0.1,'#f00');
+	linearGradient.addColorStop(1,'#0f0');
+	ctx.fillStyle=linearGradient;
+	ctx.fillRect(300,300,200,100)
+</script>
+</html>
