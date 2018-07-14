@@ -1,0 +1,92 @@
+/*
+	多行注释,编译后不删除
+*/
+div {
+  margin-top: 5px;
+}
+h2 {
+  color: #ff0000;
+}
+a:hover {
+  color: #ff0000;
+}
+.box1 {
+  width: 200px;
+  height: 100px;
+  background: #ff0000;
+}
+.box2 {
+  width: 200px;
+  height: 100px;
+  background: #ff0000;
+  font-size: 30px;
+}
+.box3 {
+  width: 200px;
+  height: 100px;
+  background: #ff0000;
+  -webkit-border-radius: 40px;
+  -ms-border-radius: 40px;
+  -o-border-radius: 40px;
+  border-radius: 40px;
+}
+.box4 {
+  width: 200px;
+  height: 100px;
+  background: #ff0000;
+  -webkit-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -o-border-radius: 20px;
+  border-radius: 20px;
+}
+.box5 {
+  border-width: 30px;
+  border-color: #0000ff transparent transparent transparent;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  border-style: solid;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+.list {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.list li {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  list-style: none;
+}
+.list li span {
+  float: left;
+}
+.list li a {
+  display: inline-block;
+  float: right;
+}
+.list li:hover {
+  background-color: green;
+}
+.box6 {
+  font-size: 60px;
+}
+.box7 {
+  width: 200px !important;
+  height: 100px !important;
+  background: #ff0000 !important;
+}
+.box8 {
+  font-size: calc(60px-10px);
+}
+.box9 {
+  font-size: 40px;
+  color: orange;
+  width: 1200px;
+  height: 50px;
+}

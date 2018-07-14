@@ -28,7 +28,6 @@
 	ctx.restore();
 	ctx.moveTo(0,0);
 	ctx.lineTo(50,0);
-	ctx.rotate(s*Math.PI/10800);
 	ctx.strokeStyle='blue';
 	ctx.lineWidth=4;
 	ctx.stroke();
@@ -41,7 +40,6 @@
 	ctx.stroke();
 
 	ctx.beginPath();//秒针
-	ctx.rotate(s*Math.PI/30);
 	ctx.moveTo(0,0);
 	ctx.lineTo(60,60);
 	ctx.strokeStyle='red';
@@ -50,35 +48,61 @@
 
 	var s=1
 	setInterval(function(){
-		s++; 
-		ctx.clearRect(0,0,600,600)
-		setInterval(function(){
-			ctx.beginPath();
-			ctx.restore();
-			ctx.moveTo(0,0);
-			ctx.lineTo(50,0);
-			ctx.rotate(s*Math.PI/10800);
-		},360000)
-		setInterval(function(){
-			ctx.beginPath();
-			ctx.restore();
-			ctx.moveTo(0,0);
-			ctx.lineTo(0,60);
-			ctx.rotate(Math.PI/1800);
-		},60000)
 		
+		ctx.beginPath();//时针
+		ctx.clearRect(0,0,600,600)	
+		ctx.restore();
+		ctx.moveTo(0,0);
+		ctx.lineTo(50,0);
+		ctx.strokeStyle='blue';
+		ctx.lineWidth=4;
+		ctx.stroke();
+
+		ctx.beginPath();//分针
+		ctx.restore();
+		ctx.moveTo(0,0);
+		ctx.lineTo(0,60);
+		ctx.strokeStyle='green';
+		ctx.lineWidth=3;
+		ctx.stroke();
+
+		for(var i=0;i<12;i++){
+			ctx.beginPath();
+			ctx.restore();
+			ctx.clearRect(0,0,600,600)	
+			ctx.rotate(Math.PI/6);
+			ctx.moveTo(80,0);
+			ctx.lineTo(100,0);
+			ctx.strokeStyle='grey';
+			ctx.lineWidth=2;
+			ctx.stroke();
+		}
 
 		ctx.beginPath();
 		ctx.restore();
 		ctx.rotate(Math.PI/30);
 		ctx.moveTo(0,0);
 		ctx.lineTo(60,60);
-		
 		ctx.strokeStyle='red';
 		ctx.lineWidth=2;
 		ctx.stroke();
 	},1000)
-	
+	setInterval(function(){
+			ctx.beginPath();
+			ctx.restore();
+			ctx.rotate(Math.PI/10800);
+			ctx.moveTo(0,0);
+			ctx.lineTo(50,0);
+		
+	},360000)
+	setInterval(function(){
+			ctx.beginPath();
+			ctx.restore();
+			ctx.rotate(Math.PI/1800);
+			ctx.moveTo(0,0);
+			ctx.lineTo(0,60);
+			
+	},60000)
 
 	for(var i=0;i<12;i++){
 		ctx.beginPath();

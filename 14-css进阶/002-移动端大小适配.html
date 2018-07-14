@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>移动端大小适配</title>
+	<meta name="viewPort" content="width=device-width ,user-scalable=yes">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		html{
+			font-size: 15px;/*注意font-size最小值为12px*/
+		}
+		img{
+			float: left;
+			width: 40vw;
+			/*widows: 40rem;/*400*15*/*/
+		}
+		/*运用rem需要配合使用js,js控制在不同的屏幕尺寸下rem的值,屏幕越小，rem值越小，反之亦然*/
+		span{
+			float: left;
+			font-size: 2vw;
+			/*font-size: 1rem;*/
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<img src="images/earth.jpg" alt="">
+		<span>地球</span>
+		<span>地球</span>
+		<span>地球</span>
+		<span>地球</span>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,125 @@
+@color:#f00;
+@w:200px;
+@h:100px;
+//单行注释，编译后删除
+/*
+	多行注释,编译后不删除
+*/
+
+div{
+	margin-top: 5px;
+}
+h2{
+	color:@color;
+}
+a:hover{
+	color:@color;
+}
+.box1{
+	width: @w;
+	height: @h;
+	background: @color;
+}
+//混合使用
+.box2{
+	.box1;
+	font-size: 30px;
+}
+.border-radius(@borderWidth){//兼容性写法,此处必须传参
+	-webkit-border-radius:@borderWidth;//microsoft
+	-ms-border-radius:@borderWidth;//chrome
+	-o-border-radius:@borderWidth;//欧朋浏览器
+	border-radius: @borderWidth;//基本
+} 
+.border-radius-def(@borderWidth:20px){//默认值为20，可以不传参
+	-webkit-border-radius:@borderWidth;
+	-ms-border-radius:@borderWidth;//microsoft
+	-moz-border-radius:@borderWidth;//chrome
+	-o-border-radius:@borderWidth;//欧朋浏览器
+	border-radius: @borderWidth;//基本
+} 
+.box3{
+	.box1;
+	.border-radius(40px); 
+}
+.box4{
+	.box1;
+	.border-radius-def();
+}
+.triangle(top,@w:20px,@c:red){
+	border-width: @w;
+	border-color: @c  transparent transparent transparent;
+}
+.triangle(right,@w:20px,@c:red){
+	border-width: @w;
+	border-color:  transparent @c  transparent transparent;
+}
+.triangle(bottom,@w:20px,@c:red){
+	border-width: @w;
+	border-color:   transparent transparent @c transparent;
+}
+.triangle(left,@w:20px,@c:red){
+	border-width: @w;
+	border-color:  transparent transparent transparent @c;
+}
+//@_表示输入值为任意,注意参数不能少写！！！！transparent为透明
+.triangle(@_,@w:100px,@c:yellow){
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	border-style: solid;
+}
+.box5{
+	.triangle(top,30px,blue);
+}
+//嵌套模式  &代表上一级元素
+*{
+	margin: 0;
+	padding: 0;
+}
+.list{
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	li{
+		width: 100%;
+		height: 30px;
+		line-height: 30px;
+		list-style: none;
+		span{
+			float: left;
+		}
+		a{
+			display: inline-block;
+			float: right;
+		}
+		&:hover{
+			background-color: green;
+		}
+	}
+}
+.fs(@s){//运算符两边各有一个以上的空格
+	// font-size: @s - 10px;
+	font-size: @s + 10px;
+	// font-size: @s * 10px;
+	// font-size: @s / 10px;
+}
+.box6{
+	.fs(50px);
+}
+.box7{//在混合模式后添加!important关键字,会为混合模式中的所有样式添加!important
+	.box1 !important;
+}
+.box8{//避免编译
+  font-size: ~'calc(60px-10px)';
+}
+.set(@attr,@value){
+	@{attr}:unit(@value,px);
+	// width:100px;类型为此
+}
+.box9{
+	.fs(30px);
+	color:orange;
+	.set(width,1200);
+	.set(height,50);
+}
