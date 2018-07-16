@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width ,user-scalable=0">
+	<title>媒体查询进阶</title>
+	<!-- <link rel="stylesheet" href="css/green.css" media="screen and (min-width:300px) and (max-width: 800px)"> -->   <!-- 方法五 -->
+	<style>
+		
+		/*body{    
+			background:green;
+		}*/
+		/*
+		@media screen{ 方法一
+			body{
+				background:green;
+			}
+		}
+		*/
+		/*
+		@media screen and (width:800px){ 方法二
+			body{
+				background:green;
+			}
+		}
+		*/
+		/*
+		@media screen and (min-width:300px) and (max-width: 800px){  方法三
+			body{
+				background:green;
+			}
+		}
+		*/
+
+		/*orientation,移动设备窗口的方向,portrait(纵向),landscape(横向)*/
+		@media screen and (min-width:300px) and (max-width:800px) and (orientation:landscape){  /*方法四*/
+			
+			body{
+				background:green;
+			}
+		}
+		/*@media screen and (orientation:landscape){
+			body{
+				background:red;
+			}
+		}*/
+	</style>
+</head>
+<body>
+	
+</body>
+</html>

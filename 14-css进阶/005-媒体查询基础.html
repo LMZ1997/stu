@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width ,user-scalable=0">
+	<title>选择css</title>
+	<!-- 外部引用举例 ,根据不同的media,选取不同的css样式
+		<link rel="stylesheet" media='screen' href="css/screen.css">
+		<link rel="stylesheet" media='print' href="css/print.css">
+	-->
+	<style>
+		@media screen{/*显示在屏幕*/
+			h1{
+				color: blue;
+			}
+		}
+		@media print{/*显示在打印机中*/
+			h1{
+				color: red;
+			}
+		}
+	</style>
+</head>
+<body>
+	<h1>
+		看我的颜色,比较打印预览的颜色
+	</h1>
+</body>
+</html>

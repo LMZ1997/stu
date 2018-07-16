@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.container {
+  margin: 0.3125rem 0.625rem 0.9375rem 1.25rem;
+}
+img {
+  float: left;
+  width: 3.75rem;
+}
+span {
+  float: left;
+  font-size: 0.5rem;
+}

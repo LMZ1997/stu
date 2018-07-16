@@ -1,0 +1,74 @@
+.base {
+  height: 1.40625rem;
+  line-height: 1.40625rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+.header {
+  font-weight: bold;
+  font-size: 0.5rem;
+  height: 1.40625rem;
+  line-height: 1.40625rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+.header .header-back {
+  width: 1.40625rem;
+  height: 1.40625rem;
+  text-align: center;
+}
+.header .header-title {
+  width: 6.25rem;
+  height: 1.40625rem;
+  display: inline-block;
+  text-align: center;
+}
+.location {
+  font-size: 0.46875rem;
+  height: 1.40625rem;
+  line-height: 1.40625rem;
+  border-bottom: 1px solid #e5e5e5;
+  color: #878787;
+}
+.location .location-icon {
+  margin-left: 0.3125rem;
+}
+.location .location-edit {
+  float: right;
+  text-decoration: none;
+  color: #db292f;
+}
+.JD {
+  height: 1.40625rem;
+  line-height: 1.40625rem;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 0.5rem;
+}
+.JD .JD-checked {
+  width: 1.3125rem;
+  text-align: center;
+  color: #db292f;
+  font-size: 0.625rem;
+}
+.JD .JD-word {
+  color: #878787;
+  margin-right: 0.3125rem;
+}
+.JD .JD-text {
+  font-weight: bold;
+}
+.description {
+  height: 1.40625rem;
+  line-height: 1.40625rem;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 0.4375rem;
+  color: #878787;
+  padding-left: 0.3125rem;
+  box-sizing: border-box;
+}
+.description .description-text {
+  margin-right: 0.15625rem;
+}
+.floor {
+  height: 4.6875rem;
+  border-bottom: 1px solid #e5e5e5;
+  padding-left: 0.5rem;
+}

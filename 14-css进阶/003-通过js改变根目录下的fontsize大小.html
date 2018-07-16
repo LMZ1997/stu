@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>通过js控制不同尺寸屏幕的fontsize大小</title>
+	<meta name="viewPort" content="width=device-width ,user-scalable=yes">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		img{
+			float: left;
+			width: 4rem;
+			/*width: 40rem;*//*具体数字大小需要通过简单的计算确定*/
+		}
+		/*运用rem需要配合使用js,js控制在不同的屏幕尺寸下rem的值,屏幕越小，rem值越小，反之亦然*/
+		span{
+			float: left;
+			font-size: 0.5rem;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<img src="images/earth.jpg" alt="">
+		<span>地球</span>
+		<span>地球</span>
+		<span>地球</span>
+		<span>地球</span>
+	</div>
+</body>
+<script>
+	(function(win,doc){
+		function refreshFontSize(){
+			//获取根元素
+			var iRoot=document.getElementsByTagName('html')[0];
+			//获取当前设备宽度
+			var iWidth=doc.body.clientWidth||doc.documentElement.clientWidth;
+			//确定设备宽度与字体大小的关系
+			var iFont=iWidth/10;
+			//设置根元素下的fontsize大小
+			iRoot.style.fontSize=iFont+'px';
+		}
+		
+		win.addEventListener('resize',refreshFontSize);
+		// win.addEventListener('load',refreshFontSize);//需要等到全部元素加载完毕才触发
+		doc.addEventListener('DOMContentLoaded',refreshFontSize);
+	})(window,document);
+</script>
+</html>

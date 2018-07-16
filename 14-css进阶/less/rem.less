@@ -1,0 +1,27 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+@rem:32;//根据rem.js计算,此处已确定在何种设备上显示->iphone5
+.rem(@attr,@px1){
+	@{attr}:unit(@px1/@rem,rem);
+}
+.rem(@attr,@px1,@px2){
+	@{attr}:unit(@px1/@rem,rem) unit(@px2/@rem,rem);
+}
+.rem(@attr,@px1,@px2,@px3,@px4){
+	@{attr}:unit(@px1/@rem,rem) unit(@px2/@rem,rem) unit(@px3/@rem,rem) unit(@px4/@rem,rem);
+}
+.container{
+	.rem(margin,10,20,30,40)
+}
+img{
+	float: left;
+	.rem(width,120);
+	
+}
+span{
+	float: left;
+	.rem(font-size,16);
+}
+

@@ -1,0 +1,78 @@
+@rem:32;//根据rem.js计算,此处已确定在何种设备上显示->iphone5
+@border-color:#e5e5e5;
+.rem(@attr,@px1){
+	@{attr}:unit(@px1/@rem,rem);
+}
+.rem(@attr,@px1,@px2){
+	@{attr}:unit(@px1/@rem,rem) unit(@px2/@rem,rem);
+}
+.rem(@attr,@px1,@px2,@px3,@px4){
+	@{attr}:unit(@px1/@rem,rem) unit(@px2/@rem,rem) unit(@px3/@rem,rem) unit(@px4/@rem,rem);
+}
+.base{
+	.rem(height,45);
+	.rem(line-height,45);
+	border-bottom: 1px solid @border-color;
+}
+.header{
+	font-weight: bold;
+	.rem(font-size,16);
+	.base;
+	.header-back{
+		.rem(width,45);
+		.rem(height,45);
+		text-align: center;
+	}
+	.header-title{
+		.rem(width,200);
+		.rem(height,45);
+		display: inline-block;
+		text-align: center;
+	}
+}
+.location{
+	.rem(font-size,15);
+	.base;
+	color:rgb(135,135,135);
+	.location-icon{
+	.rem(margin-left,10);
+	}
+	.location-edit{
+		float: right;
+		text-decoration: none;
+		color:#db292f;
+	}
+}
+.JD{
+	.base;
+	.rem(font-size,16);
+	.JD-checked{
+		.rem(width,42);
+		text-align: center;
+		color:#db292f;
+		.rem(font-size,20);
+	}
+	.JD-word{
+		color:rgb(135,135,135);
+		.rem(margin-right,10);
+	}
+	.JD-text{
+		font-weight: bold;
+	}
+}
+.description{
+	.base;
+	.rem(font-size,14);
+	color:rgb(135,135,135);
+	.rem(padding-left,10);
+	box-sizing: border-box;
+	.description-text{
+		.rem(margin-right,5);
+	}
+}
+.floor{
+	// .rem(width,320);
+	.rem(height,150);
+	border-bottom: 1px solid @border-color;
+	.rem(padding-left,16);
+}
