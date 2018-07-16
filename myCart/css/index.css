@@ -67,8 +67,63 @@
 .description .description-text {
   margin-right: 0.15625rem;
 }
-.floor {
+.goods {
   height: 4.6875rem;
   border-bottom: 1px solid #e5e5e5;
-  padding-left: 0.5rem;
+  padding: 0.3125rem;
+  box-sizing: border-box;
+}
+.goods .goods-container {
+  float: left;
+  display: block;
+  height: 3.125rem;
+  line-height: 3.125rem;
+  box-sizing: border-box;
+}
+.goods .goods-container .goods-check {
+  overflow: hidden;
+  font-size: 0.625rem;
+  color: #878787;
+  height: 3.125rem;
+  line-height: 3.125rem;
+}
+.goods .goods-text {
+  float: right;
+  width: 5rem;
+}
+.goods .goods-text .goods-name {
+  display: block;
+  font-size: 0.46875rem;
+  font-weight: bold;
+}
+.goods .goods-text .goods-weight {
+  display: block;
+  font-size: 0.4375rem;
+}
+.goods .goods-text .goods-price {
+  display: inline-block;
+  color: red;
+  font-size: 0.40625rem;
+}
+.goods .goods-text .goods-number {
+  float: right;
+}
+.goods .goods-text .goods-number .goods-number-item {
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.1);
+  width: 0.78125rem;
+  height: 0.78125rem;
+  line-height: 0.78125rem;
+  font-size: 0.5rem;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.8);
+}
+.goods .goods-text .goods-menu {
+  float: right;
+  margin-top: -10px;
+}
+.goods .goods-text .goods-menu .goods-menu-item {
+  display: inline-block;
+  color: #878787;
+  font-size: 0.46875rem;
 }

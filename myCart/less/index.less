@@ -70,9 +70,67 @@
 		.rem(margin-right,5);
 	}
 }
-.floor{
+.goods{
 	// .rem(width,320);
 	.rem(height,150);
 	border-bottom: 1px solid @border-color;
-	.rem(padding-left,16);
+	.rem(padding,10);
+	box-sizing: border-box;
+	.goods-container{
+		float: left;
+		display: block;
+		.rem(height,100);
+		.rem(line-height,100);
+		box-sizing: border-box;
+		.goods-check{
+			overflow: hidden;
+			.rem(font-size,20);
+			color: rgb(135,135,135);
+			.rem(height,100);
+			.rem(line-height,100);
+		}
+	}
+	.goods-text{
+		float: right;
+		.rem(width,160);
+		.goods-name{
+			display: block;
+			.rem(font-size,15);
+			font-weight: bold;
+		}
+		.goods-weight{
+			display: block;
+			.rem(font-size,14);
+		}
+		.goods-price{
+			display: inline-block;
+			color:red;
+			 .rem(font-size,13);
+		}
+		.goods-number{
+			float: right;
+			.goods-number-item{
+				display: inline-block;
+				background-color: rgba(0,0,0,0.1);
+				.rem(width,25);
+				.rem(height,25);
+				.rem(line-height,25);
+				.rem(font-size,16);
+				text-align: center;
+				color:rgba(0,0,0,0.8);
+			}
+		}
+		
+		.goods-menu{
+			float: right;
+			margin-top: -10px;
+			
+			.goods-menu-item{
+			display: inline-block;
+			color: rgb(135,135,135);
+			.rem(font-size,15);
+		}
+		}
+		
+	}
 }
