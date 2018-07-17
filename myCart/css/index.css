@@ -33,6 +33,7 @@
 }
 .location .location-edit {
   float: right;
+  margin-right: 0.3125rem;
   text-decoration: none;
   color: #db292f;
 }
