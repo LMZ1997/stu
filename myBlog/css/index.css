@@ -51,7 +51,7 @@ body{
 	border-left: 2px solid #f65a8a;
 	padding-left: 15px;
 }
-#xx-panel .panel-body:hover~.panel-heading a{
+#xx-panel:hover .panel-heading{
 	color: #f65a8a;
 }
 #xx-panel .panel-footer .panel-footer-text{
