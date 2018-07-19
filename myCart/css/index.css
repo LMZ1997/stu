@@ -128,3 +128,62 @@
   color: #878787;
   font-size: 0.46875rem;
 }
+.footer {
+  padding-left: 0.3125rem;
+  height: 1.40625rem;
+  margin-right: 10px;
+  text-align: center;
+  box-sizing: border-box;
+}
+.footer .footer-check {
+  float: left;
+  line-height: 1.40625rem;
+  height: 1.40625rem;
+  padding-top: 0.15625rem;
+  padding-bottom: 0.15625rem;
+  box-sizing: border-box;
+  display: inline-block;
+}
+.footer .footer-check .footer-checked {
+  font-size: 0.625rem;
+  color: #db292f;
+  display: block;
+}
+.footer .footer-check .footer-check-text {
+  color: #878787;
+  font-size: 0.4375rem;
+  line-height: 0.5625rem;
+}
+.footer .footer-price {
+  float: left;
+  display: inline-block;
+  padding-top: 0.15625rem;
+  padding-left: 0.625rem;
+  box-sizing: border-box;
+}
+.footer .footer-price .footer-price-maney {
+  font-size: 0.5rem;
+  font-weight: bold;
+}
+.footer .footer-price .footer-price-maney span {
+  color: #db292f;
+  font-size: 0.5rem;
+}
+.footer .footer-price .footer-price-all {
+  font-size: 0.375rem;
+  color: #878787;
+}
+.footer .footer-number {
+  box-sizing: border-box;
+  float: right;
+}
+.footer .footer-number .footer-number-shopping {
+  width: 3.125rem;
+  height: 1.40625rem;
+  line-height: 1.40625rem;
+  text-align: center;
+  box-sizing: border-box;
+  font-size: 0.5625rem;
+  color: #fff;
+  background-color: #db292f;
+}

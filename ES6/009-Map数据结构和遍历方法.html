@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Map数据结构和遍历方法</title>
+</head>
+<body>
+	
+</body>
+<script>
+	var map=new Map();
+	map.clear();
+	console.log('has::',map.has('anyone'))
+	console.log(map);
+
+	var map1=new Map();
+	map1.set('name','Tom');
+	map1.set('age',15);
+	map1.delete('age');
+	console.log('setValue',map1)
+	// console.log('size::',map1.size())
+
+	var map2=new Map();
+	map2.set('name','Leo');
+	let obj={age:18};
+	map2.set(obj,'HaHaHa');
+	console.log('setObj',map2);
+
+	console.log('map2[obj]',map2[obj])//??????????????????????????????
+	// console.log('size::',map2.size())
+	for(key of map2.keys()){
+		console.log('key::',key);//??????????????????????
+	}
+	for(value of map2.values()){
+		console.log('value::',value);
+	}
+	for(entry of map2.entries()){//键值对
+		console.log('entry::',entry);
+	}
+
+
+</script>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	let s1=Symbol('name');
+	let s2=Symbol('name');
+	console.log('same::',s1==s2);
+	let obj={[s1]:'Mical'};
+	obj[s2]="Leo";
+	for(key in obj){
+		console.log('obj[key]',obj[key]);//不会返回值，因为symbol类型的值，是不可枚举的
+	}
+
+	// let keys=Reflect()
+</script>
+</html>

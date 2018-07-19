@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数组的扩展运算</title>
+</head>
+<body>
+	
+</body>
+<script>
+	var arr=[11,22,33];
+	/*
+	function sum(){
+		var result=0;
+		for (var i = 0; i <arguments.length; i++) {
+			result+=arguments[i];
+		}
+		return result;
+	}
+	console.log(sum(...arr));  //...可以将数组内的每一项作为单个参数传递
+	*/
+
+	/*
+	function sum(arr){
+		var result=0;
+		for (var i = 0; i <arr.length; i++) {
+			result+=arr[i];
+		}
+		return result;
+	}
+	console.log(sum(arr));
+	*/
+
+	/*
+	function sum(){
+		var result=0;
+		for (var i = 0; i <arguments.length; i++) {
+			result+=arguments[i];
+		}
+		return result;
+	}
+	console.log(sum.apply(null,[11,22,33]));
+	*/
+
+	var arr2=arr.concat();
+	arr2.push(9999);
+	console.log(arr,arr2)
+
+	var arr3=arr.slice(1,2);
+	arr3.push(8888);
+	console.log(arr,arr3)
+
+
+</script>
+</html>

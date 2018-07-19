@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ES6的let</title>
+</head>
+<body>
+	<button>1</button>
+	<button>2</button>
+	<button>3</button>
+	<button>4</button>
+</body>
+<script>
+	/*
+	var name='Tom';
+	var name='Leo';
+	console.log('1::',name);
+	let age=18;
+	let age=88;//同一变量，let不能声明第二次，var可以
+	console.log('2::',age);
+	*/
+
+	/*
+	console.log(name);
+	var name='Tom';
+	console.log(age);//let没有声明的提升特性
+	let age=18;
+	*/
+
+	/*
+	{
+		let name1='Leo'
+	};
+			//快级范围内定义的变量
+	console.log(name1);
+	*/
+
+
+	function showAge(){
+		let age=19;
+		console.log(age);
+		function again(){
+			 age=20;
+			console.log(age);
+		}
+		again();
+		console.log(age);
+	}
+	showAge();
+
+	/*
+	var aBtn=document.getElementsByTagName('button');
+	for (var i = 0; i < aBtn.length; i++) {
+		aBtn[i].index=i;
+		aBtn[i].onclick=function(){
+			console.log(this.index);
+		}
+	}
+	*/
+	/*
+	var aBtn=document.getElementsByTagName('button');
+	for (var i = 0; i < aBtn.length; i++) {
+		(function(i){//原理是，var声明的变量作用域为函数范围内,采用闭包使传进来的i值唯一
+			aBtn[i].onclick=function(){
+				console.log(i);
+			}
+		})(i)
+	}
+	*/
+	var aBtn=document.getElementsByTagName('button');
+	for (let i = 0; i < aBtn.length; i++) {//原理是let声明的变量作用域为块范围内,一个花括号为一个块,
+		aBtn[i].onclick=function(){
+			console.log(i);
+		}
+	}
+</script>
+</html>

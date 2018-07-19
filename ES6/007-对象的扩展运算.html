@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象的扩展运算</title>
+</head>
+<body>
+	
+</body>
+<script>
+	var obj1={name:'Tom',age:18};
+	var obj2={...obj1};
+	obj2.name="Amy"
+	console.log(obj1,obj2)
+	
+	var obj3={name:'Tom',age:18,friend:{name:"Leo",age:20}};
+	var obj4={...obj3};
+	obj4.name="Amy";
+	obj4.friend.name="Mike"//friend作为复杂对象 在其父级对象里存储的是地址,所以经过...扩展运算后obj4中存储的仍是地址，obj4改变friend属性也会导致obj3变化
+	console.log(obj3,obj4)
+
+</script>
+</html>

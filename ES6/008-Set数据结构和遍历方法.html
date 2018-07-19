@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>set类和for-of遍历</title>
+</head>
+<body>
+	
+</body>
+<script>
+	var s=new Set();
+	s.add(11);
+	console.log('has',s.has(11))
+	s.delete(11);
+	console.log('s::',s)
+
+	var s1=new Set([11,22,33,22]);//参数必须数组
+	console.log('s1::',s1)
+	s1.clear();
+	console.log('s1::',s1)
+
+
+	var arr=[11,22,33,44,22];
+	var s2=new Set(arr);  //删除数组重复项
+
+	var arr1=[...s2];	  //删除数组重复项
+	var arr=arr1;
+	console.log('删除数组重复项：：',arr);
+
+
+	var s3=new Set([11,22,33,44]);
+	for(key of s3.keys()){
+		console.log('keys::',key)
+	}
+
+	var s4=new Set([22,33,44,55]);
+	for(value of s4.values()){
+		console.log('values::',value)
+	}
+	
+	var s5=new Set([33,44,55,66]);
+	for(entry of s5.entries()){
+		// console.log('entry::',entry)
+		console.log('entry::',entry[0],entry[1])//entrie：键值对
+	}
+	s5.forEach(function(value,key){
+		console.log('forEach::',value, key);
+	})
+
+</script>
+</html>

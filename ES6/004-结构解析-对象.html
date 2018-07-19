@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>结构解析-对象</title>
+</head>
+<body>
+	
+</body>
+<script>
+	/*
+	let {username:username1,age:age1}={username:'Tom',age:18}
+		//属性名   变量名			//跟位置对应没关系，名字对应就行
+	console.log(username1,age1);
+	*/
+
+	/*
+	let {username:username,age:age}={username:'Leo',age:88};
+	可简写为
+	*/
+	let {username,age}={username:'Leo',age:88};
+	console.log(username,age);
+
+	let{person,dog}={person:{name:'Tom',age:18},dog:{name:"wangcai",age:88}};
+	console.log(person,dog);
+</script>
+</html>

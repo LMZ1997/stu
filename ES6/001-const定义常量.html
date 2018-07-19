@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>定义常量</title>
+</head>
+<body>
+	
+</body>
+<script>
+	/*
+	var PI=3.1415926;
+	PI=PI;
+	console.log(PI);
+	*/
+
+	/*
+	const PI=3.1415926;
+	PI=PI;/不可以
+	console.log(PI);
+	*/
+
+
+	/*
+	const PI;
+	PI=3.1415926;//不可以，必须在定义时就赋值
+	console.log(PI);
+	*/
+
+	const obj={
+		name:'Tom',
+		age:19,
+		sex:'man'
+	}
+	obj.name='Leo';//const定义复杂常量时，其实存储的是复杂常量存放在栈内存中的地址,只要不该地址就行
+	console.log(obj);
+</script>
+</html>
