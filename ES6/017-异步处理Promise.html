@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>promise</title>
+</head>
+<body>
+	
+</body>
+<script>
+
+	/*
+	let loadImage=(url)=>{
+		var image=new Image();
+		image.onload=()=>{
+			console.log('success')
+		}
+		image.onerror=()=>{
+			console.log('failed')
+		}
+
+
+		image.src=url;
+	}
+	loadImage('images/1.jpg');
+	*/
+
+
+	let loadImagePromise=(url)=>{
+		return new Promise((resolve,reject)=>{
+			var image=new Image();
+			image.onload=()=>{
+				// console.log('success')
+				resolve();
+			}
+			image.onerror=()=>{
+				// console.log('failed')
+				reject();
+			}
+
+			image.src=url;
+		});
+	}
+	let promise=loadImagePromise('images/11.jpg');
+	promise.then(()=>{
+		console.log('success');
+		console.log(promise)
+	},()=>{
+		console.log('failed');
+		console.log(promise)
+	})
+</script>
+</html>

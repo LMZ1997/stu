@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象</title>
+</head>
+<body>
+	
+</body>
+<script>
+	/*
+	ES5
+
+	function Person(name,age){
+
+	}
+	*/
+	//ES6
+	class Person{
+
+		constructor(name,age){
+			this.name=name;
+			this.age=age;
+		}
+		showName(){//函数名后加括号
+			console.log('I am '+this.name)
+		}
+		showAge(){
+			console.log('I am '+this.age+" years old")
+		}
+
+	}
+	var p=new Person('Tom',99);
+	p.showName();
+	p.showAge();
+</script>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>箭头函数this的指向</title>
+</head>
+<body>
+	
+</body>
+<script>
+	/*
+	function Show(id){
+		this.id=id;
+		setTimeout(function(){
+			console.log(this,this.id);//window,undefined
+		},500)
+	}
+	let s=new Show('100')
+	*/
+
+
+	function Show(id){
+		this.id=id;
+		setTimeout(()=>{
+			console.log(this,this.id);//箭头函数的this指向,是在函数被定义时确定的，普通函数是在执行时由调用它的对象确定的
+		},500)
+	}
+	let s=new Show('100')
+</script>
+</html>

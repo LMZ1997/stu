@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>promise-catch-finally</title>
+</head>
+<body>
+	
+</body>
+<script>
+
+	let loadImagePromise=(url)=>{
+		return new Promise((resolve,reject)=>{
+			var image=new Image();
+			image.onload=()=>{
+				// console.log('success')
+				resolve();
+			}
+			image.onerror=()=>{
+				// console.log('failed')
+				reject();
+			}
+
+			image.src=url;
+		});
+	}
+
+
+
+	/*若发生错误，reject函数会遮挡catch函数
+	let promise=loadImagePromise('images/11.jpg');
+	promise
+	.then(()=>{
+		console.log('success');
+
+	},()=>{
+		console.log('failed');
+	})
+	.catch(()=>{
+		console.log(' catch error')
+	})
+	*/
+
+
+	/*
+	//无reject函数，且多数码农经常这样写，用catch来代替reject，
+	let promise=loadImagePromise('images/11.jpg');
+	promise
+	.then(()=>{
+		console.log('success');
+
+	})
+	.catch(()=>{
+		console.log(' catch error')
+	})
+	*/
+
+
+
+	let promise=loadImagePromise('images/1.jpg');
+	promise
+	.then(()=>{
+		console.log('success');
+		throw new Error('i am a error');//此处自行设置异常，可使代码进入catch语句
+
+	})
+	.catch(()=>{
+		console.log(' catch error')
+	})
+	.finally(()=>{
+		console.log('不管何种情况都会进入finally函数')
+	})
+</script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数的定义</title>
+</head>
+<body>
+	
+</body>
+<script>
+	/*
+	function sum(n1,n2){
+		console.log(n1,n2);
+		return n1+n2;
+	}
+	console.log(sum(11,22));
+	*/
+
+	/*
+	let sum=(n1,n2)=>{
+		console.log(n1,n2);
+		return n1+n2;
+	}
+	console.log(sum(11,22));
+	*/
+
+	/*
+	//若函数体内只有return一行代码，则可简写为
+	let sum=(n1,n2)=>n1+n2;
+
+	console.log(sum(11,22));
+	*/
+
+	/*
+	//若函数只有一个传参，则可简写为
+	let sum=n1=>n1;
+
+	console.log(sum(11));
+	*/
+
+	var arr=[11,22,55,33,88,44];
+	// arr.sort();//按从小到大顺序排列
+
+	/*
+	arr.sort(function(n1,n2){//按从大到小顺序排列
+		return n2-n1;
+	})
+	*/
+	arr.sort((n1,n2)=>n2-n1)
+
+	console.log(arr);
+</script>
+</html>

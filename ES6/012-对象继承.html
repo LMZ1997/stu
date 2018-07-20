@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象的继承</title>
+</head>
+<body>
+	
+</body>
+<script>
+	class Person{
+
+		constructor(name,age){
+			this.name=name;
+			this.age=age;
+		}
+		showName(){//函数名后加括号
+			console.log('I am '+this.name)
+		}
+		showAge(){
+			console.log('I am '+this.age+" years old")
+		}
+
+	}
+	class Student extends Person{
+		constructor(name,age,major){
+			super(name,age);//supre是对被继承对象的初始化
+			this.major=major;
+		}
+		showMajor(){
+			console.log('I am from '+ this.major)
+		}
+		showAge(){
+			console.log('I am really '+this.age);
+		}
+	}
+	var s=new Student('Amy',20,'computer');
+	console.log(s);
+	s.showName();
+	s.showAge();
+	s.showMajor();
+</script>
+</html>

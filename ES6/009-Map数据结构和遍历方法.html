@@ -26,11 +26,22 @@
 	map2.set(obj,'HaHaHa');
 	console.log('setObj',map2);
 
-	console.log('map2[obj]',map2[obj])//??????????????????????????????
-	// console.log('size::',map2.size())
-	for(key of map2.keys()){
+
+	const map5 = new Map([//创建map时直接传参
+	  ['name', '张三'],
+	  ['title', 'Author']
+	]);
+	console.log('size',map5.size)
+	console.log('map',map5);
+	for(key of map5.keys()){
 		console.log('key::',key);//??????????????????????
 	}
+
+
+
+	console.log('map2[obj]',map2.get(obj))//获取键为对象的一个对应的值
+	// console.log('size::',map2.size())
+	
 	for(value of map2.values()){
 		console.log('value::',value);
 	}
@@ -39,5 +50,12 @@
 	}
 
 
+
+	const map6 = new Map([
+	  [1, 'one'],
+	  [2, 'two'],
+	  [3, 'three'],
+	]);
+	console.log('toArr',[...map6.keys()])
 </script>
 </html>

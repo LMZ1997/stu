@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	// function Person(){
+
+	// }
+	// let p=new Person();
+	// console.log(p);
+	// console.log(Person.prototype);
+
+
+	// let Person=()=>{
+
+	// };
+	// let p1=new Person();//普通函数声明Person,person并不是一个constructor
+	// console.log(p1);
+	// console.log(Person.prototype);
+
+
+	// function show(){
+	// 	console.log(arguments);//arguments中的callee属性存储的是当前函数
+	// }
+	// show();
+
+
+	// let show=()=>{
+	// 	console.log(arguments);//箭头函数中arguments is not defined
+	// }
+	// show();
+
+	// let show=(...arg)=>{
+	// 	console.log(arg);
+	// }
+	// show(11,22,33)
+
+
+	function fact(n){
+		if(n<=1){
+			return 1
+		}
+		else{
+			// return n*fact(n-1);
+			return n*arguments.callee(n-1);//arguments中的callee属性存储的是当前函数
+		}
+	}
+	console.log(fact(4));
+	let fnFact=fact;//fact存储的也仅仅是地址，此处把地址拷贝给了FnFact
+	console.log(fnFact(4));
+	fact=null;
+	console.log(fnFact(4));
+</script>
+</html>

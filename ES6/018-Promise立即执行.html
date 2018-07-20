@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>promise执行顺序</title>
+</head>
+<body>
+	
+</body>
+<script>
+
+	let loadImagePromise=(url)=>{
+		return new Promise((resolve,reject)=>{
+			console.log('hahaha');//第一
+			resolve();
+		});
+	}
+	let promise=loadImagePromise('images/1.jpg');
+
+	promise.then(()=>{
+		console.log('hehehe');	//第三
+	});
+	console.log('hihihi')  //第二
+</script>
+</html>
