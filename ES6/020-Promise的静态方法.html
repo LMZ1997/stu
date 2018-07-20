@@ -10,7 +10,75 @@
 <script>
 	let p1=Promise.resolve('p1');
 	console.log(p1)
-	let p2=Promise.reject('p2');//此句代码会使console面板显示有错误
+	let p2=Promise.resolve(p1);
 	console.log(p2)
+	console.log(p1==p2)//true;
+
+	let thenObj={
+		then:()=>{
+			console.log('then...')//异步
+		}
+	}
+	let p3=Promise.resolve(thenObj);//??????????????直接执行then?
+	console.log(p3);//<pending>
+	p3.then(()=>{
+		console.log('then resolved...')//没用
+	})
+
+	let p4=Promise.resolve();//不传任何参数
+	console.log(p4)
+
+	let p5=Promise.reject('p5');//此句代码会使console面板显示有错误
+	console.log(p5)
+
+
+	let loadImagePromise=(url)=>{
+		return new Promise((resolve,reject)=>{
+			var image=new Image();
+			image.onload=()=>{
+				// console.log('success')
+				resolve(url);
+			}
+			image.onerror=()=>{
+				// console.log('failed')
+				reject(url);
+			}
+
+			image.src=url;
+		});
+	}
+
+	let aP=['images/1.jpg','images/2.jpg','images/2.jpg','images/2.jpg'].map((url)=>{
+		return loadImagePromise(url);
+	})
+	console.log(aP);
+	let p=Promise.all(aP);
+	p.then((val)=>{
+		console.log('resloved',val)
+	},(val)=>{
+		console.log('rejected',val)//如果失败，返回第一个失败时的promise对象
+	})
+
+
+
+	let p6=new Promise((resolve,reject)=>{
+		setTimeout(()=>{
+			resolve('p6');
+		},1000)
+		setTimeout(()=>{
+			reject('p6');
+		},1000)
+	})
+	let p7=new Promise((resolve,reject)=>{
+		setTimeout(()=>{
+			reject('p7');
+		},500)
+	})
+	let pp=Promise.race([p6,p7]);
+	pp.then((val)=>{              //p7延时器时间短，所以先，race(比赛)
+		console.log('resolved',val)
+	},(val)=>{
+		console.log('rejected',val)
+	})
 </script>
 </html>
