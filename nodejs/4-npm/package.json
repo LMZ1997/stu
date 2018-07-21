@@ -1,0 +1,14 @@
+{
+  "name": "4-npm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",//默认入口
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "LMZ",
+  "license": "ISC",
+  "dependencies": {
+    "jade": "^1.11.0"
+  }
+}
