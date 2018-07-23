@@ -74,7 +74,7 @@
 			reject('p7');
 		},500)
 	})
-	let pp=Promise.race([p6,p7]);
+	let pp=Promise.race([p6,p7]);//传入数组参数
 	pp.then((val)=>{              //p7延时器时间短，所以先，race(比赛)
 		console.log('resolved',val)
 	},(val)=>{
