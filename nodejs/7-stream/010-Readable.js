@@ -31,4 +31,4 @@ myRead.on('end',()=>{
 	console.log('end....')
 })
 
-myRead.read('12345')
+myRead.pipe(process.stdout)//可读流中的内容通过管道传到标准可写流中

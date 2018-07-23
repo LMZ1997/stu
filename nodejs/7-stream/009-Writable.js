@@ -23,4 +23,5 @@ writer.on('finish',()=>{//必须有下边的end函数才能触发，end表示结
 });
 writer.end();
 */
+//可读流
 process.stdin.pipe(writer);//在控制台写入数据

@@ -1,5 +1,5 @@
-let EventMitter=require('events');
-class LikeReadableStream extends EventMitter{
+let EventEmitter=require('events');
+class LikeReadableStream extends EventEmitter{
 	constructor(data,offsetLength){
 		super();
 		this.data=data;

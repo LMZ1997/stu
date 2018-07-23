@@ -1,0 +1,1 @@
+process.stdout.write('hello 可写流')
