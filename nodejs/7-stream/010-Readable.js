@@ -1,5 +1,7 @@
 
 //做一个可读入12345的可读流程序
+//Readable与Writeable不同在于下边实例的调用，一个直接.write,结束时直接.end();
+//另一个还要监听data事件，接收chunk的参数和end事件
 
 const {Readable}=require('stream');
 
