@@ -2,7 +2,7 @@
 	function getRandom(min,max){
 		return Math.round(min+(max-min)*Math.random());
 	}
-	$('.wish').pep({constrainTo:'.wall'});//拖拽插件
+	
 
 	$wish=$('.wish');
 	$wall=$('.wall');
@@ -13,6 +13,7 @@
 	var wishHeight=parseInt($wish.css('height'));
 
 	function handleWish($elem){
+		$elem.pep({constrainTo:'.wall'});//拖拽插件
 		$elem.each(function(){//不能用箭头函数
 			$(this).css({
 			// transform:'matrix(1,0,0,1,97,32)'
@@ -40,13 +41,16 @@
 		})
 		.done((data)=>{//由后台返回数据
 			if(data.status==0){
-				$($(self).parentNode).remove();
+				$(self.parentNode).remove();
 			}
 		})
 	});
 
 	$('.toWish').on('click',function(){
 		let val=$('.text').val();
+		// if(val!=''){
+			//提高性能
+		// }
 		$.ajax({
 			url:'/add',
 			dataType:'json',
@@ -56,13 +60,17 @@
 		})
 		.done(function(data){
 			console.log(data);
-			let $dom=`<div class="wish" style="background:${data.data.color}">
-						<a href="#" class="close" data-id="${data.data.id}">
-							${data.data.text}
-						</a>
-					  </div>`
-			$wall.append($dom);
-			handleWish($dom);
+			if(data.status==0){
+				let $dom=$(`<div class="wish" style="background:${data.data.color}">
+							<a href="#" class="close" data-id="${data.data.id}">
+								${data.data.text}
+							</a>
+						  </div>`);
+				$('.text').val('');
+				$wall.append($dom);
+				handleWish($dom);	
+			}
+			
 		})
 	})
 })(jQuery);

@@ -16,13 +16,15 @@
 			</p>
 		</div>
 	</div>
+	{% for obj in data %}
 	<div class="wall">
-		<div class="wish">
-			<!-- <a href="#" class="close" data-id="1111">
-				1111
-			</a> -->
+		<div class="wish" style="background: {{ obj.color }}">
+			<a href="#" class="close" data-id="{{ obj.id }}">
+				{{ obj.text }}
+			</a>
 		</div>
 	</div>
+	{% endfor %}
 
 </body>
 <script src="jquery-1.12.4.js"></script>

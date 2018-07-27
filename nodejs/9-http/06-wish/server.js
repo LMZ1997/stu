@@ -7,6 +7,8 @@ const dataHtml=require('./data.json');
 const crud=require('./crud.js');
 const querystring=require('querystring');
 
+const swig=require('swig');//模板
+
 let server=http.createServer((req,res)=>{
 	let fileName=req.url;
  	
@@ -17,6 +19,7 @@ let server=http.createServer((req,res)=>{
  		  crud.get(dataHtml,(err,data)=>{
  		  	console.log(data);
  		  	if(!err){
+ 		  		/*
  		  	    let html=`<!DOCTYPE html>
 					<html lang="en">
 					<head>
@@ -54,6 +57,12 @@ let server=http.createServer((req,res)=>{
 							<script src="index.js"></script>
 							</html>
 							`
+				*/
+				let template=swig.compileFile(__dirname+'index.html')//哪个文件需要模板代替
+				let html=template({//向前端的html模板部分传输动态数据
+					data:data;
+				//自定义data:参数data
+				})
 			    res.end(html)
  		  	}
  		  })
@@ -68,15 +77,21 @@ let server=http.createServer((req,res)=>{
  			let obj=querystring.parse(body);
  			crud.add(obj,(err,data)=>{
  				console.log('data::::::',data)
+ 				let result={};
  				if(!err){
- 					let result={};
+ 					
  					result={
  						status:0,//约定0为成功的标志
  						data:data
  					};
- 					let resultString=JSON.stringify(result);
- 					res.end(resultString);
+ 					
+ 				}else{
+ 					result={
+ 						status:10,//约定10为失败的标志
+ 					};
  				}
+ 				let resultString=JSON.stringify(result);
+ 				res.end(resultString);
  			})
 
  		})
