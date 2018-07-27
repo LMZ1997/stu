@@ -1,0 +1,65 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.background{
+	width: 100%;
+	height: 600px;
+	margin-left: 300px;
+	box-sizing: border-box;
+	background: url(timg.jpg)  no-repeat;
+}
+.background .menu{
+	position: absolute;
+	top: 50px;
+	left: 1000px;
+}
+.background .text{
+	outline: 0;
+	resize: none;
+}
+.background .toWish{
+	display: block;
+	width: 229px;
+	height: 50px;
+	background: red;
+	outline-width: 0;
+	font-size: 30px;
+	text-align: center;
+	cursor: pointer;
+	text-decoration: none;
+	color: #fff;
+}
+.wall{
+	width: 800px;
+	height: 600px;
+	border: 1px solid red;
+	position: absolute;
+	left: 150px;
+	top: 0;
+}
+.close:after,.close:before{
+	content: '';
+	display: block;
+	width: 2px;
+	height: 15px;
+	background-color: #000;
+	position:absolute;
+	left:138px;
+	top: 0;
+}
+.close:after{
+	transform: rotateZ(45deg);
+}
+.close:before{
+	transform: rotateZ(-45deg);
+}
+.wish{
+	width: 150px;
+	height: 250px;
+	position: relative;
+}
+.close:hover::before,
+.close:hover::after {
+    background: #f00;
+}
