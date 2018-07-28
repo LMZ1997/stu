@@ -2,8 +2,9 @@
 				//crud->create read update delete
 const fs=require('fs');
 const uuid=require('uuid');//创建唯一的id
+const path=require('path');
 
-let filePath='./data.json';
+let filePath=path.normalize(__dirname+'/../data/wish.json');
 
 const colorArr=['red','green','blue','tomato','pink','grey','gold','yellow','orange','purple'];
 let getRandom=(min,max)=>{
@@ -43,7 +44,7 @@ let add = (options,callback)=>{
 
 
 
-let get=(options,callback)=>{
+let get=(callback)=>{
 	fs.readFile(filePath,(err,data)=>{
 		if(!err){
 			let obj=JSON.parse(data);

@@ -35,9 +35,9 @@
 	$('.wall').on('click','.close',function(){//用wall代理而不用wish，因为动态生成的wish会没有绑定此事件
 		var self=this;
 		$.ajax({
-			url:'/del',
+			url:'/wish/del/'+$(this).data('id'),//这里时GET方法，所以可以通过url传递id
 			dataType:'json',
-			data:'id='+$(this).data('id')
+			// data:'id='+$(this).data('id')
 		})
 		.done((data)=>{//由后台返回数据
 			if(data.status==0){
@@ -52,7 +52,7 @@
 			//提高性能
 		// }
 		$.ajax({
-			url:'/add',
+			url:'/wish/add',//这里是POST方法，不能通过url传递数据data
 			dataType:'json',
 			// data:val,
 			data:{text:val},

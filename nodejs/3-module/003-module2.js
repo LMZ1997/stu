@@ -25,7 +25,7 @@ console.log('两者是否相等',module.exports==exports);
 //以，两者任何一个添加的属性，测试文件中的require函数都会返回出来
 
 module.exports={//将包含多个属性的对象赋值给module.exports或者exports,将会
-				//导致exports不再等同于module.exports
+				//给module.exports在堆内存中重新分配空间,导致exports不再等同于module.exports
 	str2:str2,
 	obj:obj,
 	fn:fn
