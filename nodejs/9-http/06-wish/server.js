@@ -75,6 +75,7 @@ let server=http.createServer((req,res)=>{
  			body+=chunk;
  		});
  		req.on('end',()=>{
+ 			console.log('body',body);
  			let obj=querystring.parse(body);
  			crud.add(obj,(err,data)=>{
  				console.log('data::::::',data)
