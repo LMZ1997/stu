@@ -21,19 +21,19 @@ var server=http.createServer(function(req,res){
 			body+=chunk;
 		});
 		req.on('end',function(){
-			var bodyObj=querystring.parse(body);
-			var	bodyStr=JSON.stringify(bodyObj);
+			var bodyObj=querystring.parse(body);//将键值对样式的字符串转换为对象(name$Tom)
+			var	bodyStr=JSON.stringify(bodyObj);//奖对象转换为可以传递的字符串('name:Tom')
 			res.StatusCode=200;
 			res.end(bodyStr);
 		})
 	}else{//GET请求
-		if(urlStr.search(/\?/) != -1){
+		if(urlStr.search(/\?/) != -1){//说明传递了data，要将该数据再返回出去
 			var pram=url.parse(urlStr,true).query;
 			var pramStr=JSON.stringify(pram);
 			res.StatusCode=200;
 			res.end(pramStr);
 		}
-		else{
+		else{//说明没有传递任何data,需要打开某个文件，将文件内容返回出去
 			var File='./'+urlStr;
 			console.log(urlStr);
 			fs.readFile(File,function(err,data){

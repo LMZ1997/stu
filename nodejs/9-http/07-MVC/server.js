@@ -22,7 +22,7 @@ let server=http.createServer((req,res)=>{
  	//      请求时 /controller/action/arg1,arg2,...		
 
  	if(pathname.startsWith('/static/')){
-	 	// let filePath=path.normalize(__dirname+'/static'+fileName);??????????????????????????????
+	 	// let filePath=path.normalize(__dirname+'/static'+fileName);
 	 	let filePath=path.normalize(__dirname+pathname);
 	 	// console.log(filePath);
 	 	 let houzhui=path.extname(filePath);//扩展名
@@ -41,9 +41,9 @@ let server=http.createServer((req,res)=>{
 
  		let paths=pathname.split('/');//输出[ '', 'Wish', 'index' ]
 
- 		let controller=paths[1] || 'wish';
+ 		let controller=paths[1] || 'wish';//或者做法是为了req.url只有一个根目录时也能跳转到Wish页面
  		let action=paths[2] || 'index';
- 		let args=paths.slice(3);//从下表为3的开始截取
+ 		let args=paths.slice(3);//从下标为3的开始截取
  		let model;
  		try{
  			model=require('./controller/'+controller);

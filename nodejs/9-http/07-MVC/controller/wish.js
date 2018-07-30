@@ -70,4 +70,7 @@ class Wish{
 
 }
 
-module.exports=new Wish();
+module.exports=new Wish();//方法在一个类中（Wish)，可以用new方法
+							//方法直接在外边定义的，可用module.exports={
+													// add:add,
+								//                 }
