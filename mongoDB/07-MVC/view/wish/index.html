@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>许愿墙</title>
+	<link rel="stylesheet" href="../../static/css/index.css">
+</head>
+<body>
+	<div class="background">
+		<div class="menu">
+			<textarea name="word"  cols="30" rows="20" class="text" method="GET"></textarea>
+			<p>
+				<a href="#"  class="toWish">许愿</a>
+			</p>
+		</div>
+	</div>
+	
+	<div class="wall">
+		{% for obj in data %}<!-- data是接受自后端传输来的data -->
+		<div class="wish" style="background: {{ obj.color }}">
+			<a href="#" class="close" data-id="{{ obj._id }}">
+				{{ obj.text }}
+			</a>
+		</div>
+		{% endfor %}
+	</div>
+	
+
+</body>
+<script src="../../static/js/jquery-1.12.4.js"></script>
+<script src="../../static/js/jquery.pep.js"></script>
+<script src="../../static/js/index.js"></script>
+</html>
