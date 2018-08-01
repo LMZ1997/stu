@@ -73,6 +73,7 @@ var
 		push:[].push,
 		sort:[].sort,
 		splice:[].splice,
+		//以下这些对象实例的方法比较常用，所以直接写在这
 		toArray:function(){
 			return [].slice.call(this)
 		},
@@ -529,7 +530,10 @@ var
 			this.each(function(){
 				var dom=this;
 				if(copyEvent&&this.bucketEvent){
+
 					kquery.each(this.bucketEvent,function(eventName,fnArr){
+						//被克隆的元素已经绑定完事件了，
+						//再一次执行on方法，是给克隆出来的元素绑定事件，
 						kquery.each(fnArr,function(){
 							kquery(dom).on(eventName,this);
 							// kquery.addEvent(dom,eventName,this);

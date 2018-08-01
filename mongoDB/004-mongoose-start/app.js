@@ -4,7 +4,8 @@ mongoose.connect('mongodb://localhost:27017/LMZ');
 
 const db=mongoose.connection;
 db.on('error',(err)=>{
-	console.log('open data error ...',err);
+	// console.log('open data error ...',err);
+	throw err;//错了就终止，做下边的也没有意义
 })
 db.on('open',()=>{
 
