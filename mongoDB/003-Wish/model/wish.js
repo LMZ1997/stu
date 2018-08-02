@@ -43,9 +43,11 @@ let add = (options,callback)=>{
 let get=(callback)=>{
 	getDB((db,client)=>{
 		const col =db.collection('wish');
+		// console.log('col.find：：',col.find())
 		col.find().toArray(function(err,docs){
 			if(!err){
-				// console.log(docs)
+				// console.log('docs:::',docs)
+
 				callback(null,docs)
 			}
 			else{
