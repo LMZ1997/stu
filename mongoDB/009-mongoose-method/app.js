@@ -23,7 +23,8 @@ db.on('open',()=>{
 	})
 	*/
 
-	UserModel.find({name:'Tom'},(err,docs)=>{
+	UserModel.findOne({name:'Tom'},(err,docs)=>{
+		console.log(docs)
 		docs.findMyBlogs((err,docs)=>{//这里的err和docs，全都接收自uesr.js的findMyBlog方法
 			if(!err){
 				console.log(docs)
