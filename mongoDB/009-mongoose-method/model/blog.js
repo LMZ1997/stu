@@ -2,7 +2,7 @@ const mongoose=require('mongoose');
 
 const roles=new mongoose.Schema({
 		author:{
-			type:String
+			type:mongoose.Schema.Types.ObjectId
 		},
 		title:String,
 		content:String

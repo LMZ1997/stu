@@ -19,7 +19,7 @@ db.on('open',()=>{
 
 	// const UserModel=mongoose.model('User',roles);
 
-	UserModel.distinct('name',(err,result)=>{//去掉重复项，返回剩余的
+	UserModel.distinct('name',(err,result)=>{//去掉重复项，返回剩余的name
 		if(!err){
 			console.log(result)
 		}
