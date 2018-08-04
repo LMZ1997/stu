@@ -3,6 +3,25 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{% block title %}{% endblock %}</title>
+	<style>
+		nav{
+			height: 50px;
+			width: 100%;
+			background-color: pink;
+		}
+		.content{
+			float: left;
+			width: 800px;
+			height: 800px;
+			background-color: red;
+		}
+		.side{
+			float: right;
+			width: 200px;
+			height: 800px;
+			background-color: green;
+		}
+	</style>
 </head>
 <body>
 	<nav>
@@ -10,7 +29,7 @@
 		<a href="#">我的足迹</a>
 	</nav>
 	<div class="content">
-		
+		{% block content %}{% endblock %}
 	</div>
 	<div class="side">
 		sidebar....

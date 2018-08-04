@@ -23,8 +23,19 @@ app.get('/test',(req,res)=>{
 		arr:['red','blue','green','yellow','pink','grey']
 	})
 })
+app.get('/',(req,res)=>{
+	res.render('index')
+})
+app.get('/list',(req,res)=>{
+	res.render('list')
+})
 
+/*
+	{% extends './layout.html' %}-------extends !!!
+	{% block title %}首页{% endblock %}----endblock
+	{% block content %}首页的内容{% endblock %}
 
+*/
 
 
 
