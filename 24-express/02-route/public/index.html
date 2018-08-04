@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>get-post-put-delete</title>
+</head>
+<body>
+	<button id="get">get请求</button>
+	<button id="post">post请求</button>
+	<button id="put">put请求</button>
+	<button id="delete">delete请求</button>
+</body>
+	<script src="js/jquery-1.12.4.js"></script>
+	<script>
+		$(function(){
+			$('#get').on('click',function(){
+				$.ajax({
+					url:'/',
+					type:'get'
+				})
+				.done((data)=>{
+					console.log('done::',data)
+				})
+			})
+			$('#post').on('click',function(){
+				$.ajax({
+					url:'/',
+					type:'post'
+				})
+				.done((data)=>{
+					console.log('done::',data)
+				})
+			})
+			$('#put').on('click',function(){
+				$.ajax({
+					url:'/',
+					type:'put'
+				})
+				.done((data)=>{
+					console.log('done::',data)
+				})
+			})
+			$('#delete').on('click',function(){
+				$.ajax({
+					url:'/',
+					type:'delete'
+				})
+				.done((data)=>{
+					console.log('done::',data)//接收自res.send()
+				})
+			})
+		})
+	</script>
+</html>
