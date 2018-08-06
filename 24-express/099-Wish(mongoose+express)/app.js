@@ -5,6 +5,10 @@ const swig =require('swig');
 const bodyParser=require('body-parser')
 
 
+
+
+
+
 //1链接数据库
 mongoose.connect('mongodb://localhost:27017/WISH',{useNewUrlParser:true});
 const db=mongoose.connection;
@@ -22,7 +26,11 @@ const app=express();
 
 
 
-//2配置模板
+//2配置模板  默认找到views下的index
+swig.setDefaults({//设置程序测试阶段不走缓存
+  cache: false
+})
+
 app.engine('html',swig.renderFile);
 app.set('views','./views');//第一参数必须是views
 app.set('view engine','html');
@@ -48,10 +56,9 @@ app.use(bodyParser.json());
 
 //5处理路由
 app.use('/',require('./routes/index.js'));//负责显示首页
-console.log('i am here')
 
 app.use('/wish',require('./routes/wish.js'))//负责添加，删除愿望
-
+//      '/wish'需要搭配index.js使用，前端页面点击发送什么请求，这里就接受什么请求
 
 app.listen(3000,()=>{
 	console.log('server is running ...');

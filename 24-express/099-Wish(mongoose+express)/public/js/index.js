@@ -65,7 +65,7 @@
 								${data.data.text}
 							</a>
 						  </div>`);
-				$('.text').val('');
+				$('.text').val('');//将许愿框中上一个许愿的文字清除
 
 				$wall.append($dom);
 

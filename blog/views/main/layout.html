@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{% block title %}{% endblock %}</title>
+	<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css"><!-- 带有重置效果 -->
+	<link rel="stylesheet" href="css/carosuel.css">
+	<link rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+	<nav class="navbar navbar-default" id="xx-navbar">
+	  <div class="container">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#xx-top-nav" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">我的博客</a>
+	    </div>
+	    <div class="collapse navbar-collapse" id="xx-top-nav">
+	      <ul class="nav navbar-nav">
+	        <li class="active"><a href="index.html">首页</a></li>
+	        <li><a href="list.html">HTML/CSS</a></li>
+	        <li><a href="list.html">JavaScript</a></li>
+	        <li><a href="list.html">学无止境</a></li>
+	        <li><a href="list.html">我的足迹</a></li>
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container -->
+	</nav>
+	<div class="main">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					{% block content %}{% endblock %}
+				</div>
+				<div class="col-md-4 hidden-xs hidden-sm" >
+					{% if userInfo._id %}
+					<div class="form-horizontal user-panel" id="logined">
+					  <div class="form-group">
+					    <div class="col-sm-7 user">
+					    	欢迎<span>Tom</span>
+					    </div>
+					    <div class="col-sm-7">
+					      <a href="javaScript:;" class="link btn  login-out">退出</a>
+					    </div>
+					  </div>
+					</div>
+					{% else %}
+					<div class="form-horizontal user-panel" id="register">
+					  <div class="form-group">
+					    <label  class="col-sm-3 control-label">用户名</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" placeholder="请输入用户名" name="username">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label  class="col-sm-3 control-label">密码</label>
+					    <div class="col-sm-8">
+					      <input type="password" class="form-control" name="password" placeholder="请输入密码">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label  class="col-sm-3 control-label">密码</label>
+					    <div class="col-sm-8">
+					      <input type="password" class="form-control" placeholder="再次输入密码" name="repassword">
+					    </div>
+					  </div>
+					 <div class="form-group">
+					     <div class="col-sm-12">
+								<p class="text-danger err" ></p>
+					     </div>
+					  </div>
+					  <div class="form-group">
+					    <div class="col-sm-offset-3 col-sm-8">
+					      <a href="javaScript:;" class="link btn btn-primary sub-register">注册</a>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <div class="col-sm-11">
+					      <a href="javaScript:;" class="link go-login pos">已有账号去登录</a>
+					    </div>
+					  </div>
+					</div>
+					<div class="form-horizontal user-panel" id="login">
+					  <div class="form-group">
+					    <label  class="col-sm-3 control-label">用户名</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control" placeholder="请输入用户名" name="username">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label  class="col-sm-3 control-label">密码</label>
+					    <div class="col-sm-8">
+					      <input type="password" class="form-control" name="password" placeholder="请输入密码">
+					    </div>
+					  </div>
+					 <div class="form-group">
+					     <div class="col-sm-12">
+								<p class="text-danger err" ></p>
+					     </div>
+					  </div>
+					  <div class="form-group">
+					    <div class="col-sm-offset-3 col-sm-8">
+					      <a href="javaScript:;" class="link btn btn-primary sub-login">登录</a>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <div class="col-sm-11">
+					      <a href="javaScript:;" class="link go-register pos">没有账号去注册</a>
+					    </div>
+					  </div>
+					</div>
+					{% endif %}
+					<div class="ad">
+						<a href="#" class="thumbnail">
+						      <img src="images/ad/321076.jpg" alt="...">
+						</a>
+					</div>
+					<div class="ad">
+						<a href="#" class="thumbnail">
+						      <img src="images/ad/321080.jpg" alt="...">
+						</a>
+					</div>
+					<div class="panel panel-default" id="xx-me">
+						  <div class="panel-heading">
+						    <h3 class="panel-title">
+						    	<a href="#" class="link">博主介绍</a>
+						    </h3>
+						  </div>
+						  <div class="panel-body">
+							   <div class="media">
+								  <div class="media-left">
+								    <a href="#">
+								      <img class="media-object img-circle about-me-img" src="images/me/dogLogo.png" alt="...">
+								    </a>
+								  </div>
+								  <div class="media-body">
+								    <h4 class="media-heading">Tom</h4>
+								    80后草根！07年入行。一直潜心研究web前端技术，一边工作一边积累经验，分享一些个人博客模板，以及SEO优化等心得。
+								  </div>
+								</div>
+						  </div>
+					</div>
+					<div class="panel panel-default" id="xx-rank">
+						  <div class="panel-heading">
+						    <h3 class="panel-title">
+						    	<a href="#" class="link">点击排行</a>
+						    </h3>
+						  </div>
+						  <div class="panel-body">
+						   	<a href="#" class="link">深入了解bootstrap，头像图片是圆形显示的</a>
+						   	<a href="#" class="link">深入了解bootstrap，头像图片是圆形显示的</a>
+						   	<a href="#" class="link">深入了解bootstrap，头像图片是圆形显示的</a>
+						  </div>
+
+					</div>
+					<div class="panel panel-default" id="xx-followme">
+						  <div class="panel-heading">
+						    <h3 class="panel-title">
+						    	<a href="#" class="link">关注我</a>
+						    </h3>
+						  </div>
+						  <div class="panel-body">
+							   <div class="media">
+								  <div class="media-left">
+								    <a href="#">
+								      <img class="media-object img-responsive followme-img" src="images/me/id.jpg" alt="...">
+								    </a>
+								  </div>
+								</div>
+						  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="lib/jQuery/jquery-1.12.4.js"></script>
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="js/index.js"></script>
+</html>

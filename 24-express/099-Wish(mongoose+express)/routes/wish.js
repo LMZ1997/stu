@@ -7,7 +7,7 @@ let getRandom=(min,max)=>{
 }
 
 
-router.post('/',(req,res)=>{//增加愿望(根据index.js中的url:'wish'会走到这里)
+router.post('/',(req,res)=>{
 	let obj=req.body;
 	obj.color=colorArr[getRandom(0,colorArr.length-1)]
 	WishModel.insertMany(obj,(err,docs)=>{//mongoose方法
@@ -30,9 +30,9 @@ router.post('/',(req,res)=>{//增加愿望(根据index.js中的url:'wish'会走�
 	})
 });
 
-router.delete('/:id',(req,res)=>{//删除愿望
+router.delete('/:id',(req,res)=>{//删除愿望，id由前端发送过来
 	let id=req.params.id;
-	console.log(id);
+	// console.log(id);
 	WishModel.remove({_id:id},(err,data)=>{//mongoose方法
  			if(!err){
  				let result='';
@@ -44,12 +44,5 @@ router.delete('/:id',(req,res)=>{//删除愿望
  			}
  		})
 })
-
-
-
-
-
-
-
 
 module.exports=router;

@@ -9,7 +9,7 @@ const blogModel=require('./router/blog.js')
 app.use('/static',express.static('public'));//虚拟路径,要想返回index.html，必须在地址栏加上(/static)
 
 
-app.get('',(req,res)=>{
+app.get('/',(req,res)=>{
 	console.log('get data ...')
 })
 
