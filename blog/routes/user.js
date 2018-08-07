@@ -21,7 +21,7 @@ router.post('/register',(req,res)=>{//点击注册发送了注册请求
 			new userModel({
 				username:body.username,
 				password:hmac(body.password),
-				isAdmin:true
+				// isAdmin:true
 			})
 			.save((err,newUser)=>{
 				if(!err){

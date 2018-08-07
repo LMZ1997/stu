@@ -7,6 +7,7 @@ const session=require('express-session')
 const MongoStore = require("connect-mongo")(session);
 //链接数据库
 mongoose.connect('mongodb://localhost:27017/blog',{useNewUrlParser:true});
+                                   //这里创建数据库
 const db=mongoose.connection;
 db.on('error',()=>{
 	throw error;
@@ -83,6 +84,9 @@ app.use(bodyParser.json());
 app.use('/',require('./routes/index.js'))
 app.use('/user',require('./routes/user.js'))
 app.use('/admin',require('./routes/admin.js'))
+app.use('/category',require('./routes/category.js'))
+
+
 
 app.listen(3000,()=>{
 	console.log('server is running at 127.0.0.1:3000')
