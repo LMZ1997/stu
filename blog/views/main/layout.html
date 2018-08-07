@@ -42,9 +42,14 @@
 					<div class="form-horizontal user-panel" id="logined">
 					  <div class="form-group">
 					    <div class="col-sm-7 user">
-					    	欢迎<span>Tom</span>
+					    	欢迎<span>{{ userInfo.username }}</span>
 					    </div>
-					    <div class="col-sm-7">
+					    <div class="col-sm-7 roles">
+					    	{% if userInfo.isAdmin %}
+					      <a href="/admin" class="link">管理员中心</a>
+					        {% else %}
+					      <a href="/customer" class="link">用户中心</a>
+					        {% endif %}
 					      <a href="javaScript:;" class="link btn  login-out">退出</a>
 					    </div>
 					  </div>

@@ -8,6 +8,10 @@
 #login{
 	display: none;
 }
+.roles{
+	padding-left: 24px;
+	box-sizing: border-box;
+}
 .err{
 	height: 20px;
 	line-height: 20px;

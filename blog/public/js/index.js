@@ -97,9 +97,9 @@
 					$logined.find('span').html(result.data.username);
 					
 					$logined.show();
-					*/
-					window.location.reload();
-					$logined.show();
+					*/ //第一次进来时读取index.html根本没有$logined元素,想要显示必须重新发送请求进入index.html读取
+					window.location.reload();//浏览器已存储cookie，刷新时重新请求index.html
+					// $logined.show();
 				}
 				else{
 					$errLogin.show().html(result.errMessage);
@@ -118,7 +118,10 @@
 
 		})
 		.done((result)=>{
-			window.location.reload();
+			if(result.code==0){
+				window.location.reload();
+			}
+			
 			// $logined.hide();
 		})
 		.fail((err)=>{

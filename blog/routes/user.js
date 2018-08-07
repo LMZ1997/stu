@@ -2,9 +2,8 @@ const Router=require('express').Router;
 const router=Router();
 const userModel=require('../models/user.js');
 const hmac=require('../util/hmac.js')
-console.log('hmac',hmac)
 
-router.post('/register',(req,res)=>{
+router.post('/register',(req,res)=>{//点击注册发送了注册请求
 	let body=req.body;
 	var result={
 		code:0,
@@ -21,7 +20,8 @@ router.post('/register',(req,res)=>{
 		else{
 			new userModel({
 				username:body.username,
-				password:hmac(body.password)
+				password:hmac(body.password),
+				isAdmin:true
 			})
 			.save((err,newUser)=>{
 				if(!err){
@@ -36,7 +36,7 @@ router.post('/register',(req,res)=>{
 		}
 	})
 })
-router.post('/login',(req,res)=>{
+router.post('/login',(req,res)=>{//点击登录发送了登录请求
 	let body=req.body;
 	console.log(body);
 	var result={
@@ -47,32 +47,33 @@ router.post('/login',(req,res)=>{
 	.findOne({username:body.username,password:hmac(body.password)})
 	.then((user)=>{
 		if(user){
-			console.log(body.password)
-			console.log('pwd',hmac(body.password))
-			result.data={
+			// result.data={
+			// 	_id:user._id,
+			// 	username:user.username,
+			// 	isAdmin:user.isAdmin
+			// }
+			// req.cookies.set('userInfo',JSON.stringify(result.data))
+			req.session.userInfo={
 				_id:user._id,
 				username:user.username,
 				isAdmin:user.isAdmin
 			}
-			req.cookies.set('userInfo',JSON.stringify(result.data))
 			res.json(result);
 		}
 		else{
-			console.log(body.username)
-			console.log(body.password)
-			console.log('pwd',hmac(body.password))
 			result.code=10;
 			result.errMessage='用户名或密码错误';
 			res.json(result);
 		}
 	})
 })
-router.get('/loginOut',(req,res)=>{
+router.get('/loginOut',(req,res)=>{//点击退出发送了退出请求
 	var result={
 		code:0,
 		errMessage:''
 	}
-	req.cookies.set('userInfo',null);
+	// req.cookies.set('userInfo',null);
+	req.session.destroy();
 	res.json(result);
 })
 

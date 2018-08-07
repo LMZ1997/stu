@@ -4,7 +4,7 @@ const crypto = require('crypto');
 // const hash = crypto.createHash('sha512');
 
 
-// const hmac = crypto.createHmac('sha256', 'LMZ');
+
 
 module.exports=(str)=>{
 	const hmac = crypto.createHmac('sha256', 'LMZ');
