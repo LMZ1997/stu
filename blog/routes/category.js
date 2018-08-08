@@ -21,7 +21,7 @@ router.post('/add',(req,res)=>{//post请求
 	.then((cate)=>{
 		if(cate){
 			result.code=10,
-			result.errMessage='用户名已存在';
+			result.errMessage='分类已存在';
 			res.json(result);
 		}
 		else{
@@ -29,22 +29,20 @@ router.post('/add',(req,res)=>{//post请求
 				name:body.name,
 				order:body.order
 			})
-			.save((err,newUser)=>{
-				if(!err){
-					res.send(result);
+			.save()
+			.then((newCate)=>{
+				if(newCate){
+					res.send('ok');
 				}
 				else{
 					result.code=10;
-					result.errMessage='注册失败';
+					result.errMessage='添加失败';
 					res.send(result);
 				}
 			})
-			// .then((newCate)=>{
-			// 	res.send('ok')
-			// })
-			// .catch((e)=>{
-			// 	res.send(e);
-			// })
+			.catch((e)=>{
+				res.send(e);
+			})
 		}
 	})
 	// .catch(()=>{？？？？？？？？？？？？？？？？？？？？？？？

@@ -25,7 +25,7 @@
   </tr>
   {% endfor %}
 </table>
-<nav aria-label="Page navigation">
+<nav aria-label="Page navigation" style="margin-left: 454px; margin-top:200px;">
   <ul class="pagination">
     <li>
       <a href="/admin/users?page={{ page-1 }}" aria-label="Previous">
@@ -38,7 +38,7 @@
 	    {% else %}
 	    <li><a href="/admin/users?page={{ list }}">{{ list }}</a></li>
 	    {% endif %}
-	{% endfor %}
+	  {% endfor %}
     <li>
       <a href="/admin/users?page={{ page+1 }}" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>

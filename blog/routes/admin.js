@@ -28,8 +28,9 @@ router.get('/loginOut',(req,res)=>{//管理员退出
 })
 
 router.get('/users',(req,res)=>{//请求用户列表
-	let page = req.query.page || 1;//query获取form表单传递的数据
-
+	let page = req.query.page || 1;//第一次请求默认page=1,且page的类型为Number;
+								//当其他次请求来时，page接收自req.query.page,此时page类型为string
+	// console.log('type::',typeof page)
 	if(page<=0){
 		page=1
 	}
