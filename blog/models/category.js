@@ -11,6 +11,6 @@ const roles=new mongoose.Schema({
 	});
 
 	
-const CateModel=mongoose.model('Cate',roles);//Blog会生成blogs集合
+const CateModel=mongoose.model('Cate',roles);//Cate会数据库blog中生成cates集合
 
 module.exports=CateModel;

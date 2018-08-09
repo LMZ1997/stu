@@ -1,0 +1,35 @@
+{% extends './layout.html' %}
+
+{% block header %}
+新建文章
+{% endblock %}
+
+{% block content %}
+
+    <form class="form-horizontal" action="/category/add" method="post">
+
+      <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">分类名称</label>
+        <div class="col-sm-4">
+           <select class="form-control" value="">
+            <option>1</option>
+          </select>
+        </div>
+        <p class="text-danger err">判断是否为空等前端错误</p>
+      </div>
+      <div class="form-group">
+        <label for="order" class="col-sm-2 control-label">排序</label>
+        <div class="col-sm-4">
+          <input type="number" name="order" class="form-control" id="order" value="{{ category.order || 0 }}">
+          <input type="hidden" value="{{ category._id.toString() }}" name="id">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-4">
+          <button type="submit" class="btn btn-default" id="btn-sub">提交</button>
+        </div>
+      </div>
+    </form>
+
+{% endblock %}
+{% block end%} <script src="/js/category.js"></script> {% endblock %}

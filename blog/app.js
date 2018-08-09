@@ -2,9 +2,9 @@ const express=require('express');
 const swig=require('swig');
 const mongoose=require('mongoose');
 const bodyParser=require('body-parser');
-const Cookies=require('cookies');
+// const Cookies=require('cookies');//存在安全隐患
 const session=require('express-session')
-const MongoStore = require("connect-mongo")(session);
+const MongoStore = require("connect-mongo")(session);//用于cookie存储
 //链接数据库
 mongoose.connect('mongodb://localhost:27017/blog',{useNewUrlParser:true});
                                    //这里创建数据库
@@ -32,7 +32,7 @@ app.use(express.static('public'));
 
 
 //设置cookie的中间件
-/*  cookie存在安全隐患，用户可以更改浏览器存储的cookie中的值*/
+/*  cookie存在安全隐患，用户可以更改浏览器存储的cookie中的值(比如改用户名username)
 app.use((req,res,next)=>{
 	req.cookies = new Cookies(req,res);
 	req.userInfo = {};//自定义req上的一个属性，用于传递数据，并且与其他数据分隔开
@@ -50,8 +50,8 @@ app.use((req,res,next)=>{
 	}
 	next();
 })
-
-app.use(//session类似于随机生成一个验证码一样,并不是根据输入的用户名或密码生成的cookie
+*/
+app.use(//每一次请求时随机生成一个验证码,此验证码会在登录成功时与登陆用户绑定，并不是根据输入的用户名或密码生成的cookie
 	session({
 		 //设置cookie名称
 		name:'blogId',
@@ -72,8 +72,6 @@ app.use((req,res,next)=>{
 	next();
 })
 
-/*s%3AitNfUF-fhlApO4D6xf0TWKkLGBG31WpB.erBqnBx%2FycOIaK0dVgcSxPZt18UV1sGk65GsJavyoKI*/
-/*s%3A6oqGe9UeaoeAqSdpB23vhhF6i2W3YplL.7eRVwwqPVEGZju0c%2BuXtDYJTNwX%2Bjbg8nBCifSlsFbM*/
 //添加处理POST请求的中间件
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -85,6 +83,7 @@ app.use('/',require('./routes/index.js'))
 app.use('/user',require('./routes/user.js'))
 app.use('/admin',require('./routes/admin.js'))
 app.use('/category',require('./routes/category.js'))
+// app.use('/article',require('./routes/article.js'))
 
 
 

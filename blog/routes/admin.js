@@ -1,6 +1,7 @@
 const Router=require('express').Router;
 const router=Router();
 const userModel=require('../models/user.js');
+const page=require('../util/page.js');
 
 router.use((req,res,next)=>{//防止直接在地址栏请求/admin后登陆到管理员界面
 	if(req.userInfo.isAdmin){
@@ -28,6 +29,25 @@ router.get('/loginOut',(req,res)=>{//管理员退出
 })
 
 router.get('/users',(req,res)=>{//请求用户列表
+	let options={
+		page:req.query.page,
+		model:userModel,
+		query:{},
+		sort:{_id:-1},
+		projection:'_id username isAdmin',
+	}
+	page(options)
+	.then((data)=>{
+		res.render('admin/users_list',{
+			userInfo:req.userInfo,
+			users:data.docs,
+			page:data.page,    //注意page的类型是否是Number
+			lists:data.list,
+			pages:data.pages,//为了前端页面判断是否需要显示分页栏
+			url:'/admin/users'//为了把分页做成一个多次调用的页面->page.html
+		})
+	})
+	/*
 	let page = req.query.page || 1;//第一次请求默认page=1,且page的类型为Number;
 								//当其他次请求来时，page接收自req.query.page,此时page类型为string
 	// console.log('type::',typeof page)
@@ -61,13 +81,7 @@ router.get('/users',(req,res)=>{//请求用户列表
 			})
 		})
 	})
-
-
-
-	
-
-	
-
+*/
 	
 })
 module.exports=router;

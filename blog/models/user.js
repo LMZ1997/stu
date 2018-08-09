@@ -14,6 +14,6 @@ const roles=new mongoose.Schema({
 	});
 
 	
-const UserModel=mongoose.model('User',roles);//Blog会生成blogs集合
+const UserModel=mongoose.model('User',roles);//User会在数据库blog中生成users集合
 
 module.exports=UserModel;
