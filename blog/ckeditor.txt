@@ -1,0 +1,4 @@
+引用ckeditor5文件夹放在静态资源下边
+在需要设置的样式的html文件里相应DOM元素添加id--editor
+创建js文件并引入
+更改语言--zh-cn

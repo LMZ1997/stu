@@ -6,23 +6,41 @@
 
 {% block content %}
 
-    <form class="form-horizontal" action="/category/add" method="post">
+    <form class="form-horizontal" action="/artical/add" method="post">
 
       <div class="form-group">
         <label for="name" class="col-sm-2 control-label">分类名称</label>
         <div class="col-sm-4">
-           <select class="form-control" value="">
-            <option>1</option>
+           <select class="form-control" name="category">
+            {% for category in categories %}
+         <!--    传递_id是因为id不会变，而name会手动编辑修改 -->
+              <option value="{{ category._id.toString() }}">{{ category.name }}</option>
+            {% endfor %}
           </select>
         </div>
-        <p class="text-danger err">判断是否为空等前端错误</p>
+       
+      </div>
+
+      <div class="form-group">
+        <label  class="col-sm-2 control-label">title</label>
+        <div class="col-sm-4">
+          <input type="text" name="title" class="form-control"  value="title">
+        </div>
+         <p class="text-danger err">判断是否为空等前端错误</p>
       </div>
       <div class="form-group">
-        <label for="order" class="col-sm-2 control-label">排序</label>
+        <label  class="col-sm-2 control-label">简介</label>
         <div class="col-sm-4">
-          <input type="number" name="order" class="form-control" id="order" value="{{ category.order || 0 }}">
-          <input type="hidden" value="{{ category._id.toString() }}" name="id">
+          <textarea name="introduce" cols="60" rows="10"></textarea>
         </div>
+         <p class="text-danger err">判断是否为空等前端错误</p>
+      </div>
+      <div class="form-group">
+        <label  class="col-sm-2 control-label">内容</label>
+        <div class="col-sm-4">
+          <textarea name="content" id="editor"></textarea>
+        </div>
+         <p class="text-danger err">判断是否为空等前端错误</p>
       </div>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-4">
@@ -32,4 +50,8 @@
     </form>
 
 {% endblock %}
-{% block end%} <script src="/js/category.js"></script> {% endblock %}
+{% block end%}
+ <script src="/lib/ckeditor/ckeditor.js"></script> 
+ <script src="/lib/ckeditor/translations/zh-cn.js"></script>
+<script src="/js/article.js"></script> 
+ {% endblock %}
