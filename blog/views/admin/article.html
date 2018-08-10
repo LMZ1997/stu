@@ -31,7 +31,7 @@
   </tr>
   {% endfor %}
 </table>
-{% if pages > 1 %}
+{% if pages > 1 %}<!-- 根据pages数值判断是否显示分页 -->
 	{% include './page.html' %}
 {% endif %}
 

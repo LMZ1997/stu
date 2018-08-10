@@ -1,11 +1,22 @@
 (function($){
+
+
+
+	
 	ClassicEditor//富文本编辑器
     .create( document.querySelector( '#editor' ),{
-    	language:'zh-cn'
+    	language:'zh-cn',
+    	ckfinder:{
+    		uploadUrl:'/admin/uploadImages'
+    	}
     } )
     .catch( error => {
         console.error( error );
     } );
+
+
+
+
 
     $err=$('.err');
     $('#btn-sub').on('click',function(){

@@ -35,45 +35,53 @@
 					    <span class="sr-only">Next</span>
 					  </a>
 					</div>
-					
-					<div class="panel panel-default" id="xx-panel">
-						  <div class="panel-heading">
-						    <h3 class="panel-title">
-						    	<a href="detail.html" class="link">移动设备优先</a>
-						    </h3>
-						  </div>
-						  <div class="panel-body">
-						    在 Bootstrap 2 中，我们对框架中的某些关键部分增加了对移动设备友好的样式。而在 Bootstrap 3 中，我们重写了整个框架，使其一开始就是对移动设备友好的。这次不是简单的增加一些可选的针对移动设备的样式，而是直接融合进了框架的内核中。也就是说，Bootstrap 是移动设备优先的。针对移动设备的样式融合进了框架的每个角落，而不是增加一个额外的文件。
-						  </div>
-						  <div class="panel-footer">
-						  	<span class="glyphicon glyphicon-user"></span>
-						  	<span class="panel-footer-text">小新</span>
-						  	<span class="glyphicon glyphicon-th-list"></span>
-						  	<span class="panel-footer-text">JavaScript</span>
-						  	<span class="glyphicon glyphicon-time"></span>
-						  	<span class="panel-footer-text">2018-7-17</span>
-						  	<span class="glyphicon glyphicon-eye-open"></span>
-						  	<span class="panel-footer-text">1000已阅读</span>
-						  </div>
-					</div>
+					<div class="article_list">
+						{% for article in articles %}
+						
+							<div class="panel panel-default" id="xx-panel">
+								  <div class="panel-heading">
+								    <h3 class="panel-title">
+								    	<a href="detail.html" class="link">{{ article.title }}</a>
+								    </h3>
+								  </div>
+								  <div class="panel-body">
+								    {{ article.intro }}
+								  </div>
+								  <div class="panel-footer">
+								  	<span class="glyphicon glyphicon-user"></span>
+								  	<span class="panel-footer-text">{{ article.user.username }}</span>
+								  	<span class="glyphicon glyphicon-th-list"></span>
+								  	<span class="panel-footer-text">{{ article.category.name }}</span>
+								  	<span class="glyphicon glyphicon-time"></span>
+								  	<span class="panel-footer-text">{{ article.createdAt | date('Y年m月d日 h:i:s',-8*60) }}</span>
+								  	<span class="glyphicon glyphicon-eye-open"></span>
+								  	<span class="panel-footer-text"><em>{{ article.click }}</em>已阅读</span>
+								  </div>
+							</div>
 
-					<nav aria-label="Page navigation" id="xx-page">
-						  <ul class="pagination  pagination-lg">
-						    <li>
-						      <a href="#" aria-label="Previous">
-						        <span aria-hidden="true">&laquo;</span>
-						      </a>
-						    </li>
-						    <li><a href="#">1</a></li>
-						    <li><a href="#">2</a></li>
-						    <li><a href="#">3</a></li>
-						    <li><a href="#">4</a></li>
-						    <li><a href="#">5</a></li>
-						    <li>
-						      <a href="#" aria-label="Next">
-						        <span aria-hidden="true">&raquo;</span>
-						      </a>
-						    </li>
-						  </ul>
+						{% endfor %}
+					</div>
+					<nav aria-label="Page navigation" id="page">
+					  <ul class="pagination">
+					    <li>
+					      <a href="javascript:;" aria-label="Previous">
+					        <span aria-hidden="true">&laquo;</span>
+					      </a>
+					    </li>
+					    {% for list in lists %}
+						    {% if page==list %}
+						    <li class="active"><a  href="javascript:;">{{ list }}</a></li>
+						    {% else %}
+						    <li><a href="javascript:;">{{ list }}</a></li>
+						    {% endif %}
+						  {% endfor %}
+					    <li>
+					      <a href="javascript:;" aria-label="Next">
+					        <span aria-hidden="true">&raquo;</span>
+					      </a>
+					    </li>
+					  </ul>
 					</nav>
+				
+				
 {% endblock %}

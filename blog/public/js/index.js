@@ -130,4 +130,61 @@
 	})
 
 
+	$('#page').on('click','a',function(){
+		// console.log(this)//Dom
+		var $article_list=$('.article_list')
+		var $this=$(this);
+		var page = 1;
+		var page=$this.html();
+		$.ajax({
+			url:'/articles?page='+page,
+			dataType:'json'
+		})
+		.done(function(result){
+			if(result.code==0){
+
+				var articles=result.data.docs;
+				console.log(articles)
+				bulidArticleList(articles);
+			}
+		})
+		.fail(function(err){
+			console.log(err);
+		})
+	})
+	function bulidArticleList(articles){
+		var html='';
+		for(var i = 0;i<articles.length;i++){
+	 	var data = moment(articles[i].createdAt).format('YYYY年MM月DD日 h:mm:ss ');
+	 	html +=`<div class="panel panel-default content-item">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">
+			    	<a href="/view/${articles[i]._id}" class="link" target="_blank">${ articles[i].title }</a>
+				</h3>
+			  </div>
+			  <div class="panel-body">
+				${ articles[i].intro }
+			  </div>
+			  <div class="panel-footer">
+				<span class="glyphicon glyphicon-user"></span>
+				<span class="panel-footer-text text-muted">
+					${ articles[i].user.username }
+				</span>
+				<span class="glyphicon glyphicon-th-list"></span>
+				<span class="panel-footer-text text-muted">
+					${ articles[i].category.name }
+				</span>
+				<span class="glyphicon glyphicon-time"></span>
+				<span class="panel-footer-text text-muted">
+					${ data }
+				</span>
+				<span class="glyphicon glyphicon-eye-open"></span>
+				<span class="panel-footer-text text-muted">
+					<em>${ articles[i].click }</em>已阅读
+				</span>
+			  </div>
+			</div>`
+		}
+		$('.article_list').html(html);
+	}
 })(jQuery)

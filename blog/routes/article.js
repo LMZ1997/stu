@@ -117,7 +117,7 @@ router.get('/edit/:id',(req,res)=>{
 router.post('/edit',(req,res)=>{
 	let body =req.body;
 	let id=body.id;
-	console.log('body',body)
+	// console.log('body',body)
 	let options={
 		category:body.category,
 		title:body.title,
