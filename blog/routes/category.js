@@ -89,6 +89,7 @@ router.post('/edit',(req,res)=>{
 	let body =req.body;
 	let id=body.id;
 	console.log(body)
+	/*
 	CateModel.findOne({name:body.name})//修改的分类名在数据库中已存在
 	.then((cate)=>{
 		if(cate && cate.order==body.order){
@@ -115,17 +116,53 @@ router.post('/edit',(req,res)=>{
 			})
 		}
 	})
+	*/
+	CateModel.findById(id)
+	.then((category)=>{
+		if(category.name==body.name && category.order==body.order){
+			res.render('admin/error',{
+				userInfo:req.userInfo,
+				message:'请修改后提交'
+			})
+		}
+		else{//上边的条件至少有一个不等
+			CateModel.find({name:body.name,order:body.order})
+			.then((newCategory)=>{
+				if(newCategory){
+					res.render('admin/error',{
+						userInfo:req.userInfo,
+						message:'分类名已存在，请重新编辑'
+					})
+				}
+				else{
+					res.render('admin/success',{
+						userInfo:req.userInfo,
+						message:'编辑分类成功',
+						url:'/category'
+					})
+				}
+			})
+		}
+	})
 })
 
 router.get('/delete/:id',(req,res)=>{
 	let id =req.params.id;
 	CateModel.remove({_id:id})
 	.then((cate)=>{
-		res.render('admin/success',{
-			userInfo:req.userInfo,
-			message:'删除分类成功',
-			url:'/category'//点击跳转
-		})
+		if(cate){
+			res.render('admin/success',{
+				userInfo:req.userInfo,
+				message:'删除分类成功',
+				url:'/category'//点击跳转
+			})
+		}
+		else{
+			res.render('admin/error',{
+				userInfo:req.userInfo,
+				message:'删除分类失败',
+			})
+		}
 	})
 })
 module.exports=router;

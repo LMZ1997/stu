@@ -41,8 +41,13 @@ let page=(options)=>{
 				for(var i=1;i<=pages;i++){
 					list.push(i);
 				}
-				options.model.find(options.query,options.projection)
-				.sort(options.sort)
+				let query=options.model.find(options.query,options.projection);
+				if(options.populate){//如果不存在就不需要执行
+					for(var i=0;i<options.populate.length;i++){//避免写死
+						query=query.populate(options.populate[i]);
+					}
+				}
+				query.sort(options.sort)
 				.skip(skip)
 				.limit(limit)
 				.then((docs)=>{
