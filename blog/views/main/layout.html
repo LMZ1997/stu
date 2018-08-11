@@ -3,10 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{% block title %}{% endblock %}</title>
-	<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css"><!-- 带有重置效果 -->
-	<link rel="stylesheet" href="css/carosuel.css">
-	<link rel="stylesheet" href="css/common.css">
-	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"><!-- 带有重置效果 -->
+	<link rel="stylesheet" href="/css/carosuel.css">
+	<link rel="stylesheet" href="/css/common.css">
+	<link rel="stylesheet" href="/css/index.css">
+	{% block head %}{% endblock %}
 </head>
 <body>
 	<nav class="navbar navbar-default" id="xx-navbar">
@@ -22,9 +23,18 @@
 	    </div>
 	    <div class="collapse navbar-collapse" id="xx-top-nav">
 	      <ul class="nav navbar-nav">
+	      	{% if category %}
+	        <li><a href="/">首页</a></li>
+	        {% else %}
 	        <li class="active"><a href="/">首页</a></li>
-	        {% for category in categories %}
-	        <li><a href="/list/{{ category._id.toString() }}">{{ category.name }}</a><li>
+	        {% endif %}
+
+	        {% for cate in categories %}
+		        {% if cate._id.toString() == category %}
+		        <li class="active"><a href="/list/{{ cate._id.toString() }}">{{ cate.name }}</a><li>
+	        	{% else %}
+	        	<li><a href="/list/{{ cate._id.toString() }}">{{ cate.name }}</a><li>
+	        	{% endif %}
 	        {% endfor %}
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
@@ -121,12 +131,12 @@
 					{% endif %}
 					<div class="ad">
 						<a href="#" class="thumbnail">
-						      <img src="images/ad/321076.jpg" alt="...">
+						      <img src="/images/ad/321076.jpg" alt="...">
 						</a>
 					</div>
 					<div class="ad">
 						<a href="#" class="thumbnail">
-						      <img src="images/ad/321080.jpg" alt="...">
+						      <img src="/images/ad/321080.jpg" alt="...">
 						</a>
 					</div>
 					<div class="panel panel-default" id="xx-me">
@@ -139,7 +149,7 @@
 							   <div class="media">
 								  <div class="media-left">
 								    <a href="#">
-								      <img class="media-object img-circle about-me-img" src="images/me/dogLogo.png" alt="...">
+								      <img class="media-object img-circle about-me-img" src="/images/me/dogLogo.png" alt="...">
 								    </a>
 								  </div>
 								  <div class="media-body">
@@ -156,9 +166,9 @@
 						    </h3>
 						  </div>
 						  <div class="panel-body">
-						   	<a href="#" class="link">深入了解bootstrap，头像图片是圆形显示的</a>
-						   	<a href="#" class="link">深入了解bootstrap，头像图片是圆形显示的</a>
-						   	<a href="#" class="link">深入了解bootstrap，头像图片是圆形显示的</a>
+						  	{% for article in clickArticles %}
+						   	<a href="/view/{{ article._id.toString() }}" class="link">[{{ article.click }}] {{ article.title }}</a>
+						   	{% endfor %}
 						  </div>
 
 					</div>
@@ -172,7 +182,7 @@
 							   <div class="media">
 								  <div class="media-left">
 								    <a href="#">
-								      <img class="media-object img-responsive followme-img" src="images/me/id.jpg" alt="...">
+								      <img class="media-object img-responsive followme-img" src="/images/me/id.jpg" alt="...">
 								    </a>
 								  </div>
 								</div>
@@ -183,8 +193,8 @@
 		</div>
 	</div>
 </body>
-<script src="lib/jQuery/jquery-1.12.4.js"></script>
-<script src="lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="lib/moment/moment.js"></script>
-<script src="js/index.js"></script>
+<script src="/lib/jQuery/jquery-1.12.4.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/lib/moment/moment.js"></script>
+<script src="/js/index.js"></script>
 </html>

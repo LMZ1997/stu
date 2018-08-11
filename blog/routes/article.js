@@ -6,7 +6,7 @@ const articleModel=require('../models/article.js')
 
 
 router.get('/',(req,res)=>{
-	// res.render('admin/article')
+	/*
 	let options={
 		page:req.query.page,
 		model:articleModel,
@@ -19,8 +19,11 @@ router.get('/',(req,res)=>{
 		//path值根据model文件里的数据来定  //属性名
 	}
 	page(options)
+	*/
+	articleModel.getPageArticles(req)
 	.then((data)=>{
 		res.render('admin/article',{//?????????????????????不用传userInfo
+			// userInfo:rq.userInfo,
 			docs:data.docs,
 			page:data.page,//注意page的类型是否是Number
 			lists:data.list,
@@ -117,7 +120,6 @@ router.get('/edit/:id',(req,res)=>{
 router.post('/edit',(req,res)=>{
 	let body =req.body;
 	let id=body.id;
-	// console.log('body',body)
 	let options={
 		category:body.category,
 		title:body.title,

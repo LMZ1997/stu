@@ -111,6 +111,7 @@
 		}
 	})
 
+	// $(document).on('keydo')
 	$('.login-out').on('click',function(){
 		$.ajax({
 			url:'/user/loginOut',
@@ -131,31 +132,46 @@
 
 
 	$('#page').on('click','a',function(){
-		// console.log(this)//Dom
+		console.log(this)//Dom
 		var $article_list=$('.article_list')
 		var $this=$(this);
 		var page = 1;
-		var page=$this.html();
+	 	var currentPage = $('#page').find('.active a').html();
+
+	 	if($this.attr('aria-label') == 'Previous'){//上一页
+	 		page = currentPage - 1;
+	 	}else if($this.attr('aria-label') == 'Next'){//下一页
+	 		page = currentPage*1 + 1;
+	 	}else{
+	 		page = $(this).html();
+	 	}
+	 	var query='';
+	 	query='page='+page;
+	 	var category=$('#categoryId').val();
+	 	if(category){
+	 		query+='&category='+category;//&&&&&&&&&&&&&&&&分隔符
+	 	}
 		$.ajax({
-			url:'/articles?page='+page,
+			url:'/articles?'+query,
 			dataType:'json'
 		})
 		.done(function(result){
 			if(result.code==0){
-
 				var articles=result.data.docs;
-				console.log(articles)
 				bulidArticleList(articles);
+				// console.log(result);
+				// console.log(result.data.page,result.data.list)
+				buildPage(result.data.page,result.data.list)
 			}
 		})
 		.fail(function(err){
 			console.log(err);
 		})
 	})
-	function bulidArticleList(articles){
+	function bulidArticleList(articles){//动态生成文章列表
 		var html='';
 		for(var i = 0;i<articles.length;i++){
-	 	var data = moment(articles[i].createdAt).format('YYYY年MM月DD日 h:mm:ss ');
+	 	var date = moment(articles[i].createdAt).format('YYYY年MM月DD日 HH:mm:ss ');
 	 	html +=`<div class="panel panel-default content-item">
 			  <div class="panel-heading">
 			    <h3 class="panel-title">
@@ -176,7 +192,7 @@
 				</span>
 				<span class="glyphicon glyphicon-time"></span>
 				<span class="panel-footer-text text-muted">
-					${ data }
+					${ date }
 				</span>
 				<span class="glyphicon glyphicon-eye-open"></span>
 				<span class="panel-footer-text text-muted">
@@ -187,4 +203,52 @@
 		}
 		$('.article_list').html(html);
 	}
+	function buildPage(page,list){//动态生成分页
+		var html='';
+		html+=`<li>
+					<a href="javascript:;" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			        </a>
+			   </li>
+			`
+		for(var i=0;i<list.length;i++){
+			if(page==list[i]){
+				html+=`<li class="active"><a  href="javascript:;">${list[i]}</a></li> `
+			}
+			else{
+				html+=`<li><a href="javascript:;">${list[i]}</a></li>`
+			}
+		}
+		html+=`<li>
+			      <a href="javascript:;" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>`
+		$('#page .pagination').html(html);
+	}
+
+
+	$('#comment-btn').on('click',function(){
+		var $commentContent=$('#comment-content').val();
+
+		if($commentContent.trim()==''){
+			$('.err').html('请输入评论内容后再提交')
+			return false;
+		}
+		else{
+			$('.err').html('')
+		}
+
+		$.ajax({
+			url:'/comment/add',
+			type:'post',
+			dataType:'json',
+		})
+		.done((result)=>{
+			res.send('ok')
+		})
+		.fail(err=>{
+			res.send(err);
+		})
+	})
 })(jQuery)

@@ -1,0 +1,25 @@
+
+const CateModel=require('../models/category.js')
+const articleModel=require('../models/article.js')
+
+
+
+let getCommontData=()=>{
+ return new Promise((resolve,reject)=>{
+	CateModel.find({},'_id name order')
+	.sort({order:1})
+	.then((categories)=>{
+		articleModel.find({},'_id click title')//给首页的点击排行传递信息
+			.sort({click:-1})//根据点击量排序
+			.limit(5)//限制显示在首页点击排行中的数目
+			.then((clickArticles)=>{
+				resolve({
+					categories:categories,
+					clickArticles:clickArticles
+				})
+			})
+	})	
+ })
+
+}
+module.exports=getCommontData;

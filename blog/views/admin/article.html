@@ -21,7 +21,7 @@
   	<td>{{ article.title }}</td>
   	<td>{{ article.category.name }}</td>
   	<td>{{ article.user.username }}</td>    <!--  -8*60就是前进8个小时 -->
-  	<td>{{ article.createdAt | date('Y年m月d日 h:i:s',-8*60) }}</td>
+  	<td>{{ article.createdAt | date('Y年m月d日 H:i:s',-8*60) }}</td>
   	<td>{{ article.click }}</td>
   	<td>
   		<a href="/article/look/{{ article._id.toString() }}">查看</a>

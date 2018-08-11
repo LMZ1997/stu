@@ -26,7 +26,7 @@ let page=(options)=>{
 
 			let limit=2;
 			
-			options.model.estimatedDocumentCount(options.query)
+			options.model.countDocuments(options.query)//countDocuments可返回经过筛选条件后的值
 			.then((count)=>{
 				let pages=Math.ceil(count/limit);      ///向上取整
 				if(page>pages){

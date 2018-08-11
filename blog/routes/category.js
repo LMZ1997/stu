@@ -126,7 +126,7 @@ router.post('/edit',(req,res)=>{
 			})
 		}
 		else{//上边的条件至少有一个不等
-			CateModel.find({name:body.name,order:body.order})
+			CateModel.find({name:body.name,_id:{$ne:bdoy.id}})//交集
 			.then((newCategory)=>{
 				if(newCategory){
 					res.render('admin/error',{
