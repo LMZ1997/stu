@@ -24,7 +24,7 @@ let page=(options)=>{
 				page=1
 			}
 
-			let limit=2;
+			let limit= options.limit*1 || 2;
 			
 			options.model.countDocuments(options.query)//countDocuments可返回经过筛选条件后的值
 			.then((count)=>{

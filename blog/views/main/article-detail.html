@@ -25,9 +25,9 @@
 	   		</p>
 	  </div>
 </div>
- <div class="col-lg-12">
+<div class="col-lg-12">
     <div class="input-group">
-    	<textarea  id="comment-content" cols="60" rows="3"></textarea>
+    	<textarea  id="comment-content" cols="30" rows="3"  class="form-control"></textarea>
       <!-- <input type="text" class="form-control" placeholder="说点啥吧"> -->
       <input type="hidden" id="article-id" value="{{ article._id.toString() }}">
       <span class="input-group-btn">
@@ -35,5 +35,17 @@
       </span>
     </div>
      <p class="text-danger err">判断是否为空等前端错误</p>
-  </div>
+</div>
+<div id="comment">
+	<ul class="list-group">
+	  {% for comment in comments %}
+	  <li class="list-group-item">{{ comment.content }}</li>
+	  {% endfor %}
+	</ul>
+</div>
+
+
+{% if pages > 1 %}<!-- 根据pages数值判断是否显示分页 -->
+	{% include '../admin/page.html' %}
+{% endif %}
 {% endblock %}

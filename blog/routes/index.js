@@ -4,6 +4,7 @@ const CateModel=require('../models/category.js')
 const articleModel=require('../models/article.js')
 const page=require('../util/page.js')
 const getCommontData=require('../util/getCommontData.js')
+const commentModel=require('../models/comment.js');
 
 
 
@@ -122,14 +123,22 @@ router.get('/view/:id',(req,res)=>{//文章详情页
 			getCommontData()
 			.then((data)=>{
 				// console.log('::',article)
-				res.render('main/article-detail',{//main前边不能有/
-					userInfo:req.userInfo,
-					article:article,
-					categories:data.categories,
-					clickArticles:data.clickArticles,
-					category:article.category._id.toString()//从首页的文章区域点击进入详情页
-												//的同时，改变nav导航部分的分类名高亮
+				commentModel.getPageComments(req,{article:id})
+				.then(pageData=>{
+					res.render('main/article-detail',{//main前边不能有/
+						userInfo:req.userInfo,
+						article:article,
+						categories:data.categories,
+						clickArticles:data.clickArticles,
+						category:article.category._id.toString(),//从首页的文章区域点击进入详情页
+													//的同时，改变nav导航部分的分类名高亮
+						comments:pageData.docs,
+						page:pageData.page,
+						lists:pageData.list,
+						pages:pageData.pages
+					})
 				})
+				
 			})
 			
 			

@@ -229,9 +229,9 @@
 
 
 	$('#comment-btn').on('click',function(){
-		var $commentContent=$('#comment-content').val();
-
-		if($commentContent.trim()==''){
+		var commentContent=$('#comment-content').val();
+		var id=$('#article-id').val();
+		if(commentContent.trim()==''){
 			$('.err').html('请输入评论内容后再提交')
 			return false;
 		}
@@ -243,12 +243,22 @@
 			url:'/comment/add',
 			type:'post',
 			dataType:'json',
+			data:{
+				content:commentContent,
+				articleId:id
+			}
 		})
 		.done((result)=>{
-			res.send('ok')
+			if(result.code==0){
+				console.log(result);
+				var html=	` <li class="list-group-item">${ result.comment.content }</li>
+
+							`
+				$('#comment ul').prepend(html);
+			}
 		})
 		.fail(err=>{
-			res.send(err);
+			console.log(err);
 		})
 	})
 })(jQuery)
