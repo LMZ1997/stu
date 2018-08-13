@@ -3,6 +3,9 @@ const router=Router();
 const userModel=require('../models/user.js');
 const page=require('../util/page.js');
 const commentModel=require('../models/comment.js');
+const hmac=require('../util/hmac.js')
+const fs=require('fs');
+const path=require('path')
 
 router.use((req,res,next)=>{//防止直接在地址栏请求/admin后登陆到管理员界面
 	if(req.userInfo.isAdmin){
@@ -128,6 +131,63 @@ router.get('/comment/delete/:id',(req,res)=>{
 
 
 router.get('/site',(req,res)=>{
-	res.render('admin/site')
+	let path = __dirname+'/../site.json';
+	fs.readFile(path,(err,data)=>{
+		if(!err){
+
+			let site=JSON.parse(data);
+			console.log(site)
+			res.render('admin/site',{
+				site:site
+			})
+		}
+		else{
+			console.log(err);
+		}
+	})
+	
+})
+
+
+router.get('/updatePWD',(req,res)=>{
+	res.render('admin/PWD')
+})
+
+router.post('/updatePWD',(req,res)=>{
+	// console.log(req.body)
+	let body=req.body;
+	userModel.findOne({username:body.username,password:hmac(body.oldPwd)})
+	.then((user)=>{
+		if(user){
+			console.log(user)
+			userModel.update({_id:user._id},{password:hmac(body.newPwd)},(err,raw)=>{
+					if(!err){
+						req.session.destroy();
+						res.render('admin/success',{
+							// userInfo:req.userInfo,
+							message:'密码已修改，点击后重新登录',
+							url:'/'//点击跳转
+						})
+					}
+					else{
+						res.render('admin/error',{
+							userInfo:req.userInfo,
+							message:'修改密码失败',
+						})
+					}
+
+				
+			})
+		}
+		else{
+			res.render('admin/error',{
+				userInfo:req.userInfo,
+				message:'修改密码失败',
+			})
+		}
+	})
+	.catch(e=>{
+		console.log(e);
+	})
 })
 module.exports=router;

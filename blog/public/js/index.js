@@ -130,7 +130,6 @@
 		})
 	})
 
-
 	$('#page').on('click','a',function(){
 		console.log(this)//Dom
 		var $article_list=$('.article_list')
