@@ -23,8 +23,8 @@ router.get('/',(req,res)=>{
 	articleModel.getPageArticles(req)
 	.then((data)=>{
 		res.render('admin/article',{//?????????????????????不用传userInfo
-			// userInfo:rq.userInfo,
-			docs:data.docs,
+			userInfo:req.userInfo,
+			articles:data.docs,
 			page:data.page,//注意page的类型是否是Number
 			lists:data.list,
 			pages:data.pages,//为了前端页面判断是否需要显示分页栏

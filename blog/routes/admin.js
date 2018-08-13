@@ -2,6 +2,7 @@ const Router=require('express').Router;
 const router=Router();
 const userModel=require('../models/user.js');
 const page=require('../util/page.js');
+const commentModel=require('../models/comment.js');
 
 router.use((req,res,next)=>{//防止直接在地址栏请求/admin后登陆到管理员界面
 	if(req.userInfo.isAdmin){
@@ -82,8 +83,51 @@ router.get('/users',(req,res)=>{//请求用户列表
 		})
 	})
 */
+})
+
+router.get('/comments',(req,res)=>{
+	let options={
+		page:req.query.page,
+		model:commentModel,
+		query:{},
+		sort:{_id:-1},
+		populate:[{path:'article',select:'content'},{path:'user',select:'username'}]
+	}
+	page(options)
+	.then((data)=>{
+		res.render('admin/comments',{
+			userInfo:req.userInfo,
+			comments:data.docs,
+			page:data.page,    //注意page的类型是否是Number
+			lists:data.list,
+			pages:data.pages,//为了前端页面判断是否需要显示分页栏
+			url:'/admin/comments'//为了把分页做成一个多次调用的页面->page.html
+		})
+	})
+})
+router.get('/comment/delete/:id',(req,res)=>{
+	let id =req.params.id;
+	commentModel.remove({_id:id})
+	.then((cate)=>{
+		if(cate){
+			res.render('admin/success',{
+				userInfo:req.userInfo,
+				message:'删除评论成功',
+				url:'/admin/comments'//点击跳转
+			})
+		}
+		else{
+			res.render('admin/error',{
+				userInfo:req.userInfo,
+				message:'删除评论失败',
+			})
+		}
+		
+	})
+})
 
 
-	
+router.get('/site',(req,res)=>{
+	res.render('admin/site')
 })
 module.exports=router;

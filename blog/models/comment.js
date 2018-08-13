@@ -7,7 +7,7 @@ const roles=new mongoose.Schema({
 		ref:'Article'
 	},
 	user:{
-		type:mongoose.Schema.Types.ObjectId,
+		type:mongoose.Schema.Types.ObjectId,//存的是ID类型是防止用户名name更改后不能在前端同步
 		ref:'User'
 	},
 	content:{

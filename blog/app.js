@@ -86,6 +86,8 @@ app.use('/category',require('./routes/category.js'))
 app.use('/article',require('./routes/article.js'))
 app.use('/admin/uploadImages',require('./routes/uploadImages.js'))//博文里上传图片
 app.use('/comment',require('./routes/comment.js'));//文章评论
+app.use('/resource',require('./routes/resource.js'));//资源管理
+
 
 
 app.listen(3000,()=>{

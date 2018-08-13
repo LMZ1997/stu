@@ -47,6 +47,7 @@ router.get('/',(req,res)=>{
 		})
 	});
 	*/
+	console.log('1::',req.userInfo)
 	articleModel.getPageArticles(req)//分页文章列表
 	.then((pageData)=>{
 		getCommontData()
@@ -98,11 +99,12 @@ router.get('/articles',(req,res)=>{//文章详情页中的分页操作
 })
 
 router.get('/view/:id',(req,res)=>{//文章详情页
-	let id=req.params.id
+	let id=req.params.id;
+	console.log('req.userInfo:::',req.userInfo);
 	articleModel.update({_id:id},{$inc:{ click : 1}})
 	.then((article)=>{
 		articleModel.findById(id)
-		.populate('category','name')
+		.populate([{path:'category',select:'name'},{path:'user',select:'username'}])
 		.then((article)=>{
 			/*
 			articleModel.find({},'_id click title')
@@ -135,7 +137,7 @@ router.get('/view/:id',(req,res)=>{//文章详情页
 						comments:pageData.docs,
 						page:pageData.page,
 						lists:pageData.list,
-						pages:pageData.pages
+						pages:pageData.pages,
 					})
 				})
 				
@@ -152,7 +154,7 @@ router.get('/list/:id',(req,res)=>{//分类下所包含所有的文章
 	.then(pageData=>{
 		getCommontData()//显示nav及今日排行部分
 		.then((data)=>{
-			console.log('pageData',pageData)
+			// console.log('pageData',pageData)
 			res.render('main/list',{//main前边不能有/
 				userInfo:req.userInfo,
 				articles:pageData.docs,

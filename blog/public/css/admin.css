@@ -5,3 +5,12 @@
 .btn-primary{
 	margin-bottom: 10px;
 }
+table.table{
+	table-layout: fixed;/*内容过多时自动换行（配合使用）*/
+}
+td{
+	word-break: break-word;/*内容过多时自动换行（配合使用）*/
+}
+#row-site{
+	margin-bottom: 10px;
+}

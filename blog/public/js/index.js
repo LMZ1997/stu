@@ -231,6 +231,7 @@
 	$('#comment-btn').on('click',function(){
 		var commentContent=$('#comment-content').val();
 		var id=$('#article-id').val();
+
 		if(commentContent.trim()==''){
 			$('.err').html('请输入评论内容后再提交')
 			return false;
@@ -245,16 +246,22 @@
 			dataType:'json',
 			data:{
 				content:commentContent,
-				articleId:id
+				articleId:id,
 			}
 		})
 		.done((result)=>{
+			var date = moment(result.comment.createdAt).format('YYYY年MM月DD日 HH:mm:ss ');
 			if(result.code==0){
-				console.log(result);
-				var html=	` <li class="list-group-item">${ result.comment.content }</li>
-
+				var html=	`	<div class="col-lg-12">
+									<div class="panel panel-default">
+									  <div class="panel-heading">${ result.username } 发表于${ date } </div>
+									  <div class="panel-body">
+									   ${ result.comment.content }
+									  </div>
+									</div>
+								</div>
 							`
-				$('#comment ul').prepend(html);
+				$('#comment').prepend(html);
 			}
 		})
 		.fail(err=>{

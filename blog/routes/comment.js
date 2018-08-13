@@ -4,6 +4,7 @@ const router=Router();
 const commentModel=require('../models/comment.js');
 const page=require('../util/page.js');
 const getCommontData=require('../util/getCommontData.js')
+const userModel=require('../models/user.js');
 
 router.post('/add',(req,res)=>{
 	let body=req.body;
@@ -11,25 +12,24 @@ router.post('/add',(req,res)=>{
 	// 	content:commentContent,
 	// 	articleId:id
 	// }
+	console.log('userInfo',req.userInfo)
+	console.log('userId',req.userInfo._id)
 	new commentModel({
-		article:body.articleId,
+		article:body.articleId,//key值只能是在model中定义好了的！！！！！！！！！！！！！！！！
 		content:body.content,
 		user:req.userInfo._id
 	})
 	.save()
 	.then((newComment)=>{
-		if(newComment){
-			res.json({
+		userModel.findOne({_id:req.userInfo._id},'username -_id')
+		.then(user=>{
+				res.json({
 				code:0,
-				comment:newComment
+				comment:newComment,
+				username:user.username
 			})
-			
-		}
-		else{
-			res.json({
-				code:10
-			})
-		}
+		})
+		
 	})
 	.catch(e=>{
 		console.log(e);
