@@ -19,7 +19,7 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="#">我的博客</a>
+	      <a class="navbar-brand" href="#">{{ site.name }}</a>
 	    </div>
 	    <div class="collapse navbar-collapse" id="xx-top-nav">
 	      <ul class="nav navbar-nav">
@@ -129,16 +129,13 @@
 					  </div>
 					</div>
 					{% endif %}
+					{% for ad in site.ads %}
 					<div class="ad">
-						<a href="#" class="thumbnail">
-						      <img src="/images/ad/321076.jpg" alt="...">
+						<a href="{{ ad.url }}" class="thumbnail" target="_blank">
+						      <img src="{{ ad.path }}" alt="...">
 						</a>
 					</div>
-					<div class="ad">
-						<a href="#" class="thumbnail">
-						      <img src="/images/ad/321080.jpg" alt="...">
-						</a>
-					</div>
+					{% endfor %}
 					<div class="panel panel-default" id="xx-me">
 						  <div class="panel-heading">
 						    <h3 class="panel-title">
@@ -149,12 +146,12 @@
 							   <div class="media">
 								  <div class="media-left">
 								    <a href="#">
-								      <img class="media-object img-circle about-me-img" src="/images/me/dogLogo.png" alt="...">
+								      <img class="media-object img-circle about-me-img" src="{{ site.author.authorImage }}" alt="...">
 								    </a>
 								  </div>
 								  <div class="media-body">
-								    <h4 class="media-heading">Tom</h4>
-								    80后草根！07年入行。一直潜心研究web前端技术，一边工作一边积累经验，分享一些个人博客模板，以及SEO优化等心得。
+								    <h4 class="media-heading">{{ site.author.authorName }}</h4>
+								   {{ site.author.authorIntro }}
 								  </div>
 								</div>
 						  </div>
@@ -182,7 +179,7 @@
 							   <div class="media">
 								  <div class="media-left">
 								    <a href="#">
-								      <img class="media-object img-responsive followme-img" src="/images/me/id.jpg" alt="...">
+								      <img class="media-object img-responsive followme-img" src="{{ site.author.wechat }}" alt="...">
 								    </a>
 								  </div>
 								</div>

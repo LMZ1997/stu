@@ -1,7 +1,8 @@
 
 const CateModel=require('../models/category.js')
 const articleModel=require('../models/article.js')
-
+const path=require('path');
+const fs=require('fs');
 
 
 let getCommontData=()=>{
@@ -13,10 +14,22 @@ let getCommontData=()=>{
 			.sort({click:-1})//根据点击量排序
 			.limit(5)//限制显示在首页点击排行中的数目
 			.then((clickArticles)=>{
-				resolve({
-					categories:categories,
-					clickArticles:clickArticles
+				let filePath =path.normalize(__dirname+'/../site.json');
+				fs.readFile(filePath,(err,data)=>{
+					let siteData={};
+					if(!err){
+							siteData=JSON.parse(data)
+					}
+					resolve({
+						categories:categories,
+						clickArticles:clickArticles,
+						site:siteData
+					})
 				})
+
+
+
+				
 			})
 	})	
  })

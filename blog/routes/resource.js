@@ -80,9 +80,9 @@ router.get('/delete/:id',(req,res)=>{
 	console.log(id)
 	resourceModel.findByIdAndRemove(id)//仅仅删除了数据库中的数据，并没有删除硬存中的图片
 	.then((resource)=>{
-		let path=path.normalize(__dirname+'../public/resource/'+resource.path);
-		console.log(path)
-		fs.unlink(path,(err)=>{
+		let filePath=path.normalize(__dirname+'/../public/'+resource.path);
+		console.log(filePath)
+		fs.unlink(filePath,(err)=>{//删除物理内存中的图片
 			if(!err){
 				res.render('admin/success',{
 					userInfo:req.userInfo,
@@ -98,6 +98,7 @@ router.get('/delete/:id',(req,res)=>{
 		})
 	})
 	.catch(e=>{
+		console.log(e);
 		res.render('admin/error',{
 			userInfo:req.userInfo,
 			message:'删除资源失败，数据库操作失败',

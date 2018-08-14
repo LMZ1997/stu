@@ -47,21 +47,31 @@ router.get('/',(req,res)=>{
 		})
 	});
 	*/
-	console.log('1::',req.userInfo)
+	// console.log('1::',req.userInfo)
 	articleModel.getPageArticles(req)//分页文章列表
 	.then((pageData)=>{
-		getCommontData()
+		getCommontData()//将站点信息site获取也放在里边了
 		.then((data)=>{
-			res.render('main/index',{//需要传userInfo，可试试
-				userInfo:req.userInfo,
-				articles:pageData.docs,
-				page:pageData.page,
-				lists:pageData.list,
-				pages:pageData.pages,
-				categories:data.categories,
-				clickArticles:data.clickArticles
-				// url:'/article'
-			})
+			// fs.readFile(filePath,(err,siteData)=>{
+			// 	if(!err){
+				console.log('1::',data.site)
+					res.render('main/index',{//需要传userInfo，可试试
+						userInfo:req.userInfo,
+						articles:pageData.docs,
+						page:pageData.page,
+						lists:pageData.list,
+						pages:pageData.pages,
+						categories:data.categories,
+						clickArticles:data.clickArticles,
+						site:data.site//由getCommontData传输进来
+						// url:'/article'
+					})
+				// }
+				// else{
+
+				// }
+			// })
+			
 		})
 	})
 	
@@ -122,11 +132,13 @@ router.get('/view/:id',(req,res)=>{//文章详情页
 				})
 			})
 			*/
+			// console.log('article:::',article)
 			getCommontData()
 			.then((data)=>{
-				// console.log('::',article)
+				// console.log('::',data)
 				commentModel.getPageComments(req,{article:id})
 				.then(pageData=>{
+					// console.log('pageData:::',pageData)
 					res.render('main/article-detail',{//main前边不能有/
 						userInfo:req.userInfo,
 						article:article,
@@ -138,6 +150,7 @@ router.get('/view/:id',(req,res)=>{//文章详情页
 						page:pageData.page,
 						lists:pageData.list,
 						pages:pageData.pages,
+						site:data.site//由getCommontData传输进来
 					})
 				})
 				
@@ -163,6 +176,7 @@ router.get('/list/:id',(req,res)=>{//分类下所包含所有的文章
 				pages:pageData.pages,
 				categories:data.categories,
 				category:id,
+				site:data.site,//由getCommontData传输进来
 				clickArticles:data.clickArticles
 			})
 		})

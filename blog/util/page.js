@@ -47,7 +47,8 @@ let page=(options)=>{
 						query=query.populate(options.populate[i]);
 					}
 				}
-				query.sort(options.sort)
+				query
+				.sort(options.sort)
 				.skip(skip)
 				.limit(limit)
 				.then((docs)=>{

@@ -4,25 +4,31 @@
 <div id="main-carousel" class="carousel slide" data-ride="carousel">
 					  <!-- Indicators -->
 					  <ol class="carousel-indicators">
-					    <li data-target="#main-carousel" data-slide-to="0" class="active"></li>
-					    <li data-target="#main-carousel" data-slide-to="1"></li>
-					    <li data-target="#main-carousel" data-slide-to="2"></li>
-					    <li data-target="#main-carousel" data-slide-to="3"></li>
+					  	{% for carousel in site.carousels %}
+							{% if loop.index0 == 0 %}
+						   	 	<li data-target="#main-carousel" data-slide-to="{{ loop.index0 }}" class="active"></li>
+						    {% else %}
+						    	<li data-target="#main-carousel" data-slide-to="{{ loop.index0}}"></li>
+						    {% endif %}
+					    {% endfor %}
 					  </ol>
 
 					  <div class="carousel-inner" role="listbox">
-						    <div class="item active">
-						      <img src="images/carousel/320018.jpg" alt="...">
-						    </div>
-						    <div class="item">
-						      <img src="images/carousel/320019.jpg" alt="...">
-						    </div>
-						     <div class="item">
-						      <img src="images/carousel/320020.jpg" alt="...">
-						    </div>
-						     <div class="item">
-						      <img src="images/carousel/320957.jpg" alt="...">
-						    </div>
+					  		{% for carousel in site.carousels %}
+						  		{% if loop.index0 == 0 %}
+								    <div class="item active">
+								    	<a href="{{ carousel.url }}" target="_blank">
+								     		 <img src="{{ carousel.path }}" alt="...">
+								      	</a>
+								    </div>
+							    {% else %}
+							      	<div class="item">
+								    	<a href="{{ carousel.url }}" target="_blank">
+								     		 <img src="{{ carousel.path }}" alt="...">
+								      	</a>
+							    	</div>
+								{% endif %}
+						    {% endfor %}
 						    
 					  </div>
 					  <a class="left carousel-control" href="#main-carousel" role="button" data-slide="prev">

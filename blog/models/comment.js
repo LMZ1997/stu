@@ -26,8 +26,7 @@ roles.statics.getPageComments=function(req,query={}){//异步函数想要传递�
 			query:query,
 			sort:{_id:-1},
 			projection:'-__v',
-			limit:6,
-			populate:{path:'user',select:'username'}
+			populate:[{path:'article',select:'title'},{path:'user',select:'username'}]
 		}
 		page(options)
 		.then((data)=>{

@@ -12,8 +12,6 @@ router.post('/add',(req,res)=>{
 	// 	content:commentContent,
 	// 	articleId:id
 	// }
-	console.log('userInfo',req.userInfo)
-	console.log('userId',req.userInfo._id)
 	new commentModel({
 		article:body.articleId,//key值只能是在model中定义好了的！！！！！！！！！！！！！！！！
 		content:body.content,

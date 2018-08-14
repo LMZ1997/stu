@@ -89,23 +89,16 @@ router.get('/users',(req,res)=>{//请求用户列表
 })
 
 router.get('/comments',(req,res)=>{
-	let options={
-		page:req.query.page,
-		model:commentModel,
-		query:{},
-		sort:{_id:-1},
-		populate:[{path:'article',select:'content'},{path:'user',select:'username'}]
-	}
-	page(options)
-	.then((data)=>{
+	commentModel.getPageComments(req)
+	.then(data=>{
 		res.render('admin/comments',{
 			userInfo:req.userInfo,
 			comments:data.docs,
-			page:data.page,    //注意page的类型是否是Number
-			lists:data.list,
-			pages:data.pages,//为了前端页面判断是否需要显示分页栏
-			url:'/admin/comments'//为了把分页做成一个多次调用的页面->page.html
+			page:data.page,
+			pages:data.pages,
+			lists:data.list
 		})
+
 	})
 })
 router.get('/comment/delete/:id',(req,res)=>{
@@ -136,7 +129,7 @@ router.get('/site',(req,res)=>{
 		if(!err){
 
 			let site=JSON.parse(data);
-			console.log(site)
+			// console.log('site:::',site)
 			res.render('admin/site',{
 				site:site
 			})
@@ -159,7 +152,7 @@ router.post('/updatePWD',(req,res)=>{
 	userModel.findOne({username:body.username,password:hmac(body.oldPwd)})
 	.then((user)=>{
 		if(user){
-			console.log(user)
+			// console.log(user)
 			userModel.update({_id:user._id},{password:hmac(body.newPwd)},(err,raw)=>{
 					if(!err){
 						req.session.destroy();
@@ -189,5 +182,73 @@ router.post('/updatePWD',(req,res)=>{
 	.catch(e=>{
 		console.log(e);
 	})
+})
+
+
+
+router.post('/site',(req,res)=>{
+	let body=req.body;
+	console.log(body)
+	console.log(body.name)
+	let site={
+		name:body.name,
+		author:{
+			authorName:body.authorName,
+			authorIntro:body.authorIntro,
+			authorImage:body.authorImage,
+			wechat:body.wechat
+		}
+	}
+	site.carousels=[];
+	if(typeof body.carouselUrl =='object'&& body.carouselUrl.length){
+		for(var i=0;i<body.carouselUrl.length;i++){
+			site.carousels.push({//因为carouselUrl与carouselPath数据是共通的
+				url:body.carouselUrl[i],
+				path:body.carouselPath[i]
+			})
+		}
+	}
+	else{
+		site.carousels.push({
+			url:body.carouselUrl,
+			path:body.carouselPath
+		})
+	}
+	site.ads=[];
+	console.log(typeof body.adUrl)
+	if(typeof body.adUrl =='object'&&body.adUrl.length){
+		for(var i=0;i<body.adUrl.length;i++){
+			site.ads.push({//因为adUrl与adPath数据是共通的
+				url:body.adUrl[i],
+				path:body.adPath[i]
+			})
+		}
+	}
+	else{
+		site.ads.push({
+			url:body.adUrl,
+			path:body.adPath
+		})
+	}
+
+	let str=JSON.stringify(site);
+	console.log(str);
+	let path = __dirname+'/../site.json';
+	fs.writeFile(path,str,(err,data)=>{
+		if(!err){
+			res.render('admin/success',{
+				userInfo:req.userInfo,
+				message:'更改站点信息成功',
+				url:'/admin/site'//点击跳转
+			})
+		}
+		else{
+			res.render('admin/error',{
+				userInfo:req.userInfo,
+				message:'更改站点信息失败',
+			})
+		}
+	})
+
 })
 module.exports=router;
