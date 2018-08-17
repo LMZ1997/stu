@@ -41,14 +41,14 @@ module.exports={
   },
   plugins:
  	 [
-  		new HtmlWebpackPlugin({
+  		new HtmlWebpackPlugin({//处理html
   			template:'./src/view/index.html',
   			filename:'index.html',
   			// inject:'head'，index.html的script文件引入位置在head里
   			inject:true,//默认，index.html的script文件引入位置在body里所有Dom元素后
 
   		}),
-  		new CleanWebpackPlugin(['dist']),
+  		new CleanWebpackPlugin(['dist']),//清理dist内不用的文件
   ],
   devServer:{ //用来提高效率的，更改样式等不需要每次去npx webpack也不需要刷新浏览器(会隐藏dist)
   	contentBase: './dist',
