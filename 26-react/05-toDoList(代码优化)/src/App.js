@@ -53,36 +53,47 @@ class App extends Component{
 
 	}
 	handleChange(ev){
-		
 		// this.setState({
 		// 	value:ev.target.value
 		// })
 		
 		const value=ev.target.value;
-		this.setState(()=>(
+		this.setState(()=>({   //必须加{}
 			// value:ev.target.value  回调函数里ev不可用，所以把value先定义在外边
 			// value:value赋值与被赋值命名相同可简写
 			value
-		))
+		}))
 	}
 	handleDelete(index){//index由bind传递进来
-		
-		
 		// const list=[...this.state.list];
 		// list.splice(index,1);
 		// // console.log(list)//list是经过截取后剩下的值
 		// this.setState({
 		// 	list:list
 		// })
-
-		
+		console.log('1::',this)
 		this.setState((preState)=>{
 			const list=[...preState.list];
 			list.splice(index,1);
-			return (
+			return {
 				// list:list
 				list
-			)
+			}
+		})
+	}
+	getItems(){
+		console.log(this)
+		return this.state.list.map((item,index)=>{
+			 return (
+			 	 //(content)属性名自己定义,在Item组件中呼应
+			 	<Item
+			 	 key={index} //无实质作用，只为解决warning问题
+			 	 content={item} 
+			 	 index={index} 
+			 	 handleDelete={this.handleDelete}
+			 	/>
+			 )
+			
 		})
 	}
 	//必须有一个render(){}
@@ -100,18 +111,8 @@ class App extends Component{
 				<input onChange={this.handleChange} value={this.state.value}/>
 				<button onClick={this.handleAdd}>添加</button>
 				<ul>
-						{  this.state.list.map((item,index)=>{
-								 return (
-								 	 //(content)属性名自己定义,在Item组件中呼应
-								 	<Item
-								 	 key={index} //无实质作用，只为解决warning问题
-								 	 content={item} 
-								 	 index={index} 
-								 	 handleDelete={this.handleDelete}
-								 	/>
-								 )
-								
-							})
+						{  
+							this.getItems()//别的地方是点击事件，所以不需要加()执行
 						}
 				</ul>
 				
