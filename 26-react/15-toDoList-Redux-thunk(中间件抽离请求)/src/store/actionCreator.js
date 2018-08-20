@@ -29,7 +29,7 @@ export const loadDataAction=(payload)=>{
 	}
 }
 export const getInitDataAction=()=>{
-	return ()=>{
+	return (dispatch)=>{
 		axios.get('http://127.0.0.1:3000')
 		.then((data)=>{
 			const action=loadDataAction(data.data)
