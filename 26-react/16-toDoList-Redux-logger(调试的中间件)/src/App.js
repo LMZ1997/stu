@@ -4,7 +4,7 @@ import './App.css'
 // import axios from 'axios' //在actionCreator.js处引用了
 
 // import {Input,Button,Row,Col,List} from 'antd';//在AppUI.js处引用了
- // import 'antd/dist/antd.css';//太消耗性能，所以尽量用按需加载
+ // import 'antd/dist/antd.css';//太消耗性能，所以尽量用按需加载,配置在webpack.co..
 
 import store from './store'//默认寻找文件夹里的index.js
 
@@ -58,7 +58,7 @@ class App extends Component{
 		})
 		*/
 		const action=getInitDataAction();//action=返回一个函数
-		store.dispatch(action)
+		store.dispatch(action)//action是函数的时候，并不走reducer,此行代码只是执行函数作用
 	}
 	render(){ 
 		return (
