@@ -99,7 +99,7 @@
 			this.now=index;
 		},
 		slide:function(index,direction){
-			if(direction){
+			if(!direction){//!!!!!!!!!!!!!!!!!!!!!????????????????
 				if(index>this.now){
 					this.direction=1
 				}else{

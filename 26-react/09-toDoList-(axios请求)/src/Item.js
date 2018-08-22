@@ -9,8 +9,9 @@ class Item extends Component{
 		this.handleRemove = this.handleRemove.bind(this)
 	}
 
-	shouldComponentUpdate(nextProps, nextState){
-		console.log('Item shouldComponentUpdate...',nextProps, nextState);
+	shouldComponentUpdate(nextProps, nextState){//只有父组件的content发生改变才让其运行，避免一味的父组件render,子组件也render
+		console.log('Item shouldComponentUpdate...1',nextProps, nextState);
+		console.log('Item shouldComponentUpdate...2',this.props)
 		if(nextProps.content!=this.props.content){
 			return true
 		}
