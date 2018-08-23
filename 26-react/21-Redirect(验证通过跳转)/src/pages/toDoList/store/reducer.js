@@ -25,7 +25,6 @@ export default (state=defaultState,action)=>{
 		return newState;//函数里边return了就退出函数了
 		*/
 		return state.set('value',action.payload)
-		/* state.set方法返回出去的仍是一个immutable对象 */
 	}
 	if(action.type==types.LOAD_DATA){
 		/*
