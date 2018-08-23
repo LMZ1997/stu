@@ -18,7 +18,14 @@ class App extends Component{
 	render(){
 		return(
 			<Router>
-				<div>
+				<div className='App'>
+					<ul>
+						<li>
+							<Link to='login'>
+								登录
+							</Link>
+						</li>
+					</ul>
 					<Route path='/login' component={ Login } />
 				</div>
 			</Router>
