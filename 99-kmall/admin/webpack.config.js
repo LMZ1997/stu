@@ -18,6 +18,13 @@ module.exports={
 		//导出路径
 		path:path.resolve(__dirname,'dist')
 	},
+	resolve:{//配置别名
+		alias:{
+			pages:path.resolve(__dirname,'./src/pages'),
+			api:path.resolve(__dirname,'./src/api'),
+			util:path.resolve(__dirname,'./src/util'),
+		}
+	},
 	module: {//loader部分
 	    rules: 
 	    	[

@@ -6,9 +6,8 @@
 	的赋值
 */
 import { combineReducers } from 'redux-immutable'
-import {reducer as todolistReducer} from '../pages/toDoList/store'
+import {reducer as loginReducer} from 'pages/login/store'
 
 export default combineReducers({
-	todolist:todolistReducer//这里影响着后边数据，value=state.todolist.value
-
+	login:loginReducer,//这里影响着后边数据，value=state.todolist.value
 })

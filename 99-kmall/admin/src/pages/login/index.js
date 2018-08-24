@@ -1,16 +1,12 @@
 import React,{ Component } from 'react'
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button } from 'antd';
 import './index.css'
-const FormItem = Form.Item;
-/*
-class Login extends Component{
-	render(){
-		return(
+import { connect } from 'react-redux'
 
-		)
-	}
-}
-*/
+import { actionCreators }  from './store'
+
+const FormItem = Form.Item;
+
 class NormalLoginForm extends React.Component {
 	constructor(props){
 		super(props)
@@ -20,7 +16,7 @@ class NormalLoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+      	this.props.handleSubmit(values);
       }
     });
   }
@@ -50,7 +46,12 @@ class NormalLoginForm extends React.Component {
             )}
           </FormItem>
           <FormItem>
-            <Button type="primary" onClick={this.handleSubmit} className="login-form-button">
+            <Button 
+            	type="primary" 
+            	onClick={this.handleSubmit} 
+            	className="login-form-button"
+            	loading={ this.props.isFetching }//设置为true时，按钮不能被点击
+            >
              登录
             </Button>
           </FormItem>
@@ -60,5 +61,20 @@ class NormalLoginForm extends React.Component {
   }
 }
 
-// export default Login;
-export default  Form.create()(NormalLoginForm);
+const mapStateToProps=(state)=>{
+	return{
+		isFetching:state.get('login').get('isFetching')
+	}
+}
+
+const mapDispatchToProps=(dispatch)=>{
+	return{
+		handleSubmit:(values)=>{//函数写法！！！！！！！！！！！！！！
+				const action=actionCreators.getLoginAction(values);
+				dispatch(action);
+		}
+	}
+}
+
+const Login=Form.create()(NormalLoginForm)
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
