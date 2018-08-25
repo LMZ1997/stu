@@ -16,7 +16,14 @@ db.on('open',()=>{
 
 const app=express();
 
-
+app.use((req,res,next)=>{//解决同一请求两次出现的问题
+	if(req.method=='OPTION'){//如果请求地址为option，则不往下执行
+		res.send('OPTION-OK')
+	}
+	else{//如果请求地址不是option，则往下执行
+		next();
+	}
+})
 
 app.use(//每一次请求时随机生成一个验证码,此验证码会在登录成功时与登陆用户绑定，并不是根据输入的用户名或密码生成的cookie
 	session({

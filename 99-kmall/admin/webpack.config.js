@@ -23,6 +23,7 @@ module.exports={
 			pages:path.resolve(__dirname,'./src/pages'),
 			api:path.resolve(__dirname,'./src/api'),
 			util:path.resolve(__dirname,'./src/util'),
+			common:path.resolve(__dirname,'./src/common'),
 		}
 	},
 	module: {//loader部分

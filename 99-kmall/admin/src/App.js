@@ -13,13 +13,15 @@ import {
 
 import Login from 'pages/login'
 import Home from 'pages/home'
+import User from 'pages/user'
 import { getUserName } from 'util'
+import Errorpage  from 'common/error-page'
 
 
 
 class App extends Component{
 	render(){//自定义的放在render里，return外边
-		const HomeRouter=({component:Component,...rest})=>(
+		const ProductedRoute=({component:Component,...rest})=>(
 				<Route
 					{...rest}
 					render={(props)=>(
@@ -29,7 +31,7 @@ class App extends Component{
 					)}
 				/>
 			)
-		const LoginRouter=({component:Component,...rest})=>(
+		const LoginRoute=({component:Component,...rest})=>(
 			<Route
 				{...rest}
 				render={(props)=>(
@@ -39,11 +41,15 @@ class App extends Component{
 				)}
 			/>
 		)
-		return(
+		return(//Switch作用在于只要匹配到其中一个路由就不会再往下执行
 			<Router>
 				<div className='App'>
-					<HomeRouter exact path='/' component={ Home }  />
-					<LoginRouter path='/login' component={ Login } />
+					<Switch>
+						<ProductedRoute exact path='/' component={ Home }  />
+						<ProductedRoute path='/user' component={ User }  />
+						<LoginRoute path='/login' component={ Login } />
+						<Route  component={ Errorpage } />
+					</Switch>
 				</div>
 			</Router>
 		)

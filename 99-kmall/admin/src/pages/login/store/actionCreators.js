@@ -21,7 +21,8 @@ export const getLoginAction=(values)=>{//values是ant-design封装的接收usern
         request({
         	method:'post',
         	data:values,
-        	url:SERVER_LOGIN
+        	url:SERVER_LOGIN,
+        	withCredentials: true//axios默认不会将session的userInfo存储到req上
         })
         .then((data)=>{
         	console.log('请求成功后返回到前端的数据：：',data)

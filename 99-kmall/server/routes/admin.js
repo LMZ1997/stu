@@ -51,14 +51,31 @@ router.post('/login',(req,res)=>{//点击登录发送了登录请求
 		}
 	})
 })
+
 router.use((req,res,next)=>{//防止直接在地址栏请求/admin后登陆到管理员界面
-	if(req.userInfo.isAdmin){
+	console.log(req.userInfo)
+	if(req.userInfo.isAdmin){//用了withCredentials: true后，登录信息才会保存在req上
 		next()
 	}
 	else{
-		res.send('请用管理员身份登录')
+		res.send({
+			code:10//返回code=10,还会根据code进行下一步操作
+		})
 	}
 })
+
+router.get('/count',(req,res)=>{
+	res.json({
+		code:0,
+		data:{
+			usernum:300,
+			ordernum:301,
+			productnum:302
+		}
+	})
+})
+
+
 router.get('/',(req,res)=>{//请求管理元首页
 	// res.send('ok')
 	res.render('admin/index',{
