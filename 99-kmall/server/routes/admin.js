@@ -8,7 +8,7 @@ const fs=require('fs');
 const path=require('path')
 
 /*
-router.get('/init',(req,res)=>{
+router.get('/init',(req,res)=>{//必须在127.0.0.1:3000请求
 	new userModel({
 		username:'admin',
 		password:hmac('admin'),
@@ -52,17 +52,17 @@ router.post('/login',(req,res)=>{//点击登录发送了登录请求
 	})
 })
 
-router.use((req,res,next)=>{//防止直接在地址栏请求/admin后登陆到管理员界面
-	console.log(req.userInfo)
-	if(req.userInfo.isAdmin){//用了withCredentials: true后，登录信息才会保存在req上
-		next()
-	}
-	else{
-		res.send({
-			code:10//返回code=10,还会根据code进行下一步操作
-		})
-	}
-})
+// router.use((req,res,next)=>{//防止直接在地址栏请求/admin后登陆到管理员界面
+// 	console.log(req.userInfo)
+// 	if(req.userInfo.isAdmin){//用了withCredentials: true后，登录信息才会保存在req上
+// 		next()
+// 	}
+// 	else{
+// 		res.send({
+// 			code:10//返回code=10,还会根据code进行下一步操作
+// 		})
+// 	}
+// })
 
 router.get('/count',(req,res)=>{
 	res.json({

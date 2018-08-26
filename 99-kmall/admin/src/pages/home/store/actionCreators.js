@@ -17,7 +17,7 @@ export const getCountAction=()=>{
         	url:ADMIN_COUNT
         })
         .then((data)=>{
-        	console.log('请求成功后返回到前端的数据：：',data)
+        	console.log('home请求成功后返回到前端的数据：：',data)
         	if(data.code==0){
         	   dispatch(setCountAction(data.data))
           }

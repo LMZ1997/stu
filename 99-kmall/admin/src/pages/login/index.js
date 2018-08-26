@@ -62,7 +62,7 @@ class NormalLoginForm extends React.Component {
 }
 
 const mapStateToProps=(state)=>{
-	return{
+	return{//isFetching:loading图标
 		isFetching:state.get('login').get('isFetching')
 	}
 }

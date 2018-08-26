@@ -8,8 +8,10 @@
 import { combineReducers } from 'redux-immutable'
 import {reducer as loginReducer} from 'pages/login/store'
 import {reducer as homeReducer} from 'pages/home/store'
+import {reducer as userReducer} from 'pages/user/store'
 
 export default combineReducers({
 	login:loginReducer,//这里影响着后边数据，value=state.todolist.value
-	home:homeReducer
+	home:homeReducer,
+	user:userReducer
 })
