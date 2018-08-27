@@ -37,10 +37,6 @@ let page=(options)=>{
 				}
 				let skip=(page-1)*limit;//skip赋值必须放在page验证后的里边，否则会先用
 										//page给skip赋值,那样跳过的值会不正确(会大于拥有的值)
-				let list=[];
-				for(var i=1;i<=pages;i++){
-					list.push(i);
-				}
 				let query=options.model.find(options.query,options.projection);
 				if(options.populate){//如果不存在就不需要执行
 					for(var i=0;i<options.populate.length;i++){//避免写死
@@ -54,10 +50,10 @@ let page=(options)=>{
 				.then((docs)=>{
 					// console.log(docs);
 					resolve({//传递出去的data数据包，resolve函数在返回值的then函数中执行
-						docs:docs,
-						list:list,
-						page:page*1,
-						pages:pages
+						list:docs,
+						pageSize:limit,
+						current:page*1,
+						total:count,
 					})
 				})
 				.catch((e)=>{

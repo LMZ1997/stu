@@ -52,17 +52,17 @@ router.post('/login',(req,res)=>{//点击登录发送了登录请求
 	})
 })
 
-// router.use((req,res,next)=>{//防止直接在地址栏请求/admin后登陆到管理员界面
-// 	console.log(req.userInfo)
-// 	if(req.userInfo.isAdmin){//用了withCredentials: true后，登录信息才会保存在req上
-// 		next()
-// 	}
-// 	else{
-// 		res.send({
-// 			code:10//返回code=10,还会根据code进行下一步操作
-// 		})
-// 	}
-// })
+router.use((req,res,next)=>{//防止直接在地址栏请求/admin后登陆到管理员界面
+	// console.log('1::',req.userInfo)
+	if(req.userInfo.isAdmin){//用了withCredentials: true后，登录信息才会保存在req上
+		next()
+	}
+	else{
+		res.send({
+			code:10//返回code=10,还会根据code进行下一步操作
+		})
+	}
+})
 
 router.get('/count',(req,res)=>{
 	res.json({
@@ -74,6 +74,37 @@ router.get('/count',(req,res)=>{
 		}
 	})
 })
+
+router.get('/users',(req,res)=>{//请求用户列表
+	let options={
+		page:req.query.page,
+		model:userModel,
+		query:{},
+		sort:{_id:-1},
+		projection:'',
+	}
+	page(options)
+	.then((data)=>{//不需要像以前渲染模板了，只需要传出数据，所以还需改动page插件
+		res.json({
+			code:0,
+			data:{
+				current:data.current,
+				pageSize:data.pageSize,
+				total:data.total,
+				list:data.list
+			}
+			
+		})
+	})
+})
+
+
+
+
+
+
+
+
 
 
 router.get('/',(req,res)=>{//请求管理元首页
@@ -92,26 +123,6 @@ router.get('/loginOut',(req,res)=>{//管理员退出
 	res.json(result);
 })
 
-router.get('/users',(req,res)=>{//请求用户列表
-	let options={
-		page:req.query.page,
-		model:userModel,
-		query:{},
-		sort:{_id:-1},
-		projection:'_id username isAdmin',
-	}
-	page(options)
-	.then((data)=>{
-		res.render('admin/users_list',{
-			userInfo:req.userInfo,
-			users:data.docs,
-			page:data.page,    //注意page的类型是否是Number
-			lists:data.list,
-			pages:data.pages,//为了前端页面判断是否需要显示分页栏
-			url:'/admin/users'//为了把分页做成一个多次调用的页面->page.html
-		})
-	})
-})
 
 router.get('/comments',(req,res)=>{
 	commentModel.getPageComments(req)

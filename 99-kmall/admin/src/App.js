@@ -14,9 +14,10 @@ import {
 import Login from 'pages/login'
 import Home from 'pages/home'
 import User from 'pages/user'
-import { getUserName } from 'util'
+import Category from 'pages/category'
 import Errorpage  from 'common/error-page'
 
+import { getUserName } from 'util'
 
 
 class App extends Component{
@@ -47,6 +48,7 @@ class App extends Component{
 					<Switch>
 						<ProductedRoute exact path='/' component={ Home }  />
 						<ProductedRoute path='/user' component={ User }  />
+						<ProductedRoute path='/category' component={ Category }  />
 						<LoginRoute path='/login' component={ Login } />
 						<Route  component={ Errorpage } />
 					</Switch>

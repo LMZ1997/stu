@@ -16,15 +16,6 @@ db.on('open',()=>{
 
 const app=express();
 
-app.use((req,res,next)=>{//解决同一请求两次出现的问题
-	if(req.method=='OPTION'){//如果请求地址为option，则不往下执行
-		res.send('OPTION-OK')
-	}
-	else{//如果请求地址不是option，则往下执行
-		next();
-	}
-})
-
 app.use(//每一次请求时随机生成一个验证码,此验证码会在登录成功时与登陆用户绑定，并不是根据输入的用户名或密码生成的cookie
 	session({
 		 //设置cookie名称
@@ -42,7 +33,7 @@ app.use(//每一次请求时随机生成一个验证码,此验证码会在登录
 	})
 )
 
-//跨域设置
+//跨域设置(写在所有请求前边)
 app.use((req,res,next)=>{
 	res.append("Access-Control-Allow-Origin","http://localhost:8080");//8080!!!
 	res.append("Access-Control-Allow-Credentials",true);
@@ -51,6 +42,14 @@ app.use((req,res,next)=>{
 	next();
 })
 
+app.use((req,res,next)=>{//解决同一请求两次出现的问题
+	if(req.method=='OPTIONS'){//如果请求地址为options，则不往下执行
+		res.send('OPTION-OK')
+	}
+	else{//如果请求地址不是optionS，则往下执行
+		next();
+	}
+})
 app.use((req,res,next)=>{
 	req.userInfo=req.session.userInfo||{};
 	next();

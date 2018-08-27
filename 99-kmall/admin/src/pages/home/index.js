@@ -10,10 +10,12 @@ import './index.css'
 
 class Home extends Component{
 	componentDidMount(){
+
 		this.props.getCount();
 	}
 
 	render(){
+		console.log('adas')
 		return(
 			<div className="Home">
 				<Layout>

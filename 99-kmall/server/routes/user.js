@@ -3,6 +3,33 @@ const router=Router();
 const userModel=require('../models/user.js');
 const hmac=require('../util/hmac.js')
 
+/*
+router.get('/init',(req,res)=>{
+	const users=[];
+	for(var i=0;i<100;i++){
+		users.push({
+			username:'test'+i,
+			password:'test'+i,
+			isAdmin:false,
+			email:'test'+i+'@126.com',
+			phone:'123456789'+i,
+		})
+	}
+	userModel.create(users)
+	.then((data)=>{
+		res.send('ok')
+	})
+})
+*/
+
+
+
+
+
+
+
+
+
 router.post('/register',(req,res)=>{//点击注册发送了注册请求
 	let body=req.body;
 	var result={
@@ -75,22 +102,6 @@ router.get('/loginOut',(req,res)=>{//点击退出发送了退出请求
 	// req.cookies.set('userInfo',null);
 	req.session.destroy();
 	res.json(result);
-})
-
-router.get('/user_count',(req,res)=>{
-	userModel.find({},'-_id,username,isAdmin')
-	.then((data)=>{
-		if(data){
-			console.log('users::::',data)
-		}
-		else{
-			console.log('未获取到用户列表')
-		}
-		
-	})
-	.catch(e=>{
-		console.log(e);
-	})
 })
 
 module.exports=router;

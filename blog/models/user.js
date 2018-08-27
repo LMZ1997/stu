@@ -10,7 +10,7 @@ const roles=new mongoose.Schema({
 		isAdmin:{
 			type:Boolean,//必须是Boolean，否则后边对管理员的判断会有问题
 			default:false
-		}
+		},
 	});
 
 	

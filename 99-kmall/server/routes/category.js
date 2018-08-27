@@ -3,6 +3,90 @@ const router=Router();
 const CateModel=require('../models/category.js')
 const page=require('../util/page.js')
 
+
+
+router.use((req,res,next)=>{
+	// console.log('1::',req.userInfo)
+	if(req.userInfo.isAdmin){
+		next()
+	}
+	else{
+		res.send({
+			code:10
+		})
+	}
+})
+router.post('/',(req,res)=>{//post请求
+	let body=req.body;
+	CateModel.findOne({name:body.name,pid:body.pid})//不仅需要判断name
+	.then((cate)=>{
+		if(cate){
+			res.send({
+				code:1,
+				errMessage:'添加分类失败，分类已存在'
+			})
+		}
+		else{
+			new CateModel({
+				name:body.name,
+				pid:body.pid
+			})
+			.save()
+			.then((newCate)=>{
+				if(newCate){
+					res.send({
+						code:0
+					})
+				}
+				else{
+					res.send({
+						code:1,
+						errMessage:'添加分类失败，数据库操作失败'
+					})
+				}
+			})
+			.catch((e)=>{
+				res.send(e);
+			})
+		}
+	})
+})
+router.get('/',(req,res)=>{
+	CateModel.find({},'name -_id')
+	.then((data)=>{
+		if(data){
+			res.json({
+				code:0,
+				data:data
+			})
+		}
+		else{
+			res.send({
+				code:1,
+				errMessage:'添加分类失败，数据库操作失败'
+			})
+		}
+	})
+	.catch((e)=>{
+		res.send(e);
+	})
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 router.get('/',(req,res)=>{
 	let options={
 		page:req.query.page,
@@ -31,46 +115,7 @@ router.get('/add',(req,res)=>{//get请求
 })
 
 
-router.post('/add',(req,res)=>{//post请求
-	let body=req.body;
-	CateModel.findOne({name:body.name})
-	.then((cate)=>{
-		if(cate){
-			res.render('admin/error',{
-				userInfo:req.userInfo,
-				message:'分类名已存在，请重新输入'
-			})
-		}
-		else{
-			new CateModel({
-				name:body.name,
-				order:body.order
-			})
-			.save()
-			.then((newCate)=>{
-				if(newCate){
-					res.render('admin/success',{
-						userInfo:req.userInfo,
-						message:'新建分类成功',
-						url:'/category'
-					})
-				}
-				else{
-					res.render('admin/error',{
-						userInfo:req.userInfo,
-						message:'插入分类失败',
-					})
-				}
-			})
-			.catch((e)=>{
-				res.send(e);
-			})
-		}
-	})
-	// .catch(()=>{？？？？？？？？？？？？？？？？？？？？？？？
-		
-	// })
-})
+
 
 router.get('/edit/:id',(req,res)=>{//请求添加分类页面和请求编辑分类页面合为一个
 	let id=req.params.id;      //区别在于一个向页面传递了一个category对象，一个没有
