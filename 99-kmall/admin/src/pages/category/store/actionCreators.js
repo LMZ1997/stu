@@ -5,21 +5,38 @@ import { request } from 'util'//配置别名
 import { SET_CATEGORY,GET_CATEGORY } from 'api'
 
 
-export const  add_start=()=>{
+ const  add_start=()=>{
         return {
                 type:types.CATEGORY_ADD
         }
 }
-export const add_done=()=>{
+ const add_done=()=>{
         return{
                 type:types.CATEGORY_DONE
         }
 }
-export const set_cateName=(payload)=>{
+ const set_categories=(payload)=>{
 			return{
-				type:types.SET_CATEGORY_NAME,
+				type:types.SET_CATEGORIES,
 				payload
 			}
+}
+
+const  getPage_start=()=>{
+     return {
+          type:types.GETUSER_START
+     }
+}
+ const getPage_done=()=>{
+     return{
+          type:types.GETUSER_DONE
+     }
+}
+export const setPageAction=(payload)=>{
+    return /*const action=*/{    //注意写法
+          type:types.SET_PAGE,
+          payload
+     }
 }
 export const addCategoryAction=(values)=>{
 		return (dispatch)=>{
@@ -28,15 +45,18 @@ export const addCategoryAction=(values)=>{
         	method:'post',
         	data:values,
         	url:SET_CATEGORY,
-        	withCredentials: true//axios默认不会将session的userInfo存储到req上
+        	withCredentials: true
         })
-        .then((data)=>{
-        	console.log('category请求成功后返回到前端的数据：：',data)
-        	if(data.code==0){
-        		
+        .then((result)=>{
+        	console.log('category请求成功后返回到前端的数据：：',result)
+        	if(result.code==0){
+        		if(result.data){
+        			dispatch(set_categories(result.data))
+        		}
+        		message.success('添加分类成功')
         	}
-        	else if(data.code==1){
-        		message.error(data.errMessage)
+        	else if(result.code==1){
+        		message.error(result.errMessage)
         	}
           dispatch(add_done())
         })
@@ -47,19 +67,49 @@ export const addCategoryAction=(values)=>{
     }
 }
 
-export const getCateNameAction=()=>{
+export const getCategoriesAction=(pid)=>{
+
 	return (dispatch)=>{
         request({
         	url:GET_CATEGORY,
+        	data:{
+        		pid: pid|| 0
+        	},
         	withCredentials: true//axios默认不会将session的userInfo存储到req上
         })
         .then((result)=>{
-        	console.log('getCateName请求成功后返回到前端的数据：：',result)
+        	console.log('getCate请求成功后返回到前端的数据：：',result)
         	if(result.code==0){
-        		dispatch(set_cateName(result.data))
+        		dispatch(set_categories(result.data))
         	}
-        	else if(data.code==1){
-        		message.error(data.errMessage)
+        	else if(result.code==1){
+        		message.error(result.errMessage)
+        	}
+        })
+        .catch(e=>{
+        	message.error('网络错误，请稍后重试！');
+        })
+    }
+}
+
+export const getPagesAction=(pid,page)=>{
+	return (dispatch)=>{
+					console.log('pid:::',pid)
+        request({
+        	url:GET_CATEGORY,
+        	data:{
+        		pid: pid,
+        		page:page
+        	},
+        	withCredentials: true//axios默认不会将session的userInfo存储到req上
+        })
+        .then((result)=>{
+        	console.log('getCatePage请求成功后返回到前端的数据：：',result)
+        	if(result.code==0){
+        		dispatch(setPageAction(result.data))
+        	}
+        	else if(result.code==1){
+        		message.error(result.errMessage)
         	}
         })
         .catch(e=>{

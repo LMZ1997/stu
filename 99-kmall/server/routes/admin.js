@@ -7,7 +7,7 @@ const hmac=require('../util/hmac.js')
 const fs=require('fs');
 const path=require('path')
 
-/*
+
 router.get('/init',(req,res)=>{//必须在127.0.0.1:3000请求
 	new userModel({
 		username:'admin',
@@ -23,7 +23,7 @@ router.get('/init',(req,res)=>{//必须在127.0.0.1:3000请求
 		}
 	})
 })
-*/
+
 router.post('/login',(req,res)=>{//点击登录发送了登录请求
 	let body=req.body;
 	var result={

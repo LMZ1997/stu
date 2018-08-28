@@ -34,9 +34,28 @@ router.post('/',(req,res)=>{//post请求
 			.save()
 			.then((newCate)=>{
 				if(newCate){
-					res.send({
-						code:0
-					})
+					if(body.pid==0){//判断如果添加的是一级分类，那么要更新页面的分类列表，需要传回最新数据
+						CateModel.find({pid:0},'name _id')
+						.then((data)=>{
+							if(data){
+								res.json({
+									code:0,
+									data:data
+								})
+							}
+							else{
+								res.send({
+									code:1,
+									errMessage:'添加分类失败，数据库操作失败'
+								})
+							}
+						})
+					}
+					else{
+						res.json({
+							code:0
+						})
+					}
 				}
 				else{
 					res.send({
@@ -52,24 +71,51 @@ router.post('/',(req,res)=>{//post请求
 	})
 })
 router.get('/',(req,res)=>{
-	CateModel.find({},'name -_id')
-	.then((data)=>{
-		if(data){
+	let pid=req.query.pid;
+	let pageNum=req.query.page;
+	if(pageNum){
+		let options={
+			page:pageNum,
+			model:CateModel,
+			query:{pid:pid},
+			sort:{_id:-1},
+			projection:'_id name order pid',
+		}
+		page(options)
+		.then((data)=>{
 			res.json({
 				code:0,
-				data:data
+				data:{
+					current:data.current,
+					pageSize:data.pageSize,
+					total:data.total,
+					list:data.list
+				}
+				
 			})
-		}
-		else{
-			res.send({
-				code:1,
-				errMessage:'添加分类失败，数据库操作失败'
-			})
-		}
-	})
-	.catch((e)=>{
-		res.send(e);
-	})
+		})
+	}
+	else{
+		CateModel.find({pid:pid},'name _id')
+		.then((data)=>{
+			if(data){
+				res.json({
+					code:0,
+					data:data
+				})
+			}
+			else{
+				res.send({
+					code:1,
+					errMessage:'添加分类失败，数据库操作失败'
+				})
+			}
+		})
+		.catch((e)=>{
+			res.send(e);
+		})
+	}
+	
 })
 
 

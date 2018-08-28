@@ -5,6 +5,8 @@ import {connect} from 'react-redux'
 import { actionCreators } from './store'
 
 
+import './index.css'
+
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -14,7 +16,7 @@ class NormalCategoryAdd extends Component{
 		this.handleSubmit=this.handleSubmit.bind(this)
    }
    componentDidMount(){
-   		this.props.getCateName()
+   		this.props.getCategoties()
    }
    handleSubmit(e){
 	    e.preventDefault();
@@ -49,14 +51,10 @@ class NormalCategoryAdd extends Component{
 	        },
 	      },
 	    };
-		console.log('addCate:::',this.props.name)
-		var html='';
-		for(var i=0;i<this.props.name.length;i++){
-	      	html+='<Option value=i>name[i]</Option>'
-	      }
+
 		return(
 			<Layout>
-				<div>
+				<div className="category">
 					<Form>
 						<FormItem
 				          {...formItemLayout}
@@ -79,8 +77,13 @@ class NormalCategoryAdd extends Component{
 				              required: true, message: '请选择父级分类!',
 				            }],
 				          })(		//defaultValue被替代
-				             <Select initialValue="0" style={{ width: 120 }}>
+				             <Select initialValue="0"  style={{ width: 300 }}>
 						      <Option value="0">根分类</Option>
+						      {
+						      	this.props.categories.map((category)=>{
+						      		return <Option key={category.get('_id')} value={category.get('_id')}>根分类/{category.get('name')}</Option>
+						      	})
+						      }
 						    </Select>
 
 				          )}
@@ -104,7 +107,7 @@ class NormalCategoryAdd extends Component{
 const mapStateToProps=(state)=>{
 	return{
 		isAddFetching:state.get('category').get('isAddFetching'),
-		name:state.get('category').get('name')
+		categories:state.get('category').get('categories')
 	}
 }
 const mapDispatchToProps=(dispatch)=>{
@@ -113,8 +116,8 @@ const mapDispatchToProps=(dispatch)=>{
 			const action=actionCreators.addCategoryAction(values);
 			dispatch(action)
 		},
-		getCateName:()=>{
-			dispatch(actionCreators.getCateNameAction())
+		getCategoties:()=>{
+			dispatch(actionCreators.getCategoriesAction())
 		}
 	}
 }

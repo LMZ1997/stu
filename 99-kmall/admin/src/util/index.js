@@ -26,7 +26,7 @@ export const request=(options)=>{
 		axios(params)
 		.then((result)=>{
 			const data=result.data;
-			console.log('util-result::',result)
+			// console.log('util-result::',result)
 			if(data.code==10){//返回10是因为未登录(另外也是为了防止直接在浏览器端设置localStorage进入首页，)
 				removeUserName()
 				window.location.href='/login'
