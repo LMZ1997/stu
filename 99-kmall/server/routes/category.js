@@ -74,14 +74,17 @@ router.get('/',(req,res)=>{
 	let pid=req.query.pid;
 	let pageNum=req.query.page;
 	if(pageNum){
+		CateModel.getPageCategories(req,{pid:pid})
+		/*
 		let options={
 			page:pageNum,
 			model:CateModel,
 			query:{pid:pid},
-			sort:{_id:-1},
+			sort:{_id:1},
 			projection:'_id name order pid',
 		}
 		page(options)
+		*/
 		.then((data)=>{
 			res.json({
 				code:0,
@@ -116,6 +119,37 @@ router.get('/',(req,res)=>{
 		})
 	}
 	
+})
+router.post('/edit',(req,res)=>{
+	let body =req.body;
+	console.log(body)
+	CateModel.findOne({name:body.name,pid:body.pid})//交集
+	.then((category)=>{
+		console.log('category::',category)
+		if(category){
+			res.send({
+				code:1,
+				errMessage:'修改分类失败，分类已存在'
+			})
+		}
+		else{
+			CateModel.update({_id:body.id},{name:body.name,pid:body.pid},(err,raw)=>{
+				if(!err){
+					res.json({
+						code:0
+					})					
+				}else{
+			 		res.send({
+			 			code:1,
+						message:'修改分类失败,数据库操作失败'
+					})					
+				}
+			})
+		}
+	})
+	.catch(e=>{
+		console.log(e);
+	})
 })
 
 
@@ -176,66 +210,7 @@ router.get('/edit/:id',(req,res)=>{//请求添加分类页面和请求编辑分�
 	
 })
 
-router.post('/edit',(req,res)=>{
-	let body =req.body;
-	let id=body.id;
-	console.log(body)
-	/*
-	CateModel.findOne({name:body.name})//修改的分类名在数据库中已存在
-	.then((cate)=>{
-		if(cate && cate.order==body.order){
-			res.render('admin/error',{
-				userInfo:req.userInfo,
-				message:'分类名已存在，请重新编辑'
-			})
-		}
-		else{//这里要想用id来作为条件查找，就必须用input的type="hidden"来从页面传递id
-			CateModel.update({_id:id},{name:body.name,order:body.order},(err,rew)=>{
-				if(!err){
-					res.render('admin/success',{
-						userInfo:req.userInfo,
-						message:'编辑分类成功',
-						url:'/category'
-					})
-				}
-				else{
-					res.render('admin/error',{
-						userInfo:req.userInfo,
-						message:'编辑分类失败',
-					})
-				}
-			})
-		}
-	})
-	*/
-	CateModel.findById(id)
-	.then((category)=>{
-		if(category.name==body.name && category.order==body.order){
-			res.render('admin/error',{
-				userInfo:req.userInfo,
-				message:'请修改后提交'
-			})
-		}
-		else{//上边的条件至少有一个不等
-			CateModel.find({name:body.name,_id:{$ne:bdoy.id}})//交集
-			.then((newCategory)=>{
-				if(newCategory){
-					res.render('admin/error',{
-						userInfo:req.userInfo,
-						message:'分类名已存在，请重新编辑'
-					})
-				}
-				else{
-					res.render('admin/success',{
-						userInfo:req.userInfo,
-						message:'编辑分类成功',
-						url:'/category'
-					})
-				}
-			})
-		}
-	})
-})
+
 
 router.get('/delete/:id',(req,res)=>{
 	let id =req.params.id;

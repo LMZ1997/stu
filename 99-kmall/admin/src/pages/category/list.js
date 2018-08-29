@@ -2,55 +2,18 @@ import React,{ Component } from 'react'
 import Layout from 'common/layout'
 import {Link} from 'react-router-dom'
 
-import {Button,Breadcrumb,Table,Divider,InputNumber } from 'antd'
+import {Button,Breadcrumb,Table,Divider,InputNumber, Modal,Input, Select } from 'antd'
 import {connect} from 'react-redux'
 import { actionCreators } from './store'
 
-const columns = [
-	{
-	  title: 'ID',
-	  dataIndex: 'ID',
-	  key: 'ID',
-	},
-	{
-	  title: '分类名',
-	  dataIndex: 'name',
-	  key: 'name',
-	}, 
-	{
-	  title: '排序',
-	  dataIndex: 'order',
-	  key: 'order',
-	    render:(order)=>{						//必须写在columns里，不能写在data里
-	  	return <InputNumber defaultValue={order}  />
-	  }
-	},
-	{
-	  title: '操作',
-	  key: 'action',
-	  render: (text, record) => (//record是当前的一条数据记录!!!!!!!!!!!!很有用
-	    <span>
-	      <a href="javascript:;">更新分类名称</a>
-	      {
-	      	record.pid==0
-	      	?(
-	      		<span>
-	      			<Divider type="vertical" />
-	     			 <Link to={'/category/'+record.ID} >查看子分类</Link>
-	      		</span>
-	      		)
-	      	:null
-	      }
-	      
-	    </span>
-	  ),
-	}
-]
+
 class CategoryList extends Component{
 	constructor(props){
 		super(props)
 		this.state={
-			pid:this.props.match.params.pid||0
+			pid:this.props.match.params.pid||0,//获取由路由传递进来的pid
+			inputPidValue:'',
+			inputNameValue:''
 		}
 	}
 	componentDidMount(){
@@ -68,9 +31,56 @@ class CategoryList extends Component{
 			})
 		}
 	}
+	
 	render(){
+		const columns = [
+			{
+			  title: 'ID',
+			  dataIndex: 'ID',
+			  key: 'ID',
+			},
+			{
+			  title: '分类名',
+			  dataIndex: 'name',
+			  key: 'name',
+			}, 
+			{
+			  title: '排序',
+			  dataIndex: 'order',
+			  key: 'order',
+			    render:(order)=>{						//必须写在columns里，不能写在data里
+			  	return <InputNumber defaultValue={order}  />
+			  }
+			},
+			{
+			  title: '操作',
+			  key: 'action',
+			  render: (text, record) => (//record是当前的一条数据记录!!!!!!!!!!!!很有用
+			  
+			    <span>
+			      <a href="javascript:;"
+			      onClick={()=>{this.props.showModel(record.ID,record.pid,record.name)}}
+			      >
+			      	更新分类名称
+			      </a>
+			      {
+					// console.log('record:::',record)-->{key: "5..", ID: "5..", name: "一..", order: ., pid: ""}
+			      	record.pid==0
+			      	?(
+			      		<span>
+			      			<Divider type="vertical" />
+			     			 <Link to={'/category/'+record.ID} >查看子分类</Link>
+			      		</span>
+			      		)
+			      	:null
+			      }
+			      
+			    </span>
+			  ),
+			}
+		]
 		const pid =this.state.pid || 0;
-		const data=this.props.list.map((category)=>{//immutable对象上的map方法
+		const data=this.props.list.map((category)=>{
 			return {
 				key:category.get('_id'),
 				ID:category.get('_id'),
@@ -115,6 +125,38 @@ class CategoryList extends Component{
 						}
 					}
 					/>
+				<div>
+			        <Modal
+			          title="修改分类名称"
+			          visible={this.props.modal}
+			          onOk={
+			          	  ()=>{
+			          		this.props.updateCategoryOk(this.props.id,this.props.updatePid,this.props.updateName)
+				          }
+				      }
+			          onCancel={this.props.hideModal}
+			          Loading={this.props.confirmLoading}
+			        >
+			          	<div style={{ marginBottom: 16 }}>
+					      <Input 
+					      	addonBefore="pid" 
+					      	defaultValue="父级ID"  
+					      	value={this.props.updatePid}
+					      	onChange={this.props.setInputPidValue}
+					      />
+					    </div>
+					    <div style={{ marginBottom: 16 }}>
+					      <Input 
+					      	addonBefore="name" 
+					      	defaultValue="分类名" 
+					      	value={this.props.updateName} 
+					      	onChange={this.props.setInputNameValue}
+					      />
+					    </div>
+			          
+
+			        </Modal>
+			      </div>
 			</Layout>
 		)
 	}
@@ -125,7 +167,13 @@ const mapStateToProps=(state)=>{
 		current:state.get('category').get('current'),
 		pageSize:state.get('category').get('pageSize'),
 		total:state.get('category').get('total'),
-		list:state.get('category').get('list')
+		list:state.get('category').get('list'),
+		modal:state.get('category').get('modal'),
+		updateName:state.get('category').get('updateName'),
+		updatePid:state.get('category').get('updatePid'),
+		id:state.get('category').get('id'),
+		confirmLoading:state.get('category').get('confirmLoading'),
+
 	}
 }
 const mapDispatchToProps=(dispatch)=>{
@@ -133,6 +181,21 @@ const mapDispatchToProps=(dispatch)=>{
 		getPages:(pid,page)=>{
 			const action=actionCreators.getPagesAction(pid,page);
 			dispatch(action)
+		},
+		showModel:(id,pid,name)=>{
+			dispatch(actionCreators.showModalAction(id,pid,name))
+		},
+		hideModal:()=>{
+			dispatch(actionCreators.hideModalAction())
+		},
+		updateCategoryOk:(id,updatePid,updateName)=>{
+			dispatch(actionCreators.updateCategoryAction(id,updatePid,updateName))
+		},
+		setInputPidValue:(ev)=>{
+			dispatch(actionCreators.setInputPidValueAction(ev.target.value))
+		},
+		setInputNameValue:(ev)=>{
+			dispatch(actionCreators.setInputNameValueAction(ev.target.value))
 		}
 	}
 }
