@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-
+const page=require('../util/page.js');
 const roles=new mongoose.Schema({
 		name:{
 			type:String
@@ -13,13 +13,13 @@ const roles=new mongoose.Schema({
 		timestamps:true
 	});
 
-roles.statics.getPageCategories=function(req,query={}){//异步函数想要传递信息需要用promise或是回调函数
+roles.statics.getPageCategories=function(pageNum,query={}){//异步函数想要传递信息需要用promise或是回调函数
 	return new Promise((resolve,reject)=>{
 		let options={
-			page:req.query.page,
+			page:pageNum,//当前页
 			model:this,
 			query:query,
-			sort:{_id:1},
+			sort:{order:1},
 			projection:'_id name order pid',
 		}
 		page(options)

@@ -71,20 +71,10 @@ router.post('/',(req,res)=>{//post请求
 	})
 })
 router.get('/',(req,res)=>{
-	let pid=req.query.pid;
+	let pid =req.query.pid;
 	let pageNum=req.query.page;
 	if(pageNum){
-		CateModel.getPageCategories(req,{pid:pid})
-		/*
-		let options={
-			page:pageNum,
-			model:CateModel,
-			query:{pid:pid},
-			sort:{_id:1},
-			projection:'_id name order pid',
-		}
-		page(options)
-		*/
+		CateModel.getPageCategories(pageNum,{pid:pid})
 		.then((data)=>{
 			res.json({
 				code:0,
@@ -94,7 +84,6 @@ router.get('/',(req,res)=>{
 					total:data.total,
 					list:data.list
 				}
-				
 			})
 		})
 	}
@@ -118,14 +107,12 @@ router.get('/',(req,res)=>{
 			res.send(e);
 		})
 	}
-	
 })
-router.post('/edit',(req,res)=>{
+
+router.put('/edit',(req,res)=>{//自己认为put(post update)
 	let body =req.body;
-	console.log(body)
 	CateModel.findOne({name:body.name,pid:body.pid})//交集
 	.then((category)=>{
-		console.log('category::',category)
 		if(category){
 			res.send({
 				code:1,
@@ -135,8 +122,18 @@ router.post('/edit',(req,res)=>{
 		else{
 			CateModel.update({_id:body.id},{name:body.name,pid:body.pid},(err,raw)=>{
 				if(!err){
-					res.json({
-						code:0
+					CateModel.getPageCategories(body.page,{pid:body.pid})
+					.then((data)=>{
+						res.json({
+							code:0,
+							data:{
+								current:data.current,
+								pageSize:data.pageSize,
+								total:data.total,
+								list:data.list
+							}
+							
+						})
 					})					
 				}else{
 			 		res.send({
@@ -149,6 +146,30 @@ router.post('/edit',(req,res)=>{
 	})
 	.catch(e=>{
 		console.log(e);
+	})
+})
+router.put('/editOrder',(req,res)=>{
+	let body =req.body;
+	CateModel.update({_id:body.id},{order:body.newOrder},(err,raw)=>{
+			if(!err){
+				CateModel.getPageCategories(body.page,{pid:body.pid})
+				.then((data)=>{
+					res.json({
+						code:0,
+						data:{
+							current:data.current,
+							pageSize:data.pageSize,
+							total:data.total,
+							list:data.list
+						}
+					})
+				})					
+			}else{
+		 		res.send({
+		 			code:1,
+					message:'修改分类失败,数据库操作失败'
+				})					
+			}
 	})
 })
 

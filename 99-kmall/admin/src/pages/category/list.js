@@ -33,6 +33,7 @@ class CategoryList extends Component{
 	}
 	
 	render(){
+		const pid =this.state.pid || 0;
 		const columns = [
 			{
 			  title: 'ID',
@@ -48,8 +49,14 @@ class CategoryList extends Component{
 			  title: '排序',
 			  dataIndex: 'order',
 			  key: 'order',
-			    render:(order)=>{						//必须写在columns里，不能写在data里
-			  	return <InputNumber defaultValue={order}  />
+			    render:(order,record)=>{						//必须写在columns里，不能写在data里
+			  	return <InputNumber 
+			  				defaultValue={order}
+			  				onBlur={(ev)=>{
+			  					// console.log(ev.target.value)
+			  					this.props.handleOrder(pid,record.ID,ev.target.value)
+			  				}}  
+			  			/>
 			  }
 			},
 			{
@@ -79,7 +86,7 @@ class CategoryList extends Component{
 			  ),
 			}
 		]
-		const pid =this.state.pid || 0;
+		
 		const data=this.props.list.map((category)=>{
 			return {
 				key:category.get('_id'),
@@ -135,7 +142,9 @@ class CategoryList extends Component{
 				          }
 				      }
 			          onCancel={this.props.hideModal}
-			          Loading={this.props.confirmLoading}
+			          confirmLoading={this.props.confirmLoading}
+			          cancelText='取消'
+			          okText='确定'
 			        >
 			          	<div style={{ marginBottom: 16 }}>
 					      <Input 
@@ -196,6 +205,9 @@ const mapDispatchToProps=(dispatch)=>{
 		},
 		setInputNameValue:(ev)=>{
 			dispatch(actionCreators.setInputNameValueAction(ev.target.value))
+		},
+		handleOrder:(pid,id,newOrder)=>{
+			dispatch(actionCreators.updateInputOrderAction(pid,id,newOrder))
 		}
 	}
 }

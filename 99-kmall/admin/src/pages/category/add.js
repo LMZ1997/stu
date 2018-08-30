@@ -16,7 +16,7 @@ class NormalCategoryAdd extends Component{
 		this.handleSubmit=this.handleSubmit.bind(this)
    }
    componentDidMount(){
-   		this.props.getCategoties()
+   		this.props.getCategories()
    }
    handleSubmit(e){
 	    e.preventDefault();
@@ -116,8 +116,8 @@ const mapDispatchToProps=(dispatch)=>{
 			const action=actionCreators.addCategoryAction(values);
 			dispatch(action)
 		},
-		getCategoties:()=>{
-			dispatch(actionCreators.getCategoriesAction())
+		getCategories:()=>{
+			dispatch(actionCreators.getAddCategoriesAction())
 		}
 	}
 }
