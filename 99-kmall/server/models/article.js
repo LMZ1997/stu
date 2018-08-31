@@ -47,6 +47,6 @@ roles.statics.getPageArticles=function(req,query={}){//异步函数想要传递�
 	
 }
 
-const articleModel=mongoose.model('Article',roles);//Cate会数据库blog中生成cates集合
+const articleModel=mongoose.model('Article',roles)
 
 module.exports=articleModel;

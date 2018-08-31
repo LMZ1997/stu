@@ -7,23 +7,24 @@ import {connect} from 'react-redux'
 import { actionCreators } from './store'
 import CategorySelector from './category-selector.js'
 
-import uploadImage from 'common/upload-image'
+import UploadImage from 'common/upload-image'
+import RichEditor from 'common/rich-editor'
 
+import {UPLOAD_PRODUCT_IMAGE,UPLOAD_PRODUCT_DETAIL_IMAGE} from 'api'
 
 class NormalProductSave extends Component{
    constructor(props){
 		super(props)
 		this.handleSubmit=this.handleSubmit.bind(this)
    }
-   componentDidMount(){
-   		this.props.getCategories()
-   }
    handleSubmit(e){
 	    e.preventDefault();
 	    this.props.form.validateFields((err, values) => {
-	      if (!err) {
-	      	this.props.handleAdd(values);
-	      }
+	      // if (!err) {                    //用于校验规则判断  
+
+	      	// console.log(values)       //values中只包含antd原装插件的value,对于被改动的或自己封装的插件，获取不到value
+	      	this.props.handleAdd(err,values);
+	      // }
 	    });
 	}
 	render(){
@@ -88,7 +89,7 @@ class NormalProductSave extends Component{
 				          {...formItemLayout}
 				          label="商品价格"
 				        >
-				          {getFieldDecorator('description', {
+				          {getFieldDecorator('price', {
 				            rules: [{
 				              required: true, message: '请输入商品价格!',
 				            }],
@@ -102,7 +103,7 @@ class NormalProductSave extends Component{
 				          {...formItemLayout}
 				          label="商品库存"
 				        >
-				          {getFieldDecorator('description', {
+				          {getFieldDecorator('stock', {
 				            rules: [{
 				              required: true, message: '请输入商品库存!',
 				            }],
@@ -112,13 +113,17 @@ class NormalProductSave extends Component{
 				            />
 				          )}
 				        </FormItem>
-				        <FormItem
+				        <FormItem              //自行填写验证规则
 				          {...formItemLayout}
+				          required={true}
+				          validateStatus={this.props.categoryId_validateStatus}
+				          help={this.props.categoryId_help}
 				          label="所属分类"
 				        >
 				          <CategorySelector                      //注意传递写法 {  }
-				          		getCategoryId={(pid,id)=>{       //为了从子组件向父组件传递值
-				          			console.log(pid,id)
+				          		getCategoryId={(parentCategoryId,categoryId)=>{  
+				          			// console.log(parentCategoryId,categoryId)
+				          			this.props.handleCategoryId(parentCategoryId,categoryId)
 				          		}}
 				          />
 				        </FormItem>
@@ -126,23 +131,25 @@ class NormalProductSave extends Component{
 				          {...formItemLayout}
 				          label="商品图片"
 				        >
-				         <uploadImage 
-
-				         />
+				         <UploadImage                        //组件名首字母必须大写
+				         	max={3}						     //向组件传递参数max,接收用this.props.max
+				         	action={UPLOAD_PRODUCT_IMAGE}    //传递参数action,接收用{this.props.action}
+				        	getImageFilePath={(filePath)=>{
+				        		this.props.handleImages(filePath)
+				        	}}
+				         />    
 				        </FormItem>
 				        <FormItem
 				          {...formItemLayout}
 				          label="商品详情"
 				        >
-				          {getFieldDecorator('description', {
-				            rules: [{
-				              required: true, message: '请输入商品详情!',
-				            }],
-				          })(
-				            <Input 
-				            	placeholder='商品详情'
-				            />
-				          )}
+				          <RichEditor
+				          	url={UPLOAD_PRODUCT_DETAIL_IMAGE}
+				          	getRichEditorValue={(value)=>{
+				          		this.props.handleEditorValue(value)
+				          	}}
+				          />
+
 				        </FormItem>
 				        <FormItem {...tailFormItemLayout}>
 				          <Button 
@@ -164,18 +171,26 @@ class NormalProductSave extends Component{
 
 const mapStateToProps=(state)=>{
 	return{
-		isAddFetching:state.get('category').get('isAddFetching'),
-		categories:state.get('category').get('categories')
+		isAddFetching:state.get('product').get('isAddFetching'),
+		categories:state.get('product').get('categories'),
+		categoryId_validateStatus:state.get('product').get('categoryId_validateStatus'),
+		categoryId_help:state.get('product').get('categoryId_help')
 	}
 }
 const mapDispatchToProps=(dispatch)=>{
 	return {
 		handleAdd:(values)=>{
-			const action=actionCreators.addCategoryAction(values);
+			const action=actionCreators.addProductAction(values);
 			dispatch(action)
 		},
-		getCategories:()=>{
-			dispatch(actionCreators.getAddCategoriesAction())
+		handleCategoryId:(parentCategoryId,categoryId)=>{
+			dispatch(actionCreators.getSetCategoryId(parentCategoryId,categoryId))
+		},
+		handleImages:(filePath)=>{
+			dispatch(actionCreators.getSetImages(filePath))
+		},
+		handleEditorValue:(value)=>{
+			dispatch(actionCreators.getSetEditorValue(value))
 		}
 	}
 }

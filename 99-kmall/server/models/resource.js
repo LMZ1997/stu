@@ -10,6 +10,6 @@ const roles=new mongoose.Schema({
 	});
 
 	
-const resourceModel=mongoose.model('Resource',roles);//User会在数据库blog中生成users集合
+const resourceModel=mongoose.model('Resource',roles);
 
 module.exports=resourceModel;

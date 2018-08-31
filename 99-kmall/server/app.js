@@ -16,6 +16,17 @@ db.on('open',()=>{
 
 const app=express();
 
+
+
+//跨域设置(写在所有请求前边)
+app.use((req,res,next)=>{
+	res.append("Access-Control-Allow-Origin","http://localhost:8080");//8080!!!
+	res.append("Access-Control-Allow-Credentials",true);
+	res.append("Access-Control-Allow-Methods","GET, POST, PUT,DELETE");
+	res.append("Access-Control-Allow-Headers", "Content-Type, X-Requested-With,X-File-Name"); 
+	next();
+})
+
 app.use(//每一次请求时随机生成一个验证码,此验证码会在登录成功时与登陆用户绑定，并不是根据输入的用户名或密码生成的cookie
 	session({
 		 //设置cookie名称
@@ -33,15 +44,6 @@ app.use(//每一次请求时随机生成一个验证码,此验证码会在登录
 	})
 )
 
-//跨域设置(写在所有请求前边)
-app.use((req,res,next)=>{
-	res.append("Access-Control-Allow-Origin","http://localhost:8080");//8080!!!
-	res.append("Access-Control-Allow-Credentials",true);
-	res.append("Access-Control-Allow-Methods","GET, POST, PUT,DELETE");
-	res.append("Access-Control-Allow-Headers", "Content-Type, X-Requested-With"); 
-	next();
-})
-
 app.use((req,res,next)=>{//解决同一请求两次出现的问题
 	if(req.method=='OPTIONS'){//如果请求地址为options，则不往下执行
 		res.send('OPTION-OK')
@@ -50,10 +52,14 @@ app.use((req,res,next)=>{//解决同一请求两次出现的问题
 		next();
 	}
 })
+
 app.use((req,res,next)=>{
 	req.userInfo=req.session.userInfo||{};
 	next();
 })
+
+//配置静态资源
+app.use(express.static('public'));    //请求上传过的图片属于请求静态资源
 
 //添加处理POST请求的中间件
 app.use(bodyParser.urlencoded({extended:false}));
@@ -64,10 +70,11 @@ app.use(bodyParser.json());
 //处理路由
 app.use('/',require('./routes/index.js'))
 app.use('/admin',require('./routes/admin.js'))
-
-
 app.use('/user',require('./routes/user.js'))
 app.use('/category',require('./routes/category.js'))
+app.use('/product',require('./routes/product.js'))
+
+
 app.use('/article',require('./routes/article.js'))
 app.use('/admin/uploadImages',require('./routes/uploadImages.js'))//博文里上传图片
 app.use('/comment',require('./routes/comment.js'));//文章评论

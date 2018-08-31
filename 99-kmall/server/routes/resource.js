@@ -6,7 +6,7 @@ const path=require('path');
 const fs=require('fs');
 
 const multer = require('multer');
-// const upload = multer({ dest: 'public/resource/' });//上传图片  还必须在前端页面加上enctype="multipart/form-data"
+// const upload = multer({ dest: 'public/resource/' });//上传图片  还必须在前端页面Form加上enctype="multipart/form-data"
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/resource/')

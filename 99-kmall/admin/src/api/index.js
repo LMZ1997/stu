@@ -10,3 +10,9 @@ export const SET_CATEGORY = SERVER +'/category'//这个时Post请求
 export const GET_CATEGORY = SERVER +'/category'//这个是get请求
 export const UPDATE_CATEGORY = SERVER +'/category/edit'
 export const UPDATE_CATEGORY_ORDER =SERVER +'/category/editOrder'
+
+export const UPLOAD_PRODUCT_IMAGE =SERVER +'/product/uploadImage'
+export const UPLOAD_PRODUCT_DETAIL_IMAGE =SERVER +'/product/uploadDetailImage'
+
+export const SET_PRODUCT = SERVER +'/product'
+export const GET_PRODUCT = SERVER +'/product'

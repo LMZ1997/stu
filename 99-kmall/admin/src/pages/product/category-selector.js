@@ -80,7 +80,7 @@ class CategorySelector extends Component{
 			this.props.getCategoryId(0,levelOneCategoryId)
 		}
 	}
-	render(){
+	render(){                 //简化调用this.state中的值
 		 const { levelOneCategory,levelOneCategoryId,levelTwoCategory,levelTwoCategoryId } = this.state
 		 const levelOneOptions = levelOneCategory.map(category => <Option key={category._id} value={category._id}>{category.name}</Option>);
    		 const levelTwoOptions = levelTwoCategory.map(category => <Option key={category._id} value={category._id}>{category.name}</Option>);

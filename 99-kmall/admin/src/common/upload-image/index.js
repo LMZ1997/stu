@@ -2,18 +2,13 @@ import React,{Component} from 'react';
 import { Upload, Icon, Modal } from 'antd';
 
 
-class uploadImage extends Component {
+class UploadImage extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
 		    previewVisible: false,
 		    previewImage: '',
-		    fileList: [{
-		      uid: '-1',
-		      name: 'xxx.png',
-		      status: 'done',
-		      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-		    }],
+		    fileList: [],
 		 };
 		this.handleCancel=this.handleCancel.bind(this)
 		this.handlePreview=this.handlePreview.bind(this)
@@ -34,8 +29,13 @@ class uploadImage extends Component {
     });
   }
 
-  handleChange({ fileList }){
-  	this.setState({ fileList })
+  handleChange({ fileList }){    //由后端返回的图片的服务器地址存储在fileList中
+  	// console.log(fileList)
+    this.setState({ fileList },()=>{   //需要将fileList信息从子组件传递给父组件
+        this.props.getImageFilePath(fileList.map(file=>{
+          return file.response
+        }).join(','))        //join->由数组转换为字符串，多个字符串以','隔开
+    })    
   }
 
   render() {
@@ -49,13 +49,14 @@ class uploadImage extends Component {
     return (
       <div className="clearfix">
         <Upload
-          action="/"
+          action={this.props.action}
           listType="picture-card"
           fileList={fileList}
           onPreview={this.handlePreview}
           onChange={this.handleChange}
+          withCredentials={true}
         >
-          {fileList.length >= 3 ? null : uploadButton}
+          {fileList.length >= this.props.max ? null : uploadButton}
         </Upload>
         <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
           <img alt="example" style={{ width: '100%' }} src={previewImage} />
@@ -65,4 +66,4 @@ class uploadImage extends Component {
   }
 }
 
-export default uploadImage;
+export default UploadImage;
