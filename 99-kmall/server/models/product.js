@@ -1,6 +1,9 @@
 const mongoose=require('mongoose');
 const page=require('../util/page.js');
 const roles=new mongoose.Schema({
+		name:{
+			type:String
+		},
 		description:{//所属分类
 			type:String
 		},
@@ -10,8 +13,17 @@ const roles=new mongoose.Schema({
 		stock:{
 			type:Number
 		},
+		status:{
+			type:Number,
+			default:0             //0——>在售状态，1——>下架
+		},
+		order:{
+			type:Number,
+			default:0
+		},
 		category:{
 			type:mongoose.Schema.Types.ObjectId,
+			ref:'Cate'
 		},
 		imagePath:{
 			type:String
@@ -30,9 +42,9 @@ roles.statics.getPageProducts=function(pageNum,query={}){//异步函数想要传
 			page:pageNum,
 			model:this,
 			query:query,
-			sort:{_id:-1},
-			projection:'-__v',
-			populate:{path:'category',select:'name'}
+			sort:{order:-1},
+			projection:'name price _id status order',
+			populate:{}
 		}
 		page(options)
 		.then((data)=>{

@@ -10,14 +10,25 @@ class CategorySelector extends Component{
 		super(props);
 		this.state={
 			levelOneCategory:[],
-			levelOneCategoryId:'',
+			levelOneCategoryId:this.props.ParentCategoryId,
 			levelTwoCategory:[],
-			levelTwoCategoryId:'',
+			levelTwoCategoryId:this.props.categoryId
 		}
 		this.handleLevelOneCategory=this.handleLevelOneCategory.bind(this)
 		this.handleLevelTwoCategory=this.handleLevelTwoCategory.bind(this)
 		this.handleLevelOneChange=this.handleLevelOneChange.bind(this)
 		this.handleLevelTwoChange=this.handleLevelTwoChange.bind(this)
+	}
+	getDerivedStateFromProps(){
+		if(this.state.ParentCategoryId==0){
+			this.setState({
+				levelOneCategoryId:this.props.categoryId,
+				levelTwoCategoryId:''
+			})
+		}
+		else{
+			
+		}
 	}
 	componentDidMount(){
 		this.handleLevelOneCategory()

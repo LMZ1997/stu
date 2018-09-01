@@ -1,5 +1,6 @@
 const Router=require('express').Router;
 const router=Router();
+const productModel=require('../models/product.js')
 
 const path=require('path');
 const fs=require('fs');
@@ -17,7 +18,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage })
 
-const productModel=require('../models/product.js')
+
 
 
 
@@ -50,36 +51,35 @@ router.post('/uploadDetailImage', upload.single('upload_'),(req,res)=>{//填入u
 })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 router.post('/',(req,res)=>{
 	let body=req.body;
 	new productModel({
+		name:body.name,
 		description:body.description,
 		price:body.price,
 		stock:body.stock,
-		parentCategoryId:body.parentCategoryId,
+		// parentCategoryId:body.parentCategoryId,
+		category:body.category,
 		imagePath:body.imagePath,
-		detailValue:body.detailValue
+		detail:body.detailValue
 	})
 	.save()
-	.then((newCate)=>{
-		if(newCate){
-			res.json({
-				code:0,
-				data:data
+	.then((newProduct)=>{
+		if(newProduct){
+			productModel.getPageProducts(1)
+			.then((data)=>{
+				res.json({
+					code:0,
+					data:{
+						current:data.current,
+						pageSize:data.pageSize,
+						total:data.total,
+						list:data.list
+					}
+				})
+			})
+			.catch(e=>{
+				console.log('product(post)：：：',e)
 			})
 		}
 		else{
@@ -92,7 +92,92 @@ router.post('/',(req,res)=>{
 	.catch((e)=>{
 		res.send(e);
 	})
-		
+})
+router.get('/',(req,res)=>{
+	let pageNum=req.query.page||1;
+	productModel.getPageProducts(pageNum)
+	.then((data)=>{
+		res.json({
+			code:0,
+			data:{
+				current:data.current,
+				pageSize:data.pageSize,
+				total:data.total,
+				list:data.list
+			}
+		})
+	})
+	.catch((e)=>{
+		res.send(e);
+	})
 	
-})	
+})
+router.put('/editOrder',(req,res)=>{
+	let body =req.body;
+	productModel.update({_id:body.id},{order:body.newOrder},(err,raw)=>{
+			if(!err){
+				productModel.getPageProducts(body.page)
+				.then((data)=>{
+					res.json({
+						code:0,
+						data:{
+							current:data.current,
+							pageSize:data.pageSize,
+							total:data.total,
+							list:data.list
+						}
+					})
+				})					
+			}else{
+		 		res.send({
+		 			code:1,
+					message:'修改分类失败,数据库操作失败'
+				})					
+			}
+	})
+})
+router.put('/editStatus',(req,res)=>{
+	let body =req.body;
+	productModel.update({_id:body.id},{status:body.status},(err,raw)=>{
+			if(!err){
+				res.send({
+					code:0,
+				})
+									
+			}else{
+				productModel.getPageProducts(body.page)
+				.then((data)=>{
+					res.json({
+						code:1,
+						message:'修改分类失败,数据库操作失败',
+						data:{
+							current:data.current,
+							pageSize:data.pageSize,
+							total:data.total,
+							list:data.list
+						}
+					})
+				})				
+			}
+	})
+})
+router.get('/detail',(req,res)=>{
+	let id=req.query.id;
+	productModel
+	.findById(id,'-__v -status -order -createdAt -updatedAt')
+	.populate({path:'category',select:'_id pid'})
+	.then((data)=>{
+		res.json({
+			code:0,
+			data:data
+		})
+	})
+	.catch((e)=>{
+		res.send(e);
+	})
+	
+})
+
+
+
 module.exports=router;

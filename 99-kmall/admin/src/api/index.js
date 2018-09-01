@@ -16,3 +16,6 @@ export const UPLOAD_PRODUCT_DETAIL_IMAGE =SERVER +'/product/uploadDetailImage'
 
 export const SET_PRODUCT = SERVER +'/product'
 export const GET_PRODUCT = SERVER +'/product'
+export const UPDATE_PRODUCT_ORDER =SERVER +'/product/editOrder'
+export const UPDATE_PRODUCT_STATUS =SERVER +'/product/editStatus'
+export const PRODUCT_DETAIL =SERVER +'/product/detail'
