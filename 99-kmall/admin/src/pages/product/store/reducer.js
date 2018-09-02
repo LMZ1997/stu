@@ -75,7 +75,7 @@ export default (state=defaultState,action)=>{
 			editPrice:action.payload.price,
 			editStock:action.payload.stock,
 			parentCategoryId:action.payload.category.pid,
-			categoryId:action.payload.category.id,
+			categoryId:action.payload.category._id,
 			imagePath:action.payload.imagePath,
 			detailValue:action.payload.detail,
 

@@ -21,7 +21,10 @@ class NormalProductSave extends Component{
 		this.handleSubmit=this.handleSubmit.bind(this)
    }
    componentDidMount(){
-   	this.props.handleEditProduct(this.props.match.params.productId)
+   		if(this.props.match.params.productId){
+   			this.props.handleEditProduct(this.props.match.params.productId)
+   		}
+   		
    }
    handleSubmit(e){
 	    e.preventDefault();
@@ -135,8 +138,8 @@ class NormalProductSave extends Component{
 			          			// console.log(parentCategoryId,categoryId)
 			          			this.props.handleCategoryId(parentCategoryId,categoryId)
 			          		}}
-			          		parentCategoryId={this.props.parentCategoryId}
-			          		categoryId={this.props.categoryId}
+			          		parentCategoryId={this.props.parentCategoryId}//两个父Id不同，一个是添加商品时传回来用于保存数据的，另一个是编辑商品时传过去用于显示所属分类的
+			          		categoryId={this.props.categoryId}   //两个子Id也不同
 			          />
 			        </FormItem>
 			        <FormItem
@@ -149,6 +152,7 @@ class NormalProductSave extends Component{
 			        	getImageFilePath={(filePath)=>{
 			        		this.props.handleImages(filePath)
 			        	}}
+			        	imagePath={this.props.imagePath}
 			         />    
 			        </FormItem>
 			        <FormItem

@@ -15,7 +15,15 @@ class UploadImage extends Component {
 		this.handleChange=this.handleChange.bind(this)
 	}
 
+  static getDerivedStateFromProps(props,state){
+      const isImagePathChanged = props.imagePath!==state.previewImage;
 
+      if(isImagePathChanged){
+        return{
+          previewImage:props.imagePath
+        }
+      }
+  }
   handleCancel(){
   	this.setState({ 
   		previewVisible: false 

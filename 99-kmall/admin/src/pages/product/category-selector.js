@@ -10,28 +10,59 @@ class CategorySelector extends Component{
 		super(props);
 		this.state={
 			levelOneCategory:[],
-			levelOneCategoryId:this.props.ParentCategoryId,
+			levelOneCategoryId:'',
 			levelTwoCategory:[],
-			levelTwoCategoryId:this.props.categoryId
+			levelTwoCategoryId:'',
+			needLoadLevelTwo:false, 
+			isChanged:false                    //作用于编辑商品时手动改变所属分类可以正常显示
 		}
 		this.handleLevelOneCategory=this.handleLevelOneCategory.bind(this)
 		this.handleLevelTwoCategory=this.handleLevelTwoCategory.bind(this)
 		this.handleLevelOneChange=this.handleLevelOneChange.bind(this)
 		this.handleLevelTwoChange=this.handleLevelTwoChange.bind(this)
 	}
-	getDerivedStateFromProps(){
-		if(this.state.ParentCategoryId==0){
-			this.setState({
-				levelOneCategoryId:this.props.categoryId,
-				levelTwoCategoryId:''
-			})
+	static getDerivedStateFromProps(props, state){//return的对象会与this.state合并，返回nullz则不会改变state
+		console.log('props:::::',props)
+		console.log('state:::::',state)
+		/*  判断props是否发生变化，变量是布尔类型   */
+		const levelOneCategoryIdChanged=props.parentCategoryId!==state.levelOneCategoryId;
+		const levelTwoCategoryIdChanged=props.categoryId!==state.levelTwoCategoryId;
+		
+
+		//分类Id没有变化 则不更新state
+		if(!levelOneCategoryIdChanged && !levelTwoCategoryIdChanged){
+			return null
 		}
-		else{
-			
+		if(state.isChanged){//props里的值是固定的，由前端传进来，所以下边代码只能执行一次，否则改变不了所属分类
+			return null;
 		}
+		if(props.parentCategoryId==0){  //返回的值就会更新state中对应的值，input框内value=state中的值
+			return{           
+				levelOneCategoryId:props.categoryId,
+				levelTwoCategoryId:'',
+				isChanged:true      //改为true后，会被拦截，下次不会在执行了，
+			}
+		}else{
+			return{
+				levelOneCategoryId:props.parentCategoryId,
+				levelTwoCategoryId:props.categoryId,
+				needLoadLevelTwo:true,
+				isChanged:true          //改为true后，会被拦截，下次不会在执行了
+			}
+		}
+
 	}
 	componentDidMount(){
 		this.handleLevelOneCategory()
+	}
+	componentDidUpdate(){
+		if(this.state.needLoadLevelTwo){
+			this.handleLevelTwoCategory();
+			this.setState({                  //只需要执行一次,props再怎么发生变化也不需要执行了，所以执行后将值变为false
+				needLoadLevelTwo:false
+			})
+		}
+		
 	}
 	handleLevelOneCategory(){//初始化页面获取分类
 		request({
@@ -99,6 +130,8 @@ class CategorySelector extends Component{
 			<div>
 		        <Select 
 		        style={{ width: 300,marginRight:10 }} 
+		        defaultValue={levelOneCategoryId}
+		        value={levelOneCategoryId}
 		        onChange={this.handleLevelOneChange}
 		        >
 		          {levelOneOptions}
@@ -106,8 +139,8 @@ class CategorySelector extends Component{
 		        {		//如果二级分类有数据则显示select框，否则不显示
 		        	levelTwoCategory.length
 		        	? <Select 
-				        defaultValue={levelTwoCategoryId}//切换一级菜单时，将levelTwoCategoryId置空，可以使此处原来的值消失
-				        value={levelTwoCategoryId}  //当选择二级菜单时，可以使此处显示对应分类
+				        defaultValue={levelTwoCategoryId}//切换一级菜单时，触发change函数，将levelTwoCategoryId置空，可以使此处原来的值消失
+				        value={levelTwoCategoryId}  //当选择二级菜单时，触发change函数，可以使此处显示对应分类
 				        style={{ width: 300 }} 
 				        onChange={this.handleLevelTwoChange}
 				        >
