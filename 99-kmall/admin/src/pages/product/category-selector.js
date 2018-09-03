@@ -135,9 +135,10 @@ class CategorySelector extends Component{
 			<div>
 		        <Select 
 		        style={{ width: 300,marginRight:10 }} 
-		        // defaultValue={levelOneCategoryId}
+		        defaultValue={levelOneCategoryId}
 		        value={levelOneCategoryId}
-		        // onChange={this.handleLevelOneChange}
+		        onChange={this.handleLevelOneChange}
+		        disabled={this.props.disabled}
 		        >
 		          {levelOneOptions}
 		        </Select>
@@ -148,6 +149,7 @@ class CategorySelector extends Component{
 				        value={levelTwoCategoryId}  //当选择二级菜单时，触发change函数，可以使此处显示对应分类
 				        style={{ width: 300 }} 
 				        onChange={this.handleLevelTwoChange}
+				       	disabled={this.props.disabled}
 				        >
 				          {levelTwoOptions}
 				       </Select>

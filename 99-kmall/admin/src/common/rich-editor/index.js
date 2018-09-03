@@ -48,11 +48,14 @@ class RichEditor extends Component{
 		  }
 		});
 		this.editor.on('valuechanged',()=>{
-			this.props.getRichEditorValue(this.editor.getValue())
+			this.setState({                    //change发生，会改变props,
+				isLoaded:true
+			},()=>{
+				this.props.getRichEditorValue(this.editor.getValue())
+			})
 		})
-		console.log('re did mount')
 	}
-	componentDidUpdate(){
+	componentDidUpdate(){   //新建商品时写富文本剪辑器不应该走进这个代码，所以在change事件要加一个setState函数，改变isLoaded条件,具体看change事件
 		//为什么写在这个生命周期函数里边
 		/*
 			父组件执行constructor后，紧接着子组件会执行constructor和DidMount,

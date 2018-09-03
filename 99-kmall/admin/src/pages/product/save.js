@@ -179,7 +179,7 @@ class NormalProductSave extends Component{
 			          	getRichEditorValue={(value)=>{
 			          		this.props.handleEditorValue(value)
 			          	}}
-			          	detail={this.props.detailValue}
+			          	detail={this.props.detailValue}//新建商品打卡页面时，不会有detail，只有触发了change事件才有
 			          />
 
 			        </FormItem>

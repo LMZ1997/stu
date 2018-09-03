@@ -75,75 +75,62 @@ class NormalProductDetail extends Component{
 			          {...formItemLayout}
 			          label="商品名称"
 			        >
-			          {getFieldDecorator('name', {
-			            rules: [{
-			              required: true, message: '请输入商品名称!',
-			            }],
-			            initialValue:this.props.name,
-			          })(
 			            <Input 
 			            	placeholder='商品名称'
 			            	disabled={true}
+			            	value={this.props.name}
 			            />
-			          )}
 			        </FormItem>
 			        <FormItem
 			          {...formItemLayout}
 			          label="商品描述"
 			        >
-			          {getFieldDecorator('description', {
-			            rules: [{
-			              required: true, message: '请输入商品描述!',
-			            }],
-			            initialValue:this.props.description,
-			          })(
+			          
 			            <Input 
 			            	placeholder='商品描述'
 			            	disabled={true}
+			            	value={this.props.description}
 			            />
-			          )}
+			         
 			        </FormItem>
 			        <FormItem
 			          {...formItemLayout}
 			          label="商品价格"
 			        >
-			          {getFieldDecorator('price', {
-			            rules: [{
-			              required: true, message: '请输入商品价格!',
-			            }],
-			            initialValue:this.props.price,
-			          })(
+			          
 			            <InputNumber 
+			           		value={this.props.price}
 			            	formatter={value => `${value}元`}
 			            	parser={value => value.replace('元', '')}
 			            	disabled={true}
+			            	
 			            />
-			          )}
+			         
 			        </FormItem>
 			        <FormItem
 			          {...formItemLayout}
 			          label="商品库存"
 			        >
-			          {getFieldDecorator('stock', {
-			            rules: [{
-			              required: true, message: '请输入商品库存!',
-			            }],
-			            initialValue:this.props.stock,
-			          })(
+			          
 			            <InputNumber 
 			            	formatter={value => `${value}件`}
 			            	parser={value => value.replace('件', '')}
 			            	disabled={true}
+			            	value={this.props.stock}
 			            />
-			          )}
+			         
 			        </FormItem>
 			        <FormItem              //自行填写验证规则
 			          {...formItemLayout}
-			          required={true}
 			          validateStatus={this.props.categoryId_validateStatus}
 			          help={this.props.categoryId_help}
 			          label="所属分类"
 			        >
+				        <CategorySelector                      //注意传递写法 {  }
+			          		parentCategoryId={this.props.parentCategoryId}//两个父Id不同，一个是添加商品时传回来用于保存数据的，另一个是编辑商品时传过去用于显示所属分类的
+			          		categoryId={this.props.categoryId}   //两个子Id也不同
+				         	disabled={true}//为什么true要写在这里传进去呢,因为只有查看detail页面时，需要将所属分类设置disabled,其他的页面引用此插件时都不能设置
+				          />
 			        </FormItem>
 			        <FormItem
 			          {...formItemLayout}
