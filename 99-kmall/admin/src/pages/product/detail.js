@@ -11,38 +11,31 @@ import CategorySelector from './category-selector.js'
 
 import UploadImage from 'common/upload-image'
 import RichEditor from 'common/rich-editor'
-
+import './detail.css'
 import {UPLOAD_PRODUCT_IMAGE,UPLOAD_PRODUCT_DETAIL_IMAGE} from 'api'
 
 
-class NormalProductSave extends Component{
+class NormalProductDetail extends Component{
    constructor(props){
 		super(props)
 		this.handleSubmit=this.handleSubmit.bind(this)
-		console.log('save cons...')
    }
    componentDidMount(){
    		if(this.props.match.params.productId){
-   			this.props.handleEditProduct(this.props.match.params.productId)
+   			this.props.handleProductDetail(this.props.match.params.productId)
    		}
-   		console.log('save did...')
-   		
    }
    handleSubmit(e){
 	    e.preventDefault();
 	    this.props.form.validateFields((err, values) => {
-	      // if (!err) {                    //用于校验规则判断  
-
-	      	// console.log(values)       //values中只包含antd原装插件的value,对于被改动的或自己封装的插件，获取不到value
 	      	if(this.props.match.params.productId){
 	      		values.id=this.props.match.params.productId
 	      	}
 	      	this.props.handleSave(err,values);
-	      // }
 	    });
    }
 	render(){
-		const { getFieldDecorator } = this.props.form;//获取表单values的时候用到
+		const { getFieldDecorator } = this.props.form;
 		const formItemLayout = {
 	      labelCol: {
 	        xs: { span: 24 },
@@ -66,14 +59,13 @@ class NormalProductSave extends Component{
 	      },
 	    };
 
-
 		let fileList=[];
-		if(this.props.imagePath){//写条件因为，imagepath就算没有值时也可以用split分割出一个数组，只有一个值，值为空字符串'',会影响数据
-			fileList=this.props.imagePath.split(',').map((img,index)=>({
-				uid:index,
-				status: 'done',
-				url:img
-			}))
+		if(this.props.imagePath){
+			fileList=this.props.imagePath.split(',').map((img,index)=>(
+				<li>
+					<img src={img} key={index} />
+				</li>
+			))
 		}
 		return(
 			<Layout>
@@ -91,6 +83,7 @@ class NormalProductSave extends Component{
 			          })(
 			            <Input 
 			            	placeholder='商品名称'
+			            	disabled={true}
 			            />
 			          )}
 			        </FormItem>
@@ -106,6 +99,7 @@ class NormalProductSave extends Component{
 			          })(
 			            <Input 
 			            	placeholder='商品描述'
+			            	disabled={true}
 			            />
 			          )}
 			        </FormItem>
@@ -122,6 +116,7 @@ class NormalProductSave extends Component{
 			            <InputNumber 
 			            	formatter={value => `${value}元`}
 			            	parser={value => value.replace('元', '')}
+			            	disabled={true}
 			            />
 			          )}
 			        </FormItem>
@@ -138,6 +133,7 @@ class NormalProductSave extends Component{
 			            <InputNumber 
 			            	formatter={value => `${value}件`}
 			            	parser={value => value.replace('件', '')}
+			            	disabled={true}
 			            />
 			          )}
 			        </FormItem>
@@ -148,49 +144,20 @@ class NormalProductSave extends Component{
 			          help={this.props.categoryId_help}
 			          label="所属分类"
 			        >
-			          <CategorySelector                      //注意传递写法 {  }
-			          		getCategoryId={(parentCategoryId,categoryId)=>{  
-			          			// console.log(parentCategoryId,categoryId)
-			          			this.props.handleCategoryId(parentCategoryId,categoryId)
-			          		}}
-			          		parentCategoryId={this.props.parentCategoryId}//两个父Id不同，一个是添加商品时传回来用于保存数据的，另一个是编辑商品时传过去用于显示所属分类的
-			          		categoryId={this.props.categoryId}   //两个子Id也不同
-			          />
 			        </FormItem>
 			        <FormItem
 			          {...formItemLayout}
 			          label="商品图片"
-			        >
-			         <UploadImage                        //组件名首字母必须大写
-			         	max={3}						     //向组件传递参数max,接收用this.props.max
-			         	action={UPLOAD_PRODUCT_IMAGE}    //传递参数action,接收用{this.props.action}
-			        	getImageFilePath={(filePath)=>{
-			        		this.props.handleImages(filePath)
-			        	}}
-			        	fileList={fileList}
-			         />    
+			        >  
+			       		<ul className='img-box'>
+			        		{fileList}
+			        	</ul>
 			        </FormItem>
 			        <FormItem
 			          {...formItemLayout}
-			          label="商品详情"
+			          label="商品详情"       //下边这个很叼
 			        >
-			          <RichEditor
-			          	url={UPLOAD_PRODUCT_DETAIL_IMAGE}
-			          	getRichEditorValue={(value)=>{
-			          		this.props.handleEditorValue(value)
-			          	}}
-			          	detail={this.props.detailValue}
-			          />
-
-			        </FormItem>
-			        <FormItem {...tailFormItemLayout}>
-			          <Button 
-			          type="primary"
-			          onClick={this.handleSubmit}
-			          loading={this.props.isAddFetching}
-			          >
-			          	提交
-			          </Button>
+			        <div dangerouslySetInnerHTML={{__html:this.props.detailValue}}></div>
 			        </FormItem>
 				</Form>
 			  </div>
@@ -218,23 +185,10 @@ const mapStateToProps=(state)=>{
 
 const mapDispatchToProps=(dispatch)=>{
 	return {
-		handleSave:(err,values)=>{
-			const action=actionCreators.saveProductAction(err,values);
-			dispatch(action)
-		},
-		handleCategoryId:(parentCategoryId,categoryId)=>{
-			dispatch(actionCreators.getSetCategoryId(parentCategoryId,categoryId))
-		},
-		handleImages:(filePath)=>{
-			dispatch(actionCreators.getSetImages(filePath))
-		},
-		handleEditorValue:(value)=>{
-			dispatch(actionCreators.getSetEditorValue(value))
-		},
-		handleEditProduct:(productId)=>{
+		handleProductDetail:(productId)=>{
 			dispatch(actionCreators.getProductDetail(productId))
 		}
 	}
 }
-const ProductSave= Form.create()(NormalProductSave)
-export default connect(mapStateToProps,mapDispatchToProps)(ProductSave)
+const ProductDetail= Form.create()(NormalProductDetail)
+export default connect(mapStateToProps,mapDispatchToProps)(ProductDetail)

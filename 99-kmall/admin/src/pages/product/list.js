@@ -6,6 +6,7 @@ import {Button,Breadcrumb,Table,Divider,InputNumber,Input, Select,Switch } from 
 import {connect} from 'react-redux'
 import { actionCreators } from './store'
 
+const Search = Input.Search;
 
 class ProductList extends Component{
 	constructor(props){
@@ -26,6 +27,18 @@ class ProductList extends Component{
 			  title: '商品名称',
 			  dataIndex: 'name',
 			  key: 'name',
+			  render:(name)=>{
+			  	if(this.props.keyword){
+			  		let reg=new RegExp("("+this.props.keyword+")",'ig');
+			  		console.log(reg)
+			  		let html=name.replace(reg,'<b style="background:yellow">$1</b>')
+			  		console.log(html)
+			  		return <span dangerouslySetInnerHTML={{__html:html}}></span>
+			  	}
+			  	else{
+			  		return name
+			  	}
+			  }
 			}, 
 			{
 			  title: '商品价格',
@@ -55,7 +68,7 @@ class ProductList extends Component{
 			  			<Switch 
 						  checkedChildren="在售" 
 						  unCheckedChildren="下架" 
-						  defaultChecked={record.status==0?true:false}
+						  defaultChecked={record.status=='0'?true:false}//一般测验数字都用字符串类型，两等号只检验值大小，三等号还检验类型
 						  onChange={(checked)=>{
 						  	this.props.handleStatus(record.ID,checked?0:1)
 						  }}
@@ -92,12 +105,22 @@ class ProductList extends Component{
 				status:product.get('status')
 			}
 		}).toJS()
+
 		return(
 			<Layout>
 				<Breadcrumb>
 			    	<Breadcrumb.Item><i>商品管理</i></Breadcrumb.Item>
 			    	<Breadcrumb.Item><i>商品列表</i></Breadcrumb.Item>
 			 	</Breadcrumb>
+			 	<Search
+			      placeholder="请输入商品名称关键字"
+			      style={{ width: 300 }}
+			      enterButton
+			      onSearch={value => 
+			      	this.props.handleSearch(value)
+			      }
+			    />
+
 				<div style={{ marginTop:'20px' }} className='clearfix'>
 					<Link to='/product/save' style={{ float:'right' }}>
 						<Button type="primary">新增商品</Button>
@@ -116,7 +139,13 @@ class ProductList extends Component{
 					}
 					onChange={
 						(pagination)=>{
-							this.props.getPages(pagination.current);
+							if(this.props.keyword){
+								this.props.handleSearch(this.props.keyword,pagination.current)
+							}
+							else{
+								this.props.getPages(pagination.current);
+							}
+							
 						}
 					}
 					loading={
@@ -139,7 +168,7 @@ const mapStateToProps=(state)=>{
 		total:state.get('product').get('total'),
 		list:state.get('product').get('list'),
 		id:state.get('product').get('id'),
-
+		keyword:state.get('product').get('keyword')//后来添加，为了区分是所有商品分页还是搜索出来的商品分页
 	}
 }
 const mapDispatchToProps=(dispatch)=>{
@@ -153,6 +182,9 @@ const mapDispatchToProps=(dispatch)=>{
 		},
 		handleStatus:(id,newStatus)=>{
 			dispatch(actionCreators.updateStatusAction(id,newStatus))
+		},
+		handleSearch:(keyword,page)=>{
+			dispatch(actionCreators.searchProductAction(keyword,page))
 		}
 	}
 }

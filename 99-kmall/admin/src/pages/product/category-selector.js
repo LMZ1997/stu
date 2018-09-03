@@ -22,34 +22,39 @@ class CategorySelector extends Component{
 		this.handleLevelTwoChange=this.handleLevelTwoChange.bind(this)
 	}
 	static getDerivedStateFromProps(props, state){//return的对象会与this.state合并，返回nullz则不会改变state
-		console.log('props:::::',props)
-		console.log('state:::::',state)
+		// console.log('props:::::',props)
+		// console.log('state:::::',state)
 		/*  判断props是否发生变化，变量是布尔类型   */
 		const levelOneCategoryIdChanged=props.parentCategoryId!==state.levelOneCategoryId;
 		const levelTwoCategoryIdChanged=props.categoryId!==state.levelTwoCategoryId;
 		
 
+		//解决新建商品时第一次点击选择所属分类时无效的问题(第一次点击，使state里有了levelOneCattegoryId,但此时的props里任何数据都没有，所以会执行下边更新state,导致state里原有的levelOneId置空，所以该显示的分类名就没有)
+		if(state.levelOneCategoryId && !props.parentCategoryId && !props.categoryId){
+			return null
+		}
 		//分类Id没有变化 则不更新state
 		if(!levelOneCategoryIdChanged && !levelTwoCategoryIdChanged){
 			return null
 		}
-		if(state.isChanged){//props里的值是固定的，由前端传进来，所以下边代码只能执行一次，否则改变不了所属分类
+		if(state.isChanged){//props里的值是固定的，由前端传进来，所以下边代码只能执行一次，否则一直更新state,改变不了所属分类
 			return null;
 		}
 		if(props.parentCategoryId==0){  //返回的值就会更新state中对应的值，input框内value=state中的值
 			return{           
 				levelOneCategoryId:props.categoryId,
 				levelTwoCategoryId:'',
-				isChanged:true      //改为true后，会被拦截，下次不会在执行了，
+				isChanged:true      //改为true后，代码会被拦截，下次不会在执行了，
 			}
 		}else{
 			return{
 				levelOneCategoryId:props.parentCategoryId,
 				levelTwoCategoryId:props.categoryId,
 				needLoadLevelTwo:true,
-				isChanged:true          //改为true后，会被拦截，下次不会在执行了
+				isChanged:true          //改为true后，代码会被拦截，下次不会在执行了
 			}
 		}
+		return null
 
 	}
 	componentDidMount(){
@@ -130,9 +135,9 @@ class CategorySelector extends Component{
 			<div>
 		        <Select 
 		        style={{ width: 300,marginRight:10 }} 
-		        defaultValue={levelOneCategoryId}
+		        // defaultValue={levelOneCategoryId}
 		        value={levelOneCategoryId}
-		        onChange={this.handleLevelOneChange}
+		        // onChange={this.handleLevelOneChange}
 		        >
 		          {levelOneOptions}
 		        </Select>
@@ -147,7 +152,6 @@ class CategorySelector extends Component{
 				          {levelTwoOptions}
 				       </Select>
 				     :null
-
 		        }
 		       
 		    </div>

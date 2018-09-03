@@ -14,7 +14,7 @@ const roles=new mongoose.Schema({
 			type:Number
 		},
 		status:{
-			type:Number,
+			type:String,
 			default:0             //0——>在售状态，1——>下架
 		},
 		order:{

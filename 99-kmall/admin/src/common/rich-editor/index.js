@@ -8,6 +8,9 @@ import $ from 'jquery'
 class RichEditor extends Component{
 	constructor(props){
 		super(props);
+		this.state={
+			isLoaded:false
+		}
 		this.toolbar=[
 			  'title',
 			  'bold',
@@ -33,6 +36,7 @@ class RichEditor extends Component{
 				withCredentials:true
 			}
 		})
+		console.log('re cons...',this.props.detail)
 	}
 	componentDidMount(){
 		this.editor=new Simditor({                 
@@ -46,6 +50,22 @@ class RichEditor extends Component{
 		this.editor.on('valuechanged',()=>{
 			this.props.getRichEditorValue(this.editor.getValue())
 		})
+		console.log('re did mount')
+	}
+	componentDidUpdate(){
+		//为什么写在这个生命周期函数里边
+		/*
+			父组件执行constructor后，紧接着子组件会执行constructor和DidMount,
+			父组件再执行Didmount,这时就有了props的变化，然后子组件的DidUpdate函数就会执行
+			如果这些代码写在constructor里边，就不可能再次执行了
+		*/
+		if(this.props.detail && !this.state.isLoaded){
+			this.editor.setValue(this.props.detail)//不写条件的话，因为valuechanged事件，光标会一直移动到首字符位置
+			this.setState({
+				isLoaded:true
+			})
+		}
+		console.log('re did update',this.props.detail)
 	}
 	render(){
 		return(          //ref用来选择DOM节点

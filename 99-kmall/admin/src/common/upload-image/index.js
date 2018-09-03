@@ -16,13 +16,13 @@ class UploadImage extends Component {
 	}
 
   static getDerivedStateFromProps(props,state){
-      const isImagePathChanged = props.imagePath!==state.previewImage;
-
-      if(isImagePathChanged){
+    console.log('props::::',props.fileList)
+      if(props.fileList.length>0 && state.fileList.length==0){
         return{
-          previewImage:props.imagePath
+          fileList:props.fileList
         }
       }
+      return null
   }
   handleCancel(){
   	this.setState({ 

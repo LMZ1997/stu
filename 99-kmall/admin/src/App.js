@@ -45,7 +45,7 @@ class App extends Component{
 			/>
 		)
 		return(//Switch作用在于只要匹配到其中一个路由就不会再往下执行
-			<Router>
+			<Router forceRefresh={true}>
 				<div className='App'>
 					<Switch>
 						<ProductedRoute exact path='/' component={ Home }  />

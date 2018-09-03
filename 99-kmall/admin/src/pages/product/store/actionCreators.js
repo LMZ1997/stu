@@ -8,6 +8,7 @@ import {
     UPDATE_PRODUCT_ORDER,
     UPDATE_PRODUCT_STATUS,
     PRODUCT_DETAIL,
+    SEARCH_PRODUCT
 } from 'api'
 
 
@@ -67,7 +68,7 @@ const setCategoryId_error=()=>{
 
 
 
-export const addProductAction=(err,values)=>{
+export const saveProductAction=(err,values)=>{
 	return (dispatch,getState)=>{
         const state=getState().get('product')
         const categoryId=state.get('categoryId')
@@ -79,9 +80,14 @@ export const addProductAction=(err,values)=>{
         if(err){
             return;
         }
+        console.log('values::::::',values)
+        let method='post';
+        if(values.id){
+            method='put'
+        }
         dispatch(add_start())
         request({
-        	method:'post',
+        	method:method,
         	data:{
                 ...values,           //values从antd封装函数发送过来，只有这里需要的部分参数
                 // parentCategoryId:state.get('parentCategoryId'),
@@ -93,10 +99,13 @@ export const addProductAction=(err,values)=>{
         	withCredentials: true
         })
         .then((result)=>{
-        	console.log('addProduct请求成功后返回到前端的数据：：',result)
+        	console.log('saveProduct请求成功后返回到前端的数据：：',result)
         	if(result.code==0){
         		dispatch(setPageAction(result.data));
-        		message.success('添加商品成功')
+        		message.success(result.message)
+                if(values.id){
+                    window.location.href='/product'
+                }
         	}
         	else if(result.code==1){
         		message.error(result.errMessage)
@@ -205,7 +214,7 @@ const setProductDetailAction=(payload)=>{
         payload
     }
 }
-export const getEditProduct=(productId)=>{
+export const getProductDetail=(productId)=>{
     return (dispatch)=>{          
         request({
             method:'get',              
@@ -216,13 +225,38 @@ export const getEditProduct=(productId)=>{
             withCredentials: true
         })
         .then((result)=>{
-            console.log('editProduct请求成功后返回到前端的数据：：',result)
+            console.log('ProductDetail请求成功后返回到前端的数据：：',result)
             if(result.code==0){
                  dispatch(setProductDetailAction(result.data))
             }
             else if(result.code==1){
                 message.error(result.errMessage)
                
+            }
+        })
+        .catch(e=>{
+            message.error('网络错误，请稍后重试！');
+        })
+    }
+}
+export const searchProductAction=(keyword,page=1)=>{
+    return (dispatch)=>{          
+        request({
+            method:'get',              
+            url:SEARCH_PRODUCT,
+            data:{
+                keyword,
+                page
+            },
+            withCredentials: true
+        })
+        .then((result)=>{
+            console.log('searchProduct请求成功后返回到前端的数据：：',result)
+            if(result.code==0){
+                dispatch(setPageAction(result.data))
+            }
+            else if(result.code==1){
+                message.error(result.errMessage)
             }
         })
         .catch(e=>{

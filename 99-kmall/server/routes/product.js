@@ -51,7 +51,7 @@ router.post('/uploadDetailImage', upload.single('upload_'),(req,res)=>{//填入u
 })
 
 
-router.post('/',(req,res)=>{
+router.post('/',(req,res)=>{//添加商品
 	let body=req.body;
 	new productModel({
 		name:body.name,
@@ -75,7 +75,8 @@ router.post('/',(req,res)=>{
 						pageSize:data.pageSize,
 						total:data.total,
 						list:data.list
-					}
+					},
+					message:'添加商品信息成功'
 				})
 			})
 			.catch(e=>{
@@ -138,7 +139,9 @@ router.put('/editOrder',(req,res)=>{
 })
 router.put('/editStatus',(req,res)=>{
 	let body =req.body;
-	productModel.update({_id:body.id},{status:body.status},(err,raw)=>{
+	console.log(body)
+	console.log(typeof body.newStatus)
+	productModel.update({_id:body.id},{status:body.newStatus},(err,raw)=>{
 			if(!err){
 				res.send({
 					code:0,
@@ -178,6 +181,72 @@ router.get('/detail',(req,res)=>{
 	
 })
 
+router.put('/',(req,res)=>{//修改商品信息
+	let body=req.body;
+	productModel.update({_id:body.id},{
+		name:body.name,
+		description:body.description,
+		price:body.price,
+		stock:body.stock,
+		category:body.category,
+		imagePath:body.imagePath,
+		detail:body.detailValue
+	})
+	.then((newProduct)=>{
+		if(newProduct){
+			productModel.getPageProducts(1)
+			.then((data)=>{
+				res.json({
+					code:0,
+					data:{
+						current:data.current,
+						pageSize:data.pageSize,
+						total:data.total,
+						list:data.list
+					},
+					message:'修改商品信息成功'
+				})
+			})
+			.catch(e=>{
+				console.log('product(post)：：：',e)
+			})
+		}
+		else{
+			res.send({
+				code:1,
+				errMessage:'添加商品失败，数据库操作失败'
+			})
+		}
+	})
+	.catch((e)=>{
+		res.send(e);
+	})
+	
+})
+
+router.get('/search',(req,res)=>{
+	let pageNum=req.query.page||1;
+	let keyword=req.query.keyword
+	productModel.getPageProducts(pageNum,{
+		name:{$regex:new RegExp(keyword)}//模糊查询
+	})
+	.then((data)=>{
+		res.json({
+			code:0,
+			data:{
+				current:data.current,
+				pageSize:data.pageSize,
+				total:data.total,
+				list:data.list,
+				keyword:keyword
+			}
+		})
+	})
+	.catch((e)=>{
+		res.send(e);
+	})
+	
+})
 
 
 module.exports=router;

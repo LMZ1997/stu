@@ -21,10 +21,12 @@ const defaultState=fromJS({
 	id:'',
 	confirmLoading:false,
 
-	editName:'',
-	editDescription:'',
-	editPrice:'',
-	editStock:''
+	name:'',
+	description:'',
+	price:'',
+	stock:'',
+
+	keyword:''
 })
 export default (state=defaultState,action)=>{
 	if(action.type==types.SET_CATEGORY_ID){           //添加商品的页面用到
@@ -65,15 +67,16 @@ export default (state=defaultState,action)=>{
 			current:action.payload.current,
 			pageSize:action.payload.pageSize,
 			total:action.payload.total,
-			list:fromJS(action.payload.list)//将数组转换为immutable对象给list
+			list:fromJS(action.payload.list),//将数组转换为immutable对象给list
+			keyword:action.payload.keyword//后来添加，为了点击某一页时区分是所有商品分页还是搜索商品分页
 		})
 	}
 	if(action.type==types.SET_PRODUCT_DETAIL){
 		return state.merge({
-			editName:action.payload.name,
-			editDescription:action.payload.description,
-			editPrice:action.payload.price,
-			editStock:action.payload.stock,
+			name:action.payload.name,
+			description:action.payload.description,
+			price:action.payload.price,
+			stock:action.payload.stock,
 			parentCategoryId:action.payload.category.pid,
 			categoryId:action.payload.category._id,
 			imagePath:action.payload.imagePath,
