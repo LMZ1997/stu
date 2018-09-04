@@ -94,6 +94,18 @@ router.post('/login',(req,res)=>{//点击登录发送了登录请求
 		}
 	})
 })
+
+router.use((req,res,next)=>{
+	if(req.userInfo.isAdmin){
+		next()
+	}
+	else{
+		res.send({
+			code:10
+		})
+	}
+})
+
 router.get('/loginOut',(req,res)=>{//点击退出发送了退出请求
 	var result={
 		code:0,

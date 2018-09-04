@@ -27,8 +27,10 @@ module.exports={
 		'user-login':'./src/pages/user-login/index.js'
 	},
 
-	//配置外部模板
-
+	//配置额外模板 配置后可以在页面var $$=require('jquery')来使用jquery,不过此方法并不常用
+	externals:{
+		'jquery':'window.jQuery'
+	},
 
 	output:{//导出文件命名
 		//如果多个入口文件，要导出多个出口文件，那么filename命名需要加上[name ]
@@ -107,7 +109,12 @@ module.exports={
   devServer:{ //用来提高效率的，更改样式等不需要每次去npx webpack也不需要刷新浏览器(会隐藏dist)
   	contentBase: './dist',
   	port:3002,  //端口号
-  	historyApiFallback:true//使页面路由经过刷新也可以显示正常页面
+  	proxy:{
+  		"/user":{//接口是以什么开头的
+	  		target:'http://127.0.0.1:3000',//代理哪个路由
+	  		changeOrigin:true              //是否支持跨域
+	  	}
+  	}
   }
 
 }
