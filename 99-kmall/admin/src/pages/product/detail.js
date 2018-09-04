@@ -9,10 +9,8 @@ import {connect} from 'react-redux'
 import { actionCreators } from './store'
 import CategorySelector from './category-selector.js'
 
-import UploadImage from 'common/upload-image'
-import RichEditor from 'common/rich-editor'
+
 import './detail.css'
-import {UPLOAD_PRODUCT_IMAGE,UPLOAD_PRODUCT_DETAIL_IMAGE} from 'api'
 
 
 class NormalProductDetail extends Component{

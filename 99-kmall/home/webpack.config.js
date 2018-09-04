@@ -4,16 +4,35 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');//清理dist文件夹
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const publicPath ='/';
 
+//生成HtmlWebpackPlugin配置
+const getHtmlConfig=(jsName)=>({
+	template:'./src/view/'+jsName+'.html',  //因为这里的路径，所以jsName必须命名是对应文件夹名字
+	filename:jsName+'.html',
+	// inject:'head'，index.html的script文件引入位置在head里
+	inject:true,//默认，index.html的script文件引入位置在body里所有Dom元素后
+	hash:true,//--生成随机字符串    默认是false
+
+	chunks:['common',jsName]//使生成的html页面只引用相应的js文件
+})
+
 module.exports={
 
 	mode:'development',//开发环境
 	// mode:'production'//线上环境
-	//入口文件
-	entry:'./src/index.js',// ======= entry:{ main:'./src/index.js'  }
 
-	output:{
-		//导出文件命名//如果多个入口文件，那么filename命名需要加上[name ]
-		filename:'bundle.js',
+	//多入口文件
+	entry:{
+		common:'./src/pages/common/index.js',
+		index:'./src/pages/index/index.js',
+		'user-login':'./src/pages/user-login/index.js'
+	},
+
+	//配置外部模板
+
+
+	output:{//导出文件命名
+		//如果多个入口文件，要导出多个出口文件，那么filename命名需要加上[name ]
+		filename:'js/[name].js',
 		publicPath:publicPath,//影响到打包时生成的bundle.js路径，加‘/’使请求地址从根(域名)开始拼凑，不加‘/’地址会在当前地址基础上拼凑
 		//导出路径
 		path:path.resolve(__dirname,'dist')
@@ -21,8 +40,9 @@ module.exports={
 	resolve:{//配置别名
 		alias:{
 			pages:path.resolve(__dirname,'./src/pages'),
-			api:path.resolve(__dirname,'./src/api'),
+			node_modules:path.resolve(__dirname,'./node_modules'),
 			util:path.resolve(__dirname,'./src/util'),
+			service:path.resolve(__dirname,'./src/service'),
 			common:path.resolve(__dirname,'./src/common'),
 		}
 	},
@@ -48,10 +68,17 @@ module.exports={
 		          "css-loader"
 		        ]
 		      },
-		      {//处理图片
-		         test: /\.(png|svg|jpg|gif)$/,
+		      {//处理图片和字体图标                      正则问号->后边的可有可无
+		         test: /\.(png|svg|jpg|gif|ttf|woff2|woff|svg|eot)\??.*$/,
 		         use: [
-		           'file-loader'
+		           // 'file-loader'
+		           {
+		           		loader:'file-loader',
+		           		options:{
+		           			limit:100,//小于100用base64格式保存图片(base64多用于保存字符串)
+		           			name:'resource/[name].[ext]'
+		           		}
+		           }
 		         ]
 		       },
 		       {
@@ -60,11 +87,7 @@ module.exports={
 	                use: {
 	                    loader: 'babel-loader',
 	                    options: {
-	                        presets: ['env','es2015','react','stage-3'],
-	                        //按需加载样式
-	                        plugins: [
-							    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }] // `style: true` 会加载 less 文件
-						    ] 
+	                        presets: ['env','es2015','stage-3']
 	                    }
 	                },
 
@@ -74,19 +97,16 @@ module.exports={
   },
   plugins://处理html文档
  	 [
-  		new HtmlWebpackPlugin({
-  			template:'./src/index.html',
-  			filename:'index.html',
-  			// inject:'head'，index.html的script文件引入位置在head里
-  			inject:true,//默认，index.html的script文件引入位置在body里所有Dom元素后
-  			hash:true,//--生成随机字符串    默认是false
-  		}),
+  		new HtmlWebpackPlugin(getHtmlConfig('index')),
+  		new HtmlWebpackPlugin(getHtmlConfig('user-login')),
   		new CleanWebpackPlugin(['dist']),
-  		new MiniCssExtractPlugin({})
+  		new MiniCssExtractPlugin({
+  			filename:'css/[name].css' //将所有css文件打包在css文件夹下
+  		})
   ],
   devServer:{ //用来提高效率的，更改样式等不需要每次去npx webpack也不需要刷新浏览器(会隐藏dist)
   	contentBase: './dist',
-  	port:3001,  //端口号
+  	port:3002,  //端口号
   	historyApiFallback:true//使页面路由经过刷新也可以显示正常页面
   }
 

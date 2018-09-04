@@ -1,0 +1,15 @@
+.nav{
+	height: 30px;
+	line-height: 30px;
+	background: #ccc;
+}
+.userInfo{
+	float: left;
+}
+.list{
+	float: right;
+}
+.list .list-item{
+	float: left;
+	margin-right: 20px;
+}

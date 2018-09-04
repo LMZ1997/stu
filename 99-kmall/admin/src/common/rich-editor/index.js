@@ -36,7 +36,6 @@ class RichEditor extends Component{
 				withCredentials:true
 			}
 		})
-		console.log('re cons...',this.props.detail)
 	}
 	componentDidMount(){
 		this.editor=new Simditor({                 
@@ -68,7 +67,6 @@ class RichEditor extends Component{
 				isLoaded:true
 			})
 		}
-		console.log('re did update',this.props.detail)
 	}
 	render(){
 		return(          //ref用来选择DOM节点
