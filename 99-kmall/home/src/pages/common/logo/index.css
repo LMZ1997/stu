@@ -1,8 +1,9 @@
-.logo{
+.logo-box{
+	background-color: #fff;
+}
+.logo-text{
 	text-decoration: none;
 	color: red;
-	background: #fff;
 	font-size: 30px;
 	display: inline-block;
-	padding: 50px;
 }

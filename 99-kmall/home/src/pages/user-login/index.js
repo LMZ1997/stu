@@ -1,5 +1,10 @@
-require('./index.css');
-require('pages/common/login')
+
+
+require('node_modules/font-awesome/css/font-awesome.min.css')
+require('pages/common/logo')
+require('pages/common/footer')
+require('./index.css')
+
 
 var _util=require('util')
 var _user=require('service/user')
@@ -29,10 +34,8 @@ var page={
 				this.formError()
 				_user.login(validateData,function(result){
 					window.location.href='/'
-					$('.no-login').hide();
-					$('.login').show();
 				},function(result){	
-					_this.formError(result.errMessage)
+					_this.formError(result)
 				});
 			}
 			else{

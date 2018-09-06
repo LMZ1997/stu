@@ -29,6 +29,15 @@ var _util={
 	toLogin:function(){
 		window.location.href='./user-login.html'
 	},
+	getParamsFromUrl:function(key){
+		var query=window.location.search.substr(1);
+		// 例如： type=register&aaa=bbb
+		         //以正常字母开始或者&开始      以&结束或者以正常字母结束
+		var reg=new RegExp('(^|&)'+key+'=([^&]*)(&|$)');
+		var result=query.match(reg);   //是一个数组
+						//解码   地址栏有些字符串是经过编译的乱码
+		return result?decodeURIComponent(result[2]):null;
+	},
 	validate:function(value,type){
 		if(type=='require'){
 			return !!value

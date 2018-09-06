@@ -18,7 +18,11 @@ var nav={
 		})
 	},
 	loadUserInfo:function(){
-
+		_user.getUserInfo(function(userInfo){
+			$('.no-login').hide();
+			$('.login').show();
+			$('.username').text(userInfo.username)
+		})
 	},
 	loadCartInfo:function(){
 

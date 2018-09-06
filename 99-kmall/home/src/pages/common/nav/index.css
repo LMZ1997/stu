@@ -1,12 +1,16 @@
 .nav{
 	height: 30px;
 	line-height: 30px;
-	    font-family: "Microsoft YaHei", tahoma, arial, 'Hiragino Sans GB', '\5b8b\4f53', sans-serif;
+	 font-family: "Microsoft YaHei", tahoma, arial, 'Hiragino Sans GB', '\5b8b\4f53', sans-serif;
 	background: #f2f2f2;
 	border-bottom: 1px solid #e5e5e5;
 }
 .userInfo{
 	float: left;
+}
+.username{
+	color: #666;
+	margin-right: 20px;
 }
 .list{
 	float: right;

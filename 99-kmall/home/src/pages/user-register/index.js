@@ -1,5 +1,8 @@
+
+require('pages/common/logo')
+require('pages/common/footer')
+require('node_modules/font-awesome/css/font-awesome.min.css')
 require('./index.css');
-require('pages/common/login')
 
 
 var _util=require('util')
@@ -38,7 +41,7 @@ var page={
 			if(result.status){
 				this.formError();//清空前端页面提示的错误信息
 				_user.register(validateData,function(result){
-					console.log('成功')
+					window.location.href='./result.html?type=register'
 				},function(result){	
 					_this.formError(result)
 				});

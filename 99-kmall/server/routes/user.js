@@ -93,7 +93,19 @@ router.post('/login',(req,res)=>{//点击登录发送了登录请求
 // 		})
 // 	}
 // })
-
+router.get('/userInfo',(req,res)=>{
+	if(req.userInfo._id){
+		res.json({
+			code:0,
+			data:req.userInfo
+		})
+	}
+	else{
+		res.send({
+			code:1,
+		})
+	}
+})
 router.get('/loginOut',(req,res)=>{//点击退出发送了退出请求
 	var result={
 		code:0,

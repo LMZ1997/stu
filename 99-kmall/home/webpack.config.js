@@ -5,10 +5,11 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const publicPath ='/';
 
 //生成HtmlWebpackPlugin配置
-const getHtmlConfig=(jsName)=>({
+const getHtmlConfig=(jsName,title)=>({
 	template:'./src/view/'+jsName+'.html',  //因为这里的路径，所以jsName必须命名是对应文件夹名字
 	filename:jsName+'.html',
 	// inject:'head'，index.html的script文件引入位置在head里
+	title:title,
 	inject:true,//默认，index.html的script文件引入位置在body里所有Dom元素后
 	hash:true,//--生成随机字符串    默认是false
 
@@ -25,7 +26,7 @@ module.exports={
 		common:'./src/pages/common/index.js',
 		index:'./src/pages/index/index.js',
 		'user-login':'./src/pages/user-login/index.js',
-		'user-register':'./src/pages/user-register/index.js'
+		'user-register':'./src/pages/user-register/index.js',
 		'result':'./src/pages/result/index.js'
 	},
 
@@ -101,10 +102,10 @@ module.exports={
   },
   plugins://处理html文档
  	 [
-  		new HtmlWebpackPlugin(getHtmlConfig('index')),
-  		new HtmlWebpackPlugin(getHtmlConfig('user-login')),
-  		new HtmlWebpackPlugin(getHtmlConfig('user-register')),
-  		new HtmlWebpackPlugin(getHtmlConfig('result')),
+  		new HtmlWebpackPlugin(getHtmlConfig('index','首页')),
+  		new HtmlWebpackPlugin(getHtmlConfig('user-login','用户登录')),
+  		new HtmlWebpackPlugin(getHtmlConfig('user-register','用户注册')),
+  		new HtmlWebpackPlugin(getHtmlConfig('result'),'结果提示'),
   		new CleanWebpackPlugin(['dist']),
   		new MiniCssExtractPlugin({
   			filename:'css/[name].css' //将所有css文件打包在css文件夹下
