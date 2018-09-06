@@ -3,24 +3,19 @@ const router=Router();
 const userModel=require('../models/user.js');
 const hmac=require('../util/hmac.js')
 
-/*
-router.get('/init',(req,res)=>{
-	const users=[];
-	for(var i=0;i<100;i++){
-		users.push({
-			username:'test'+i,
-			password:'test'+i,
-			isAdmin:false,
-			email:'test'+i+'@126.com',
-			phone:'123456789'+i,
-		})
-	}
-	userModel.create(users)
-	.then((data)=>{
-		res.send('ok')
-	})
-})
-*/
+
+// router.get('/init',(req,res)=>{
+// 	const users={
+// 		username:'test',
+// 		password:hmac('test')
+// 	};
+	
+// 	userModel.create(users)
+// 	.then((data)=>{
+// 		res.send('ok')
+// 	})
+// })
+
 
 
 
@@ -65,21 +60,14 @@ router.post('/register',(req,res)=>{//点击注册发送了注册请求
 })
 router.post('/login',(req,res)=>{//点击登录发送了登录请求
 	let body=req.body;
-	console.log(body);
 	var result={
 		code:0,
 		errMessage:''
 	}
 	userModel
-	.findOne({username:body.username,password:hmac(body.password)})
+	.findOne({username:body.username,password:hmac(body.password),isAdmin:false})
 	.then((user)=>{
 		if(user){
-			// result.data={
-			// 	_id:user._id,
-			// 	username:user.username,
-			// 	isAdmin:user.isAdmin
-			// }
-			// req.cookies.set('userInfo',JSON.stringify(result.data))
 			req.session.userInfo={
 				_id:user._id,
 				username:user.username,
@@ -88,23 +76,23 @@ router.post('/login',(req,res)=>{//点击登录发送了登录请求
 			res.json(result);
 		}
 		else{
-			result.code=10;
+			result.code=1;
 			result.errMessage='用户名或密码错误';
 			res.json(result);
 		}
 	})
 })
 
-router.use((req,res,next)=>{
-	if(req.userInfo.isAdmin){
-		next()
-	}
-	else{
-		res.send({
-			code:10
-		})
-	}
-})
+// router.use((req,res,next)=>{
+// 	if(req.userInfo.isAdmin){
+// 		next()
+// 	}
+// 	else{
+// 		res.send({
+// 			code:10
+// 		})
+// 	}
+// })
 
 router.get('/loginOut',(req,res)=>{//点击退出发送了退出请求
 	var result={
@@ -115,5 +103,23 @@ router.get('/loginOut',(req,res)=>{//点击退出发送了退出请求
 	req.session.destroy();
 	res.json(result);
 })
+router.get('/checkUsername',(req,res)=>{//点击注册发送了注册请求
+	console.log(req.query)
+	let username=req.query.username;
+	var result={
+		code:0,
+		errMessage:''
+	}
+	userModel
+	.findOne({username:username})
+	.then((user)=>{
+		if(user){
+			result.code=1,
+			result.errMessage='用户名已存在';
+		}
+		res.json(result);
+	})
+})
+
 
 module.exports=router;

@@ -24,7 +24,9 @@ module.exports={
 	entry:{
 		common:'./src/pages/common/index.js',
 		index:'./src/pages/index/index.js',
-		'user-login':'./src/pages/user-login/index.js'
+		'user-login':'./src/pages/user-login/index.js',
+		'user-register':'./src/pages/user-register/index.js'
+		'result':'./src/pages/result/index.js'
 	},
 
 	//配置额外模板 配置后可以在页面var $$=require('jquery')来使用jquery,不过此方法并不常用
@@ -101,6 +103,8 @@ module.exports={
  	 [
   		new HtmlWebpackPlugin(getHtmlConfig('index')),
   		new HtmlWebpackPlugin(getHtmlConfig('user-login')),
+  		new HtmlWebpackPlugin(getHtmlConfig('user-register')),
+  		new HtmlWebpackPlugin(getHtmlConfig('result')),
   		new CleanWebpackPlugin(['dist']),
   		new MiniCssExtractPlugin({
   			filename:'css/[name].css' //将所有css文件打包在css文件夹下

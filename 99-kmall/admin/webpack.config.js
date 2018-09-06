@@ -86,7 +86,7 @@ module.exports={
   ],
   devServer:{ //用来提高效率的，更改样式等不需要每次去npx webpack也不需要刷新浏览器(会隐藏dist)
   	contentBase: './dist',
-  	port:3001,  //端口号
+  	port:8080,  //端口号
   	historyApiFallback:true//使页面路由经过刷新也可以显示正常页面
   }
 
