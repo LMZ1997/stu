@@ -11,7 +11,8 @@ var nav={
 	bindEvent:function(){
 		$('#logout').on('click',function(){
 			_user.logout(function(){           //->成功，传递success函数
-				window.location.reload()
+				// window.location.reload()
+				window.location.href='/'
 			},function(){                      //->失败，传递error函数
 				_util.toLogin()
 			});
