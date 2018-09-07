@@ -27,6 +27,8 @@ module.exports={
 		index:'./src/pages/index/index.js',
 		'user-login':'./src/pages/user-login/index.js',
 		'user-register':'./src/pages/user-register/index.js',
+		'user-center':'./src/pages/user-center/index.js',
+		'user-update-password':'./src/pages/user-update-password/index.js',
 		'result':'./src/pages/result/index.js'
 	},
 
@@ -96,6 +98,13 @@ module.exports={
 	                    }
 	                },
 
+	            },
+	            {
+                	test:/\.tpl$/,//支持tpl结尾的html模板文件如index.tpl
+	                use: {
+	                    loader: 'html-loader',
+	                },
+
 	            }
 	    ],
 	   
@@ -105,6 +114,8 @@ module.exports={
   		new HtmlWebpackPlugin(getHtmlConfig('index','首页')),
   		new HtmlWebpackPlugin(getHtmlConfig('user-login','用户登录')),
   		new HtmlWebpackPlugin(getHtmlConfig('user-register','用户注册')),
+  		new HtmlWebpackPlugin(getHtmlConfig('user-center','用户中心')),
+  		new HtmlWebpackPlugin(getHtmlConfig('user-update-password','修改密码')),
   		new HtmlWebpackPlugin(getHtmlConfig('result'),'结果提示'),
   		new CleanWebpackPlugin(['dist']),
   		new MiniCssExtractPlugin({

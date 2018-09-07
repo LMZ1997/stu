@@ -1,11 +1,12 @@
 
-
 require('node_modules/font-awesome/css/font-awesome.min.css')
-require('pages/common/logo')
+require('pages/common/nav')
+require('pages/common/search')
 require('pages/common/footer')
-require('./index.css')
+require('./index.css');
 
 
+var _side=require('pages/common/side')
 var _util=require('util')
 var _user=require('service/user')
 
@@ -14,13 +15,16 @@ var _user=require('service/user')
 var page={
 	init:function(){
 		this.bindEvent()
+		this.onload()
+	},
+	onload:function(){
+		_side.render('user-update-password')
 	},
 	bindEvent:function(){
 		var _this=this;
 		$('#btn-submit').on('click',function(){
 			_this.submit();
 		});
-		//回车键提交
 		$('input').on('keyup',function(ev){
 			if(ev.keyCode==13){
 				_this.submit();
@@ -28,19 +32,18 @@ var page={
 		})
 	},
 	submit:function(){
-		var _this=this;
+		var _this=this
 			//获取数据
 			var validateData={
-				username:$.trim($('[name="username"]').val()),
-				password:$.trim($('[name="password"]').val())
+				password:$.trim($('[name="password"]').val()),
+				newPassword:$.trim($('[name="newPassword"]').val()),
 			}
 			//验证数据
 			var result=this.validate(validateData)
 			if(result.status){
-				this.formError()
-				_user.login(validateData,function(result){
-					var url =_util.getParamsFromUrl('redirect')//若未登录，点击某些按钮会跳转至登陆页面，url则是点击按钮需要跳转的路由
-					window.location.href=url||'/'
+				this.formError();//清空前端页面提示的错误信息
+				_user.updatePassword(validateData,function(result){
+					window.location.href='./result.html?type=updatePassword'
 				},function(result){	
 					_this.formError(result)
 				});
@@ -54,15 +57,16 @@ var page={
 			status:false,
 			msg:''
 		}
-		//验证用户名不能为空
-		if(!_util.validate(validateData.username,'require')){
-			 result.msg='用户名不能为空';
-			 return result;
-		}
 		if(!_util.validate(validateData.password,'require')){
 			result.msg='密码不能为空';
 			return result;
 		}
+		
+		if(!_util.validate(validateData.password,'password')){
+			result.msg='密码格式错误';
+			return result;
+		}
+
 
 
 		result.status=true;
@@ -79,7 +83,7 @@ var page={
 			$('.error')
 			.hide()
 			.find('.error-msg')
-			.text(msg)
+			.text('')
 		}
 	}
 }

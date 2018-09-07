@@ -9,6 +9,8 @@
 	margin:50px auto;
 	padding: 20px;
 	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 3px 10px rgba(0,0,0,0.6);
 }
 .form .title{
 	text-align: center;
@@ -50,15 +52,21 @@
 	text-align: center;
 	text-decoration: none;
 	color: #fff;
-	background: red;
+	background: rgba(255,0,0,0.8);
 	display: block;
 	font-size: 18px;
 	border-radius:5px;
 	padding: 5px;
 	margin-bottom: 10px;
 }
+.form .btn-submit:hover{
+	background:red;
+}
 .form-register{
 	margin-bottom: 20px;
+}
+.form-register a:hover{
+	color:blue;
 }
 .form .toRegister{
 	text-decoration: none;

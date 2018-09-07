@@ -18,6 +18,13 @@ var _user={
 			error:error
 		})
 	},
+	getUsername:function(success,error){
+		_util.request({
+			url:'/user/username',
+			success:success,
+			error:error
+		})
+	},
 	getUserInfo:function(success,error){
 		_util.request({
 			url:'/user/userInfo',
@@ -37,6 +44,15 @@ var _user={
 	checkUsername:function(username,success,error){
 		_util.request({
 			url:'/user/checkUsername?username='+username,
+			success:success,
+			error:error
+		})
+	},
+	updatePassword:function(data,success,error){
+		_util.request({
+			method:"put",
+			data:data,
+			url:'/user/updatePassword',
 			success:success,
 			error:error
 		})

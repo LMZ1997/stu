@@ -4,7 +4,7 @@ var _util=require('util')
 var nav={
 	init:function(){
 		this.bindEvent();
-		this.loadUserInfo();
+		this.loadUsername();
 		this.loadCartInfo();
 		return this;
 	},
@@ -17,11 +17,11 @@ var nav={
 			});
 		})
 	},
-	loadUserInfo:function(){
-		_user.getUserInfo(function(userInfo){
+	loadUsername:function(){
+		_user.getUsername(function(user){
 			$('.no-login').hide();
 			$('.login').show();
-			$('.username').text(userInfo.username)
+			$('.username').text(user.username)
 		})
 	},
 	loadCartInfo:function(){

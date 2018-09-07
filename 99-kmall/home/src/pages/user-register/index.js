@@ -19,11 +19,16 @@ var page={
 		$('#btn-submit').on('click',function(){
 			_this.submit();
 		});
+		$('input').on('keyup',function(ev){
+			if(ev.keyCode==13){
+				_this.submit();
+			}
+		})
+		//检查用户名是否已被注册
 		$('[name="username"]').on('blur',function(){
 			if(_util.validate($(this).val(),'username')){
 				_this.checkUsername($(this).val())
 			}
-			
 		})
 	},
 	submit:function(){

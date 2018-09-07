@@ -1,3 +1,7 @@
+var hogan=require('hogan.js')//可以生成html模板的包
+
+
+
 var _util={
 	request:function(params){
 		var _this=this;
@@ -13,7 +17,7 @@ var _util={
 				}
 				//没有登录
 				else if(result.code==10){
-					// _this.toLogin()
+					_this.toLogin()
 				}
 				//请求数据错误
 				else  if(result.code==1){
@@ -27,7 +31,10 @@ var _util={
 		})
 	},
 	toLogin:function(){
-		window.location.href='./user-login.html'
+		window.location.href='./user-login.html?redirect='+encodeURIComponent(window.location.href)
+	},
+	goHome:function(){
+		window.location.href='/'
 	},
 	getParamsFromUrl:function(key){
 		var query=window.location.search.substr(1);
@@ -54,6 +61,11 @@ var _util={
 		if(type=='email'){
 			return /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/.test(value)
 		}
+	},
+	hoganRender:function(tpl,data){//生成html模板
+		var template=hogan.compile(tpl);
+		var output=template.render(data);
+		return output;
 	}
 }
 module.exports=_util
