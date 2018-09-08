@@ -4,25 +4,24 @@
 	<%= require('html-loader!./common/header.html') %>
 	<title><%= htmlWebpackPlugin.options.title %> -KMALL电商平台
 		
-	</title><!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+	</title>
 </head>
 <body>
 	<%= require('html-loader!./common/nav.html') %>
 	<%= require('html-loader!./common/search.html') %>
-	<div class="focus clearfix">
+	<div class="list">
 		<div class="container">
-			<ul class="category">
-				
-			</ul>
-			<div class="carousel">
-			    
-			</div>
-		</div>
-	</div>
-	<div class="floor">
-		<div class="container">
-			<div class="floor-wrap">
-				
+			<div class="sort">
+				<ul>
+					<li class="sort-item default active">
+						默认排序
+					</li>
+					<li class="sort-item price desc">
+						价格排序
+						<i class="fa fa-sort-asc"></i>
+						<i class="fa fa-sort-desc"></i>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</div>

@@ -39,7 +39,7 @@ var page={
 			if(result.status){
 				this.formError()
 				_user.login(validateData,function(result){
-					var url =_util.getParamsFromUrl('redirect')//若未登录，点击某些按钮会跳转至登陆页面，url则是点击按钮需要跳转的路由
+					var url =_util.getParamsFromUrl('redirect')//若未登录，点击某些按钮会跳转至登陆页面，url则是用户点击按钮想要跳转页面的路由
 					window.location.href=url||'/'
 				},function(result){	
 					_this.formError(result)

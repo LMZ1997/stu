@@ -62,9 +62,9 @@ var _util={
 			return /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/.test(value)
 		}
 	},
-	hoganRender:function(tpl,data){//生成html模板
+	hoganRender:function(tpl,obj){//生成html模板(多用于类似选项卡切换页面的功能)
 		var template=hogan.compile(tpl);
-		var output=template.render(data);
+		var output=template.render(obj);
 		return output;
 	}
 }
