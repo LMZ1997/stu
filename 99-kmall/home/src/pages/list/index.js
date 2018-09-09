@@ -10,44 +10,61 @@ require('./index.css');
 
 
 var _util=require('util')
+var _product=require('service/product')
+
+
 var page={
 	listParams:{
 		keyword:_util.getParamsFromUrl('keyword')|| '' ,
 		categoryId:_util.getParamsFromUrl('categoryId') || '',
 		page:_util.getParamsFromUrl('page')|| 1,
+		orderBy:'default'
 	},
 	init:function(){
 		this.bindEvent();
 		this.loadProduct();
 	},
 	bindEvent:function(){
+		var _this=this;
 		$('.sort-item').on('click',function(){
 			var $this=$(this);
 			if($this.hasClass('default')){
 				if($this.hasClass('active')){
 					return;
 				}
-				else{
-					$this.addClass('active')
-					.siblings('.sort-item')
-					.removeClass('active')
-				}
+				$this.addClass('active')
+				.siblings('.sort-item')
+				.removeClass('active');
+				_this.listParams.orderBy='default';
 			}
 			else if($this.hasClass('price')){
+				$this.addClass('active')
+				.siblings('.sort-item')
+				.removeClass('active');
+
 				if($this.hasClass('desc')){
 					$this.addClass('asc')
-					.removeClass('desc')
+					.removeClass('desc');
+					_this.listParams.orderBy='price_asc';
 				}else{
 					$this.addClass('desc')
-					.removeClass('asc')
+					.removeClass('asc');
+					_this.listParams.orderBy='price_desc';
 				}
 			}
-			
-			
+			_this.loadProduct();
 		})
+
 	},
 	loadProduct:function(){
-		console.log(this.listParams)
+		this.listParams.keyword //delete 用法
+		?(delete this.listParams.categoryId)
+		:(delete this.listParams.keyword)
+		_product.loadProduct(this.listParams,function(result){
+			console.log(result)
+		},function(result){
+
+		})
 	}
 
 }

@@ -132,6 +132,10 @@ module.exports={
   		"/user":{//接口是以什么开头的
 	  		target:'http://127.0.0.1:3000',//代理哪个路由
 	  		changeOrigin:true              //是否支持跨域
+	  	},
+	  	"/product":{//接口是以什么开头的
+	  		target:'http://127.0.0.1:3000',//代理哪个路由
+	  		changeOrigin:true              //是否支持跨域
 	  	}
   	}
   }

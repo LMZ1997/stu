@@ -20,6 +20,9 @@ const upload = multer({ storage: storage })
 
 
 
+router.get('/loadProduct',(req,res)=>{//前端商品list页面
+	console.log(req.query)
+})
 
 
 
@@ -247,6 +250,8 @@ router.get('/search',(req,res)=>{
 	})
 	
 })
+
+
 
 
 module.exports=router;

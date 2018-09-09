@@ -7,7 +7,7 @@
 	<ul class="floor-list clearfix">
 		{{#floor}}
 		<li class="floor-item">
-			<a href="./list?categoryId={{categoryId}}">
+			<a href="./list.html?categoryId={{categoryId}}">
 				<p class="floor-text">{{text}}</p>
 				<img src="{{img}}" class="floor-img" alt="">
 			</a>
