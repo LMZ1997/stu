@@ -66,6 +66,9 @@ var _util={
 		var template=hogan.compile(tpl);
 		var output=template.render(obj);
 		return output;
+	},
+	showErrMsg:function(mag){
+		alert(mag);
 	}
 }
 module.exports=_util

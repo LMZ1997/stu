@@ -62,7 +62,27 @@ router.get('/loadProduct',(req,res)=>{//前端商品list页面
 		res.send(e);
 	})
 })
-
+router.get('/loadProductDetail',(req,res)=>{//前端商品list页面
+	let id=req.query.productId;
+	productModel.findOne({status:0,_id:id},'-__v -createdAt -updatedAt -category')
+	.then(product=>{
+		if(product){
+			res.json({
+				code:0,
+				data:product
+			})
+		}else{
+			res.json({
+				code:1,
+				errMessage:'获取商品详情失败'
+			})
+		}
+			
+	})
+	.catch(e=>{
+		res.send(e);
+	})
+})
 
 
 //权限控制，所以发送请求时必须带有withCredentials=true使cookie信息保存在req.userInfo中

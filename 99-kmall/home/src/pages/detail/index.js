@@ -20,14 +20,29 @@ var page={
 	},
 	init:function(){
 		this.bindEvent();
-		this.loadProduct();
+		this.loadProductDetail();
 	},
 	bindEvent:function(){
 		
 
 	},
-	loadProduct:function(){
-		
+	loadProductDetail:function(){
+		_product.loadProductDetail({productId:this.params.productId},function(product){
+			if(product){
+				product.images=product.imagePath.split(',');
+			}
+			else{
+				product.images=[require('images/product-default.jpg')]
+			}
+			product.imageFirst=product.images[0];
+
+			var html=_util.hoganRender(tpl,product);
+			$('.detail-box').html(html)
+			
+		},function(msg){
+			_util.showErrMsg(msg)
+		})
+
 	}
 }
 
