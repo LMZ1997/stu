@@ -36,14 +36,14 @@ const roles=new mongoose.Schema({
 });
 
 
-roles.statics.getPageProducts=function(pageNum,query={}){//异步函数想要传递信息需要用promise或是回调函数
+roles.statics.getPageProducts=function(pageNum,query={},projection='name price _id status order',sort={order:-1}){
 	return new Promise((resolve,reject)=>{
 		let options={
 			page:pageNum,
 			model:this,
 			query:query,
-			sort:{order:-1},
-			projection:'name price _id status order',
+			sort:sort,
+			projection:projection,
 			populate:{}
 		}
 		page(options)

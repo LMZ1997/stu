@@ -1,7 +1,7 @@
 <ul>
 	{{#carousels}}
     <li>
-    	<a href=".list/categoryId={{categoryId}}">
+    	<a href=".list.html/categoryId={{categoryId}}">
     		<!-- src不需要<%= require(...)>这样写是因为-->
     		<!-- webpack并不能对tpl中的jpg进行处理  -->
     		<!-- <img src="<%= require('{{image}}') %>" alt=""> -->

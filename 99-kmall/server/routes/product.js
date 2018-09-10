@@ -21,7 +21,46 @@ const upload = multer({ storage: storage })
 
 
 router.get('/loadProduct',(req,res)=>{//前端商品list页面
-	console.log(req.query)
+	let page=req.query.page;
+	let projection='_id name price imagePath';
+
+	let query={
+		status:0
+	}
+	if(req.query.categoryId){
+		query.category=req.query.categoryId
+	}else{
+		query.name={$regex:new RegExp(req.query.keyword,'i')}
+	}
+
+	let sort={
+		order:-1
+	}
+	if(req.query.orderBy=='price_desc'){
+		sort={
+			price:1
+		}
+	}else if(req.query.orderBy=='price_asc'){
+		sort={
+			price:1
+		}
+	}
+
+	productModel.getPageProducts(page,query,projection,sort)
+	.then(result=>{
+			res.json({
+				code:0,
+				data:{
+					current:result.current,
+					pageSize:result.pageSize,
+					total:result.total,
+					list:result.list
+				}
+			})
+	})
+	.catch(e=>{
+		res.send(e);
+	})
 })
 
 
@@ -231,7 +270,7 @@ router.get('/search',(req,res)=>{
 	let pageNum=req.query.page||1;
 	let keyword=req.query.keyword
 	productModel.getPageProducts(pageNum,{
-		name:{$regex:new RegExp(keyword)}//模糊查询
+		name:{$regex:new RegExp(keyword,'i')}//模糊查询
 	})
 	.then((data)=>{
 		res.json({

@@ -8,10 +8,11 @@ require('pages/common/search')
 require('pages/common/footer')
 require('./index.css');
 
+require('util/pagination');
 
 var _util=require('util')
 var _product=require('service/product')
-
+var tpl=require('./index.tpl')
 
 var page={
 	listParams:{
@@ -21,8 +22,18 @@ var page={
 		orderBy:'default'
 	},
 	init:function(){
+		this.initPagination();
 		this.bindEvent();
 		this.loadProduct();
+	},
+	initPagination:function(){
+		var _this=this;
+		$('.pagination-box').pagination();//初始化分页插件
+		$('.pagination-box').on('page-change',function(e,value){//注意ev别忘记
+			console.log('11',value)
+			_this.listParams.page=value;
+			_this.loadProduct()
+		})
 	},
 	bindEvent:function(){
 		var _this=this;
@@ -52,6 +63,7 @@ var page={
 					_this.listParams.orderBy='price_desc';
 				}
 			}
+			_this.listParams.page=1
 			_this.loadProduct();
 		})
 
@@ -61,7 +73,26 @@ var page={
 		?(delete this.listParams.categoryId)
 		:(delete this.listParams.keyword)
 		_product.loadProduct(this.listParams,function(result){
-			console.log(result)
+			//因为商品列表只需要显示商品的第一个图片
+			var list=result.list.map(function(product){
+				if(product.imagePath){
+					product.imageFirst=product.imagePath.split(',')[0]
+				}
+				else{
+					product.imageFirst=require('images/product-default.jpg')
+				}
+				return product;
+			})
+			var html=_util.hoganRender(tpl,{
+				list:list
+			});
+			$('.product-box').html(html);
+			$('.pagination-box').pagination('render',{
+				current:result.current,
+				pageSize:result.pageSize,
+				total:result.total,
+				range:3//当前页前后需要显示的分页号
+			})
 		},function(result){
 
 		})
