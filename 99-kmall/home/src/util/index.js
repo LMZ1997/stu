@@ -67,8 +67,8 @@ var _util={
 		var output=template.render(obj);
 		return output;
 	},
-	showErrMsg:function(mag){
-		alert(mag);
+	showErrMsg:function(msg){
+		alert(msg);
 	}
 }
 module.exports=_util

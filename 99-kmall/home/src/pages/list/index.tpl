@@ -9,6 +9,6 @@
 		</li>
 	{{/list}}
 	{{^list}}
-		<p class="noList">您要找的商品移居火星了!!!</p>
+		<p class="error">您要找的商品移居火星了!!!</p>
 	{{/list}}
 </ul>

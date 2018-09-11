@@ -39,3 +39,6 @@ body{
 .btn:hover{
 	background: red;
 }
+.btn-submit{
+	padding: 5px;
+}

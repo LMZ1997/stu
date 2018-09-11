@@ -162,7 +162,7 @@ class NormalProductSave extends Component{
 			          label="商品图片"
 			        >
 			         <UploadImage                        //组件名首字母必须大写
-			         	max={3}						     //向组件传递参数max,接收用this.props.max
+			         	max={5}						     //向组件传递参数max,接收用this.props.max
 			         	action={UPLOAD_PRODUCT_IMAGE}    //传递参数action,接收用{this.props.action}
 			        	getImageFilePath={(filePath)=>{
 			        		this.props.handleImages(filePath)

@@ -30,7 +30,6 @@ var page={
 		var _this=this;
 		$('.pagination-box').pagination();//初始化分页插件
 		$('.pagination-box').on('page-change',function(e,value){//注意ev别忘记
-			console.log('11',value)
 			_this.listParams.page=value;
 			_this.loadProduct()
 		})
