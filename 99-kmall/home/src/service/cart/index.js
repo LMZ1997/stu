@@ -34,7 +34,50 @@ var _product={
 			success:success,
 			error:error
 		})
-	}
+	},
+	selectAll:function(success,error){
+		_util.request({
+			method:"put",
+			url:'/cart/selectAll',
+			success:success,
+			error:error
+		})
+	},
+	unselectAll:function(success,error){
+		_util.request({
+			method:"put",
+			url:'/cart/unselectAll',
+			success:success,
+			error:error
+		})
+	},
+	deleteOne:function(data,success,error){
+		_util.request({
+			method:"put",
+			data:data,
+			url:'/cart/deleteOne',
+			success:success,
+			error:error
+		})
+	},
+	addCount:function(data,success,error){
+		_util.request({
+			method:"put",
+			data:data,
+			url:'/cart/addCount',
+			success:success,
+			error:error
+		})
+	},
+	reduceCount:function(data,success,error){
+		_util.request({
+			method:"put",
+			data:data,
+			url:'/cart/reduceCount',
+			success:success,
+			error:error
+		})
+	},
 }
 
 module.exports=_product

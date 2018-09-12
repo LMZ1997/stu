@@ -1,10 +1,10 @@
 <ul class="cart-title clearfix">
-	<li class="select-all">
+	<li class="product-select">
 		{{#allChecked}}
 		<input type="checkbox" checked class="select-all">
 		{{/allChecked}}
 		{{^allChecked}}
-		<input type="checkbox" class="select-all">
+		<input type="checkbox"  class="select-all">
 		{{/allChecked}}
 		<span>全选</span>
 	</li>
@@ -26,7 +26,7 @@
 </ul>
 {{#cartList}}
 <ul class="cart-item clearfix" data-product-id="{{productId._id}}">
-	<li class="select-all">
+	<li class="product-select">
 		{{#checked}}
 		<input type="checkbox" checked class="select-one" />
 		{{/checked}}
@@ -35,8 +35,8 @@
 		{{/checked}}
 	</li>
 	<li class="product-info">
-		<a href="./detail.html?productId=111">
-			<img src="http://127.0.0.1:3000/product-image/1536627149757.jpg" alt=""/>
+		<a href="./detail.html?productId={{productId._id}}" class="product-info-link">
+			<img src="{{productId.image}}" alt=""/>
 			<span class="product-info-text">{{productId.name}}</span>
 		</a>
 	</li>
@@ -44,20 +44,26 @@
 		<span>￥{{productId.price}}</span>
 	</li>
 	<li class="product-count">
-		<span>{{count}}</span>
+		<span class="count-btn minus">
+			<i class="fa fa-minus"></i>
+		</span>
+		<input class="count-input" value="{{count}}"/>
+		<span class="count-btn plus">
+			<i class="fa fa-plus"></i>
+		</span>
 	</li>
 	<li class="product-total-price">
 		<span>￥{{price}}</span>
 	</li>
 	<li class="product-opreation">
-		<span>
+		<span class="delete-one">
 			<i class="fa fa-trash-o"></i>删除
 		</span>
 	</li>
 </ul>
 {{/cartList}}
 <ul class="cart-footer">
-	<li class="select-all">
+	<li class="product-select">
 		{{#allChecked}}
 		<input type="checkbox" checked class="select-all">
 		{{/allChecked}}

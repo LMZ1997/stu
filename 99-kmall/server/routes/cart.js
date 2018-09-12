@@ -21,11 +21,11 @@ router.post('/',(req,res)=>{
 	.then(user=>{
 		if(user){
 			if(user.cart){
-				let item=user.cart.cartList.forEach(item=>{
+				let item=user.cart.cartList.find(item=>{
 					return item.productId==body.productId
 				})
 				if(item){
-					cartItem.count = cartItem.count + parseInt(body.count)
+					item.count = item.count + parseInt(body.count)
 				}else{
 					user.cart.cartList.push(body)
 				}
@@ -88,10 +88,11 @@ router.put('/selectOne',(req,res)=>{
 					})
 				}
 			}
-			else{ //如果没有user.cart，那么用户未添加过购物车，user.cart为空，需要初始化添加
-				user.cart={
-					cartList:[body],
-				}
+			else{ 
+				res.json({
+					code:1,
+					message:'还没有购物车'
+				})
 			}
 			user.save()//任一数据变化都会触发save函数
 			.then(newUser=>{
@@ -119,6 +120,7 @@ router.put('/unselectOne',(req,res)=>{
 		if(user){
 			if(user.cart){
 				let cartItem=user.cart.cartList.find(item=>{
+
 					return item.productId==body.productId
 				})
 				if(cartItem){
@@ -130,10 +132,11 @@ router.put('/unselectOne',(req,res)=>{
 					})
 				}
 			}
-			else{ //如果没有user.cart，那么用户未添加过购物车，user.cart为空，需要初始化添加
-				user.cart={
-					cartList:[body],
-				}
+			else{ 
+				res.json({
+					code:1,
+					message:'还没有购物车'
+				})
 			}
 			user.save()//任一数据变化都会触发save函数
 			.then(newUser=>{
@@ -154,6 +157,185 @@ router.put('/unselectOne',(req,res)=>{
 		}
 	})
 })
-
-
+router.put('/selectAll',(req,res)=>{
+	userModel.findById(req.userInfo._id)
+	.then(user=>{
+		if(user){
+			if(user.cart){
+				user.cart.cartList.forEach(item=>{
+					 item.checked=true
+				})
+				user.cart.allChecked=true;
+			}
+			else{
+				res.json({
+					code:1,
+					message:'还没有购物车'
+				})
+			}
+			user.save()//任一数据变化都会触发save函数
+			.then(newUser=>{
+				user.getCart()
+				.then(cart=>{
+					res.json({
+						code:0,
+						data:cart
+					})
+				})
+			})
+		}
+		else{
+			res.json({
+				code:1,
+				errMessage:'未找到相关用户信息'
+			})
+		}
+	})
+})
+router.put('/unselectAll',(req,res)=>{
+	userModel.findById(req.userInfo._id)
+	.then(user=>{
+		if(user){
+			if(user.cart){
+				user.cart.cartList.forEach(item=>{
+					 item.checked=false
+				})
+				user.cart.allChecked=false;
+			}
+			else{
+				res.json({
+					code:1,
+					message:'还没有购物车'
+				})
+			}
+			user.save()//任一数据变化都会触发save函数
+			.then(newUser=>{
+				user.getCart()
+				.then(cart=>{
+					res.json({
+						code:0,
+						data:cart
+					})
+				})
+			})
+		}
+		else{
+			res.json({
+				code:1,
+				errMessage:'未找到相关用户信息'
+			})
+		}
+	})
+})
+router.put('/deleteOne',(req,res)=>{
+	let body=req.body;
+	userModel.findById(req.userInfo._id)
+	.then(user=>{
+		if(user){
+			if(user.cart){
+				let indexOut=0;
+				user.cart.cartList.find((item,index)=>{
+					if(item.productId==body.productId){
+						indexOut=index
+					}
+					return ;
+				})
+				
+				user.cart.cartList.splice(indexOut,1)
+			}
+			else{ 
+				res.json({
+					code:1,
+					message:'还没有购物车'
+				})
+			}
+			user.save()//任一数据变化都会触发save函数
+			.then(newUser=>{
+				user.getCart()
+				.then(cart=>{
+					res.json({
+						code:0,
+						data:cart
+					})
+				})
+			})
+		}
+		else{
+			res.json({
+				code:1,
+				errMessage:'未找到相关用户信息'
+			})
+		}
+	})
+})
+router.put('/addCount',(req,res)=>{
+	let body=req.body;
+	userModel.findById(req.userInfo._id)
+	.then(user=>{
+		if(user){
+			let cartItem=user.cart.cartList.find(item=>{
+				return item.productId==body.productId
+			})
+			if(cartItem){
+				cartItem.count+=1
+			}else{
+				res.json({
+					code:1,
+					errMessage:'购物车记录不存在'
+				})
+			}
+			user.save()//任一数据变化都会触发save函数
+			.then(newUser=>{
+				user.getCart()
+				.then(cart=>{
+					res.json({
+						code:0,
+						data:cart
+					})
+				})
+			})
+		}
+		else{
+			res.json({
+				code:1,
+				errMessage:'未找到相关用户信息'
+			})
+		}
+	})
+})
+router.put('/reduceCount',(req,res)=>{
+	let body=req.body;
+	userModel.findById(req.userInfo._id)
+	.then(user=>{
+		if(user){
+			let cartItem=user.cart.cartList.find(item=>{
+				return item.productId==body.productId
+			})
+			if(cartItem){
+				cartItem.count-=1
+			}else{
+				res.json({
+					code:1,
+					errMessage:'购物车记录不存在'
+				})
+			}
+			user.save()//任一数据变化都会触发save函数
+			.then(newUser=>{
+				user.getCart()
+				.then(cart=>{
+					res.json({
+						code:0,
+						data:cart
+					})
+				})
+			})
+		}
+		else{
+			res.json({
+				code:1,
+				errMessage:'未找到相关用户信息'
+			})
+		}
+	})
+})
 module.exports=router;

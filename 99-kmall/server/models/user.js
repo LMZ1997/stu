@@ -54,6 +54,7 @@ const UserSchema=new mongoose.Schema({
 
 UserSchema.methods.getCart=function(){
 	return new Promise((resolve,reject)=>{
+		var _this=this;
 		if(!this.cart){
 			resolve({
 				cartList:[]
@@ -72,10 +73,20 @@ UserSchema.methods.getCart=function(){
 		Promise.all(getCartItems())//promise为异步执行，all是为了确保getCartItems中每一项都执行完毕
 		.then(cartItems=>{
 			// this.cart.cartList=cartItems;
-			cartItems.forEach(item=>{
-				this.cart.totalPrice+=item.price
+			let uncheckedItem=cartItems.find((item)=>{
+				return item.checked==false
 			})
-			resolve(this.cart)
+			if(uncheckedItem){
+				_this.cart.allChecked=false;
+			}else{
+				_this.cart.allChecked=true;
+			}
+			cartItems.forEach(item=>{
+				if(item.checked){
+					_this.cart.totalPrice+=item.price
+				}
+			})
+			resolve(_this.cart)
 		})
 		
 		

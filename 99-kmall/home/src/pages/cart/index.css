@@ -9,13 +9,26 @@
     box-sizing: border-box;
     color:#666;
 }
-.select-all{
+.product-select{
 	float: left;
 	width: 6%;
 }
 .product-info{
 	float: left;
 	width: 54%;
+}
+.product-info-text{
+	margin-left: 10px;
+	color: #666;
+}
+.product-info-link{
+	display: block;
+	text-decoration: none;
+}
+.cart-item .product-info img{
+	width: 60px;
+	height: 60px;
+	vertical-align: middle;
 }
 .product-price{
 	float: left;
@@ -24,6 +37,7 @@
 .product-count{
 	float: left;
 	width: 10%;
+
 }
 .product-total-price{
 	float: left;
@@ -31,13 +45,46 @@
 }
 .product-opreation{
 	float: left;
-	width: 10%	
+	width: 10%;
+	user-select: none;
+	cursor: pointer;
 }
 .cart-item{
 	width: 100%;
+	height: 100px;
+	line-height: 100px;
     padding: 0 10px;
     box-sizing: border-box;
     color:#666;
+    margin:10px 0;
+    border: 1px solid #ddd;
+}
+.count-input{
+	float: left;
+	width: 40px;
+	height: 30px;
+	text-align: center;
+	outline: 0;
+	border: 0;
+	margin-top: 35px;
+}
+.count-btn{
+	font-size: 15px;
+	color: #000;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	background-color: #ccc;
+	text-align: center;
+	cursor: pointer;
+}
+.plus{
+	float: left;
+	margin-top: 35px;
+}
+.minus{
+	float: left;
+	margin-top: 35px;
 }
 
 .cart-footer{
@@ -51,10 +98,7 @@
     box-sizing: border-box;
     color:#666;
 }
-.select-all{
-	float: left;
 
-}
 .remove-select{
 	float: left;
 	margin-right: 20px;
@@ -82,4 +126,14 @@
 	height: 40px;
 	padding: 0;
 	line-height: 40px;
+}
+.error{
+	color: #f21;
+	font-size: 20px;
+	text-align: center;
+	margin: 100px;
+}
+.goHome-btn{
+	padding: 5px 10px;
+	margin-left: 10px;
 }
