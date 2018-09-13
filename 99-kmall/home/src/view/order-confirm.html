@@ -9,7 +9,7 @@
 <body>
 	<%= require('html-loader!./common/nav.html') %>
 	<%= require('html-loader!./common/search.html') %>
-	<div class="order-congirm">
+	<div class="order-confirm">
 		<div class="container">
 			<div class="shipping-box">
 
@@ -18,7 +18,7 @@
 
 			</div>
 			<div class="modal-box">
-				<div class="modal">
+				<div class="modal hide" id="modal">
 					<div class="modal-container">
 						<div class="modal-header">
 							<h2 class="modal-title">新增地址</h2>
@@ -27,7 +27,7 @@
 						<div class="modal-body">
 							<div class="form">
 								<div class="form-box">
-									<div class="errorMsg"> 
+									<div class="errorMsg hide"> 
 										<i class="fa fa-minus-circle"></i>
 										<span class="error-msg">error</span>
 									</div>
@@ -43,12 +43,12 @@
 										</label>
 										<input type="text" class="form-content" name="phone" placeholder="请输入手机号">
 									</div>
-									<div class="form-item">
+									<div class="form-item city-item">
 										<label for="" class="form-label">
-											<i class="fa fa-lock"></i>
+											<i class="fa fa-building"></i>
 										</label>
-										<select name="" id="" class="modal-select"></select>
-										<select name="" id="" class="modal-select"></select>
+										<select name="province"></select>
+										<select name="city"></select>
 									</div>
 									<div class="form-item">
 										<label class="form-label">

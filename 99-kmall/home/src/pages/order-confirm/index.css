@@ -1,3 +1,7 @@
+.panel{
+	padding: 10px;
+	background-color: #fff;
+}
 .panel .panel-header{
 	font-size: 18px;
 	border-bottom: 1px solid #aaa;
@@ -40,6 +44,7 @@
 	color: #999;
 	text-align: center;
 	padding-top: 22px;
+	cursor: pointer;
 }
 .panel .product-info{
 	width: 70%;
@@ -56,6 +61,11 @@
 .panel .product-total-price{
 	width: 10%;
 	float: left;
+}
+.panel .product-footer .btn-submit{
+	padding: 0;
+	width: 100px;
+	margin-left: 10px;
 }
 
 .modal{
@@ -76,7 +86,7 @@
 .modal .modal-header{
 	height: 30px;
 	line-height: 30px;
-	font-size: 15px;
+	font-size: 18px;
 	border-bottom: 1px dashed #aaa;
 }
 .modal .modal-title{
@@ -85,7 +95,17 @@
 .modal .close-icon{
 	float: right;
 	cursor: pointer;
+	font-size: 20px;
 }
-.modal .modal-body{
-	
+.modal .modal-body .form-item.city-item{
+	border:none;
+}
+.modal .modal-body .form-item.city-item .form-label{
+	border:1px solid #999;
+}
+.modal .modal-body .form-item.city-item select{
+	width: 100px;
+	height: 30px;
+	margin-left: 10px;
+	outline: none;
 }

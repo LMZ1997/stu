@@ -21,6 +21,12 @@ var page={
 	},
 	bindEvent:function(){
 		var _this=this;
+		$('.shipping-box').on('click','.shipping-add',function(){
+			$('#modal').removeClass('hide')
+		})
+		$('#modal').on('click','.close-icon',function(){
+			$('#modal').addClass('hide')
+		})
 	},
 	loadShippingList:function(){
 		var _this=this;
@@ -33,10 +39,8 @@ var page={
 	},
 	loadProductList:function(){
 		var _this=this;
-		console.log(111)
 		_order.getOrderProductList(function(cart){
 			_this.cart=cart;//保存购物车信息，用来去结算时的验证
-			console.log(cart)
 			if(cart.cartList.length){
 				cart.cartList.forEach(item=>{
 					if(item.checked){//给选中的商品项加一个背景色区别出来
