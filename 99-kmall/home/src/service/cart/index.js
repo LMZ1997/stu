@@ -60,6 +60,22 @@ var _product={
 			error:error
 		})
 	},
+	deleteSelect:function(success,error){
+		_util.request({
+			method:"put",
+			url:'/cart/deleteSelect',
+			success:success,
+			error:error
+		})
+	},
+	deleteAll:function(success,error){
+		_util.request({
+			method:"put",
+			url:'/cart/deleteAll',
+			success:success,
+			error:error
+		})
+	},
 	addCount:function(data,success,error){
 		_util.request({
 			method:"put",
@@ -78,6 +94,13 @@ var _product={
 			error:error
 		})
 	},
+	getCartNum:function(success,error){//获取购物车商品的数量填充到顶部导航中
+		_util.request({
+			url:'/cart/num',
+			success:success,
+			error:error
+		})
+	}
 }
 
 module.exports=_product

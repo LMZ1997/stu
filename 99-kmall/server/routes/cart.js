@@ -4,6 +4,41 @@ const userModel=require('../models/user.js');
 const hmac=require('../util/hmac.js')
 const productModel=require('../models/product.js')
 
+//未登录也可以获取购物车信息
+router.get('/num',(req,res)=>{
+	if(req.userInfo._id){
+		userModel.findById(req.userInfo._id)
+		.then(user=>{
+			if(user){
+				if(user.cart){
+					let num=user.cart.cartList.length;
+					res.json({
+						code:0,
+						data:num
+					})
+				}else{
+					res.json({
+						code:0,
+						data:0
+					})
+				}
+			}
+			else{
+				res.json({
+					code:1,
+					errMessage:'未找到相关用户信息'
+				})
+			}
+		})
+	}else{
+		res.json({
+			code:0,
+			data:0
+		})
+	}
+	
+})
+
 //权限控制
 router.use((req,res,next)=>{
 	if(req.userInfo._id){
@@ -268,6 +303,76 @@ router.put('/deleteOne',(req,res)=>{
 		}
 	})
 })
+router.put('/deleteSelect',(req,res)=>{
+	let body=req.body;
+	userModel.findById(req.userInfo._id)
+	.then(user=>{
+		if(user){
+			if(user.cart){
+				let newCartList=user.cart.cartList.filter(item=>{
+					return item.checked==false
+				})
+				user.cart.cartList=newCartList
+			}
+			else{ 
+				res.json({
+					code:1,
+					message:'还没有购物车'
+				})
+			}
+			user.save()//任一数据变化都会触发save函数
+			.then(newUser=>{
+				user.getCart()
+				.then(cart=>{
+					res.json({
+						code:0,
+						data:cart
+					})
+				})
+			})
+		}
+		else{
+			res.json({
+				code:1,
+				errMessage:'未找到相关用户信息'
+			})
+		}
+	})
+})
+router.put('/deleteAll',(req,res)=>{
+	let body=req.body;
+	userModel.findById(req.userInfo._id)
+	.then(user=>{
+		if(user){
+			if(user.cart){
+				
+				user.cart.cartList=[];
+			}
+			else{ 
+				res.json({
+					code:1,
+					message:'还没有购物车'
+				})
+			}
+			user.save()//任一数据变化都会触发save函数
+			.then(newUser=>{
+				user.getCart()
+				.then(cart=>{
+					res.json({
+						code:0,
+						data:cart
+					})
+				})
+			})
+		}
+		else{
+			res.json({
+				code:1,
+				errMessage:'未找到相关用户信息'
+			})
+		}
+	})
+})
 router.put('/addCount',(req,res)=>{
 	let body=req.body;
 	userModel.findById(req.userInfo._id)
@@ -338,4 +443,5 @@ router.put('/reduceCount',(req,res)=>{
 		}
 	})
 })
+
 module.exports=router;

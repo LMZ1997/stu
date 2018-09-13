@@ -33,15 +33,15 @@
 .product-box{
 	margin-bottom: 40px;
 }
-.product-item{
+.product-list-item{
 	float: left;
 	width: 238px;
 	margin-right: 10px;
 }
-.product-item:nth-child(5n){
+.product-list-item:nth-child(5n){
 	margin-right: 0px;
 }
-.product-item a{
+.product-list-item a{
 	text-decoration: none;
 }
 .product-image{

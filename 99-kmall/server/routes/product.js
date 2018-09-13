@@ -38,7 +38,7 @@ router.get('/loadProduct',(req,res)=>{//前端商品list页面
 	}
 	if(req.query.orderBy=='price_desc'){
 		sort={
-			price:1
+			price:-1
 		}
 	}else if(req.query.orderBy=='price_asc'){
 		sort={

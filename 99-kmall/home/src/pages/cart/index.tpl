@@ -1,4 +1,4 @@
-<ul class="cart-title clearfix">
+<ul class="product-title clearfix">
 	<li class="product-select">
 		{{#allChecked}}
 		<input type="checkbox" checked class="select-all">
@@ -15,7 +15,7 @@
 		<span>单价</span>
 	</li>
 	<li class="product-count">
-		<span>数量</span>
+		<span class="product-countMenu-text">数量</span>
 	</li>
 	<li class="product-total-price">
 		<span>小计</span>
@@ -25,7 +25,7 @@
 	</li>
 </ul>
 {{#cartList}}
-<ul class="cart-item clearfix" data-product-id="{{productId._id}}">
+<ul class="product-item {{selected}} clearfix" data-product-id="{{productId._id}}">
 	<li class="product-select">
 		{{#checked}}
 		<input type="checkbox" checked class="select-one" />
@@ -35,7 +35,7 @@
 		{{/checked}}
 	</li>
 	<li class="product-info">
-		<a href="./detail.html?productId={{productId._id}}" class="product-info-link">
+		<a href="./detail.html?productId={{productId._id}}" class="product-info-link" target="_blank">
 			<img src="{{productId.image}}" alt=""/>
 			<span class="product-info-text">{{productId.name}}</span>
 		</a>
@@ -62,7 +62,7 @@
 	</li>
 </ul>
 {{/cartList}}
-<ul class="cart-footer">
+<ul class="product-footer">
 	<li class="product-select">
 		{{#allChecked}}
 		<input type="checkbox" checked class="select-all">
@@ -75,7 +75,6 @@
 	<li class="remove-select">
 		删除选中的商品
 	</li>
-	<li class="moveToFollow">移到我的关注</li>
 	<li class="remove-all">清理购物车</li>
 	<li class="total-price">
 		<span class="total-price-text">总价:</span>

@@ -92,6 +92,40 @@ UserSchema.methods.getCart=function(){
 		
 	})
 }
+UserSchema.methods.getOrderProductList=function(){
+	return new Promise((resolve,reject)=>{
+		var _this=this;
+		if(!this.cart){
+			resolve({
+				cartList:[]
+			})
+		}
+		let newCartList=this.cart.cartList.filter(item=>{
+			return item.checked
+		})
+		let getCartItems=()=>{//因为是箭头函数，所以this指向没问题
+			return newCartList.map(cartItem=>{//map指向地址
+				return productModel.findById(cartItem.productId,'_id name price count imagePath')
+				.then(product=>{
+					cartItem.productId=product;
+					cartItem.price=product.price*cartItem.count;
+					return cartItem
+				})
+			})
+		}
+		Promise.all(getCartItems())//promise为异步执行，all是为了确保getCartItems中每一项都执行完毕
+		.then(cartItems=>{
+			cartItems.forEach(item=>{
+				if(item.checked){
+					_this.cart.totalPrice+=item.price
+				}
+			})
+			resolve(_this.cart)
+		})
+		
+		
+	})
+}
 const UserModel=mongoose.model('User',UserSchema);//User会在数据库blog中生成users集合
 
 module.exports=UserModel;

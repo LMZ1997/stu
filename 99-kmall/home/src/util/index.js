@@ -69,6 +69,9 @@ var _util={
 	},
 	showErrMsg:function(msg){
 		alert(msg);
+	},
+	confirm:function(message){
+		return window.confirm(message);
 	}
 }
 module.exports=_util

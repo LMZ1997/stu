@@ -1,34 +1,10 @@
-.cart-title{
-	width: 100%;
-	height: 40px;
-	line-height: 40px;
-	background: #f3f3f3;
-    border: 1px solid #e9e9e9;
-    border-top: 0;
-    padding: 0 10px;
-    box-sizing: border-box;
-    color:#666;
-}
 .product-select{
 	float: left;
 	width: 6%;
 }
 .product-info{
 	float: left;
-	width: 54%;
-}
-.product-info-text{
-	margin-left: 10px;
-	color: #666;
-}
-.product-info-link{
-	display: block;
-	text-decoration: none;
-}
-.cart-item .product-info img{
-	width: 60px;
-	height: 60px;
-	vertical-align: middle;
+	width: 50%;
 }
 .product-price{
 	float: left;
@@ -36,7 +12,7 @@
 }
 .product-count{
 	float: left;
-	width: 10%;
+	width: 14%;
 
 }
 .product-total-price{
@@ -49,15 +25,8 @@
 	user-select: none;
 	cursor: pointer;
 }
-.cart-item{
-	width: 100%;
-	height: 100px;
-	line-height: 100px;
-    padding: 0 10px;
-    box-sizing: border-box;
-    color:#666;
-    margin:10px 0;
-    border: 1px solid #ddd;
+.product-item.selected{
+	background: #fff8e1;
 }
 .count-input{
 	float: left;
@@ -86,54 +55,20 @@
 	float: left;
 	margin-top: 35px;
 }
-
-.cart-footer{
-	width: 100%;
-	height: 40px;
-	line-height: 40px;
-	background: #f3f3f3;
-    border: 1px solid #e9e9e9;
-    border-top: 0;
-    padding: 0 10px;
-    box-sizing: border-box;
-    color:#666;
-}
-
 .remove-select{
 	float: left;
 	margin-right: 20px;
-}
-.moveToFollow{
-	float: left;
-	margin-right: 20px;
+	cursor: pointer;
 }
 .remove-all{
 	float: left;
 	margin-right: 20px;
-}
-.total-price{
-	float:left;
-	margin-left: 600px;
-}
-.money{
-	color: #f21;
-	font-size: 16px;
-}
-.cart-box .toPay{
-	display: inline-block;
-	float:right;
-	width: 80px;
-	height: 40px;
-	padding: 0;
-	line-height: 40px;
-}
-.error{
-	color: #f21;
-	font-size: 20px;
-	text-align: center;
-	margin: 100px;
+	cursor: pointer;
 }
 .goHome-btn{
 	padding: 5px 10px;
 	margin-left: 10px;
+}
+.product.active{
+	background: #f0dfb7;
 }

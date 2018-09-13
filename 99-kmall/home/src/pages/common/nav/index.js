@@ -1,6 +1,8 @@
 require('./index.css')
 var _user=require('service/user/index.js')
+var _cart=require('service/cart')
 var _util=require('util')
+
 var nav={
 	init:function(){
 		this.bindEvent();
@@ -26,7 +28,11 @@ var nav={
 		})
 	},
 	loadCartInfo:function(){
-
+		_cart.getCartNum(function(num){
+			$('.list-item .cart-num').text(num||0)
+		},function(){
+			_util.showErrMsg('获取购物车信息错误')
+		})
 	}
 }
 
