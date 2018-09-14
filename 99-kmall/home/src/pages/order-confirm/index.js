@@ -49,7 +49,7 @@ var page={
 			})
 			
 		})
-		//编辑地址
+		//删除地址
 		$shippingBox.on('click','.shipping-delete',function(){
 			var shippingId=$(this).parents('.shipping-item').data('shipping-id');
 			if(_util.confirm('确定要删除该条地址信息吗')){
@@ -64,7 +64,9 @@ var page={
 			}
 			
 		})
+		//选择收货地址
 		$shippingBox.on('click','.shipping-item',function(){
+			
 			$(this).addClass('active')
 			.siblings('.shipping-item')
 			.removeClass('active')
@@ -85,7 +87,7 @@ var page={
 		_shipping.getShippings(function(shippings){
 			_this.renderShippingList(shippings);
 		},function(){
-			$('.modal-box').html('<p class="error">您还没有设置收货地址</p>')
+			$('.modal-box').html('<p class="error">获取收货地址失败</p>')
 		});
 	},
 	renderShippingList:function(shippings){
@@ -94,7 +96,6 @@ var page={
 			shippings:shippings
 		});
 		$('.shipping-box').html(html)
-		$('.modal-box').find('.close-icon').trigger('click')
 	},
 	loadProductList:function(){
 		var _this=this;

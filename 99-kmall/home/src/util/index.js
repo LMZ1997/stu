@@ -70,6 +70,9 @@ var _util={
 	showErrMsg:function(msg){
 		alert(msg);
 	},
+	showSuccessMsg:function(msg){
+		alert(msg);
+	},
 	confirm:function(message){
 		return window.confirm(message);
 	}

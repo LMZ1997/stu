@@ -9,13 +9,16 @@ var shippingTpl=require('./shipping.tpl')
 var _modal={
 	show:function(options){
 		this.options=options;
-		var _this=this;
+
 		this.$box=$('.modal-box');
 
 		this.renderModal();//渲染modal
+		this.bindEvent();
+		
 
-		this.getProvinces();//读取省份信息
-
+	},
+	bindEvent:function(){
+		var _this=this;
 		$('.provinceSelect').on('change',function(){//根据省份渲染城市信息
 			_this.getCities(_this.$box.find('.provinceSelect').val())
 		})
@@ -35,36 +38,34 @@ var _modal={
 		this.$box.empty();
 	},
 	renderModal:function(){
-		if(this.options.data){
-			var html=_util.hoganRender(modalTpl,{
-				shipping:this.options.data
-			});
-		}
-		else{
-			var html=_util.hoganRender(modalTpl);
-		}
+		//有data走编辑操作，无data走新增操作
+		var html=_util.hoganRender(modalTpl,{
+			shipping:this.options.data||{}
+		});
 		this.$box.html(html);
+
+		this.getProvinces();//读取省份信息，最好放在modal渲染完成之后
 	},
 	getProvinces:function(){
-		var htmlProvince='<option value="请选择" class="provinceOptions">请选择</option>';
+		var htmlProvince='<option value="">请选择</option>';
 		var provinces=_cities.loadProvinces();
 		var $provinceSelect=this.$box.find('.provinceSelect')
 		for(var i=0;i<provinces.length;i++){
-			htmlProvince+='<option value="'+provinces[i]+'" class="provinceOptions">'+provinces[i]+'</option>';
+			htmlProvince+='<option value="'+provinces[i]+'">'+provinces[i]+'</option>';
 		}
 		$provinceSelect.html(htmlProvince);
 
 		//省份的回填
 		if(this.options.data&&this.options.data.province){
 			$provinceSelect.val(this.options.data.province);
-			this.getCities(this.options.data.province)
+			this.getCities(this.options.data.province)//执行此步操作，因为如果需要更换其他城市就需要有其他的城市可供选择
 		}
 	},
 	getCities:function(provinceName){
-		var htmlCity='<option value="" class="provinceOptions">请选择</option>';
+		var htmlCity='<option value="">请选择</option>';
 		var cities=_cities.loadCities(provinceName);
 		for(var i=0;i<cities.length;i++){
-			htmlCity+='<option value="'+cities[i]+'" class="provinceOptions">'+cities[i]+'</option>';
+			htmlCity+='<option value="'+cities[i]+'">'+cities[i]+'</option>';
 		}
 		$('.citySelect').html(htmlCity)
 
@@ -89,11 +90,25 @@ var _modal={
 			var result=this.validate(validateData)
 			if(result.status){
 				this.formError();//清空前端页面提示的错误信息
-				_shipping.addShipping(validateData,function(shippings){
-					_this.options.success(shippings);
-				},function(){
-					_util.showErrMsg('新建地址错误，请检查信息后重试')
-				})
+				if(_this.options.data){
+					_shipping.editShipping(validateData,function(shippings){
+						_this.options.success(shippings);           //success是包含index.js中函数的对象key值
+						_util.showSuccessMsg('编辑地址成功')
+						_this.hide()
+					},function(){
+						_util.showErrMsg('编辑地址错误，请检查信息后重试')
+					})
+				}
+				else{
+					_shipping.addShipping(validateData,function(shippings){
+						_this.options.success(shippings);           //success是包含index.js中函数的对象key值
+						_util.showSuccessMsg('新增地址成功')
+						_this.hide()
+					},function(){
+						_util.showErrMsg('新建地址错误，请检查信息后重试')
+					})
+				}
+				
 			}
 			else{
 				this.formError(result.msg)

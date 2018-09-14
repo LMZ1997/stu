@@ -18,34 +18,25 @@ router.use((req,res,next)=>{
 		})
 	}
 })
+
+//新增地址
 router.post('/',(req,res)=>{
 	let body=req.body;
 	userModel.findById(req.userInfo._id)
 	.then(user=>{
-		if(user){
-			user.shipping.push({
-				name:body.name,
-				phone:body.phone,
-				province:body.province,
-				city:body.city,
-				address:body.address,
-				zip:body.zip
-			})
-			user.save()
-			.then(newUser=>{
-				res.json({
-					code:0,
-					data:user.shipping
-				})
-			})
-			
+		if(user.shipping){
+			user.shipping.push(body)
 		}
 		else{
-			res.json({
-				code:1,
-				errMessage:'未找到相关用户信息'
-			})
+			user.shipping=[body]
 		}
+		user.save()
+		.then(newUser=>{
+			res.json({
+				code:0,
+				data:user.shipping
+			})
+		})
 	})
 	.catch(e=>{
 		res.json({
@@ -54,21 +45,14 @@ router.post('/',(req,res)=>{
 			})
 	})
 })
-//获取所以地址信息
+//获取所有地址信息
 router.get('/list',(req,res)=>{
 	userModel.findById(req.userInfo._id)
 	.then(user=>{
-		if(user.shipping){
-			res.json({
-				code:0,
-				data:user.shipping
-			})
-		}
-		else{
-			res.json({
-				code:1
-			})
-		}
+		res.json({
+			code:0,
+			data:user.shipping
+		})
 	})
 	.catch(e=>{
 		res.json({
@@ -100,10 +84,13 @@ router.put('/',(req,res)=>{
 	userModel.findById(req.userInfo._id)
 	.then(user=>{
 		if(user){
-			let newShippings=user.shipping.filter(item=>{
-				return item._id!=body.shippingId
-			})
-			user.shipping=newShippings;
+			// let newShippings=user.shipping.filter(item=>{
+			// 	return item._id!=body.shippingId
+			// })
+			// user.shipping=newShippings;
+
+			//简便方法
+			user.shipping.id(body.shippingId).remove();
 			user.save()
 			.then(newUser=>{
 				res.json({
