@@ -52,7 +52,7 @@ var page={
 				productId:_this.params.productId,
 				count:parseInt($('.count-input').val())
 			},function(result){
-				// console.log(result);
+				//console.log(result);
 				window.location.href='./result.html?type=addCart'
 			},function(msg){
 				_util.showErrMsg(msg);
@@ -63,7 +63,7 @@ var page={
 	loadProductDetail:function(){
 		var _this=this;
 		_product.loadProductDetail({productId:this.params.productId},function(product){
-			if(product){
+			if(product.imagePath.length){
 				product.images=product.imagePath.split(',');
 			}
 			else{

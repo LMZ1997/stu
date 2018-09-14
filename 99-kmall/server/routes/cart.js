@@ -72,6 +72,7 @@ router.post('/',(req,res)=>{
 			}
 			user.save()
 			.then(newUser=>{
+				console.log(newUser.cart)
 				res.json({
 					code:0,
 					message:'添加购物车成功'

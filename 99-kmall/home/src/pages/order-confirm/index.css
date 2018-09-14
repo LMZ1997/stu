@@ -12,6 +12,9 @@
 	padding: 10px;
 	overflow: hidden;/*清除浮动*/
 }
+.panel .shipping-item{
+	cursor: pointer;
+}
 .panel .shipping-item,.shipping-add{
 	float: left;
 	margin-right: 20px;
@@ -108,4 +111,14 @@
 	height: 30px;
 	margin-left: 10px;
 	outline: none;
+}
+.modal .errorMsg{
+	display: none;
+	border:1px solid red;
+	padding-left: 10px;
+	height: 30px;
+	line-height: 30px;
+	margin-bottom: 10px;
+	color: red;
+	font-size: 14px;
 }

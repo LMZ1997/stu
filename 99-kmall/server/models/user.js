@@ -1,5 +1,6 @@
 const mongoose=require('mongoose');
 const productModel=require('./product.js')
+
 const CartItemSchema=new mongoose.Schema({//前台购物车单个商品所需字段
 	productId:{
 		type:mongoose.Schema.Types.ObjectId,
@@ -31,6 +32,26 @@ const CartSchema=new mongoose.Schema({//前台购物车所有商品所需字段
 		default:0
 	}
 })
+const ShippingSchema=new mongoose.Schema({//前台购物车所有商品所需字段
+	name:{
+		type:String
+	},
+	phone:{
+		type:String
+	},
+	province:{
+		type:String
+	},
+	city:{
+		type:String
+	},
+	address:{
+		type:String
+	},
+	zip:{
+		type:String
+	}
+})
 
 const UserSchema=new mongoose.Schema({
 		username:{
@@ -47,6 +68,9 @@ const UserSchema=new mongoose.Schema({
 		phone:String,
 		cart:{                 //每个用户绑定一个购物车（这种写法mongoose特有，其他数据库需要新建对应model）
 			type:CartSchema
+		},
+		shipping:{
+			type:[ShippingSchema]
 		}
 	},{
 		timestamps:true//（包含了createdAt和updatedAt）

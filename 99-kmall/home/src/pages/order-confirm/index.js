@@ -7,7 +7,9 @@ require('pages/common/footer')
 require('./index.css');
 
 
+
 var _util=require('util')
+var _modal=require('./modal.js')
 var _order=require('service/order')
 var _shipping=require('service/shipping')
 var shippingTpl=require('./shipping.tpl')
@@ -21,21 +23,78 @@ var page={
 	},
 	bindEvent:function(){
 		var _this=this;
-		$('.shipping-box').on('click','.shipping-add',function(){
-			$('#modal').removeClass('hide')
+		var $shippingBox=$('.shipping-box')
+		//添加地址
+		$shippingBox.on('click','.shipping-add',function(){
+			_modal.show({
+				success:function(shippings){
+					_this.renderShippingList(shippings)
+				}
+			});
 		})
-		$('#modal').on('click','.close-icon',function(){
-			$('#modal').addClass('hide')
+		//编辑地址
+		$shippingBox.on('click','.shipping-edit',function(){
+			var shippingId=$(this).parents('.shipping-item').data('shipping-id');
+			_shipping.getShipping({
+				shippingId:shippingId
+			},function(shipping){
+				_modal.show({
+					success:function(shippings){
+						_this.renderShippingList(shippings)
+					},
+					data:shipping
+				});
+			},function(){
+
+			})
+			
+		})
+		//编辑地址
+		$shippingBox.on('click','.shipping-delete',function(){
+			var shippingId=$(this).parents('.shipping-item').data('shipping-id');
+			if(_util.confirm('确定要删除该条地址信息吗')){
+				_shipping.deleteShipping({
+					shippingId:shippingId
+				},function(shippings){
+					_this.renderShippingList(shippings)
+				},function(msg){
+					_util.showErrMsg(msg)
+				})
+				
+			}
+			
+		})
+		$shippingBox.on('click','.shipping-item',function(){
+			$(this).addClass('active')
+			.siblings('.shipping-item')
+			.removeClass('active')
+		})
+		//关闭modal
+		$('.modal-box').on('click','.close-icon',function(){
+			_modal.hide();
+		})
+		$('.modal-box').on('click',function(){
+			_modal.hide();
+		})
+		$('.modal-box').on('click','.modal-container',function(ev){
+			ev.stopPropagation()
 		})
 	},
 	loadShippingList:function(){
 		var _this=this;
-		this.renderShippingList()
+		_shipping.getShippings(function(shippings){
+			_this.renderShippingList(shippings);
+		},function(){
+			$('.modal-box').html('<p class="error">您还没有设置收货地址</p>')
+		});
 	},
-	renderShippingList:function(){
+	renderShippingList:function(shippings){
 		var _this=this;
-		var html=_util.hoganRender(shippingTpl);
+		var html=_util.hoganRender(shippingTpl,{
+			shippings:shippings
+		});
 		$('.shipping-box').html(html)
+		$('.modal-box').find('.close-icon').trigger('click')
 	},
 	loadProductList:function(){
 		var _this=this;

@@ -4,19 +4,19 @@ const userModel=require('../models/user.js');
 const hmac=require('../util/hmac.js')
 
 
-// router.get('/init',(req,res)=>{
-// 	const users={
-// 		username:'test',
-// 		password:hmac('test'),
-// 		email:'test@qq.com',
-// 		phone:13546897124
-// 	};
+router.get('/init',(req,res)=>{
+	const users={
+		username:'test2',
+		password:hmac('test2'),
+		email:'test2@qq.com',
+		phone:13546897124
+	};
 	
-// 	userModel.create(users)
-// 	.then((data)=>{
-// 		res.send('ok')
-// 	})
-// })
+	userModel.create(users)
+	.then((data)=>{
+		res.send('ok')
+	})
+})
 
 
 
