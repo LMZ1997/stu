@@ -139,7 +139,7 @@ var page={
 
 			_this.cart=cart;//保存购物车信息，用来去结算时的验证
 
-			if(cart.cartList.length){
+			if(cart.cartList.length){//也可添加notEmpty=!!cart.cartList.length在tpl中判断
 				cart.cartList.forEach(item=>{
 					if(item.checked){//给选中的商品项加一个背景色区别出来
 						item.selected='selected'

@@ -33,7 +33,7 @@
 						收件人:
 					</span>
 					<span class="text">
-						{{user}}
+						{{shipping.name}}
 					</span>
 				</li>
 				<li class="order-createdTime">
@@ -44,6 +44,14 @@
 						{{createdTime}}
 					</span>
 				</li>
+				<li class="order-paymentDesc">
+					<span class="lable">
+						支付状态:
+					</span>
+					<span class="text">
+						{{statusDesc}}
+					</span>
+				</li>
 				<li class="order-payment">
 					<span class="lable">
 						支付金额:
@@ -52,8 +60,9 @@
 						￥{{payment}}
 					</span>
 				</li>
+				
 				<li class="order-detail">
-					<a class="link" href="./order-detail.html?orderNo={{orderNo}}">查看详情</a>
+					<a class="link" target="_blank" href="./order-detail.html?orderNo={{orderNo}}">查看详情</a>
 				</li>
 			</ul>
 			{{#productList}}

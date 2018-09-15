@@ -80,11 +80,22 @@ router.post('/',(req,res)=>{//创建订单
 
 			new orderModel(order)
 			.save()
-			.then(newOrder=>{
-				res.json({
-					code:0,
-					data:newOrder
+			.then(newOrder=>{//因为上边获取的user中商品都是checked==true的，而这里是需要删除购物车中checked==true的，所以只能再次用userModal获取user
+				userModel.findById(req.userInfo._id)
+				.then(user=>{
+					let newList=user.cart.cartList.filter(item=>{
+						return item.checked==false
+					})
+					user.cart.cartList=newList;
+					user.save()
+					.then(newUser=>{
+						res.json({
+							code:0,
+							data:newOrder
+						})
+					})
 				})
+
 			})
 		})
 		.catch(e=>{
@@ -115,7 +126,7 @@ router.get('/',(req,res)=>{
 	})
 })
 router.get('/detail',(req,res)=>{
-	orderModel.findOne({orderNo:req.query.orderNo})
+	orderModel.findOne({orderNo:req.query.orderNo,user:req.userInfo._id})//双重条件避免在地址栏换上别人的订单号非法操作
 	.then(order=>{
 		if(order){
 			res.json({
@@ -126,7 +137,7 @@ router.get('/detail',(req,res)=>{
 		else{
 			res.json({
 				code:1,
-				errMessage:'获取订单详情失败'
+				errMessage:'获取订单详情失败！'
 			})
 		}
 		
@@ -134,7 +145,37 @@ router.get('/detail',(req,res)=>{
 	.catch(e=>{
 		res.json({
 			code:1,
-			errMessage:'您的订单去火星了'
+			errMessage:'您的订单去火星了！'
+		})
+	})
+})
+
+router.put('/orderCancel',(req,res)=>{
+	console.log(req.body)
+	orderModel.findOneAndUpdate(
+		{orderNo:req.body.orderNo,user:req.userInfo._id},
+		{status:"20",statusDesc:"取消订单"},
+		{new:true}//加了此条件findAndUpdate返回的才是修改后的数据，否则还是以前的数据
+	)
+	.then(order=>{
+		if(order){
+			res.json({
+				code:0,
+				data:order
+			})
+		}
+		else{
+			res.json({
+				code:1,
+				errMessage:'取消订单失败'
+			})
+		}
+		
+	})
+	.catch(e=>{
+		res.json({
+			code:1,
+			errMessage:'取消订单失败！'
 		})
 	})
 })

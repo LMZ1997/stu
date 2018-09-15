@@ -1,6 +1,21 @@
-
+.order-detail-box .panel-body{
+	padding: 0 10px;
+	font-size: 16px;
+}
+.order-detail-box .panel .order-info li{
+	height: 40px;
+	line-height: 40px;
+	color: #666;
+	font-size: 14px;
+}
+.order-detail-box .panel .order-info li .btn{
+	width: 80px;
+}
+.panel{
+	margin-top: 20px;
+}
 .panel .panel-header{
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 .panel .product-info{
 	width: 70%;
@@ -26,15 +41,8 @@
 	margin-top: -1px;
 }
 
-.panel .order-info{
-	height: 40px;
-	line-height: 40px;
-}
-.panel .order-info li{
-	float: left;
-	margin-right: 20px;
-	color:#666;
-}
+
+
 .panel .order-payment .text{
 	color: #f21;
 	font-size: 15px;

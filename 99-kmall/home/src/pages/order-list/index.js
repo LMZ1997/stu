@@ -33,33 +33,39 @@ var page={
 	},
 	render:function(){
 		_order.getOrders(this.listParams,function(orders){
-			console.log(orders)
-			var productList=[];
-			orders.list.map(item=>{
-				item.productList.forEach(product=>{
-					if(product.images.length){
-						product.image=product.images.split(',')[0]
-					}else{
-						product.image=require("images/product-default.jpg")
-					}
-				 	productList.push(product)
-				 })
-			})	
-			console.log(productList)
-			var html=_util.hoganRender(tpl,{
-				list:orders.list,
-				productList:productList
-			})
-			$('.order-box').html(html);
+			if(orders.list){//                 list->分页数据
+				var productList=[];
+				orders.list.map(item=>{
+					item.productList.forEach(product=>{
+						if(product.images.length){
+							product.image=product.images.split(',')[0]
+						}else{
+							product.image=require("images/product-default.jpg")
+						}
+					 	productList.push(product)
+					 })
+					item.createdTime=new Date(item.createdAt).toLocaleString();//时间本地化
+				})	
 
-			$('.pagination-box').pagination('render',{
-				current:orders.current,
-				pageSize:orders.pageSize,
-				total:orders.total,
-				range:3//当前页前后需要显示的分页号
-			})
+				var html=_util.hoganRender(tpl,{
+					list:orders.list,
+					productList:productList
+				})
+				$('.order-box').html(html);
+
+				$('.pagination-box').pagination('render',{
+					current:orders.current,
+					pageSize:orders.pageSize,
+					total:orders.total,
+					range:3//当前页前后需要显示的分页号
+				})
+			}
+			else{
+				$('.order-box').html('<p class="error">获取订单列表失败！</p>')
+			}
+			
 		},function(msg){
-			$('.order-box').html('<p class="error">获取订单列表失败</p>')
+			$('.order-box').html('<p class="error">您的订单去火星了！</p>')
 		})
 		
 	}

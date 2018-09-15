@@ -33,6 +33,15 @@ var _order={
 			error:error
 		})
 	},
+	orderCancel:function(data,success,error){//data->订单编号
+		_util.request({
+			url:'/order/orderCancel',
+			method:'put',
+			data:data,
+			success:success,
+			error:error
+		})
+	},
 	
 }
 
