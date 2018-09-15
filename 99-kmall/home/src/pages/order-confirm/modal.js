@@ -91,6 +91,7 @@ var _modal={
 			if(result.status){
 				this.formError();//清空前端页面提示的错误信息
 				if(_this.options.data){
+					validateData.id=_this.options.data._id
 					_shipping.editShipping(validateData,function(shippings){
 						_this.options.success(shippings);           //success是包含index.js中函数的对象key值
 						_util.showSuccessMsg('编辑地址成功')

@@ -79,7 +79,7 @@ router.get('/',(req,res)=>{
 	})
 })
 //删除对应id地址
-router.put('/',(req,res)=>{
+router.put('/delete',(req,res)=>{
 	let body=req.body;
 	userModel.findById(req.userInfo._id)
 	.then(user=>{
@@ -91,6 +91,42 @@ router.put('/',(req,res)=>{
 
 			//简便方法
 			user.shipping.id(body.shippingId).remove();
+			user.save()
+			.then(newUser=>{
+				res.json({
+					code:0,
+					data:user.shipping
+				})
+			})
+			
+		}
+		else{
+			res.json({
+				code:1,
+				errMessage:'未找到相关用户信息'
+			})
+		}
+	})
+	.catch(e=>{
+		res.json({
+				code:1,
+				errMessage:'获取订单地址时服务器发生错误'
+			})
+	})
+})
+//编辑对应id地址
+router.put('/edit',(req,res)=>{
+	let body=req.body;
+	userModel.findById(req.userInfo._id)
+	.then(user=>{
+		if(user){
+			let shipping=user.shipping.id(body.id);
+			shipping.name=body.name;
+			shipping.phone=body.phone;
+			shipping.province=body.province;
+			shipping.city=body.city;
+			shipping.address=body.address;
+			shipping.zip=body.zip;
 			user.save()
 			.then(newUser=>{
 				res.json({

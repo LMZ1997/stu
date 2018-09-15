@@ -127,6 +127,7 @@ UserSchema.methods.getOrderProductList=function(){
 		let newCartList=this.cart.cartList.filter(item=>{
 			return item.checked
 		})
+		this.cart.cartList=newCartList;
 		let getCartItems=()=>{//因为是箭头函数，所以this指向没问题
 			return newCartList.map(cartItem=>{//map指向地址
 				return productModel.findById(cartItem.productId,'_id name price count imagePath')

@@ -201,8 +201,6 @@ router.put('/editOrder',(req,res)=>{
 })
 router.put('/editStatus',(req,res)=>{
 	let body =req.body;
-	console.log(body)
-	console.log(typeof body.newStatus)
 	productModel.update({_id:body.id},{status:body.newStatus},(err,raw)=>{
 			if(!err){
 				res.send({

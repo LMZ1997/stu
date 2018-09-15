@@ -4,7 +4,12 @@
 	</h2>
 	<div class="panel-body">
 		{{#shippings}}
-		<div class="shipping-item" data-shipping-id={{_id}}>
+			{{#isActive}}
+				<div class="shipping-item active" data-shipping-id={{_id}}>
+			{{/isActive}}
+			{{^isActive}}
+				<div class="shipping-item" data-shipping-id={{_id}}>
+			{{/isActive}}
 			<h3 class="shipping-title">{{province}} {{city}}({{name}})</h3>
 			<div class="shipping-detail">
 				{{province}} {{city}} {{address}} {{phone}}

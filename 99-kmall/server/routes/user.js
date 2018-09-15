@@ -164,7 +164,10 @@ router.put('/updatePassword',(req,res)=>{//点击注册发送了注册请求
 		}
 	})
 	.catch(e=>{
-		console.log(e)
+		res.json({
+			code:1,
+			errMessage:'修改密码出错'
+		})
 	})
 })
 

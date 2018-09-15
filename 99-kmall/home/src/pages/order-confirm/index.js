@@ -16,6 +16,10 @@ var shippingTpl=require('./shipping.tpl')
 var productTpl=require('./product.tpl')
 
 var page={
+	data:{//用于选中一个地址，然后编辑或删除其他地址不改变原来选中的状态
+		    //也用于提交订单时验证是否选择了地址
+		shippingId:null
+	},
 	init:function(){
 		this.bindEvent();
 		this.loadShippingList();
@@ -32,8 +36,9 @@ var page={
 				}
 			});
 		})
-		//编辑地址
-		$shippingBox.on('click','.shipping-edit',function(){
+		//编辑地址时先获取信息回填
+		$shippingBox.on('click','.shipping-edit',function(ev){
+			ev.stopPropagation();
 			var shippingId=$(this).parents('.shipping-item').data('shipping-id');
 			_shipping.getShipping({
 				shippingId:shippingId
@@ -50,7 +55,8 @@ var page={
 			
 		})
 		//删除地址
-		$shippingBox.on('click','.shipping-delete',function(){
+		$shippingBox.on('click','.shipping-delete',function(ev){
+			ev.stopPropagation();
 			var shippingId=$(this).parents('.shipping-item').data('shipping-id');
 			if(_util.confirm('确定要删除该条地址信息吗')){
 				_shipping.deleteShipping({
@@ -70,6 +76,8 @@ var page={
 			$(this).addClass('active')
 			.siblings('.shipping-item')
 			.removeClass('active')
+
+			_this.data.shippingId=$(this).data('shipping-id')
 		})
 		//关闭modal
 		$('.modal-box').on('click','.close-icon',function(){
@@ -80,6 +88,27 @@ var page={
 		})
 		$('.modal-box').on('click','.modal-container',function(ev){
 			ev.stopPropagation()
+		})
+
+
+		//提交订单
+		$('.product-box').on('click','.btn-submit',function(){
+			console.log('222')
+			if(_this.data.shippingId){
+				console.log('111')
+				_order.createOrder({
+					shippingId:_this.data.shippingId
+				},function(order){
+					console.log(order);
+					// window.location.href='./payment.html?orderNo='+order.orderNo;
+				},function(msg){
+					_util.showErrMsg(msg)
+				})
+			}
+			else{
+				console.log('333')
+				_util.showErrMsg('请选择地址后再提交')
+			}
 		})
 	},
 	loadShippingList:function(){
@@ -92,6 +121,11 @@ var page={
 	},
 	renderShippingList:function(shippings){
 		var _this=this;
+		shippings.forEach(function(shipping){
+			if(shipping._id==_this.data.shippingId){
+				shipping.isActive=true;
+			}
+		})
 		var html=_util.hoganRender(shippingTpl,{
 			shippings:shippings
 		});
@@ -103,10 +137,11 @@ var page={
 			_this.cart=cart;//保存购物车信息，用来去结算时的验证
 			if(cart.cartList.length){
 				cart.cartList.forEach(item=>{
+					console.log(item)
 					if(item.checked){//给选中的商品项加一个背景色区别出来
 						item.selected='selected'
 					}
-					if(item.productId.imagePath){
+					if(item.productId.imagePath.length){
 						item.productId.image=item.productId.imagePath.split(',')[0]
 					}
 					else{

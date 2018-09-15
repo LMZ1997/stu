@@ -17,7 +17,7 @@ var _shipping={
 			error:error
 		})
 	},
-	getShipping:function(data,success,error){
+	getShipping:function(data,success,error){//用于编辑时的数据回填
 		_util.request({
 			data:data,
 			url:'/shipping',
@@ -29,7 +29,16 @@ var _shipping={
 		_util.request({
 			data:data,
 			method:'put',
-			url:'/shipping',
+			url:'/shipping/delete',
+			success:success,
+			error:error
+		})
+	},
+	editShipping:function(data,success,error){
+		_util.request({
+			data:data,
+			method:'put',
+			url:'/shipping/edit',
 			success:success,
 			error:error
 		})

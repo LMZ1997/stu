@@ -20,3 +20,11 @@
 	color: #f21;
 	
 }
+.content{
+	float: left;
+	width: 1070px;
+	min-height: 600px;
+	background-color: #fff;
+	box-sizing: border-box;
+	padding: 20px;
+}
