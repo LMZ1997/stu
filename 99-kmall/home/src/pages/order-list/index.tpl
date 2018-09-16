@@ -44,7 +44,7 @@
 						{{createdTime}}
 					</span>
 				</li>
-				<li class="order-paymentDesc">
+				<li class="order-paymentStatusDesc">
 					<span class="lable">
 						支付状态:
 					</span>

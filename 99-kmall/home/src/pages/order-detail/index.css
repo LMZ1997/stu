@@ -29,6 +29,9 @@
 	width: 10%;
 	float: left;
 }
+.panel .order-paymentStatusDesc .text{
+	color: #3d49f3c4;
+}
 .panel .product-total-price{
 	width: 10%;
 	float: left;

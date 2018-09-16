@@ -45,7 +45,7 @@
 						￥{{payment}}
 					</span>
 				</li>
-				<li class="order-paymentType">
+				<li class="order-paymentStatusDesc">
 					<span class="lable">
 						支付状态:
 					</span>
@@ -58,7 +58,7 @@
 						支付方式:
 					</span>
 					<span class="text">
-						{{paymentType}}
+						{{paymentTypeDesc}}
 					</span>
 				</li>
 				{{#needPay}}
