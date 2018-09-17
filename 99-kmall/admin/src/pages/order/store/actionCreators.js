@@ -3,12 +3,10 @@ import { message } from 'antd';
 import * as types from './actionTypes.js'
 import { request } from 'util'//配置别名
 import { 
-    SET_PRODUCT,
     GET_ORDER,
-    UPDATE_PRODUCT_ORDER,
-    UPDATE_PRODUCT_STATUS,
-    PRODUCT_DETAIL,
-    SEARCH_PRODUCT
+    ORDER_DETAIL,
+    SEARCH_ORDER,
+    CHANGE_ORDER_STATUS
 } from 'api'
 
 
@@ -56,26 +54,26 @@ export const getPagesAction=(page)=>{
     }
 }
 
-const setProductDetailAction=(payload)=>{
+const setOrderDetailAction=(payload)=>{
     return {
-        type:types.SET_PRODUCT_DETAIL,
+        type:types.SET_ORDER_DETAIL,
         payload
     }
 }
-export const getProductDetail=(productId)=>{
+export const getOrderDetail=(orderNo)=>{
     return (dispatch)=>{          
         request({
             method:'get',              
-            url:PRODUCT_DETAIL,
+            url:ORDER_DETAIL,
             data:{
-                id:productId,
+                orderNo:orderNo,
             },
             withCredentials: true
         })
         .then((result)=>{
-            console.log('ProductDetail请求成功后返回到前端的数据：：',result)
+            console.log('OrderDetail请求成功后返回到前端的数据：：',result)
             if(result.code==0){
-                 dispatch(setProductDetailAction(result.data))
+                 dispatch(setOrderDetailAction(result.data))
             }
             else if(result.code==1){
                 message.error(result.errMessage)
@@ -87,11 +85,11 @@ export const getProductDetail=(productId)=>{
         })
     }
 }
-export const searchProductAction=(keyword,page=1)=>{
+export const searchOrderAction=(keyword,page=1)=>{
     return (dispatch)=>{          
         request({
             method:'get',              
-            url:SEARCH_PRODUCT,
+            url:SEARCH_ORDER,
             data:{
                 keyword,
                 page
@@ -99,12 +97,37 @@ export const searchProductAction=(keyword,page=1)=>{
             withCredentials: true
         })
         .then((result)=>{
-            console.log('searchProduct请求成功后返回到前端的数据：：',result)
+            console.log('searchOrder请求成功后返回到前端的数据：：',result)
             if(result.code==0){
                 dispatch(setPageAction(result.data))
             }
             else if(result.code==1){
                 message.error(result.errMessage)
+            }
+        })
+        .catch(e=>{
+            message.error('网络错误，请稍后重试！');
+        })
+    }
+}
+export const changeOrderStatus=(orderNo)=>{
+    return (dispatch)=>{          
+        request({
+            method:'put',              
+            url:CHANGE_ORDER_STATUS,
+            data:{
+                orderNo:orderNo,
+            },
+            withCredentials: true
+        })
+        .then((result)=>{
+            console.log('CHANGE_ORDER_STATUS请求成功后返回到前端的数据：：',result)
+            if(result.code==0){
+                 dispatch(setOrderDetailAction(result.data))
+            }
+            else if(result.code==1){
+                message.error(result.errMessage)
+               
             }
         })
         .catch(e=>{

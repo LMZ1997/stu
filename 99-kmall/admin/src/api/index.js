@@ -15,8 +15,11 @@ export const SET_PRODUCT = SERVER +'/product'
 export const GET_PRODUCT = SERVER +'/product'
 export const UPDATE_PRODUCT_ORDER =SERVER +'/product/editOrder'
 export const UPDATE_PRODUCT_STATUS =SERVER +'/product/editStatus'
-export const PRODUCT_DETAIL =SERVER +'/product/detail'
-export const SEARCH_PRODUCT =SERVER +'/product/search'
+
+
 
 //
 export const GET_ORDER = SERVER +'/order'
+export const SEARCH_ORDER =SERVER +'/order/search'
+export const ORDER_DETAIL =SERVER +'/order/detail'
+export const CHANGE_ORDER_STATUS =SERVER +'/order/changeStatus'

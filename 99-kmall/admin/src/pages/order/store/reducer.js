@@ -12,8 +12,8 @@ const defaultState=fromJS({
 	list:[]	,
 	confirmLoading:false,
 
-	name:'',
-	keyword:''
+	keyword:'',
+	orderDetail:{}
 })
 export default (state=defaultState,action)=>{
 
@@ -33,11 +33,8 @@ export default (state=defaultState,action)=>{
 		})
 	}
 	if(action.type==types.SET_ORDER_DETAIL){
-		return state.merge({
-		})
+		console.log('11')
+		return state.set('orderDetail',action.payload)
 	}
-
-
-
 	return state
 }

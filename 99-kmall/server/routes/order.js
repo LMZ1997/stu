@@ -210,5 +210,61 @@ router.get('/',(req,res)=>{
 		res.send(e);
 	})
 })
+router.get('/search',(req,res)=>{
+	let pageNum=req.query.page||1;
+	let keyword=req.query.keyword
+	orderModel.getPageOrders(pageNum,{
+		orderNo:{$regex:new RegExp(keyword,'i')}//模糊查询
+	})
+	.then((data)=>{
+		res.json({
+			code:0,
+			data:{
+				current:data.current,
+				pageSize:data.pageSize,
+				total:data.total,
+				list:data.list,
+				keyword:keyword
+			}
+		})
+	})
+	.catch((e)=>{
+		res.send(e);
+	})
+})
+router.get('/detail',(req,res)=>{
+	let orderNo=req.query.orderNo;
+	orderModel
+	.findOne({orderNo:orderNo},'-__v')
+	.then((data)=>{
+		res.json({
+			code:0,
+			data:data
+		})
+	})
+	.catch((e)=>{
+		res.send(e);
+	})
+	
+})
+router.put('/changeStatus',(req,res)=>{
+	let orderNo=req.body.orderNo;
+	orderModel
+	.findOneAndUpdate(
+		{orderNo:orderNo},
+		{status:"30",statusDesc:"已发货"},
+		{new:true}
+	)
+	.then((data)=>{
+		res.json({
+			code:0,
+			data:data
+		})
+	})
+	.catch((e)=>{
+		res.send(e);
+	})
+	
+})
 
 module.exports=router;

@@ -5,6 +5,8 @@ import {Link} from 'react-router-dom'
 import {Button,Breadcrumb,Table,Divider,InputNumber,Input, Select,Switch } from 'antd'
 import {connect} from 'react-redux'
 import { actionCreators } from './store'
+import moment from 'moment'
+
 
 const Search = Input.Search;
 
@@ -47,8 +49,8 @@ class OrderList extends Component{
 			},
 			{
 			  title: '创建时间',
-			  dataIndex: 'createAt',
-			  key: 'createAt',
+			  dataIndex: 'createdAt',
+			  key: 'createdAt',
 			},
 			{
 			  title: '操作',
@@ -67,7 +69,7 @@ class OrderList extends Component{
 			console.log('order:::::',order)
 			return {
 				key:order.get('_id'),
-				order:order.get('orderNo'),
+				orderNo:order.get('orderNo'),
 				name:order.get('shipping').get('name'),
 				payment:order.get('payment'),
 				statusDesc:order.get('statusDesc'),
@@ -141,7 +143,7 @@ const mapDispatchToProps=(dispatch)=>{
 			dispatch(action)
 		},
 		handleSearch:(keyword,page)=>{
-			dispatch(actionCreators.searchProductAction(keyword,page))
+			dispatch(actionCreators.searchOrderAction(keyword,page))
 		}
 	}
 }
