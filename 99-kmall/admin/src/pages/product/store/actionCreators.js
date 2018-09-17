@@ -30,8 +30,6 @@ export const getSetEditorValue=(value)=>({
 
 
 
-
-
 const  add_start=()=>{
         return {
                 type:types.PRODUCT_ADD
@@ -65,6 +63,11 @@ const setCategoryId_error=()=>{
           type:types.SET_CATEGORYID_ERROR,
      }
 }
+const setImages_error=()=>{
+    return {   
+          type:types.SET_IMAGES_ERROR,
+     }
+}
 
 
 
@@ -72,15 +75,22 @@ export const saveProductAction=(err,values)=>{
 	return (dispatch,getState)=>{
         const state=getState().get('product')
         const categoryId=state.get('categoryId')
-
+        const images=state.get('imagePath')
+        let hasError=false; //为了让点击提交后页面上的错误全部显示在页面上，所以不一有错误就return
         if(!categoryId){
             dispatch(setCategoryId_error())
+            hasError=true
+        }
+        if(!images){
+            dispatch(setImages_error())
+            hasError=true
+        }
+        if(hasError){
             return;
         }
         if(err){
             return;
         }
-        console.log('values::::::',values)
         let method='post';
         if(values.id){
             method='put'
@@ -104,7 +114,7 @@ export const saveProductAction=(err,values)=>{
         		dispatch(setPageAction(result.data));
         		message.success(result.message)
                 if(values.id){
-                    window.location.href='/product'
+                    // window.location.href='/product'
                 }
         	}
         	else if(result.code==1){

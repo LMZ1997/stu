@@ -10,7 +10,7 @@ const logger = createLogger({});
 
 const middleWare=[thunk]
 
-if(process.env.NODE_ENV != 'production'){
+if(process.env.NODE_ENV != 'production'){//开发状态
 	middleWare.push(logger);
 }
 const store=createStore(reducer,applyMiddleware(...middleWare))

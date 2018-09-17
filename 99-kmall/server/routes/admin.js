@@ -1,6 +1,8 @@
 const Router=require('express').Router;
 const router=Router();
 const userModel=require('../models/user.js');
+const orderModel=require('../models/order.js');
+const productModel=require('../models/product.js');
 const page=require('../util/page.js');
 const commentModel=require('../models/comment.js');
 const hmac=require('../util/hmac.js')
@@ -64,15 +66,25 @@ router.use((req,res,next)=>{//防止直接在地址栏请求/admin后登陆到�
 	}
 })
 
-router.get('/count',(req,res)=>{
-	res.json({
-		code:0,
-		data:{
-			usernum:300,
-			ordernum:301,
-			productnum:302
-		}
+router.get('/count',(req,res)=>{//后台获取用户数，订单数和商品数
+	userModel.find()
+	.then(user=>{
+		orderModel.find()
+		.then(order=>{
+			productModel.find()
+			.then(product=>{
+				res.json({
+					code:0,
+					data:{
+						usernum:user.length,
+						ordernum:order.length,
+						productnum:product.length
+					}
+				})
+			})
+		})
 	})
+	
 })
 
 router.get('/users',(req,res)=>{//请求用户列表

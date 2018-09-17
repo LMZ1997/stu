@@ -33,7 +33,7 @@
 	float: left;
 	width: 1016px;
 	height: 510px;
-	background: yellow;
+	background: url('../../images/loading.gif') no-repeat;
 	position: relative;
 }
 .carousel li{

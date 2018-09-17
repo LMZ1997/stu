@@ -418,7 +418,13 @@ router.put('/reduceCount',(req,res)=>{
 				return item.productId==body.productId
 			})
 			if(cartItem){
-				cartItem.count-=1
+				if(cartItem.count>1){
+					cartItem.count-=1
+				}
+				else{
+					cartItem.count=1
+				}
+				
 			}else{
 				res.json({
 					code:1,

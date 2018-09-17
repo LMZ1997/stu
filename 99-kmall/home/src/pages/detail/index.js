@@ -62,14 +62,9 @@ var page={
 	},
 	loadProductDetail:function(){
 		var _this=this;
+		$('.detail-box').html('<div class="loading"></div>');
 		_product.loadProductDetail({productId:this.params.productId},function(product){
-			if(product.imagePath.length){
-				product.images=product.imagePath.split(',');
-			}
-			else{
-				product.images=[require('images/product-default.jpg')]
-			}
-			product.imageFirst=product.images[0];
+			product.imageFirst=product.imagePath.split(',')[0];
 			_this.stock=product.stock;
 			var html=_util.hoganRender(tpl,product);
 			$('.detail-box').html(html)

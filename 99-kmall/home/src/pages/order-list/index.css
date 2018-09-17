@@ -35,6 +35,7 @@
 .panel .order-info li{
 	float: left;
 	margin-right: 20px;
+	height: 100%;
 	color:#666;
 }
 .panel .order-paymentStatusDesc .text{

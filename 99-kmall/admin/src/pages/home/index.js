@@ -15,7 +15,6 @@ class Home extends Component{
 	}
 
 	render(){
-		console.log('adas')
 		return(
 			<div className="Home">
 				<Layout>

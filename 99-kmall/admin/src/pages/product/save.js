@@ -72,7 +72,8 @@ class NormalProductSave extends Component{
 			fileList=this.props.imagePath.split(',').map((img,index)=>({
 				uid:index,
 				status: 'done',
-				url:img
+				url:img,
+				response:img
 			}))
 		}
 		return(
@@ -159,6 +160,9 @@ class NormalProductSave extends Component{
 			        </FormItem>
 			        <FormItem
 			          {...formItemLayout}
+			          required={true}//五角星必填标志
+			          validateStatus={this.props.images_validateStatus}
+			          help={this.props.images_help}
 			          label="商品图片"
 			        >
 			         <UploadImage                        //组件名首字母必须大写
@@ -204,6 +208,8 @@ const mapStateToProps=(state)=>{
 		categories:state.get('product').get('categories'),
 		categoryId_validateStatus:state.get('product').get('categoryId_validateStatus'),
 		categoryId_help:state.get('product').get('categoryId_help'),
+		images_validateStatus:state.get('product').get('images_validateStatus'),
+		images_help:state.get('product').get('images_help'),
 
 		name:state.get('product').get('name'),
 		description:state.get('product').get('description'),

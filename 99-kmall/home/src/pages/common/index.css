@@ -227,3 +227,30 @@ body{
 
 
 /*购物车和订单商品列表共通样式结束*/
+/*
+	面包屑样式
+*/
+.crumb{
+	height: 40px;
+	line-height: 40px;
+	color:#888;
+	font-size: 15px;
+	margin-bottom: 10px;
+}
+.crumb .link{
+	color:#888;
+	font-size: 15px;
+}
+.crumb .link:hover{
+	color: #ff6700;
+}
+
+/*
+	loading
+*/
+.loading{
+	width: 728px;
+	height: 504px;
+	margin: -50px auto;
+	background: url('../../images/loading.gif') no-repeat;
+}

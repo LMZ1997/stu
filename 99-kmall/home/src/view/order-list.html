@@ -9,7 +9,14 @@
 <body>
 	<%= require('html-loader!./common/nav.html') %>
 	<%= require('html-loader!./common/search.html') %>
-	<div class="user-page-wrap clearfix">
+	<div class="order-list clearfix">
+		<div class="container">
+			<div class="crumb">
+				<a href="" class="link">首页</a>
+				<i class="fa fa-angle-right"></i>
+				<%= htmlWebpackPlugin.options.title %>
+			</div>
+		</div>
 		<div class="container">
 			 <%= require('html-loader!./common/side.html') %>
 			<div class="content">

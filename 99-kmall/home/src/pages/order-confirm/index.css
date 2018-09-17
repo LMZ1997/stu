@@ -72,6 +72,9 @@
 	width: 10%;
 	float: left;
 }
+.panel .product-countMenu-text{
+	margin-left: 0px;
+}
 .panel .product-total-price{
 	width: 10%;
 	float: left;

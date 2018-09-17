@@ -10,6 +10,8 @@ const defaultState=fromJS({
 	detailValue:'',
 	categoryId_validateStatus:'',
 	categoryId_help:'',
+	images_validateStatus:'',
+	images_help:'',
 
 	isAddFetching:false,
 	isPageFetching:false,               
@@ -38,7 +40,11 @@ export default (state=defaultState,action)=>{
 		})
 	}
 	if(action.type==types.SET_IMAGE){
-		return state.set('imagePath',action.payload)
+		return state.merge({
+			'imagePath':action.payload,
+			images_validateStatus:'',
+			images_help:''	
+	})
 	}
 	if(action.type==types.SET_EDITOR_VALUE){
 		return state.set('detailValue',action.payload)
@@ -47,6 +53,12 @@ export default (state=defaultState,action)=>{
 		return state.merge({
 			categoryId_validateStatus:'error',
 			categoryId_help:'请选择所属分类'		
+		})
+	}
+	if(action.type==types.SET_IMAGES_ERROR){
+		return state.merge({
+			images_validateStatus:'error',
+			images_help:'请至少上传一张图片'		
 		})
 	}
 	if(action.type==types.PRODUCT_ADD){

@@ -71,15 +71,14 @@ var page={
 		this.listParams.keyword //delete 用法
 		?(delete this.listParams.categoryId)
 		:(delete this.listParams.keyword)
+
+		//loading图片
+		$('.product-box').html('<div class="loading"></div>');
+
 		_product.loadProduct(this.listParams,function(result){
 			//因为商品列表只需要显示商品的第一个图片
 			var list=result.list.map(function(product){
-				if(product.imagePath){
-					product.imageFirst=product.imagePath.split(',')[0]
-				}
-				else{
-					product.imageFirst=require('images/product-default.jpg')
-				}
+				product.imageFirst=product.imagePath.split(',')[0]
 				return product;
 			})
 			var html=_util.hoganRender(tpl,{

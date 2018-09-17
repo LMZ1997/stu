@@ -32,16 +32,13 @@ var page={
 		_side.render('order-list')//使侧边栏订单列表一项为选中状态
 	},
 	render:function(){
+		$('.order-box').html('<div class="loading"></div>');
 		_order.getOrders(this.listParams,function(orders){
 			if(orders.list){//                 list->分页数据
 				var productList=[];
 				orders.list.map(item=>{
 					item.productList.forEach(product=>{
-						if(product.images.length){
-							product.image=product.images.split(',')[0]
-						}else{
-							product.image=require("images/product-default.jpg")
-						}
+						product.image=product.images.split(',')[0]
 					 	productList.push(product)
 					 })
 					item.createdTime=new Date(item.createdAt).toLocaleString();//时间本地化

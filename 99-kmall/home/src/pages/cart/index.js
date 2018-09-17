@@ -54,7 +54,6 @@ var page={
 				})
 			}
 			else{
-				console.log('222')
 				_cart.unselectAll(function(cart){
 					_this.loadCart();
 				},function(){
@@ -96,7 +95,7 @@ var page={
 				})
 			}
 		})
-		this.$box.on('click','.plus',function(){//单个商品选中或取消
+		this.$box.on('click','.plus',function(){
 			var $this=$(this)
 			let productId=$this.parents('.product-item').data('product-id')
 			_cart.addCount({
@@ -107,7 +106,7 @@ var page={
 				_this.showErrPage()
 			})
 		})
-		this.$box.on('click','.minus',function(){//单个商品选中或取消
+		this.$box.on('click','.minus',function(){
 			var $this=$(this)
 			let productId=$this.parents('.product-item').data('product-id')
 			_cart.reduceCount({
@@ -135,6 +134,7 @@ var page={
 	renderCart:function(){
 		var _this=this;
 		_nav.loadCartInfo();//购物车中数据改变，立即刷新顶部导航购物车信息
+		_this.$box.html('<div class="loading"></div>');
 		_cart.getCart(function(cart){
 
 			_this.cart=cart;//保存购物车信息，用来去结算时的验证
@@ -144,12 +144,7 @@ var page={
 					if(item.checked){//给选中的商品项加一个背景色区别出来
 						item.selected='selected'
 					}
-					if(item.productId.imagePath){
-						item.productId.image=item.productId.imagePath.split(',')[0]
-					}
-					else{
-						item.productId.image=require('images/product-default.jpg')
-					}
+					item.productId.image=item.productId.imagePath.split(',')[0]
 				})
 				var html=_util.hoganRender(tpl,cart)
 				_this.$box.html(html)

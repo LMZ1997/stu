@@ -20,6 +20,7 @@ var page={
 		_side.render('user-center')
 	},
 	render:function(){
+		$('.content').html('<div class="loading"></div>');
 		_user.getUserInfo(function(userInfo){
 			var html=_util.hoganRender(tpl,userInfo)
 			$('.content').html(html)

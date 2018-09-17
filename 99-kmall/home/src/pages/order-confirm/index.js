@@ -49,8 +49,8 @@ var page={
 					},
 					data:shipping
 				});
-			},function(){
-
+			},function(msg){
+				_util.showErrMsg(msg)
 			})
 			
 		})
@@ -93,14 +93,11 @@ var page={
 
 		//提交订单
 		$('.product-box').on('click','.btn-submit',function(){
-			console.log('222')
 			if(_this.data.shippingId){
-				console.log('111')
 				_order.createOrder({
 					shippingId:_this.data.shippingId
 				},function(order){
-					console.log(order);
-					// window.location.href='./payment.html?orderNo='+order.orderNo;
+					window.location.href='./payment.html?orderNo='+order.orderNo;
 				},function(msg){
 					_util.showErrMsg(msg)
 				})
@@ -113,10 +110,11 @@ var page={
 	},
 	loadShippingList:function(){
 		var _this=this;
+		$('.shipping-box').html('<div class="loading"></div>');
 		_shipping.getShippings(function(shippings){
 			_this.renderShippingList(shippings);
 		},function(){
-			$('.modal-box').html('<p class="error">获取收货地址失败</p>')
+			$('.shipping-box').html('<p class="error">获取收货地址失败</p>')
 		});
 	},
 	renderShippingList:function(shippings){
@@ -133,6 +131,7 @@ var page={
 	},
 	loadProductList:function(){
 		var _this=this;
+		$('.product-box').html('<div class="loading"></div>');
 		_order.getOrderProductList(function(cart){
 			_this.cart=cart;//保存购物车信息，用来去结算时的验证
 			if(cart.cartList.length){
@@ -141,12 +140,7 @@ var page={
 					if(item.checked){//给选中的商品项加一个背景色区别出来
 						item.selected='selected'
 					}
-					if(item.productId.imagePath.length){
-						item.productId.image=item.productId.imagePath.split(',')[0]
-					}
-					else{
-						item.productId.image=require('images/product-default.jpg')
-					}
+					item.productId.image=item.productId.imagePath.split(',')[0]
 				})
 				var html=_util.hoganRender(productTpl,cart);
 				$('.product-box').html(html)

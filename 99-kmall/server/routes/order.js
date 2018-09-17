@@ -18,7 +18,7 @@ router.use((req,res,next)=>{
 		})
 	}
 })
-router.get('/orderProductList',(req,res)=>{
+router.get('/home/orderProductList',(req,res)=>{
 	userModel.findById(req.userInfo._id)
 	.then(user=>{
 		user.getOrderProductList()
@@ -107,7 +107,7 @@ router.post('/',(req,res)=>{//创建订单
 	})
 })
 
-router.get('/',(req,res)=>{
+router.get('/home',(req,res)=>{
 	let page=req.query.page;
 	orderModel.getPageOrders(page)
 	.then(result=>{
@@ -125,7 +125,7 @@ router.get('/',(req,res)=>{
 		res.send(e);
 	})
 })
-router.get('/detail',(req,res)=>{
+router.get('/home/detail',(req,res)=>{
 	orderModel.findOne({orderNo:req.query.orderNo,user:req.userInfo._id})//双重条件避免在地址栏换上别人的订单号非法操作
 	.then(order=>{
 		if(order){
@@ -180,5 +180,35 @@ router.put('/orderCancel',(req,res)=>{
 	})
 })
 
+//管理员权限
+router.use((req,res,next)=>{
+	// console.log('1::',req.userInfo)
+	if(req.userInfo.isAdmin){
+		next()
+	}
+	else{
+		res.send({
+			code:10
+		})
+	}
+})
+router.get('/',(req,res)=>{
+	let page=req.query.page;
+	orderModel.getPageOrders(page)
+	.then(result=>{
+		res.json({
+			code:0,
+			data:{
+				current:result.current,
+				pageSize:result.pageSize,
+				total:result.total,
+				list:result.list
+			}
+		})
+	})
+	.catch(e=>{
+		res.send(e);
+	})
+})
 
 module.exports=router;

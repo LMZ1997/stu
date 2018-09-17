@@ -11,6 +11,13 @@
 	<%= require('html-loader!./common/search.html') %>
 	<div class="list">
 		<div class="container">
+			<div class="crumb">
+				<a href="" class="link">首页</a>
+				<i class="fa fa-angle-right"></i>
+				<%= htmlWebpackPlugin.options.title %>
+			</div>
+		</div>
+		<div class="container">
 			<div class="sort clearfix">
 				<ul>
 					<li class="sort-item default active">

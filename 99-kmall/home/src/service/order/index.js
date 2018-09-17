@@ -3,7 +3,7 @@ var _util=require('util')
 var _order={
 	getOrderProductList:function(success,error){//订单确认页
 		_util.request({
-			url:'/order/orderProductList',
+			url:'/order/home/orderProductList',
 			success:success,
 			error:error
 		})
@@ -19,7 +19,7 @@ var _order={
 	},
 	getOrders:function(data,success,error){//data->分页信息
 		_util.request({
-			url:'/order',
+			url:'/order/home',
 			data:data,
 			success:success,
 			error:error
@@ -27,7 +27,7 @@ var _order={
 	},
 	getOrderDetail:function(data,success,error){//data->订单编号
 		_util.request({
-			url:'/order/detail',
+			url:'/order/home/detail',
 			data:data,
 			success:success,
 			error:error

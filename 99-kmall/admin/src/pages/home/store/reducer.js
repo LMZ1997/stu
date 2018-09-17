@@ -4,9 +4,9 @@ import {fromJS} from 'immutable'
 import * as types from './actionTypes.js'
 
 const defaultState=fromJS({
-	usernum:200,
-	ordernum:201,
-	productnum:202
+	usernum:0,
+	ordernum:0,
+	productnum:0
 })
 export default (state=defaultState,action)=>{
 	if(action.type==types.SET_COUNT){

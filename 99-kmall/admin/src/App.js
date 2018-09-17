@@ -16,6 +16,7 @@ import Home from 'pages/home'
 import User from 'pages/user'
 import Category from 'pages/category'
 import Product from 'pages/product'
+import Order from 'pages/order'
 
 import Errorpage  from 'common/error-page'
 
@@ -52,6 +53,7 @@ class App extends Component{
 						<ProductedRoute path='/user' component={ User }  />
 						<ProductedRoute path='/category' component={ Category }  />
 						<ProductedRoute path='/product' component={ Product }  />
+						<ProductedRoute path='/order' component={ Order }  />
 						<LoginRoute path='/login' component={ Login } />
 						<Route  component={ Errorpage } />
 					</Switch>

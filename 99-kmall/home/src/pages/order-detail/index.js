@@ -48,11 +48,7 @@ var page={
 	render:function(order){
 		if(order.productList){
 			order.productList.forEach(product=>{
-				if(product.images.length){
-					product.image=product.images.split(',')[0]
-				}else{
-					product.image=require("images/product-default.jpg")
-				}
+				product.image=product.images.split(',')[0]
 			 })	
 			order.createdTime=new Date(order.createdAt).toLocaleString();//时间本地化
 			var html=_util.hoganRender(tpl,{

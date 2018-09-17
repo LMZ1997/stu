@@ -128,6 +128,7 @@ var page={
 		$('.category').html(html)
 	},
 	loadCarousel:function(){
+		$('.carousel').html('<div class="loading"></div>');
 		var html=_util.hoganRender(carouselTpl,{
 			carousels:this.carousels
 		});

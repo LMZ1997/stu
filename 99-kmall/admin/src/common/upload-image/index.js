@@ -16,7 +16,7 @@ class UploadImage extends Component {
 	}
 
   static getDerivedStateFromProps(props,state){
-    console.log('props::::',props.fileList)
+    // console.log('props::::',props.fileList)
       if(props.fileList.length>0 && state.fileList.length==0){
         return{
           fileList:props.fileList
