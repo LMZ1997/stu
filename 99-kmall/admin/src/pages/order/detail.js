@@ -1,6 +1,6 @@
 import React,{ Component } from 'react'
 import Layout from 'common/layout'
-import {Button} from 'antd'
+import {Button,Popconfirm} from 'antd'
 
 
 import {connect} from 'react-redux'
@@ -103,11 +103,22 @@ class OrderDetail extends Component{
 							</li>
 							<li 
 							className="order-opreation"
-							onClick={this.props.handleChangeStatus(orderNo)}
 							>
 								{
 									status=="30"
-									?<Button type="primary">发货</Button>
+									?<Popconfirm 
+									  placement="right" 
+									  title={'確定要發貨嗎'} 
+									  onConfirm={()=>{
+									  	this.props.handleChangeStatus(orderNo)
+									  }} 
+									  okText="確定" cancelText="取消"
+									 >
+								        <Button type="primary">发货</Button>
+								     </Popconfirm>
+
+
+
 									:null
 								}
 							</li>

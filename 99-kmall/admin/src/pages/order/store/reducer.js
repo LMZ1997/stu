@@ -33,7 +33,6 @@ export default (state=defaultState,action)=>{
 		})
 	}
 	if(action.type==types.SET_ORDER_DETAIL){
-		console.log('11')
 		return state.set('orderDetail',action.payload)
 	}
 	return state

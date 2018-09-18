@@ -1,0 +1,10 @@
+<view class='container'>
+  <view class='userinfo'>
+    <image src='/images/dogLogo.png' class='userinfo-avatar'></image>
+    <text class='userinfo-name'>Maiken</text>
+  </view>
+  <!-- 区别在bindtap冒泡,而catchtap不冒泡 -->
+  <view class='user-motto' bindtap="tapArticle">
+    <text class='motto'>开启miniWX之旅</text>
+  </view>
+</view>

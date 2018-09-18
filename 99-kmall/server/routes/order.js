@@ -252,7 +252,7 @@ router.put('/changeStatus',(req,res)=>{
 	orderModel
 	.findOneAndUpdate(
 		{orderNo:orderNo},
-		{status:"30",statusDesc:"已发货"},
+		{status:"40",statusDesc:"已发货"},
 		{new:true}
 	)
 	.then((data)=>{

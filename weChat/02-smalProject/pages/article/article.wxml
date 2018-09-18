@@ -1,0 +1,10 @@
+<view class='container'>
+    <swiper indicator-dots="true" autoplay="true" indicator-active-color="#fff" interval="2000">
+      <swiper-item>
+        <image src='/images/swiper/321076.jpg'></image>
+      </swiper-item>
+      <swiper-item>
+        <image src='/images/swiper/321080.jpg'></image>
+      </swiper-item>
+    </swiper>
+</view>
