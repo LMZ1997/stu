@@ -96,7 +96,7 @@
 		</ul>
 		{{#productList}}
 			<ul class="product-item  clearfix">
-				<li class="product-info">
+				<li class="product-info text-ellipsis">
 					<a href="./detail.html?productId={{productId._id}}" class="product-info-link" target="_blank">
 						<img src="{{image}}" alt=""/>
 						<span class="product-info-text">{{name}}</span>

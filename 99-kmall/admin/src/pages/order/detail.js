@@ -147,9 +147,10 @@ class OrderDetail extends Component{
 						</ul>
 						{
 							productList.map((product,index)=>{
+								console.log(product)
 								return <ul className="product-item  clearfix" key={index}>
 									<li className="product-info">
-										<a href="javascript:;" className="link" target="_blank">
+										<a href={"/product/detail/"+product.productId} className="link" target="_blank">
 											<img src={product.images.split(',')[0]} alt=""/>
 											<span className="product-info-text">{product.name}</span>
 										</a>

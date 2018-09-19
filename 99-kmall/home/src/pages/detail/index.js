@@ -64,8 +64,10 @@ var page={
 		var _this=this;
 		$('.detail-box').html('<div class="loading"></div>');
 		_product.loadProductDetail({productId:this.params.productId},function(product){
-			product.imageFirst=product.imagePath.split(',')[0];
+			product.images=product.imagePath.split(',');
+			product.imageFirst=product.images[0];
 			_this.stock=product.stock;
+			console.log(product)
 			var html=_util.hoganRender(tpl,product);
 			$('.detail-box').html(html)
 			

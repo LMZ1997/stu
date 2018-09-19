@@ -34,10 +34,10 @@
 		<input type="checkbox" class="select-one" />
 		{{/checked}}
 	</li>
-	<li class="product-info">
+	<li class="product-info text-ellipsis">
 		<a href="./detail.html?productId={{productId._id}}" class="product-info-link" target="_blank">
 			<img src="{{productId.image}}" alt=""/>
-			<span class="product-info-text">{{productId.name}}</span>
+			<span class="product-info-text ">{{productId.name}}</span>
 		</a>
 	</li>
 	<li class="product-price">

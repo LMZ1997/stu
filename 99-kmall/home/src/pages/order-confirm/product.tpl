@@ -20,7 +20,7 @@
 		</ul>
 		{{#cartList}}
 			<ul class="product-item {{selected}} clearfix" data-product-id="{{productId._id}}">
-				<li class="product-info">
+				<li class="product-info text-ellipsis">
 					<a href="./detail.html?productId={{productId._id}}" class="product-info-link" target="_blank">
 						<img src="{{productId.image}}" alt=""/>
 						<span class="product-info-text">{{productId.name}}</span>

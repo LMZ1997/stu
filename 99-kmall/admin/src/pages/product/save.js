@@ -19,14 +19,12 @@ class NormalProductSave extends Component{
    constructor(props){
 		super(props)
 		this.handleSubmit=this.handleSubmit.bind(this)
-		console.log('save cons...')
+		console.log('save cons...')//显示父组件与组件间不同生命周期函数执行的先后顺序
    }
    componentDidMount(){
    		if(this.props.match.params.productId){
    			this.props.handleEditProduct(this.props.match.params.productId)
    		}
-   		console.log('save did...')
-   		
    }
    handleSubmit(e){
 	    e.preventDefault();

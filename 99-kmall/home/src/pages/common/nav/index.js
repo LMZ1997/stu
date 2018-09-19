@@ -1,3 +1,5 @@
+
+require('node_modules/font-awesome/css/font-awesome.min.css')
 require('./index.css')
 var _user=require('service/user/index.js')
 var _cart=require('service/cart')

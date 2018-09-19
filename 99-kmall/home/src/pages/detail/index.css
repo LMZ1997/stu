@@ -37,6 +37,9 @@
 	font-size: 20px;
 	color: #000;
 	margin-bottom: 20px;
+	width: 600px;
+    height: 60px;
+    line-height: 30px;
 }
 .product-description{
 	color: #f21;

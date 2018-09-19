@@ -10,6 +10,11 @@ body{
 	visibility: hidden;
 	height: 0;
 }
+.text-ellipsis{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 .container{
 	width: 1230px;
 	margin:0 auto;

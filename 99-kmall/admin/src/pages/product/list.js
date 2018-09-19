@@ -30,9 +30,7 @@ class ProductList extends Component{
 			  render:(name)=>{
 			  	if(this.props.keyword){
 			  		let reg=new RegExp("("+this.props.keyword+")",'ig');
-			  		console.log(reg)
 			  		let html=name.replace(reg,'<b style="background:yellow">$1</b>')
-			  		console.log(html)
 			  		return <span dangerouslySetInnerHTML={{__html:html}}></span>
 			  	}
 			  	else{

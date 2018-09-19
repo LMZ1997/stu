@@ -45,7 +45,8 @@ var page={
 	renderPaymentQr:function(qr){
 		var _this=this;
 		var html=_util.hoganRender(tpl,{
-			qr:qr
+			qr:qr,
+			orderNo:this.params.orderNo
 		});
 		$('.payment-box').html(html)
 		window.setInterval(function(){
