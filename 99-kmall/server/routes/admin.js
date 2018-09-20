@@ -4,7 +4,6 @@ const userModel=require('../models/user.js');
 const orderModel=require('../models/order.js');
 const productModel=require('../models/product.js');
 const page=require('../util/page.js');
-const commentModel=require('../models/comment.js');
 const hmac=require('../util/hmac.js')
 const fs=require('fs');
 const path=require('path')

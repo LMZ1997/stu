@@ -1,0 +1,20 @@
+<view class='article-detail'>
+  <view class='article-detail-img'>
+    <image src='/images/article/320020.jpg' class='article-detail-img-main'></image>
+    <image src='/images/article/music.jpg' class='article-detail-img-music'></image>
+  </view>
+  <view class='article-detail-head'>
+    <image class='article-detail-head-avatar' src='/images/dogLogo.png'></image>
+    <text class='article-detail-head-name'>Tom</text>
+    <text class='article-detail-head-text'>发表于</text>
+    <text class='article-detail-head-time'>2018-09-20</text>  
+  </view>
+  <view class='article-detail-opreation'>
+    <image class='article-detail-opreation-collection' src='/images/article/collection.jpg' ></image>
+     <image class='article-detail-opreation-share' src='/images/article/share.jpg' ></image>
+     <view class='article-detail-opreation-line'></view>
+  </view>
+    <view class='article-detail-content'>
+      <text>我是内容。。。。</text>
+  </view>
+</view>

@@ -15,11 +15,13 @@
 	height: 100%;
 }
 .product-small-img-list{
+
 }
 .product-samll-img-item{
 	float: left;
 	margin-right: 10px;
 	box-sizing: border-box;
+	cursor: pointer;
 }
 .product-samll-img-item.active{
 	border: 1px solid #f21;

@@ -68,7 +68,6 @@ app.use(bodyParser.json());
 
 
 //处理路由
-app.use('/',require('./routes/index.js'))
 app.use('/admin',require('./routes/admin.js'))
 app.use('/user',require('./routes/user.js'))
 app.use('/category',require('./routes/category.js'))
@@ -79,11 +78,6 @@ app.use('/order',require('./routes/order.js'))
 app.use('/payment',require('./routes/payment.js'))
 
 
-app.use('/article',require('./routes/article.js'))
-app.use('/admin/uploadImages',require('./routes/uploadImages.js'))//博文里上传图片
-app.use('/comment',require('./routes/comment.js'));//文章评论
-app.use('/resource',require('./routes/resource.js'));//资源管理
-app.use('/customer',require('./routes/customer.js'))//普通用户首页
 
 
 
