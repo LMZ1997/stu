@@ -1,3 +1,7 @@
+
+var { articles } = require('../../../data/db.js')//结构赋值（require暂时不能用绝对路径）
+
+
 Page({
 
   /**
@@ -12,54 +16,44 @@ Page({
    */
   onLoad: function (options) {
     var articleId=options.articleId;
-  },
+    var article=articles[articleId];
+    this.data.articleId=articleId;//为处理收藏传递id
+    this.setData(article);
+    /*
+      
+      {
+        "id1":false,
+        "id2":true,
+        ...
+      }
+    */
+    var collectionStorage=wx.getStorageSync('article_collection')
+    var currentIsCollected=false;
+    if (collectionStorage){
+      currentIsCollected = collectionStorage[articleId];
+    }
+    else{
+      var data={};
+      data[articleId]=false;
+      wx.setStorageSync('article_collection',data)
+    }
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+    this.setData({//用于判断页面出初始加载时显示哪个状态
+      collectStatus: currentIsCollected
+    })
     
   },
-
   /**
-   * 生命周期函数--监听页面显示
+   * 处理收藏
    */
-  onShow: function () {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-    
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-    
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-    
+  tapCollection:function(){
+    var collectionStorage = wx.getStorageSync('article_collection')
+    var currentIsCollected = collectionStorage[this.data.articleId];
+    collectionStorage[this.data.articleId]=!currentIsCollected;
+    this.setData({
+      collectStatus:!currentIsCollected
+    })
+    wx.setStorageSync("article_collection", collectionStorage)
   }
+
 })

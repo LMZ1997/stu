@@ -14,7 +14,7 @@
                                 <!-- 默认是item表示数组每一项   key作用于标识唯一性,提高效率-->
       <block wx:for="{{articles}}" wx:for-item="article" wx:for-index="id" wx:key="id">
           <view catchtap="tapArticleItem" data-article-id="{{article.articleId}}">
-            <template is="articleItem" data="{{article:article}}"/>
+            <template is="articleItem" data="{{...article}}"/>
           </view>
           
         </block>

@@ -1,17 +1,17 @@
 <template name="articleItem">
   <view class='article-item'>
     <view class='article-head'>
-      <image src='{{article.avatar}}' class='article-avatar'></image>
-      <text class='article-date'>{{article.date}}</text>
+      <image src='{{avatar}}' class='article-avatar'></image>
+      <text class='article-date'>{{date}}</text>
     </view>
-      <text class='article-title'>{{article.title}}{{id}}</text>
-      <image class='article-image' src='{{article.img}}'></image>
-      <text class='article-content'>{{article.content}}</text>
+      <text class='article-title'>{{title}}{{id}}</text>
+      <image class='article-image' src='{{img}}'></image>
+      <text class='article-content'>{{description}}</text>
     <view class='article-footer'>
         <image src='/images/article/f1.jpg'></image>
-        <text class='article-footer-text'>{{article.star}}</text>
+        <text class='article-footer-text'>{{star}}</text>
         <image src='/images/article/f2.jpg'></image>
-        <text class='article-footer-text'>{{article.view}}</text>
+        <text class='article-footer-text'>{{view}}</text>
     </view>
   </view>
 </template>
