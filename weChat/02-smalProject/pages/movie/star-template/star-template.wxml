@@ -1,0 +1,10 @@
+<template name="starTemplate">
+  <view class='star'>
+    <image src='/images/article/star.png'></image>
+    <image src='/images/article/star.png'></image>
+    <image src='/images/article/star.png'></image>
+    <image src='/images/article/star.png'></image>
+    <image src='/images/article/star.png'></image>
+    <text class='store'>5.0</text>
+  </view>
+</template>

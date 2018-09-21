@@ -1,0 +1,15 @@
+
+@import '../movie-item-template/movie-item-template.wxss';
+.movie-list-head{
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 24rpx;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+}
+.movie-list-row{
+  display: flex;
+  flex-direction: row;
+  padding:0 15px;
+}

@@ -1,0 +1,11 @@
+.star image{
+  width: 24rpx;
+  height: 24rpx;
+  vertical-align: middle;
+}
+.star .store{
+  margin-left: 10px;
+  font-size: 24rpx;
+  color: #333;
+  vertical-align: middle;
+}

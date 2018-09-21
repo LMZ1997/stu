@@ -1,7 +1,8 @@
 <view class='article-detail'>
   <view class='article-detail-img'>
     <image src='{{img}}' class='article-detail-img-main'></image>
-    <image src='/images/article/music.jpg' class='article-detail-img-music'></image>
+    <image wx:if="{{isPlayingMusic}}" catchtap="tapMusic" src='/images/article/music.jpg' class='article-detail-img-music'></image>
+    <image wx:else catchtap="tapMusic" src='/images/article/music-pause.jpg' class='article-detail-img-music'></image>
   </view>
   <view class='article-detail-head'>
     <image class='article-detail-head-avatar' src='{{avatar}}'></image>
@@ -12,7 +13,7 @@
   <view class='article-detail-opreation'>
     <image wx:if="{{collectStatus}}" catchtap="tapCollection" class='article-detail-opreation-collection' src='/images/article/collection-active.jpg' ></image>
      <image wx:else catchtap="tapCollection" class='article-detail-opreation-collection' src='/images/article/collection.jpg' ></image>
-     <image class='article-detail-opreation-share' src='/images/article/share.jpg' ></image>
+     <image catchtap="tapShare" class='article-detail-opreation-share' src='/images/article/share.jpg' ></image>
      <view class='article-detail-opreation-line'></view>
   </view>
     <view class='article-detail-content'>
