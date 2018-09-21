@@ -12,8 +12,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var _this=this;
     this.getMovieData('http://t.yushu.im/v2/movie/in_theaters?start=0&count=3',function(data){
-      console.log(data)
+      _this.setData({
+        inTheatersData:data
+      })
+    })
+    this.getMovieData('http://t.yushu.im/v2/movie/coming_soon?start=0&count=3',function(data){
+      _this.setData({
+        commingSoonData:data
+      })
+    })
+    this.getMovieData('http://t.yushu.im/v2/movie/coming_soon?start=0&count=3',function(data){
+      _this.setData({
+        commingSoonData:data
+      })
     })
   },
   getMovieData:function(url,success){
