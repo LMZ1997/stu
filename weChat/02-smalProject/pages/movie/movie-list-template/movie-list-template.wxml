@@ -3,13 +3,13 @@
     <template name="movieListTemplate">
       <view class='movie-list'>
         <view class='movie-list-head'>
-          <text class='hot'>hot</text>
+          <text class='hot'>{{tip}}</text>
           <text class='more'>更多></text>
         </view>
         <view class='movie-list-row'>
-          <template is="movieItemTemplate" />
-          <template is="movieItemTemplate" />
-          <template is="movieItemTemplate" />
+        <block wx:for="{{movies}}" wx:for-item="movie" wx:key="">
+          <template is="movieItemTemplate" data="{{...movie}}"/>
+          </block>
         </view>
        
       </view>

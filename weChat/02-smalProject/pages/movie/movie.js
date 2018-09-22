@@ -1,4 +1,7 @@
-// pages/movie/movie.js
+
+var { starNumToArray } =require('../../util/util.js')
+var app = getApp();
+
 Page({
 
   /**
@@ -13,19 +16,27 @@ Page({
    */
   onLoad: function (options) {
     var _this=this;
-    this.getMovieData('http://t.yushu.im/v2/movie/in_theaters?start=0&count=3',function(data){
+    console.log(app)
+    var inTheatersUrl = app.G_DATA.baseUrl +'v2/movie/in_theaters?start=0&count=3'
+    var commingSoonUrl = app.G_DATA.baseUrl + 'v2/movie/coming_soon?start=0&count=3'
+    var top250Url = app.G_DATA.baseUrl + 'v2/movie/top250?start=0&count=3'
+
+    this.getMovieData(inTheatersUrl,function(data){
       _this.setData({
-        inTheatersData:data
+        inTheatersData:data,
+        inTheatersTip:'即将上映'
       })
     })
-    this.getMovieData('http://t.yushu.im/v2/movie/coming_soon?start=0&count=3',function(data){
+    this.getMovieData(commingSoonUrl,function(data){
       _this.setData({
-        commingSoonData:data
+        commingSoonData:data,
+        commingSoonTip: '正在热映'
       })
     })
-    this.getMovieData('http://t.yushu.im/v2/movie/coming_soon?start=0&count=3',function(data){
+    this.getMovieData(top250Url,function(data){
       _this.setData({
-        commingSoonData:data
+        top250Data:data,
+        top250Tip: '豆瓣top250'
       })
     })
   },
@@ -39,16 +50,19 @@ Page({
     })
   },
   formatData:function(data){//目的是只获取需要用的数据
+   var _this=this;
     var arr=[];
     for(var i=0;i<data.subjects.length;i++){
       arr.push({
         image: data.subjects[i].images.large,
         title: data.subjects[i].title,
-        stars: data.subjects[i].rating.stars,
+        stars: starNumToArray(data.subjects[i].rating.stars),
         score: data.subjects[i].rating.average
       })
     }
     return arr;
-  }
+  },
+
+
    
 })

@@ -7,8 +7,13 @@
 .title{
   font-size: 32rpx;
   color: #333;
+  width: 200rpx;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 }
 .movie-image{
   width: 200rpx;
   height: 270rpx;
+  cursor: pointer;
 }
