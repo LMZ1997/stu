@@ -1,5 +1,5 @@
 page{
-  background-color:skyblue;
+  background-color:#0F2540;
 }
 
 .userinfo{
@@ -14,13 +14,13 @@ page{
 }
 .userinfo-name{
   font-size: 30rpx;
-  color: #666;
+  color: white;
 }
 .user-motto{
   height: 50rpx;
   text-align: center;
   line-height: 50rpx;
-  border: 1px solid #000;
+  border: 1px solid #fff;
   padding:10px;
   margin-top: 400rpx;
   border-radius: 10px;
@@ -28,6 +28,6 @@ page{
 .motto{
   margin-top: 200rpx;
   font-size: 40rpx;
-
+  color: white;
   
 }

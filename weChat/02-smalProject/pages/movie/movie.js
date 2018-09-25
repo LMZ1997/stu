@@ -1,5 +1,5 @@
 
-var { starNumToArray } =require('../../util/util.js')
+var { getMovieData } =require('../../util/util.js')
 var app = getApp();
 
 Page({
@@ -16,53 +16,40 @@ Page({
    */
   onLoad: function (options) {
     var _this=this;
-    console.log(app)
     var inTheatersUrl = app.G_DATA.baseUrl +'v2/movie/in_theaters?start=0&count=3'
     var commingSoonUrl = app.G_DATA.baseUrl + 'v2/movie/coming_soon?start=0&count=3'
     var top250Url = app.G_DATA.baseUrl + 'v2/movie/top250?start=0&count=3'
 
-    this.getMovieData(inTheatersUrl,function(data){
+    getMovieData(inTheatersUrl,function(data){
       _this.setData({
         inTheatersData:data,
-        inTheatersTip:'即将上映'
+        inTheatersTip:'即将上映',
+        inTheatersTapType:'inTheaters'
       })
     })
-    this.getMovieData(commingSoonUrl,function(data){
+    getMovieData(commingSoonUrl,function(data){
       _this.setData({
         commingSoonData:data,
-        commingSoonTip: '正在热映'
+        commingSoonTip: '正在热映',
+        commingSoonTapType: 'commingSoon'
       })
     })
-    this.getMovieData(top250Url,function(data){
+    getMovieData(top250Url,function(data){
       _this.setData({
         top250Data:data,
-        top250Tip: '豆瓣top250'
+        top250Tip: '豆瓣top250',
+        top250TapType: 'top250'
       })
     })
   },
-  getMovieData:function(url,success){
-    var _this=this;
-    wx.request({
-      url: url,
-      success: function (res) {
-        success(_this.formatData(res.data))
-      }
-    })
-  },
-  formatData:function(data){//目的是只获取需要用的数据
-   var _this=this;
-    var arr=[];
-    for(var i=0;i<data.subjects.length;i++){
-      arr.push({
-        image: data.subjects[i].images.large,
-        title: data.subjects[i].title,
-        stars: starNumToArray(data.subjects[i].rating.stars),
-        score: data.subjects[i].rating.average
-      })
-    }
-    return arr;
-  },
 
-
-   
+  /**
+   * 处理更多
+   */
+   tapMore:function(event){
+     var tagType=event.currentTarget.dataset.tagType
+     wx.navigateTo({
+       url: 'movie-more/movie-more?tagType='+tagType,
+     })
+   }
 })

@@ -1,15 +1,13 @@
 {
   "pages": [
-  "pages/movie/movie",
-    "pages/article/article",
-  
+      "pages/index/index",
+      "pages/article/article",
       "pages/article/article-detail/article-detail",
-  "pages/index/index"
-    
-    
+      "pages/movie/movie",
+      "pages/movie/movie-more/movie-more"
   ],
   "window":{
-    "navigationBarBackgroundColor":"#000",
+    "navigationBarBackgroundColor":"#211E55",
     "enablePullDownRefresh":true
   },
   

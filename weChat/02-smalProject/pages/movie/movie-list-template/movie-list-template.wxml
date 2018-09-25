@@ -4,7 +4,7 @@
       <view class='movie-list'>
         <view class='movie-list-head'>
           <text class='hot'>{{tip}}</text>
-          <text class='more'>更多></text>
+          <text class='more' catchtap='tapMore' data-tag-type="{{tagType}}">更多></text>
         </view>
         <view class='movie-list-row'>
         <block wx:for="{{movies}}" wx:for-item="movie" wx:key="">

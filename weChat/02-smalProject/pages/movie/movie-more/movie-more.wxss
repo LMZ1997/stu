@@ -1,0 +1,10 @@
+@import '../movie-item-template/movie-item-template.wxss';
+
+.movie-more-box{
+  float: left;
+  padding: 10px;
+  margin-left: 7rpx;
+}
+.movie-more-box .movie-item{
+  margin-right: 0px;
+}
